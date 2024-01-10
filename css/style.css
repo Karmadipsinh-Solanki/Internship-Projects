@@ -1,0 +1,155 @@
+
+body {
+    width: 100%;
+    height: 100vh;
+}
+
+.container {
+    /* top: 0px; */
+    /* left: 0px; */
+    width: 100%;
+    height: 100%;
+    background: #FAFAFA 0% 0% no-repeat padding-box;
+    opacity: 1;
+    /* position: relative; */
+    display: flex;
+
+}
+.img {
+    height: 100vh;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex:6;
+
+}
+
+.mainimage {
+    width: 50%;
+    height: 50%;
+    
+    /* left: 166px;
+    width: 576px;
+    height: 576px;
+    /* UI Properties */
+    /* background: transparent url('images/hero-image.png') 0% 0% no-repeat padding-box; */
+    box-shadow: 0px 4px 31px #0000000A;
+    border: 20px solid #FFFFFF;
+    opacity: 1;
+    /* float: left; */
+    border-radius: 60%;
+    margin-left: auto ;
+    margin-right: auto ;
+}
+
+.content {
+    width: 50%;
+    height: 100vh;
+    margin: 250px auto;
+    flex:5;
+}
+
+#company {
+    width: 272px;
+    height: 58px;
+}
+
+.expert {
+    margin-top:20px;
+    width: 500px;
+    height: 100px;
+    /* UI Properties */
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0px;
+    color: #3E3E3E;
+}
+
+.expert1 {
+    font-size: 30px;
+    font-weight: 300;
+}
+
+#ex {
+    letter-spacing: 0px;
+    color: #C8242F;
+    font-weight: 900;
+}
+
+.c1 {
+    margin-top:0px;
+    font-size: 30px;
+    width: 300px;
+    height: 33px;
+    text-align: left;
+    font: normal normal normal 25px/33px 'Roboto';
+    letter-spacing: 0px;
+    color: #3E3E3E;
+    font-weight: 400;
+}
+
+.username {
+    margin-top:23px;
+    width: 429px;
+    height: 49px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #ADADAD;
+    border-radius: 5px;
+    padding-right: 12px;
+    padding-left: 12px;
+}
+
+.password {
+    margin-top:27px;
+    width: 429px;
+    height: 49px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #ADADAD;
+    border-radius: 5px;
+    padding-right: 12px;
+    padding-left: 12px;
+}
+
+.wrap {
+    margin-top:30.5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 290px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.login {
+    width: 138px;
+    height: 45px;
+    background: #C8242F 0% 0% no-repeat padding-box;
+    border-radius: 23px;
+    border: none;
+    color: white;
+
+}
+
+.fpwd {
+    
+}
+
+.new {
+    margin-top:23px;
+    display: inline-block;
+    width: 300px;
+    height: 20px;
+    text-align: left;
+    font: normal normal normal 15px/20px 'Roboto';
+    letter-spacing: 0px;
+    color: #ADADAD;
+}
+
+#here {
+    display: inline-block;
+    width: 88px;
+    height: 20px;
+    text-align: left;
+    font: normal normal normal 15px/20px 'Roboto';
+    letter-spacing: 0px;
+    color: #C8242F;
+}
