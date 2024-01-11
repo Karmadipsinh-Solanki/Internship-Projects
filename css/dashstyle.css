@@ -1,0 +1,294 @@
+body{
+    background: #ebebeb 0% 0% no-repeat padding-box;
+}
+.navbar {
+    display: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.c1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-bar {}
+
+.c2 {}  
+
+.header-logo {}
+
+.c4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-icon {
+
+    width: 30px;
+    height: 30px;
+}
+
+.c7 {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 20%;
+}
+
+.c8 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.i3 {
+    flex-direction: row;
+    display: flex;
+}
+
+.sidebar {
+    /* width: 150px; */
+    min-height: 400px;
+    flex-basis: 20%;
+
+}
+
+.d1 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 183px;
+    height: 43px;
+}
+
+.dashactive {
+    width: 30px;
+    height: 30px;
+    max-width: 100%;
+}
+
+.d2 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 183px;
+    height: 43px;
+}
+
+.analysis {
+    width: 30px;
+    height: 30px;
+    max-width: 100%
+}
+
+.d3 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 183px;
+    height: 43px;
+}
+
+.inbox {
+    width: 30px;
+    height: 30px;
+    max-width: 100%
+}
+
+.d4 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 183px;
+    height: 43px;
+}
+
+.history {
+    width: 30px;
+    height: 30px;
+    max-width: 100%
+}
+
+.d5 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 183px;
+    height: 43px;
+}
+
+.user {
+    width: 30px;
+    height: 30px;
+    max-width: 100%
+}
+
+.d6 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 183px;
+    height: 43px;
+}
+
+.maintenance {
+    width: 30px;
+    height: 30px;
+    max-width: 100%
+}
+
+.d7 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 183px;
+    height: 43px;
+}
+
+.setting {
+    width: 30px;
+    height: 30px;
+    max-width: 100%
+}
+
+.dash {
+    width: 88%;
+    margin: 5% 0px 0px 11%;
+    height: 100vh;
+    width: 300px;
+    margin-top: 0%;
+    margin-left: 0%;
+    flex-basis: 80%;
+}
+
+.dash1 {
+    flex-direction: row;
+    display: flex;
+}
+
+.col1 {
+    
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+.imgstar {
+    width: 25px;
+    height: 25px;
+    max-width: 100%;
+}
+.newpro{
+    display: flex;
+    flex-direction: column;
+}
+.col2 {
+    
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+.imgap{
+    width: 25px;
+    height: 25px;
+    max-width: 100%;
+}
+.addpro{
+    display: flex;
+    flex-direction: column;
+}
+.col3 {  
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+.imgtp{
+    width: 25px;
+    height: 25px;
+    max-width: 100%;
+}
+.totpro{
+    display: flex;
+    flex-direction: column;
+}
+.col4 {  
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+.imgdf{
+    width: 25px;
+    height: 25px;
+    max-width: 100%;
+}
+.dolfil{
+    display: flex;
+    flex-direction: column;
+}
+.col5 {   
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+.imgmb{
+    width: 25px;
+    height: 25px;
+    max-width: 100%;
+}
+.monbag{
+    display: flex;
+    flex-direction: column;
+}
+.total-product{
+    width: 50px;
+    height: 50px;
+    max-width: 100%
+}
+.dash2{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.datagraph{
+    flex: 5;
+}
+.pie{
+    flex: 4;
+}
+.piech{
+    display: flex;
+    width: 100%;
+}
+.us{
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: "red";
+    display:inline-block;
+}
+.invoice{
+}
+.a1{
+    margin-left: 0%;
+}
+.a2{
+    margin-right: 0%;
+}
+.heading{
+    color: #ADADAD;
+}

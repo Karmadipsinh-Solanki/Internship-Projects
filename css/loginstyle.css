@@ -28,7 +28,7 @@ body {
 .mainimage {
     width: 50%;
     height: 50%;
-    
+    max-width: 100%;
     /* left: 166px;
     width: 576px;
     height: 576px;
@@ -53,6 +53,7 @@ body {
 #company {
     width: 272px;
     height: 58px;
+    max-width: 100%
 }
 
 .expert {
