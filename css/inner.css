@@ -1,0 +1,24 @@
+.anabody{
+    width: 100%;
+}
+.i3{
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+}
+.sidebar{
+    flex-basis:20%;
+    }
+.ana1{
+    width: 100%;
+    /* flex-basis: 40%; */
+}
+.name{
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #ADADAD;
+    border-radius: 5px;
+    width: 100%;
+}
+.dropdown{
+    width:100%;
+}

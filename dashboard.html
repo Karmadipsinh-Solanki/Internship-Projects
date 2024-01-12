@@ -13,11 +13,12 @@
     <title>Dashboard</title>
 </head>
 
-<body>
+<body class="myClass">
+    
     <nav class="navbar">
         <div class="c1">
             <div class="c2">
-                <img class="menu-bar" src="images/menu-bar.svg">
+               <img class="menu-bar" onclick="onpres()" style="cursor: pointer;" src="images/menu-bar.svg">
             </div>
             <div class="c3">
                 <img class="header-logo" src="images/header-logo.svg">
@@ -42,14 +43,13 @@
 
         </div>
     </nav>
+    
     <div class="i3">
-        <div>
-
-        </div>
         <aside class="sidebar">
             <div class="d1">
                 <br>
                 <img class="dashactive" src="images/dashboard-active.svg">
+                <br>
                 <span>Dashboard</span>
             </div>
             <div class="d2">
@@ -63,7 +63,6 @@
                 <span>Inbox</span>
             </div>
             <div class="d4">
-                <br>
                 <img class="history" src="images/clock-default.svg">
                 <span>History</span>
             </div>
@@ -82,43 +81,44 @@
                 <img class="setting" src="images/setting-default.svg">
                 <span>Setting</span>
             </div>
-
+    
         </aside>
+        <!-- <a href="sidebar.html"></a> -->
         <div class="dash">
             <h2>Dashboard</h2>
             <div class="dash1">
 
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg p-4 col1">
+                        <div class="col-lg p-4 col">
                             <img class="imgstar" src="images/star.svg">
                             <div class="newpro">
                                 <span>23,456</span>
                                 <span>New Products</span>
                             </div>
                         </div>
-                        <div class="col-lg p-4 col2">
+                        <div class="col-lg p-4 col">
                             <img class="imgap" src="images/new-product.svg">
                             <div class="addpro">
                                 <span>2345</span>
                                 <span>Added Products</span>
                             </div>
                         </div>
-                        <div class="col-lg p-4 col3">
+                        <div class="col-lg p-4 col">
                             <img class="imgtp" src="images/total-product.svg">
                             <div class="totpro">
-                                <span>32456</span>
+                                <span>32,456</span>
                                 <span>Total Products</span>
                             </div>
                         </div>
-                        <div class="col-lg p-4 col4">
+                        <div class="col-lg p-4 col">
                             <img class="imgdf" src="images/dollar-filled.svg">
                             <div class="dolfil">
                                 <span>5678</span>
                                 <span>Today's Sale</span>
                             </div>
                         </div>
-                        <div class="col-lg col5">
+                        <div class="col-lg p-4 col5">
                             <img class="imgmb" src="images/money-bag.svg">
                             <div class="monbag">
                                 <span>33,5342</span>
@@ -135,24 +135,46 @@
                     <div class="piech">
                         <img class="piechart" src="images/pie-chart.svg">
                     </div>
-                    <div class="us"></div>
-                    <span>United States of America</span>
+                    <div style="display: flex;flex-direction: row;;align-items: center;justify-content: center;">
+                        <div class="e1">
+                            <div class="us">
+                                <img class="radio1" src="images/radio-checked-icon1.svg">
+                                <span>United States of America</span>
+                            </div>
+                            <div class="canada">
+                                <img class="radio2" src="images/radio-checked-icon2.svg">
+                                <span>Canada</span>
+                            </div>
+                        </div>
+                        <div class="e2">
+                            <div class="russ">
+                                <img class="radio3" src="images/radio-checked-icon3.svg">
+                                <span>Russia</span>
+                            </div>
+                            <div class="ind">
+                                <img class="radio4" src="images/radio-checked-icon4.svg">
+                                <span>India</span>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
             <div class="dash3">
-                <div class="invoice">
-                    <span class="a1">Invoices</span>
-                    <span class="a2">View All</span>
+                <div class="inv">
+                    <span>Invoices</span>
+                    <span class="viewall">View All</span>
                 </div>
                 <table class="table">
                     <thead>
                         <tr>
-                            <th class="heading" scope="col">INVOICE</th>
-                            <th class="heading" scope="col">COMPANY NAME</th>
-                            <th class="heading" scope="col">EMAIL</th>
-                            <th class="heading" scope="col">DUE DATE</th>
-                            <th class="heading" scope="col">STATUS</th>
-                            <th class="heading" scope="col">AMOUNT</th>
+                            <th class="heading" style="color: #adadad;">INVOICE</th>
+                            <th class="heading" style="color: #adadad;">COMPANY NAME</th>
+                            <th class="heading" style="color: #adadad;">EMAIL</th>
+                            <th class="heading" style="color: #adadad;">DUE DATE</th>
+                            <th class="heading" style="color: #adadad;">STATUS</th>
+                            <th class="heading" style="color: #adadad;">AMOUNT</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -161,7 +183,7 @@
                             <td>Public Adjusting Firm</td>
                             <td>georgia.young@example.com</td>
                             <td>24 May,2020</td>
-                            <td>Paid</td>
+                            <td class="paid">Paid</td>
                             <td>$47,800</td>
                         </tr>
                         <tr>
@@ -169,7 +191,7 @@
                             <td>Other</td>
                             <td>jessica.hanson@example.com</td>
                             <td>24 May,2020</td>
-                            <td>Paid</td>
+                            <td class="paid">Paid</td>
                             <td>$98,000</td>
                         </tr>
                         <tr>
@@ -177,7 +199,7 @@
                             <td>Vendor</td>
                             <td>alma.lawson@example.com</td>
                             <td>8 Sep,2020</td>
-                            <td>Paid</td>
+                            <td class="paid">Paid</td>
                             <td>$20,900</td>
                         </tr>
                         <tr>
@@ -185,7 +207,7 @@
                             <td>Property Management Company</td>
                             <td>kenzi.lawson@example.com</td>
                             <td>22 Oct,2020</td>
-                            <td>Paid</td>
+                            <td class="paid">Paid</td>
                             <td>$10,570</td>
                         </tr>
                         <tr>
@@ -233,6 +255,13 @@
             </div>
         </div>
     </div>
+    <script>
+        function onpres(){
+            const sidebar = document.getElementsByClassName("sidebar");
+            console.log(sidebar);
+            sidebar.style.width = "0px";
+        }
+    </script>
 </body>
 
 </html>

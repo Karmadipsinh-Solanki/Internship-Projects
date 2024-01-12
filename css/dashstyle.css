@@ -1,12 +1,15 @@
-body{
-    background: #ebebeb 0% 0% no-repeat padding-box;
+.myClass{
+    background-color: #fafafa;
+    /* background-color: #fafafa 0% 0% no-repeat padding-box; */
 }
+
 .navbar {
     display: fixed;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    background-color: #ffffff;  
 }
 
 .c1 {
@@ -15,15 +18,23 @@ body{
     align-items: center;
 }
 
-.menu-bar {}
+.menu-bar {
+    margin-left: 15px;
+}
 
-.c2 {}  
+.c2 {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+}
 
-.header-logo {}
+.header-logo {
+    margin-left: 15px;
+}
 
 .c4 {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
 }
 
@@ -54,8 +65,9 @@ body{
 .sidebar {
     /* width: 150px; */
     min-height: 400px;
-    flex-basis: 20%;
-
+    flex-basis: 15%;
+    background-color: #FFFFFF;
+    /* display: none; */
 }
 
 .d1 {
@@ -64,11 +76,15 @@ body{
     align-items: center;
     width: 183px;
     height: 43px;
+    background: #FFF3F4 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    margin-left: 25px;
 }
 
 .dashactive {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
+    margin-left: 25px;
     max-width: 100%;
 }
 
@@ -78,12 +94,14 @@ body{
     align-items: center;
     width: 183px;
     height: 43px;
+    margin-left: 25px;
 }
 
 .analysis {
-    width: 30px;
-    height: 30px;
-    max-width: 100%
+    width: 20px;
+    height: 20px;
+    margin-left: 25px;
+    max-width: 100%;
 }
 
 .d3 {
@@ -92,12 +110,14 @@ body{
     align-items: center;
     width: 183px;
     height: 43px;
+    margin-left: 25px;
 }
 
 .inbox {
-    width: 30px;
-    height: 30px;
-    max-width: 100%
+    width: 20px;
+    height: 20px;
+    margin-left: 25px;
+    max-width: 100%;
 }
 
 .d4 {
@@ -106,12 +126,14 @@ body{
     align-items: center;
     width: 183px;
     height: 43px;
+    margin-left: 25px;
 }
 
 .history {
-    width: 30px;
-    height: 30px;
-    max-width: 100%
+    width: 20px;
+    height: 20px;
+    margin-left: 25px;
+    max-width: 100%;
 }
 
 .d5 {
@@ -120,12 +142,14 @@ body{
     align-items: center;
     width: 183px;
     height: 43px;
+    margin-left: 25px;
 }
 
 .user {
-    width: 30px;
-    height: 30px;
-    max-width: 100%
+    width: 20px;
+    height: 20px;
+    margin-left: 25px;
+    max-width: 100%;
 }
 
 .d6 {
@@ -134,12 +158,14 @@ body{
     align-items: center;
     width: 183px;
     height: 43px;
+    margin-left: 25px;
 }
 
 .maintenance {
-    width: 30px;
-    height: 30px;
-    max-width: 100%
+    width: 20px;
+    height: 20px;
+    margin-left: 25px;
+    max-width: 100%;
 }
 
 .d7 {
@@ -148,36 +174,41 @@ body{
     align-items: center;
     width: 183px;
     height: 43px;
+    margin-left: 25px;
 }
 
 .setting {
-    width: 30px;
-    height: 30px;
-    max-width: 100%
+    width: 20px;
+    height: 20px;
+    margin-left: 25px;
+    max-width: 100%;
 }
 
 .dash {
     width: 88%;
     margin: 5% 0px 0px 11%;
     height: 100vh;
-    width: 300px;
     margin-top: 0%;
     margin-left: 0%;
     flex-basis: 80%;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
 .dash1 {
     flex-direction: row;
     display: flex;
+    /* background-color: red; */
 }
 
-.col1 {
-    
+.col {
+
     background: #FFFFFF 0% 0% no-repeat padding-box;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     flex-direction: row;
+    margin-right: 24px;
 }
 
 .imgstar {
@@ -185,110 +216,183 @@ body{
     height: 25px;
     max-width: 100%;
 }
-.newpro{
+
+.newpro {
     display: flex;
     flex-direction: column;
 }
-.col2 {
-    
+
+/* .col2 {
+
     background: #FFFFFF 0% 0% no-repeat padding-box;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     flex-direction: row;
-}
-.imgap{
+    margin-right: 24px;
+} */
+
+.imgap {
     width: 25px;
     height: 25px;
     max-width: 100%;
 }
-.addpro{
+
+.addpro {
     display: flex;
     flex-direction: column;
 }
-.col3 {  
+
+/* .col3 {
     background: #FFFFFF 0% 0% no-repeat padding-box;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     flex-direction: row;
-}
-.imgtp{
+    margin-right: 24px;
+
+} */
+
+.imgtp {
     width: 25px;
     height: 25px;
     max-width: 100%;
 }
-.totpro{
+
+.totpro {
     display: flex;
     flex-direction: column;
 }
-.col4 {  
+
+/* .col4 {
     background: #FFFFFF 0% 0% no-repeat padding-box;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     flex-direction: row;
-}
-.imgdf{
+    margin-right: 24px;
+
+} */
+
+.imgdf {
     width: 25px;
     height: 25px;
     max-width: 100%;
 }
-.dolfil{
+
+.dolfil {
     display: flex;
     flex-direction: column;
 }
-.col5 {   
+
+.col5 {
     background: #FFFFFF 0% 0% no-repeat padding-box;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     flex-direction: row;
+    /* margin-right: 24px; */
+
 }
-.imgmb{
+
+.imgmb {
     width: 25px;
     height: 25px;
     max-width: 100%;
 }
-.monbag{
+
+.monbag {
     display: flex;
     flex-direction: column;
 }
-.total-product{
+
+.total-product {
     width: 50px;
     height: 50px;
     max-width: 100%
 }
-.dash2{
+
+.dash2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.datagraph{
+
+.datagraph {
     flex: 5;
+    height: 365px;
+    background-color: #ffffff;
 }
-.pie{
+
+.pie {
     flex: 4;
+    margin: 30px;
+    background-color: #ffffff;
 }
-.piech{
-    display: flex;
+
+.piech {
+    /* display: flex; */
+    text-align: center;
     width: 100%;
 }
-.us{
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
-    background-color: "red";
-    display:inline-block;
+.piechart{
+    justify-content: center;
 }
-.invoice{
+
+.e1{
+    /* display: flex; */
+    /* justify-content: flex-start; */
+    align-items: center;
 }
-.a1{
-    margin-left: 0%;
+
+.radio1{
+    width: 20px;
+    height: 20px;
+    
+    max-width: 100%;
 }
-.a2{
-    margin-right: 0%;
+.radio2{
+    width: 20px;
+    height: 20px;
+    /* margin-left: 25px; */
+    max-width: 100%;
 }
-.heading{
+.e2{
+    /* display: flex; */
+    /* justify-content: flex-start; */
+    align-items: center;
+}
+.radio3{
+    width: 20px;
+    height: 20px;
+    margin-left: 25px;
+    max-width: 100%;
+}
+.radio4{
+    width: 20px;
+    height: 20px;
+    margin-left: 25px;
+    max-width: 100%;
+}
+
+.dash3{
+    margin-top: 30px;
+}
+.inv{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.viewall{
+    color: red  ;
+}
+.heading {
     color: #ADADAD;
+    
+}
+
+
+.paid {
+    background: #EBFFEF 0% 0% no-repeat padding-box;
+    border-radius: 5px;
 }
