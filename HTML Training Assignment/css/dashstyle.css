@@ -1,3 +1,5 @@
+
+
 .myClass{
     background-color: #fafafa;
     /* background-color: #fafafa 0% 0% no-repeat padding-box; */
@@ -74,13 +76,16 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 183px;
+    
     height: 43px;
     background: #FFF3F4 0% 0% no-repeat padding-box;
     border-radius: 5px;
     margin-left: 25px;
 }
-
+.dashlink{
+    text-decoration: none;
+    color: #3E3E3E;
+}
 .dashactive {
     width: 20px;
     height: 20px;
@@ -288,10 +293,8 @@
 .col5 {
     background: #FFFFFF 0% 0% no-repeat padding-box;
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: row;
-    /* margin-right: 24px; */
+    justify-content: center;
+    align-items:flex-start;
 
 }
 
@@ -316,14 +319,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 2%;
 }
 
 .datagraph {
     flex: 5;
-    height: 365px;
+    /* height: 365px; */
     background-color: #ffffff;
+    margin-bottom: 5px;
 }
-
+.divdatagraph{
+    width: 100%;
+}
 .pie {
     flex: 4;
     margin: 30px;
