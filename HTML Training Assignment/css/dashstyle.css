@@ -1,7 +1,10 @@
-
+body{
+    width: 100%;
+}
 
 .myClass{
     background-color: #fafafa;
+    width: 100%;
     /* background-color: #fafafa 0% 0% no-repeat padding-box; */
 }
 
@@ -12,6 +15,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: #ffffff;  
+    width:100%;
 }
 
 .c1 {
@@ -190,7 +194,7 @@
 }
 
 .dash {
-    width: 88%;
+    width: 100%;
     margin: 5% 0px 0px 11%;
     height: 100vh;
     margin-top: 0%;
@@ -214,6 +218,7 @@
     align-items: center;
     flex-direction: row;
     margin-right: 24px;
+    margin-top: 15px!important;
 }
 
 .imgstar {
@@ -290,13 +295,13 @@
     flex-direction: column;
 }
 
-.col5 {
+/* .col5 {
     background: #FFFFFF 0% 0% no-repeat padding-box;
     display: flex;
     justify-content: center;
     align-items:flex-start;
 
-}
+} */
 
 .imgmb {
     width: 25px;
@@ -327,9 +332,10 @@
     /* height: 365px; */
     background-color: #ffffff;
     margin-bottom: 5px;
+    width: 100%;
 }
 .divdatagraph{
-    width: 100%;
+    /* width: 100%; */
 }
 .pie {
     flex: 4;

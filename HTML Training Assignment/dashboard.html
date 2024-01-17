@@ -131,7 +131,7 @@
                                 <span>Today's Sale</span>
                             </div>
                         </div>
-                        <div class="col-lg p-4 col5">
+                        <div class="col-lg p-4 col">
                             <img class="imgmb" src="images/money-bag.svg">
                             <div class="monbag">
                                 <span>33,5342</span>
@@ -155,7 +155,7 @@
                             <div class="pie">
                                 <span>Sales by Country</span>
                                 <div class="piech">
-                                    <img class="piechart" src="images/pie-chart.svg">
+                                    <img class="piechart img-fluid" src="images/pie-chart.svg">
                                 </div>
                                 <div
                                     style="display: flex;flex-direction: row;;align-items: center;justify-content: center;">
@@ -288,20 +288,30 @@
         </div>
     </div>
     <script>
-        function onpres() {
-            let isOpen = false;
-            if (!isOpen) {
-                const sidebar = document.getElementsByClassName("sidebar");
-                console.log(sidebar[0]);
-                sidebar[0].style.display = "none";
-                isOpen = true;
-                console.log("from first");
-            }else {
-                const sidebar = document.getElementsByClassName("sidebar");
-                console.log(sidebar[0]);
+        // function onpres() {
+        //     let isOpen = false;
+        //     if (!isOpen) {
+        //         const sidebar = document.getElementsByClassName("sidebar");
+        //         console.log(sidebar[0]);
+        //         sidebar[0].style.display = "none";
+        //         isOpen = true;
+        //         console.log("from first");
+        //     }else {
+        //         const sidebar = document.getElementsByClassName("sidebar");
+        //         console.log(sidebar[0]);
+        //         sidebar[0].style.display = "inline-block";
+        //         isOpen = false;
+        //         console.log("from sec");
+        //     }
+        // }
+        function onPress() {
+            var sidebar = document.getElementById("sidebar");
+            if (sidebar.className.indexOf("is-display-menu") == -1) {
+                sidebar.className += "is-display-menu";
                 sidebar[0].style.display = "inline-block";
-                isOpen = false;
-                console.log("from sec");
+            } else {
+                z.className = z.className.replace("is-display-menu", "");
+                sidebar[0].style.display = "none";
             }
         }
     </script>

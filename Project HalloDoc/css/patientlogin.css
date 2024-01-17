@@ -1,0 +1,84 @@
+body {
+    padding: 25px;
+    background-color: white;
+    /* color: black; */
+    font-size: 25px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
+.main{
+    /* min-width: 19vw; */
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f1f1f1;
+    text-align: center;
+}
+/* .dark-mode {
+    color: white;
+  } */
+.nightmode{
+    display: flex;
+    justify-content: flex-end;
+    /* align-items: center; */
+}
+.darkmode {
+    background-color: white;
+    border-radius: 5px;
+    border-color: aqua;
+}
+
+.bi.bi-moon {
+    color: aqua;
+    height: 20px;
+    width: 20px;
+}
+.form{
+    margin-top: 100px;
+}
+
+.back{
+    color: aqua;
+    position: absolute;
+    top: -26px;
+    left: -43px;
+    
+}
+.header{
+    position: relative;
+    margin-bottom: 20px;
+}
+.header1{
+    text-align: center;
+}
+.email{
+    position: relative;
+    display: inline-block;
+}
+.form-control{
+    width: 19vw;
+    margin: 15px;
+    padding: 15px;
+    border-radius: 5px;
+}
+.profile{
+    position: absolute;
+    top: 30px;
+    right: 32px;
+    width: 20px;
+    height: 20px;
+    z-index: 2;
+}
+
+.backnheader {
+    position: relative;
+    display: inline-block;
+}
+.loginbutton{
+    background-color: aqua;
+    /* display: inline-block; */
+    min-width: 50px;
+    
+}
+
