@@ -1,0 +1,67 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.patientsite {
+    /* height: 75px;
+    width: 155px; */
+    width: 155px!important;
+    height: 170px;
+}
+
+.nightmode {
+    margin-right: 20px;
+}
+
+.darkmode {
+    background-color: white;
+    border-radius: 5px;
+    border-color: aqua;
+}
+
+.patientdetail{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+.iama{
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+}
+.btn-outline-primary {
+    color: #0dcaf0!important;
+    --bs-btn-border-color: #0dcaf0!important;
+    /* --bs-btn-hover-bg: #0bb6d0!important; */
+}
+.PATIENT.btn-primary {
+    --bs-btn-bg: #e1d7f3;
+    --bs-btn-border-color: #b7afc5;
+    color: #7e6aa5;
+    width: 300px;
+}
+.FAMILY.btn-primary{
+    --bs-btn-bg: #bcf2fd;
+    --bs-btn-border-color: #a3d6e1;
+    color: #0dcaf0;
+    width: 300px;
+}
+.CONCIERGE.btn-primary{
+    --bs-btn-bg: #a1e5c5;
+    --bs-btn-border-color: #8fcdb0;
+    color: #198754;
+    width: 300px;
+}
+.BUSINESS-PARTNERS.btn-primary{
+    --bs-btn-bg: #fdc1ff;
+    --bs-btn-border-color: #c195c3;
+    color: #bb00ff;
+    width: 300px;
+}

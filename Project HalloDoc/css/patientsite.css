@@ -1,0 +1,38 @@
+body{
+    height: 100vh;
+}
+.header {
+    position: relative;
+}
+
+.patientsite {
+    /* width: 155px!important; */
+    height: 170px;
+    
+}
+
+.nightmode {
+    margin-right: 20px;
+    position: absolute;
+    top: 20px;
+    right: 0;
+}
+
+.darkmode {
+    background-color: white;
+    border-radius: 5px;
+    border-color: aqua;
+}
+.submit-request.btn-primary{
+    width: 400px;
+    --bs-btn-color: #cffeff;
+    --bs-btn-bg: #00aee3;
+    --bs-btn-hover-bg: #0b50b7;
+    --bs-btn-hover-color: #fff;
+}
+.registered-patients{
+    width: 400px;
+}
+.content{
+    bottom: 0;
+}
