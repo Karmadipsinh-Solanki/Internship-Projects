@@ -13,9 +13,11 @@
     <title>Submit-Request</title>
 </head>
 
-<body>
-    <header class="header shadow">
-        <img src="SRS Screen Shorts/Fig56. Patient site 1.png" class="patientsite">
+<body">
+    <div class="header0">
+        <header class="header shadow">
+            <img src="SRS Screen Shorts/Fig56. Patient site 1.png" class="patientsite">
+        </header>
         <div class="nightmode ">
             <button onclick="myFunction()" class="darkmode">
                 <i class="bi bi-moon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="aqua"
@@ -25,20 +27,32 @@
                     </svg></i>
             </button>
         </div>
-    </header>
-    <div class="patientdetail">
-        <div class="iama">
-            <p>&nbsp&nbsp</p>
-            <p class="h2">I am a...</p>
-            <a href="#">
-                <button type="button" class="btn btn-outline-primary">&lt Back</button>
-            </a>
-        </div>
-        <button type="button" class="PATIENT btn btn-primary btn-lg mb-3">PATIENT</button>
-        <button type="button" class="FAMILY btn btn-primary btn-lg mb-3">FAMILY/FRIEND</button>
-        <button type="button" class="CONCIERGE btn btn-primary btn-lg mb-3">CONCIERGE</button>
-        <button type="button" class="BUSINESS-PARTNERS btn btn-primary btn-lg mb-3">BUSINESS PARTNERS</button>
     </div>
+    <div class="outer-flex">
+        <div class="patientdetail container-fluid">
+            <div class="iama">
+                <p>&nbsp&nbsp</p>
+                <p class="h2">I am a...</p>
+                <a href="patientsite.html">
+                    <button type="button" class="btn btn-outline-primary">&lt Back</button>
+                </a>
+            </div>
+            <a href="createPatientRequest.html"><button type="button"
+                    class="PATIENT btn btn-primary btn-lg mb-3">PATIENT</button></a>
+            <a href="createFamilyRequest.html"><button type="button"
+                    class="FAMILY btn btn-primary btn-lg mb-3">FAMILY/FRIEND</button></a>
+            <a href="createConciergeRequest.html"><button type="button"
+                    class="CONCIERGE btn btn-primary btn-lg mb-3">CONCIERGE</button></a>
+            <a href="createBusinessRequest.html"><button type="button"
+                    class="BUSINESS-PARTNERS btn btn-primary btn-lg mb-3">BUSINESS PARTNERS</button></a>
+                    
+        </div>
+        <footer class="footer">
+            <span class="bottom-text left-text">Terms Of Conditions</span>|
+            <span class="bottom-text right-text">Privacy Policy</span>
+        </footer>
+    </div>
+    
 </body>
 
 </html>

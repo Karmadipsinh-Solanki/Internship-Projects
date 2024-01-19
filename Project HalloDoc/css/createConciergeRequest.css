@@ -1,0 +1,122 @@
+body {
+    width: 100%;
+    height: 100vh;
+    /* color: #b9b9b9; */
+    color: #333030;
+}
+
+.backbutton {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.btn-outline-primary {
+    --bs-btn-color: #0dcaf0 !important;
+    --bs-btn-border-color: #0dcaf0 !important;
+    --bs-btn-hover-bg: #0bb6d0 !important;
+    --bs-btn-hover-color: #fff !important;
+    --bs-btn-active-bg: #00576f !important;
+    --bs-btn-active-border-color: #0686a3 !important;
+}
+
+.form {
+    height: 100vh;
+}
+.floating-input {
+    color: rgb(205, 46, 46) !important;
+}
+
+.text-area {
+    border-color: #0dcaf0 !important;
+    height: 140px!important;
+}
+
+.color {
+    color: #0dcaf0 !important;
+}
+
+.upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.inputUpload {
+    flex-basis: 85%;
+    background-color: #f0f0f0;
+    padding: 10px;
+    height: 50px;
+    /* width: 100%; */
+}
+
+.uploadButton {
+    flex-basis: 15%;
+    background-color: #0dcaf0;
+    padding: 10px;
+    border-radius: 5px;
+    height: 50px;
+}
+
+.button {
+    color: white;
+}
+
+.submit {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.btn.btn-primary {
+    --bs-btn-bg: #0dcaf0 !important;
+}
+
+.footer {
+    background-color: rgb(38, 38, 38);
+    color: white;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    bottom: 0;
+}
+
+.iti {
+    width: 100%;
+    height: (3.5rem + calc(var(--bs-border-width) * 2));
+}
+.phone{
+    height: 58px;
+}
+.uremail{
+    height: 58px;
+}
+.hotelname{
+    height: 58px;
+}
+
+@media only screen and (max-width:770px) {
+    .inputUpload {
+        flex-basis: 75%;
+    }
+    .uploadButton {
+        flex-basis: 25%;
+    }
+}
+@media only screen and (max-width:456px) {
+    .inputUpload {
+        flex-basis: 65%;
+    }
+    .uploadButton {
+        flex-basis: 35%;
+    }
+}
+@media only screen and (max-width:364px) {
+    .inputUpload {
+        flex-basis: 50%;
+    }
+    .uploadButton {
+        flex-basis: 50%;
+    }
+}
