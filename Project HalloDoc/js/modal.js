@@ -1,11 +1,17 @@
-function myFunction() {
-    // Code to execute after the entire page loads
-    <div class="modal-dialog modal-dialog-centered">
-       
+var modal = document.getElementById("myModal");
 
-    
+var btn = document.getElementById("submit-button");
 
+var span = document.getElementsByClassName("close")[0];
 
-    </div>
-    alert("The page has loaded!");
-}
+btn.onclick = function () {
+  modal.style.display = "flex";
+};
+span.onclick = function () {
+  modal.style.display = "none";
+};
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
