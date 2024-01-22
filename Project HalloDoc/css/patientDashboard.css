@@ -5,13 +5,17 @@
     right: 0;
 } */
 .patientsite{
-    height: 62px;
+    height: 65px;
     margin-left: 30px;
+}
+.navBar{
+    background-color: #fff!important;
 }
 .nav{
     display: flex;
-    justify-content: center;
+    /* justify-content: space-between; */
     align-items: center;
+    /* background-color: red; */
 }
 
 .darkmode {
@@ -30,5 +34,31 @@
 .navdash{
     margin-left: 36px;
     padding-left: 20px;
-    padding-right: 20px
+    padding-right: 20px;
+    /* color: #6c757d!important;
+    --bs-nav-link-color: #0dcaf0!important;
+    --bs-nav-link-hover-color: #00576f!important;
+    --bs-nav-link-disabled-color: #6c757d!important; */
+}
+.navbar-nav{
+    --bs-nav-link-hover-color: #0dcaf0!important;
+}
+.navbar{
+    background-color: #fff!important;
+}
+.bigdiv{
+    background-color: #f2f2f2;
+}
+/* .htable{
+    height: 50px;
+    align-items: center;
+} */
+.history{
+    background-color: #fff;
+    border-radius: 10px;
+}
+@media only screen and (max-width:430px) {
+    .horizontal-line{
+        display: none;
+    }
 }

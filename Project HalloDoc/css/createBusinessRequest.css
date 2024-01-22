@@ -254,6 +254,7 @@ body {
     .uploadButton {
         flex-basis: 35%;
     }
+    
 }
 
 @media only screen and (max-width:364px) {

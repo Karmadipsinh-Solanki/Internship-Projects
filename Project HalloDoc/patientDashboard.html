@@ -14,14 +14,20 @@
 </head>
 
 <body>
-    <div class="shadow">
+    <div class="shadow navBar">
         <navbar class="d-flex justify-content-between align-items-center">
             <img src="SRS Screen Shorts/Fig56. Patient site 1.png" class="patientsite">
             <div class="nav">
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+                    <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                  </svg>
+
                 <!-- d-flex justify-content-evenly align-items-center -->
-                <span>Welcome Name</span>
-                <button type="button" class="btn btn-outline-primary">Logout</button>
-                <div class="nightmode">
+                <span class="me-3" style="margin-right: 10px;margin-left: 15px;">Welcome Karmadipsinh Solanki</span>
+                <button type="button" class="btn btn-outline-primary  me-3">Logout</button>
+                <div class="nightmode me-3">
                     <button onclick="myFunction()" class="darkmode">
                         <i class="bi bi-moon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="aqua"
                                 class="bi bi-moon" viewBox="0 0 16 16">
@@ -33,21 +39,137 @@
             </div>
 
         </navbar>
-        <hr class="mb-0">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary px-0" style="background-color: white !important;">
-            <!-- <div class="container-fluid"> -->
+        <hr class="mb-0 mt-0 hidden-sm horizontal-line">
+        <!-- <nav class="navbar navbar-expand-lg bg-body-tertiary px-0" style="background-color: white !important;">
+            <div class="container-fluid">comment
             <ul class="nav nav-underline">
                 <li class="nav-item">
-                    <a class="nav-link navdash" aria-current="page" href="#">Dashboard</a>
+                    <a class="nav-link navdash" aria-current="page" href="#"><strong>Dashboard</strong></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Profile</a>
+                    <a class="nav-link" href="#"><strong>Profile</strong></a>
                 </li>
             </ul>
+
+            <nav class="navbar bg-body-tertiary d-lg-none d-md-none ">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                        aria-labelledby="offcanvasNavbarLabel">
+                        <div class="offcanvas-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                <li class="nav-item">
+                                    <a class="nav-link navdash" aria-current="page"
+                                        href="#"><strong>Dashboard</strong></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><strong>Profile</strong></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+        </nav> -->
+
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: white!important;">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                    <ul class="navbar-nav nav-underline me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link navdash" aria-current="page" href="#"><strong>Dashboard</strong></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link navdash" href="#"><strong>Profile</strong></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </nav>
+
     </div>
-    <div class="pt-5 ps-4">
-        <span class="h3">Medical History</span>
+    <div class="pt-5 ps-4 pe-4 bigdiv">
+        <span class="h3 mb-3">Medical History</span>
+        <div class="history shadow mt-3 ">
+            <div class="createNewrequest d-flex justify-content-end align-items-center pe-4 pt-3 pb-3">
+                <button type="button" class="btn btn-outline-primary ">Create New Request</button>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr class="table-light htable">
+                        <th scope="col">Created Date <strong> &darr; </strong></th>
+                        <th scope="col" style="width: 70%;">Current State</th>
+                        <th scope="col">Document</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="htable">
+                        <td>Sep 27.2023</td>
+                        <td>Accepted</td>
+                        <td></td>
+                    </tr>
+                    <tr class="htable">
+                        <td>Aug 4,2023</td>
+                        <td>Processing</td>
+                        <td></td>
+                    </tr>
+                    <tr class="htable">
+                        <td>Aug 4,2023</td>
+                        <td>Processing</td>
+                        <td></td>
+                    </tr>
+                    <tr class="htable">
+                        <td>Aug 4,2023</td>
+                        <td>Processing</td>
+                        <td></td>
+                    </tr>
+                    <tr class="htable">
+                        <td>Jul 3,2023</td>
+                        <td>Processing</td>
+                        <td></td>
+                    </tr>
+                    <tr class="htable">
+                        <td>May 31,2023</td>
+                        <td>Clear</td>
+                        <td></td>
+                    </tr>
+                    <tr class="htable">
+                        <td>May 10,2023</td>
+                        <td>Closed</td>
+                        <td></td>
+                    </tr>
+                    <tr class="htable">
+                        <td>Apr 12,2023</td>
+                        <td>Cancelled By Admin</td>
+                        <td></td>
+                    </tr>
+                    <tr class="htable">
+                        <td>Mar 24,2023</td>
+                        <td>Block Request</td>
+                        <td></td>
+                    </tr>
+                    <tr class="htable">
+                        <td>Mar 14,2023</td>
+                        <td>Cancelled By Admin</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
     </div>
 </body>
