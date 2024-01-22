@@ -17,11 +17,14 @@
     align-items: center;
     /* background-color: red; */
 }
+.logoutbutton{
+    height: 38px;
+    --bs-btn-hover-bg: #0bb6d0 !important;
+}
 
-.darkmode {
-    background-color: white;
-    border-radius: 5px;
-    border-color: aqua;
+.hmoon{
+    height: 38px;
+    --bs-btn-hover-bg: #0bb6d0 !important;
 }
 .btn-outline-primary {
     --bs-btn-color: #0dcaf0 !important;
@@ -57,8 +60,17 @@
     background-color: #fff;
     border-radius: 10px;
 }
+.logoutbutton{
+    display: none;
+}
 @media only screen and (max-width:430px) {
     .horizontal-line{
+        display: none;
+    }
+    .logoutbutton{
+        display: block!important;
+    }
+    .togglelogout{
         display: none;
     }
 }
