@@ -94,23 +94,37 @@ body {
     .inputUpload {
         flex-basis: 75%;
     }
+
     .uploadButton {
         flex-basis: 25%;
     }
 }
+
 @media only screen and (max-width:456px) {
     .inputUpload {
         flex-basis: 65%;
     }
+
     .uploadButton {
         flex-basis: 35%;
     }
 }
+
 @media only screen and (max-width:364px) {
     .inputUpload {
         flex-basis: 50%;
     }
+
+    /* .uploadButton {
+        flex-basis: 50%;
+        display: none;
+    } */
     .uploadButton {
         flex-basis: 50%;
+
+        
+    }
+    .button {
+        display: none!important;
     }
 }
