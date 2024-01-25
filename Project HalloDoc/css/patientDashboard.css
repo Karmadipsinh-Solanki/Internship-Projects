@@ -21,7 +21,10 @@
 .darkmode {
     background-color: white;
     border-radius: 5px;
-    border-color: aqua;
+    border-color: #0dcaf0 ;
+    padding: 5px;
+    height: 37px;
+    width: 50px;
 }
 .btn-outline-primary {
     --bs-btn-color: #0dcaf0 !important;
