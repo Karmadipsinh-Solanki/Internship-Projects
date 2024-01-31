@@ -18,22 +18,58 @@
 
 <body>
     <!-- Vertically centered modal -->
-    <div id="myModal" class="modal">
+    <!-- <div id="myModal" class="modal"> -->
 
-        <!-- Modal content -->
-        <div class="modal-content">
-            <div style="display: flex;width: 70px;height: 70px;margin: auto;justify-content: center;border-radius: 50%;border: 2px solid #F5AE00;margin-bottom: 15px;margin-top: 40px;">
+    <!-- Modal content -->
+    <!-- <div class="modal-content">
+            <div class="exclamation">
 
-                <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="currentColor" class="bi bi-exclamation-circle-fill warning-icon" viewBox="0 0 16 16">
-                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/>
+                <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="currentColor"
+                    class="bi bi-exclamation-circle-fill warning-icon" viewBox="0 0 16 16">
+                    <path
+                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2" />
                 </svg>
             </div>
             <h5 style="text-align: center;">Information</h5>
-            <p style="text-align: center;">While submitting the request, you must provide the correct contact Information for the
+            <p style="text-align: center;">While submitting the request, you must provide the correct contact
+                Information for the
                 patient or the responsibly party.Failure to provide the contact email and phone number will
                 delay service or be declined.</p>
             <span class="close">Ok</span>
+        </div> -->
+
+    <!-- Button trigger modal -->
+    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Launch demo modal
+    </button> -->
+
+    <!-- Modal main -->
+    <div id="myModal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="exclamation">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="#F5AE00"
+                        class="bi bi-exclamation-circle-fill warning-icon" viewBox="0 0 16 16">
+                        <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2" />
+                    </svg>
+                </div>
+                <h5 style="text-align: center;">Information</h5>
+                <p style="text-align: center;    padding-left: 33px;
+                padding-right: 33px;">While submitting the request, you must provide the correct contact
+                    Information for the 
+                    patient or the responsibly party.Failure to provide the contact email and phone number will
+                    delay service or be declined.</p>
+                <button type="button" class="btn btn-primary mb-4 mt-3">
+                    <span class="close">Ok</span>
+                </button>
+            </div>
         </div>
+    </div>
+
+
+
 
     </div>
     <div class="container">
@@ -183,7 +219,8 @@
 
                 </div>
                 <div class="submit pb-3">
-                    <button type="button" class="btn btn-outline-primary">Submit</button>&nbsp&nbsp&nbsp
+                    <button type="button" class="btn btn-outline-primary"
+                        id="submit-button">Submit</button>&nbsp&nbsp&nbsp
                     <button type="button" class="btn btn-outline-primary">Cancel</button>
 
                 </div>
@@ -197,6 +234,23 @@
     </footer>
 
     <script>
+        var modal = document.getElementById("myModal");
+
+        var btn = document.getElementById("submit-button");
+
+        var span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function () {
+            modal.style.display = "flex";
+        }
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
         const phoneInputField = document.getElementsByClassName("phone");
         for (let i = 0; i < phoneInputField.length; ++i) {
             const phoneInput = window.intlTelInput(phoneInputField[i], {
@@ -204,6 +258,8 @@
                     "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
             });
         }
+
+
     </script>
 </body>
 
