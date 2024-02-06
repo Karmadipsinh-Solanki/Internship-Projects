@@ -1,0 +1,31 @@
+body{
+    height: 100vh;
+}
+.container{
+    width: 432px;
+    height: 100vh;
+}
+.patientsite{
+    width: 15vw!important;
+    height: 170px;
+}
+.profile {
+    position: absolute;
+    top: 20px;
+    right: 16px;
+    width: 20px;
+    height: 20px;
+    z-index: 2;
+}
+.eye {
+    position: absolute;
+    top: 15px;
+    right: 22px;
+    width: 20px;
+    height: 20px;
+}   
+.btn{
+    background-color: #0dcaf0;
+    color: #fff;
+    text-decoration: none;
+}

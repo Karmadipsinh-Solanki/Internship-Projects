@@ -17,7 +17,16 @@
     align-items: center;
     /* background-color: red; */
 }
+.logoutbutton{
+    height: 38px;
+    --bs-btn-hover-bg: #0bb6d0 !important;
+}
 
+<<<<<<< HEAD
+.hmoon{
+    height: 38px;
+    --bs-btn-hover-bg: #0bb6d0 !important;
+=======
 .darkmode {
     background-color: white;
     border-radius: 5px;
@@ -25,6 +34,7 @@
     padding: 5px;
     height: 37px;
     width: 50px;
+>>>>>>> 97a5b4c1ffd32fc3663aa7a87ad171ec419cb7c3
 }
 .btn-outline-primary {
     --bs-btn-color: #0dcaf0 !important;
@@ -104,8 +114,17 @@
     background-color: #fff;
     border-radius: 10px;
 }
+.logoutbutton{
+    display: none;
+}
 @media only screen and (max-width:430px) {
     .horizontal-line{
+        display: none;
+    }
+    .logoutbutton{
+        display: block!important;
+    }
+    .togglelogout{
         display: none;
     }
 }
