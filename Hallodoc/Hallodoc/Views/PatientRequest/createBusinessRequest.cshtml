@@ -1,0 +1,182 @@
+﻿@{
+    ViewData["Title"] = "Business Request";
+}
+@section Styles {
+    <link href="~/css/createRequest.css" rel="stylesheet" type="text/css" />
+}
+<div onload="myFunction()">
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="exclamation">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="#F5AE00"
+                         class="bi bi-exclamation-circle-fill warning-icon" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2" />
+                    </svg>
+                </div>
+                <h5 style="text-align: center;">Information</h5>
+                <p style="text-align: center;    padding-left: 33px;
+            padding-right: 33px;">
+                    While submitting the request, you must provide the correct contact
+                    Information for the 
+                    patient or the responsibly party.Failure to provide the contact email and phone number will
+                    delay service or be declined.
+                </p>
+                <button type="button" class="btn btn-primary mb-4 mt-3">
+                    <span class="close">Ok</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+    <div class="container">
+        <div class="backbutton mb-3 mt-3">
+            <a asp-controller ="Login" asp-action="submitrequest">
+                <button type="button" class="btn btn-outline-pri">&lt Back</button>
+            </a>
+        </div>
+        <div class="content shadow ">
+            <form class="h-100  ps-3 pt-3 pe-3 g-3">
+                <header class="h5">Business Information</header>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="name" class="form-control" id="floatingInput" placeholder="Your First Name">
+                            <label for="floatingInput">Your First Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="name" class="form-control" id="floatingInput" placeholder="Your Last Name">
+                            <label for="floatingInput">Your Last Name</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <input type="tel" class="form-control phone" id="floatingInput">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <input type="email" class="form-control uremail" id="inputEmail4" placeholder="Your Email">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <input type="name" class="form-control hotelname" placeholder="Hotel/Property Name">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <input type="text" class="form-control casenumber" placeholder="Case Number (Optional)">
+                        </div>
+                    </div>
+                </div>
+
+                <header class="h5">Patient Information</header>
+                <div class="form-floating mb-3">
+                    <!-- <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"> -->
+                    <textarea class="text-area form-control" id="exampleFormControlTextarea1" rows="7"></textarea>
+                    <label class="color" for="floatingInput">Enter Brief Details Of Symptoms(Optional)</label>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="name" class="form-control" id="floatingInput" placeholder="First Name">
+                            <label class="floatingInput">First Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="name" class="form-control" id="floatingInput" placeholder="Last Name">
+                            <label for="floatingInput">Last Name</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" id="floatingInput">
+                            <label for="floatingInput">Date of Birth</label>
+                        </div>
+                    </div>
+                </div>
+                <header class="h5">Patient Contact Information</header>
+                <div class="row">
+                    <div class="col-md-6 ">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                            <label for="floatingInput">Email</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="floatingInput" placeholder="(201)555-0123">
+                            <label for="floatingInput">Pin Code</label>
+                        </div>
+                    </div>
+                </div>
+                <header class="h5">Patient Location</header>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="name" class="form-control" id="floatingInput" placeholder="Street">
+                            <label for="floatingInput">Street</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="name" class="form-control" id="floatingInput" placeholder="City">
+                            <label for="floatingInput">City</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="name" class="form-control" id="floatingInput" placeholder="State">
+                            <label for="floatingInput">State</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="name" class="form-control" id="floatingInput" placeholder="Zip Code">
+                            <label for="floatingInput">Zip Code</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="name" class="form-control" id="floatingInput"
+                                   placeholder="Room#/Suite(Optional)">
+                            <label for="floatingInput">Room#/ Suite(Optional)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="submit pb-3">
+                    <button type="button" class="btn btn-outline-pri">Submit</button>&nbsp&nbsp&nbsp
+                    <button type="button" class="btn btn-outline-pri">Cancel</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer class="footer mt-3 ">
+        <span class="h5">Terms Of Conditions</span>
+        <span>|</span>
+        <span class="h5">Privacy Policy</span>
+    </footer>
+
+    <script>
+        const phoneInputField = document.getElementsByClassName("phone");
+        for (let i = 0; i < phoneInputField.length; ++i) {
+            const phoneInput = window.intlTelInput(phoneInputField[i], {
+                utilsScript:
+                    "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+            });
+        }
+    </script>
+</div>

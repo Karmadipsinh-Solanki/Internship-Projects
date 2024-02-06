@@ -24,6 +24,57 @@ body {
     height: 100vh;
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 28%;
+    height: 45%;
+    align-items: center;
+}
+
+.exclamation {
+   display: flex;
+   width: 70px;
+   height: 70px;
+   margin: auto;
+   justify-content: center;
+   align-items: center;
+   border-radius: 50%;
+   border: 2px solid #F5AE00!important;
+   margin-bottom: 15px;
+   margin-top: 40px;
+}
+.btn-primary{   
+    width: 50px;
+    --bs-btn-color: #cffeff!important;
+    --bs-btn-bg: #00aee3!important;
+    --bs-btn-hover-bg: #008594!important;
+    --bs-btn-hover-color: #fff!important;
+    --bs-btn-active-bg: #008594!important;
+    display: flex;
+    justify-content: center;
+}
+.close {
+    display: flex;
+    justify-content: center;
+}
+
 /* .content{
     height: 100vh;
 } */
@@ -33,7 +84,7 @@ body {
 
 .text-area {
     border-color: #0dcaf0 !important;
-    height: 140px!important;
+    height: 140px !important;
 }
 
 .color {
@@ -73,10 +124,10 @@ body {
     justify-content: flex-end;
     align-items: center;
 }
-
+/* 
 .btn.btn-primary {
     --bs-btn-bg: #0dcaf0 !important;
-}
+} */
 
 .footer {
     background-color: rgb(38, 38, 38);
@@ -91,10 +142,12 @@ body {
     width: 100%;
     height: (3.5rem + calc(var(--bs-border-width) * 2));
 }
-.phone{
+
+.phone {
     height: 58px;
 }
-.uremail{
+
+.uremail {
     height: 58px;
 }
 
@@ -102,31 +155,44 @@ body {
     .inputUpload {
         flex-basis: 75%;
     }
+
     .uploadButton {
         flex-basis: 25%;
     }
 }
+
 @media only screen and (max-width:456px) {
     .inputUpload {
         flex-basis: 65%;
     }
+
     .uploadButton {
         flex-basis: 35%;
     }
+
+    .modal-dialog{
+        margin: 26px!important;
+    }
 }
+
 @media only screen and (max-width:364px) {
     .inputUpload {
         flex-basis: 50%;
     }
+
     .uploadButton {
         flex-basis: 50%;
     }
-}
-.modal {
+
+    .modal-dialog{
+        margin: 26px!important;
+    }
+} 
+
+/* .modal {
     display: none;
     position: fixed;
     z-index: 1;
-    /* / padding-top: 100px; / */
     left: 0;
     top: 0;
     width: 100%;
@@ -144,4 +210,4 @@ body {
     border: 1px solid #888;
     width: 28%;
     height: 45%;
-}
+} */

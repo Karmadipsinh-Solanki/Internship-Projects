@@ -1,0 +1,92 @@
+﻿body {
+    height: 100vh;
+}
+
+.container {
+    height: 100vh;
+    position: relative;
+    width: 640px !important;
+}
+
+.bg-img {
+    background-image: url("SRS Screen Shorts/11116016_415.jpg");
+    filter: blur(8px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    height: 100% !important;
+}
+
+.patientsite {
+    /* width: 155px!important; */
+    height: 170px;
+}
+
+.nightmode {
+    margin-right: 20px;
+    position: absolute;
+    top: 20px;
+    right: 0;
+}
+
+.darkmode {
+    background-color: white;
+    border-radius: 5px;
+    border-color: #00aee3;
+    padding: 5px;
+    height: 45px;
+    width: 50px;
+}
+
+.submit-request.btn-primary {
+    width: 490px;
+    height: 65px;
+    --bs-btn-color: #cffeff;
+    --bs-btn-bg: #00aee3;
+    --bs-btn-hover-bg: #0b50b7;
+    --bs-btn-hover-color: #fff;
+}
+
+.registered-patients {
+    width: 400px;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+@media only screen and (max-width:450px) {
+    .patientsite {
+        display: none;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .header {
+        margin-bottom: 465px;
+    }
+
+    .content {
+        margin-bottom: 5px;
+    }
+
+    .bg-img {
+        height: 100vh;
+    }
+}
+
+.btn {
+    background: var(--bs-btn-bg);
+    border: 1px solid var(--bs-btn-border-color);
+}
+.btn-outline-primary {
+    color: #0dcaf0 !important;
+}

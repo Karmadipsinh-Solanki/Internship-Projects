@@ -18,22 +18,16 @@
         <navbar class="d-flex justify-content-between align-items-center">
             <img src="SRS Screen Shorts/Fig56. Patient site 1.png" class="patientsite">
             <div class="nav">
-                <button class="btn btn-outline-primary d-flex justify-content-center align-items-center logoutbutton">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
-                        <path fill-rule="evenodd"
-                            d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
-                    </svg>
-                </button>
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
+                    <path fill-rule="evenodd"
+                        d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                </svg>
 
                 <!-- d-flex justify-content-evenly align-items-center -->
-<<<<<<< HEAD
-                <div class="togglelogout">
-                    <span class="me-3" style="margin-right: 10px;margin-left: 15px;">Welcome Karmadipsinh Solanki</span>
-                    <button type="button" class="btn btn-outline-primary  me-3">Logout</button>
-=======
                 <span class="me-3" style="margin-right: 10px;margin-left: 15px;">Welcome Karmadipsinh Solanki</span>
                 <button type="button" class="btn btn-outline-primary  me-3">Logout</button>
                 <div class="nightmode me-3">
@@ -44,7 +38,6 @@
                                 d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286" />
                         </svg>
                     </button>
->>>>>>> 97a5b4c1ffd32fc3663aa7a87ad171ec419cb7c3
                 </div>
                 <!-- <div class="nightmode me-3"> -->
                 <button class="btn btn-outline-primary d-flex justify-content-center align-items-center hmoon">
@@ -124,8 +117,40 @@
         <span class="h3 mb-3">Medical History</span>
         <div class="history shadow mt-3 ">
             <div class="createNewrequest d-flex justify-content-end align-items-center pe-4 pt-3 pb-3">
-                <button type="button" class="btn btn-outline-primary ">Create New Request</button>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    Create New Request
+                </button>
             </div>
+            <!-- Modal -->
+            <div class="modal fade shadow" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Create New Request</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <span>Here, I want to create new request for...</span>
+                            <div class="d-flex justify-content-center  align-items-center mt-3">
+                                <button class="btn btn-primary me-3">
+                                    <span>Me</span>
+                                </button>
+                                <button class="btn btn-outline-primary">
+                                    <span>Some One Else</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary"><span>Continue</span></button>
+                            <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"><span>Cancel</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <table class="table">
                 <thead>
                     <tr class="table-light htable">
