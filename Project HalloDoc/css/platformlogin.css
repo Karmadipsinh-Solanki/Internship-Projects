@@ -55,6 +55,21 @@ body {
     height: 20px;
     z-index: 2;
 }
+.nightmode {
+    margin-right: 20px;
+    position: absolute;
+    top: 20px;
+    right: 0;
+}
+
+.darkmode {
+    background-color: white;
+    border-radius: 5px;
+    border-color: #00aee3;
+    padding: 5px;
+    height: 45px;
+    width: 50px;
+}
 
 /* .password {
     position: relative;

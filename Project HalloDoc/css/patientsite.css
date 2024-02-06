@@ -1,8 +1,10 @@
 body{
     height: 100vh;
 }
-.header {
+.container{
+    height: 100vh;
     position: relative;
+    width: 640px!important;
 }
 
 .patientsite {
@@ -21,10 +23,14 @@ body{
 .darkmode {
     background-color: white;
     border-radius: 5px;
-    border-color: aqua;
+    border-color: #00aee3;
+    padding: 5px;
+    height: 45px;
+    width: 50px;
 }
 .submit-request.btn-primary{
-    width: 400px;
+    width: 490px;
+    height: 65px;
     --bs-btn-color: #cffeff;
     --bs-btn-bg: #00aee3;
     --bs-btn-hover-bg: #0b50b7;
@@ -33,6 +39,25 @@ body{
 .registered-patients{
     width: 400px;
 }
-.content{
+footer{
+    position: fixed;
+    left: 0;
     bottom: 0;
+    width: 100%;
+}
+@media only screen and (max-width:450px) {
+    .patientsite{
+        display: none;
+    }
+    .container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .header{
+        margin-bottom: 465px;
+    }
+    .content{
+        margin-bottom: 5px;
+    }
 }
