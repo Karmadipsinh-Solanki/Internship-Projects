@@ -601,6 +601,14 @@
       "PackagePath": "staticwebassets\\css\\createRequest.css"
     },
     {
+      "Id": "C:\\Users\\pca161\\source\\repos\\Hallodoc\\Hallodoc\\wwwroot\\css\\patientDashboard.css",
+      "PackagePath": "staticwebassets\\css\\patientDashboard.css"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\source\\repos\\Hallodoc\\Hallodoc\\wwwroot\\css\\patientLogin.css",
+      "PackagePath": "staticwebassets\\css\\patientLogin.css"
+    },
+    {
       "Id": "C:\\Users\\pca161\\source\\repos\\Hallodoc\\Hallodoc\\wwwroot\\css\\patientsite.css",
       "PackagePath": "staticwebassets\\css\\patientsite.css"
     },
@@ -619,6 +627,10 @@
     {
       "Id": "C:\\Users\\pca161\\source\\repos\\Hallodoc\\Hallodoc\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\source\\repos\\Hallodoc\\Hallodoc\\wwwroot\\js\\darkmode.js",
+      "PackagePath": "staticwebassets\\js\\darkmode.js"
     },
     {
       "Id": "C:\\Users\\pca161\\source\\repos\\Hallodoc\\Hallodoc\\wwwroot\\js\\site.js",

@@ -1,0 +1,58 @@
+﻿body {
+    height: 100%;
+}
+
+.parent-div{
+    height: 100%;
+}
+
+.container {
+    width: 432px;
+    height: 100%;
+}
+
+.bg-img {
+    opacity: 0.1;
+    filter: blur(2px);
+    position: absolute;
+    top: 0;
+    width: 800px;
+    height: 100%;
+    max-width: 100%;
+    align-self: center;
+    margin: auto;
+    display: flex;
+}
+.outerform{
+    z-index:2;
+}
+.patientsite {
+    width: 220px !important;
+    height: 170px;
+}
+
+.profile {
+    position: absolute;
+    top: 20px;
+    right: 16px;
+    width: 20px;
+    height: 20px;
+    z-index: 2;
+}
+
+.eye {
+    position: absolute;
+    top: 15px;
+    right: 22px;
+    width: 20px;
+    height: 20px;
+}
+
+.btn {
+    background-color: #0dcaf0;
+    color: #fff;
+    text-decoration: none;
+}
+.back {
+    color: #00aee3;
+}

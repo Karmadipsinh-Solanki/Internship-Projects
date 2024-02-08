@@ -2,13 +2,13 @@
     height: 100vh;
 }
 
-.header {
+.halodocimg {
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
-.header0 {
+.header {
     position: fixed;
     width: 100%;
 }
@@ -18,20 +18,23 @@
     height: 105px;
 }
 
-.nightmode {
+.darkmode {
     margin-right: 20px;
     position: absolute;
     top: 20px;
     right: 0;
 }
 
-.darkmode {
+.nightmode {
     background-color: white;
     border-radius: 5px;
     border: 1px solid #0dcaf0;
     padding: 5px;
     height: 45px;
     width: 50px;
+}
+.hide-icon{
+    display:none;
 }
 
 .patientdetail {
@@ -157,8 +160,12 @@
     margin-right: 10px;
 }
 
-
-
-/*.btn-outline-primary {
-    color: #0dcaf0 !important;
-}*/
+@media only screen and (max-width:768px) {
+    .backbutton {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        bottom: 360px;
+        right: 12px;
+    }

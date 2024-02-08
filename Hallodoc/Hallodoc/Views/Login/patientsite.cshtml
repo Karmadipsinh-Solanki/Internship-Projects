@@ -5,11 +5,10 @@
     <link href="~/css/patientsite.css" rel="stylesheet" type="text/css" />
 }
 
-<div>
     <div class="container d-flex align-items-center flex-column ">
-        <img src="SRS Screen Shorts/11116016_415.jpg" class="bg-img img-fluid">
+        <img src="~/SRS Screen Shorts/11116016_415.jpg" class="bg-img img-fluid">
         <header class="header d-flex justify-content-center align-items-center">
-            <div class="nightmode ">
+            <div class="nightmode">
                 <button onclick="myFunction()" class="darkmode">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="20" fill="#00aee3" class="bi bi-moon"
                          viewBox="0 0 16 16">
@@ -25,12 +24,13 @@
                     <strong>Submit A Request</strong>
                 </button>
             </a>
+             <a asp-controller="Login" asp-action="patientLogin">
             <button type="button" class="submit-request btn btn-primary btn-lg mb-3  ">
                 <strong>Registered Patients</strong>
             </button>
+            </a>
         </div>
         <footer class="content mb-0 text-center bottom-0 ">
             <p><span class="toc ">Terms of Conditions</span>|<span class="pp">Privacy Policy</span></p>
         </footer>
     </div>
-</div>
