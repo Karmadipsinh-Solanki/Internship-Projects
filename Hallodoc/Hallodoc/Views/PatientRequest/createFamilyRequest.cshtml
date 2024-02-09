@@ -1,4 +1,5 @@
-﻿@{
+﻿@model HalloDoc.Models.RequestViewModel;
+@{
     ViewData["Title"] = "Family/Friend-Request";
 }
 @section Styles {
@@ -41,122 +42,137 @@
             </a>
         </div>
         <div class="content shadow ">
-            <form class="h-100  ps-3 pt-3 pe-3 g-3">
+        <form asp-controller="PatientRequest" asp-action="createConciergeRequest" class="h-100  ps-3 pt-3 pe-3 g-3">
                 <header class="h5">Family/Friend Information</header>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput" placeholder="Your First Name">
+                        <input type="name" class="form-control" id="floatingInput" placeholder="Your First Name" asp-for="FFirstName">
                             <label for="floatingInput">Your First Name</label>
                         </div>
+                    <span asp-validation-for="FFirstName" class="text-danger"></span>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput" placeholder="Your Last Name">
+                        <input type="name" class="form-control" id="floatingInput" placeholder="Your Last Name" asp-for="FLastName">
                             <label for="floatingInput">Your Last Name</label>
                         </div>
+                    <span asp-validation-for="FLastName" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <input type="tel" class="form-control phone" id="floatingInput">
+                    <input type="tel" class="form-control phone" id="floatingInput" asp-for="FPhoneNumber">
                     </div>
+                <span asp-validation-for="FPhoneNumber" class="text-danger"></span>
                     <div class="col-md-6">
-                        <input type="email" class="form-control uremail" id="inputEmail4" placeholder="Your Email">
+                    <input type="email" class="form-control uremail" id="inputEmail4" placeholder="Your Email" asp-for="FEmail">
                     </div>
+                <span asp-validation-for="FEmail" class="text-danger"></span>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="name" class="form-control" id="floatingInput"
-                                   placeholder="Room#/Suite(Optional)">
+                               placeholder="Room#/Suite(Optional)" asp-for="Relation">
                             <label for="floatingInput">Relation with Patient</label>
                         </div>
+                    <span asp-validation-for="Relation" class="text-danger"></span>
                     </div>
                 </div>
                 <header class="h5">Patient Information</header>
                 <div class="form-floating mb-3">
                     <!-- <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"> -->
-                    <textarea class="text-area form-control" id="exampleFormControlTextarea1" rows="7"></textarea>
+                <textarea class="text-area form-control" id="exampleFormControlTextarea1" rows="7" asp-for="Symptoms"></textarea>
                     <label class="color" for="floatingInput">Enter Brief Details Of Symptoms(Optional)</label>
+                <span asp-validation-for="Symptoms" class="text-danger"></span>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput" placeholder="First Name">
+                        <input type="name" class="form-control" id="floatingInput" placeholder="First Name" asp-for="Symptoms">
                             <label class="floatingInput">First Name</label>
                         </div>
+                    <span asp-validation-for="Symptoms" class="text-danger"></span>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput" placeholder="Last Name">
+                        <input type="name" class="form-control" id="floatingInput" placeholder="Last Name" asp-for="LastName">
                             <label for="floatingInput">Last Name</label>
                         </div>
+                    <span asp-validation-for="LastName" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="floatingInput">
+                        <input type="date" class="form-control" id="floatingInput" asp-for="DOB">
                             <label for="floatingInput">Date of Birth</label>
                         </div>
+                    <span asp-validation-for="DOB" class="text-danger"></span>
                     </div>
                 </div>
                 <header class="h5">Patient Contact Information</header>
                 <div class="row">
                     <div class="col-md-6 ">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                        <input type="email" class="form-control" id="inputEmail4" placeholder="Email" asp-for="Email">
                             <label for="floatingInput">Email</label>
                         </div>
+                    <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="tel" class="form-control phone" id="floatingInput" placeholder="(201)555-0123">
+                        <input type="tel" class="form-control phone" id="floatingInput" placeholder="(201)555-0123" asp-for="PhoneNumber">
                         </div>
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                     </div>
                 </div>
                 <header class="h5">Patient Location</header>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput" placeholder="Street">
+                        <input type="name" class="form-control" id="floatingInput" placeholder="Street" asp-for="Street">
                             <label for="floatingInput">Street</label>
                         </div>
+                    <span asp-validation-for="Street" class="text-danger"></span>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput" placeholder="City">
+                        <input type="name" class="form-control" id="floatingInput" placeholder="City" asp-for="City">
                             <label for="floatingInput">City</label>
                         </div>
+                    <span asp-validation-for="City" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput" placeholder="State">
+                        <input type="name" class="form-control" id="floatingInput" placeholder="State" asp-for="State">
                             <label for="floatingInput">State</label>
                         </div>
+                    <span asp-validation-for="State" class="text-danger"></span>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="floatingInput" placeholder="Zip Code">
+                        <input type="number" class="form-control" id="floatingInput" placeholder="Zip Code" asp-for="ZipCode">
                             <label for="floatingInput">Zip Code</label>
                         </div>
+                    <span asp-validation-for="ZipCode" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="name" class="form-control" id="floatingInput"
-                                   placeholder="Room#/Suite(Optional)">
+                               placeholder="Room#/Suite(Optional)" asp-for="Room">
                             <label for="floatingInput">Room#/ Suite (Optional)</label>
                         </div>
                     </div>
                 </div>
                 <header class="h5">Upload Photo or Document(Optional)</header>
                 <div class="upload mb-3 ">
-                    <input type="file" class="inputUpload" placeholder="Select File">
+                <input type="file" class="inputUpload" placeholder="Select File" asp-for="File">
                     <button class="uploadButton" type="button" onclick="choose_file()" id="choose-file-button">
                         <img src="~/SRS Screen Shorts/cloud-upload-icon.svg">
                         <span class="button">Upload</span>
@@ -181,7 +197,7 @@
 
                 </div>
                 <div class="submit pb-3">
-                    <button type="button" class="btn btn-outline-pri"
+                    <button type="submit" class="btn btn-outline-pri"
                             id="submit-button">
                         Submit
                     </button>&nbsp&nbsp&nbsp

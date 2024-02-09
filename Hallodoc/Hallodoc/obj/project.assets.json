@@ -10430,11 +10430,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pca161\\source\\repos\\Hallodoc\\Hallodoc\\Hallodoc.csproj",
+      "projectUniqueName": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\Hallodoc.csproj",
       "projectName": "Hallodoc",
-      "projectPath": "C:\\Users\\pca161\\source\\repos\\Hallodoc\\Hallodoc\\Hallodoc.csproj",
+      "projectPath": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\Hallodoc.csproj",
       "packagesPath": "C:\\Users\\pca161\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pca161\\source\\repos\\Hallodoc\\Hallodoc\\obj\\",
+      "outputPath": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\pca161\\AppData\\Roaming\\NuGet\\NuGet.Config",

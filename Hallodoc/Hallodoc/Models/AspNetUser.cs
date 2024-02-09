@@ -5,7 +5,7 @@ namespace Hallodoc.Models;
 
 public partial class AspNetUser
 {
-    public string Id { get; set; } = null!;
+    public int Id { get; set; }
 
     public string UserName { get; set; } = null!;
 
@@ -17,7 +17,7 @@ public partial class AspNetUser
 
     public string? Ip { get; set; }
 
-    public DateTime? CreatedDate { get; set; }
+    public DateTime CreatedDate { get; set; }
 
     public virtual ICollection<Admin> AdminAspNetUsers { get; set; } = new List<Admin>();
 

@@ -6,7 +6,7 @@ namespace Hallodoc.Models;
 
 public partial class EmailLog
 {
-    public decimal EmailLogId { get; set; }
+    public int EmailLogId { get; set; }
 
     public string? EmailTemplate { get; set; }
 

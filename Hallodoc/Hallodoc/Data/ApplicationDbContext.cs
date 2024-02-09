@@ -99,15 +99,12 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.Address1).HasMaxLength(500);
             entity.Property(e => e.Address2).HasMaxLength(500);
             entity.Property(e => e.AltPhone).HasMaxLength(20);
-            entity.Property(e => e.AspNetUserId).HasMaxLength(128);
             entity.Property(e => e.City).HasMaxLength(100);
-            entity.Property(e => e.CreatedBy).HasMaxLength(128);
             entity.Property(e => e.CreatedDate).HasColumnType("timestamp without time zone");
             entity.Property(e => e.Email).HasMaxLength(50);
             entity.Property(e => e.FirstName).HasMaxLength(100);
             entity.Property(e => e.LastName).HasMaxLength(100);
             entity.Property(e => e.Mobile).HasMaxLength(20);
-            entity.Property(e => e.ModifiedBy).HasMaxLength(128);
             entity.Property(e => e.ModifiedDate).HasColumnType("timestamp without time zone");
             entity.Property(e => e.Zip).HasMaxLength(10);
 
@@ -147,7 +144,6 @@ public partial class ApplicationDbContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("AspNetRoles_pkey");
 
-            entity.Property(e => e.Id).HasMaxLength(128);
             entity.Property(e => e.Name).HasMaxLength(256);
         });
 
@@ -155,14 +151,11 @@ public partial class ApplicationDbContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("AspNetUsers_pkey");
 
-            entity.Property(e => e.Id).HasMaxLength(128);
             entity.Property(e => e.CreatedDate).HasColumnType("timestamp without time zone");
             entity.Property(e => e.Email).HasMaxLength(256);
             entity.Property(e => e.Ip)
                 .HasMaxLength(20)
                 .HasColumnName("IP");
-            entity.Property(e => e.PasswordHash).HasColumnType("character varying");
-            entity.Property(e => e.PhoneNumber).HasColumnType("character varying");
             entity.Property(e => e.UserName).HasMaxLength(256);
 
             entity.HasMany(d => d.Roles).WithMany(p => p.Users)
@@ -180,8 +173,6 @@ public partial class ApplicationDbContext : DbContext
                     {
                         j.HasKey("UserId", "RoleId").HasName("AspNetUserRoles_pkey");
                         j.ToTable("AspNetUserRoles");
-                        j.IndexerProperty<string>("UserId").HasMaxLength(128);
-                        j.IndexerProperty<string>("RoleId").HasMaxLength(128);
                     });
         });
 
@@ -197,7 +188,6 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.IsActive).HasColumnType("bit(1)");
             entity.Property(e => e.ModifiedDate).HasColumnType("timestamp without time zone");
             entity.Property(e => e.PhoneNumber).HasMaxLength(50);
-            entity.Property(e => e.Reason).HasColumnType("character varying");
             entity.Property(e => e.RequestId).HasMaxLength(50);
         });
 
@@ -210,7 +200,6 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.Address1).HasMaxLength(500);
             entity.Property(e => e.Address2).HasMaxLength(500);
             entity.Property(e => e.City).HasMaxLength(50);
-            entity.Property(e => e.CreatedBy).HasMaxLength(128);
             entity.Property(e => e.CreatedDate).HasColumnType("timestamp without time zone");
             entity.Property(e => e.FaxNumber).HasMaxLength(20);
             entity.Property(e => e.Ip)
@@ -218,7 +207,6 @@ public partial class ApplicationDbContext : DbContext
                 .HasColumnName("IP");
             entity.Property(e => e.IsDeleted).HasColumnType("bit(1)");
             entity.Property(e => e.IsRegistered).HasColumnType("bit(1)");
-            entity.Property(e => e.ModifiedBy).HasMaxLength(128);
             entity.Property(e => e.ModifiedDate).HasColumnType("timestamp without time zone");
             entity.Property(e => e.Name).HasMaxLength(100);
             entity.Property(e => e.PhoneNumber).HasMaxLength(20);
@@ -274,16 +262,12 @@ public partial class ApplicationDbContext : DbContext
 
             entity.ToTable("EmailLog");
 
-            entity.Property(e => e.EmailLogId)
-                .HasPrecision(9)
-                .HasColumnName("EmailLogID");
+            entity.Property(e => e.EmailLogId).HasColumnName("EmailLogID");
             entity.Property(e => e.ConfirmationNumber).HasMaxLength(200);
             entity.Property(e => e.CreateDate).HasColumnType("timestamp without time zone");
             entity.Property(e => e.EmailId)
                 .HasMaxLength(200)
                 .HasColumnName("EmailID");
-            entity.Property(e => e.EmailTemplate).HasColumnType("character varying");
-            entity.Property(e => e.FilePath).HasColumnType("character varying");
             entity.Property(e => e.IsEmailSent).HasColumnType("bit(1)");
             entity.Property(e => e.SentDate).HasColumnType("timestamp without time zone");
             entity.Property(e => e.SubjectName).HasMaxLength(200);
@@ -356,11 +340,9 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.Address2).HasMaxLength(500);
             entity.Property(e => e.AdminNotes).HasMaxLength(500);
             entity.Property(e => e.AltPhone).HasMaxLength(20);
-            entity.Property(e => e.AspNetUserId).HasMaxLength(128);
             entity.Property(e => e.BusinessName).HasMaxLength(100);
             entity.Property(e => e.BusinessWebsite).HasMaxLength(200);
             entity.Property(e => e.City).HasMaxLength(100);
-            entity.Property(e => e.CreatedBy).HasMaxLength(128);
             entity.Property(e => e.CreatedDate).HasColumnType("timestamp without time zone");
             entity.Property(e => e.Email).HasMaxLength(50);
             entity.Property(e => e.FirstName).HasMaxLength(100);
@@ -375,7 +357,6 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.LastName).HasMaxLength(100);
             entity.Property(e => e.MedicalLicense).HasMaxLength(500);
             entity.Property(e => e.Mobile).HasMaxLength(20);
-            entity.Property(e => e.ModifiedBy).HasMaxLength(128);
             entity.Property(e => e.ModifiedDate).HasColumnType("timestamp without time zone");
             entity.Property(e => e.Npinumber)
                 .HasMaxLength(500)
@@ -487,6 +468,11 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(d => d.PhysicianId)
                 .HasConstraintName("Request_PhysicianId_fkey");
 
+            entity.HasOne(d => d.RequestClient).WithMany(p => p.Requests)
+                .HasForeignKey(d => d.RequestClientId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_request_requestclient");
+
             entity.HasOne(d => d.User).WithMany(p => p.Requests)
                 .HasForeignKey(d => d.UserId)
                 .HasConstraintName("Request_UserId_fkey");
@@ -547,11 +533,6 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.Region).WithMany(p => p.RequestClients)
                 .HasForeignKey(d => d.RegionId)
                 .HasConstraintName("RequestClient_RegionId_fkey");
-
-            entity.HasOne(d => d.Request).WithMany(p => p.RequestClients)
-                .HasForeignKey(d => d.RequestId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("RequestClient_RequestId_fkey");
         });
 
         modelBuilder.Entity<RequestClosed>(entity =>
@@ -604,14 +585,12 @@ public partial class ApplicationDbContext : DbContext
 
             entity.Property(e => e.AdminNotes).HasMaxLength(500);
             entity.Property(e => e.AdministrativeNotes).HasMaxLength(500);
-            entity.Property(e => e.CreatedBy).HasMaxLength(128);
             entity.Property(e => e.CreatedDate).HasColumnType("timestamp without time zone");
             entity.Property(e => e.IntDate).HasColumnName("intDate");
             entity.Property(e => e.IntYear).HasColumnName("intYear");
             entity.Property(e => e.Ip)
                 .HasMaxLength(20)
                 .HasColumnName("IP");
-            entity.Property(e => e.ModifiedBy).HasMaxLength(128);
             entity.Property(e => e.ModifiedDate).HasColumnType("timestamp without time zone");
             entity.Property(e => e.PhysicianNotes).HasMaxLength(500);
             entity.Property(e => e.StrMonth)
@@ -745,7 +724,6 @@ public partial class ApplicationDbContext : DbContext
 
             entity.ToTable("Shift");
 
-            entity.Property(e => e.CreatedBy).HasMaxLength(128);
             entity.Property(e => e.CreatedDate).HasColumnType("timestamp without time zone");
             entity.Property(e => e.Ip)
                 .HasMaxLength(20)
@@ -776,7 +754,6 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.IsDeleted).HasColumnType("bit(1)");
             entity.Property(e => e.IsSync).HasColumnType("bit(1)");
             entity.Property(e => e.LastRunningDate).HasColumnType("timestamp without time zone");
-            entity.Property(e => e.ModifiedBy).HasMaxLength(128);
             entity.Property(e => e.ModifiedDate).HasColumnType("timestamp without time zone");
             entity.Property(e => e.ShiftDate).HasColumnType("timestamp without time zone");
 
@@ -815,19 +792,14 @@ public partial class ApplicationDbContext : DbContext
 
             entity.ToTable("SMSLog");
 
-            entity.Property(e => e.SmslogId)
-                .HasPrecision(9)
-                .HasColumnName("SMSLogID");
-            entity.Property(e => e.ConfirmationNumber).HasMaxLength(200);
+            entity.Property(e => e.SmslogId).HasColumnName("SMSLogID");
             entity.Property(e => e.CreateDate).HasColumnType("timestamp without time zone");
             entity.Property(e => e.IsSmssent)
                 .HasColumnType("bit(1)")
                 .HasColumnName("IsSMSSent");
             entity.Property(e => e.MobileNumber).HasMaxLength(50);
             entity.Property(e => e.SentDate).HasColumnType("timestamp without time zone");
-            entity.Property(e => e.Smstemplate)
-                .HasMaxLength(1)
-                .HasColumnName("SMSTemplate");
+            entity.Property(e => e.Smstemplate).HasColumnName("SMSTemplate");
         });
 
         modelBuilder.Entity<User>(entity =>
@@ -836,10 +808,7 @@ public partial class ApplicationDbContext : DbContext
 
             entity.ToTable("User");
 
-            entity.Property(e => e.UserId).ValueGeneratedNever();
-            entity.Property(e => e.AspNetUserId).HasMaxLength(128);
             entity.Property(e => e.City).HasMaxLength(100);
-            entity.Property(e => e.CreatedBy).HasMaxLength(128);
             entity.Property(e => e.CreatedDate).HasColumnType("timestamp without time zone");
             entity.Property(e => e.Email).HasMaxLength(50);
             entity.Property(e => e.FirstName).HasMaxLength(100);
@@ -853,7 +822,6 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.IsRequestWithEmail).HasColumnType("bit(1)");
             entity.Property(e => e.LastName).HasMaxLength(100);
             entity.Property(e => e.Mobile).HasMaxLength(20);
-            entity.Property(e => e.ModifiedBy).HasMaxLength(128);
             entity.Property(e => e.ModifiedDate).HasColumnType("timestamp without time zone");
             entity.Property(e => e.State).HasMaxLength(100);
             entity.Property(e => e.StrMonth)
