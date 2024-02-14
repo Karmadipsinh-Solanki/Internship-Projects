@@ -1,0 +1,21 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model DashboardViewModel
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: white!important;">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse d-none d-md-block" id="navbarTogglerDemo03">
+            <ul class="navbar-nav nav-underline me-auto mb-2 mb-lg-0" id="mylinks">
+                <li class="nav-item">
+                    <a asp-controller="PatientDashboard" asp-action="patientDashboard" class="nav-link navdash" aria-current="page">
+                        <strong>Dashboard</strong>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link navdash" asp-controller="Login" asp-action="patientsite"><strong>Profile</strong></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

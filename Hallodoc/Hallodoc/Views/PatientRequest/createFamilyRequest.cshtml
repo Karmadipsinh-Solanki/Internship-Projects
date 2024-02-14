@@ -1,9 +1,14 @@
-﻿@model HalloDoc.Models.RequestViewModel;
+﻿@model HalloDoc.Models.RequestViewModelFamily;
 @{
     ViewData["Title"] = "Family/Friend-Request";
 }
 @section Styles {
     <link href="~/css/createRequest.css" rel="stylesheet" type="text/css" />
+}
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
 }
 <div>
 
@@ -42,7 +47,7 @@
             </a>
         </div>
         <div class="content shadow ">
-        <form asp-controller="PatientRequest" asp-action="createConciergeRequest" class="h-100  ps-3 pt-3 pe-3 g-3">
+        <form asp-controller="PatientRequest" asp-action="createFamilyRequest" class="h-100  ps-3 pt-3 pe-3 g-3">
                 <header class="h5">Family/Friend Information</header>
                 <div class="row">
                     <div class="col-md-6">
@@ -61,23 +66,29 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 mb-3">
-                    <input type="tel" class="form-control phone" id="floatingInput" asp-for="FPhoneNumber">
-                    </div>
-                <span asp-validation-for="FPhoneNumber" class="text-danger"></span>
                     <div class="col-md-6">
-                    <input type="email" class="form-control uremail" id="inputEmail4" placeholder="Your Email" asp-for="FEmail">
+                        <div class="form-floating mb-3">
+                            <input type="tel" class="form-control phone" id="floatingInput" asp-for="FPhoneNumber">
+                        </div>
+                        <span asp-validation-for="FPhoneNumber" class="text-danger"></span>
                     </div>
-                <span asp-validation-for="FEmail" class="text-danger"></span>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control uremail" id="inputEmail4" placeholder="Your Email" asp-for="FEmail">
+                            <label for="floatingInput">Your Email</label>
+                        </div>
+                        <span asp-validation-for="FEmail" class="text-danger"></span>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="name" class="form-control" id="floatingInput"
-                               placeholder="Room#/Suite(Optional)" asp-for="Relation">
+                               placeholder="Relation" asp-for="Relation">
                             <label for="floatingInput">Relation with Patient</label>
                         </div>
-                    <span asp-validation-for="Relation" class="text-danger"></span>
+                        <span asp-validation-for="Relation" class="text-danger"></span>
+                    
                     </div>
                 </div>
                 <header class="h5">Patient Information</header>

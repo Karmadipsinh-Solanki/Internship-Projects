@@ -26,10 +26,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/pca161/Desktop/Internship-Projects/Hallodoc/Hallodoc/Views/Login/patientDashboard.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5ccGF0aWVudERhc2hib2FyZC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/pca161/Desktop/Internship-Projects/Hallodoc/Hallodoc/Views/Login/patientLogin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5ccGF0aWVudExvZ2luLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -44,6 +40,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/pca161/Desktop/Internship-Projects/Hallodoc/Hallodoc/Views/Login/submitrequest.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cc3VibWl0cmVxdWVzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pca161/Desktop/Internship-Projects/Hallodoc/Hallodoc/Views/PatientDashboard/patientDashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudERhc2hib2FyZFxwYXRpZW50RGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pca161/Desktop/Internship-Projects/Hallodoc/Hallodoc/Views/PatientDashboard/ViewDoc.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudERhc2hib2FyZFxWaWV3RG9jLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/pca161/Desktop/Internship-Projects/Hallodoc/Hallodoc/Views/PatientRequest/createBusinessRequest.cshtml]
@@ -64,6 +68,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/pca161/Desktop/Internship-Projects/Hallodoc/Hallodoc/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pca161/Desktop/Internship-Projects/Hallodoc/Hallodoc/Views/Shared/header.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXGhlYWRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pca161/Desktop/Internship-Projects/Hallodoc/Hallodoc/Views/Shared/navbar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXG5hdmJhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/pca161/Desktop/Internship-Projects/Hallodoc/Hallodoc/Views/Shared/_ValidationScriptsPartial.cshtml]

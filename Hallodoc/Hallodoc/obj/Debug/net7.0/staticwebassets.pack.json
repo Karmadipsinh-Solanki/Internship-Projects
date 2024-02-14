@@ -589,6 +589,10 @@
       "PackagePath": "staticwebassets\\SRS Screen Shorts\\LesfImage.png"
     },
     {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\PDFIcon.png",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\PDFIcon.png"
+    },
+    {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\cloud-upload-icon.svg",
       "PackagePath": "staticwebassets\\SRS Screen Shorts\\cloud-upload-icon.svg"
     },
@@ -625,12 +629,20 @@
       "PackagePath": "staticwebassets\\css\\submitrequest.css"
     },
     {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\viewDoc.css",
+      "PackagePath": "staticwebassets\\css\\viewDoc.css"
+    },
+    {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\js\\darkmode.js",
       "PackagePath": "staticwebassets\\js\\darkmode.js"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\js\\patientLoginValidation.js",
+      "PackagePath": "staticwebassets\\js\\patientLoginValidation.js"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\js\\site.js",

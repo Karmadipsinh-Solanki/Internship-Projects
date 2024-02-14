@@ -12,13 +12,12 @@
 .navBar {
     background-color: #fff !important;
 }
-
+/*
 .nav {
     display: flex;
-    /* justify-content: space-between; */
+     justify-content: space-between; 
     align-items: center;
-    /* background-color: red; */
-}
+}*/
 
 .logoutbutton {
     height: 38px;
@@ -70,11 +69,7 @@
 .navbar {
     background-color: #fff !important;
 }
-.shortnav {
-    border: 1px solid #0bb6d0;
-    color: #0bb6d0;
-    background-color:white;
-}
+
 /* .modal {
     display: none;
     position: fixed;
@@ -118,25 +113,99 @@
     height: 50px;
     align-items: center;
 } */
+
+thead{
+    width:100%;
+    display:inline-block;
+}
+tr {
+    width: 100%;
+    display:inline-block;
+}
+th {
+    width:33.33%;
+}
 .history {
     background-color: #fff;
     border-radius: 10px;
 }
 
-.logoutbutton {
-    display: none;
-}
-
-@media only screen and (max-width:430px) {
-    .horizontal-line {
-        display: none;
-    }
-
-    .logoutbutton {
-        display: block !important;
-    }
-
-    .togglelogout {
-        display: none;
+@media only screen and (max-width:768px) {
+    .navbar-collapse {
+        display: block!important;
     }
 }
+    @media only screen and (max-width:530px) {
+        .patientsite {
+            height: 45px;
+        }
+        .circle{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            border:1px solid #0bb6d0;
+            border-radius:50%;
+            border-color:#0dcaf0;
+        }
+        .plus {
+            height:35px;
+            width:35px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            border: 1px solid #0bb6d0;
+            background-color:white;
+            border-radius:5px;
+        }
+        .blacktext {
+            color: black!important;
+        }
+        .accordian-button{
+            background-color:#80fff3!important;
+        }
+            .accordian-button:focus {
+                background-color:#445b58!important;
+            }
+
+            .shortnav {
+                height: 36px;
+                width: 36px;
+                border: 1px solid #0bb6d0 !important;
+                color: #0bb6d0 !important;
+                background-color: white;
+            }
+
+        .horizontal-line {
+            display: none;
+        }
+
+        .togglelogout {
+            display: none;
+        }
+        /*.navbarToggler {
+        display:block;
+        height:25px;
+        width:25px;
+        padding: 0.25rem 0.75rem;
+        font-size: 1.25rem;
+        line-height: 1;
+        background-color: transparent;
+        border: 1px solid aqua;
+        border-radius: 0.25rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }*/
+        .navbarToggler {
+            background-color: transparent;
+            height: 36px;
+            width: 36px;
+            color: #0bb6d0;
+            border: 1px solid #0bb6d0;
+            border-radius: 7px;
+            padding: 6px;
+            margin-left: 20px;
+            margin-right: 6px;
+            display: block;
+        }
+    }

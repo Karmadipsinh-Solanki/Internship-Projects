@@ -1,9 +1,14 @@
-﻿@model HalloDoc.Models.RequestViewModel;
+﻿@model HalloDoc.Models.RequestViewModelConcierge;
 @{
     ViewData["Title"] = "Concierge-Request";
 }
 @section Styles {
     <link href="~/css/createRequest.css" rel="stylesheet" type="text/css" />
+}
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
 }
 <div onload="myFunction()">
     <!-- Modal -->
@@ -59,19 +64,25 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
                         <input type="tel" class="form-control phone" id="floatingInput" asp-for="CPhoneNumber">
                     </div>
                     <span asp-validation-for="CPhoneNumber" class="text-danger"></span>
-                    <div class="col-md-6 mb-3">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
                         <input type="email" class="form-control uremail" id="inputEmail4" placeholder="Your Email" asp-for="CEmail">
+                            <label for="floatingInput">Your Email</label>
                     </div>
                     <span asp-validation-for="CEmail" class="text-danger"></span>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="mb-3">
+                        <div class="form-floating mb-3">
                             <input type="name" class="form-control hotelname" placeholder="Hotel/Property Name" asp-for="CHotel">
+                            <label for="floatingInput">Hotel/Property Name</label>
                         </div>
                         <span asp-validation-for="CHotel" class="text-danger"></span>
                     </div>

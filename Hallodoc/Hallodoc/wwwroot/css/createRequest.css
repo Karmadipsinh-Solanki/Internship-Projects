@@ -48,6 +48,19 @@
     align-items: center;
 }
 
+.form-control {
+    padding: 4px 8px !important;
+    border-radius: 8px !important; /* Sadly outline does not round! therefore...*/
+}
+
+    .form-control:focus {
+        outline: none !important; /* Remove default outline and use border or box-shadow */
+        box-shadow: 0 0 0 1px #0dcaf0 !important; /* Full freedom. (works also with border-radius) */
+    }
+
+.floatingInput:focus {
+    color: #0dcaf0 !important;
+}
 .exclamation {
     display: flex;
     width: 70px;
@@ -80,18 +93,17 @@
 /* .content{
     height: 100vh;
 } */
-.floating-input {
+/*.floating-input {
     color: rgb(205, 46, 46) !important;
-}
+}*/
 
 .text-area {
-    border-color: #0dcaf0 !important;
     height: 140px !important;
 }
 
-.color {
+/*.color {
     color: #0dcaf0 !important;
-}
+}*/
 
 .upload {
     display: flex;
@@ -102,6 +114,8 @@
 }
 
 .inputUpload {
+    border:none;
+    border-radius:5px;
     flex-basis: 85%;
     background-color: #f0f0f0;
     padding: 10px;
@@ -110,9 +124,11 @@
 }
 
 .uploadButton {
+    border: none;
+    border-radius: 5px;
     flex-basis: 15%;
     /*background-color: #0dcaf0;*/
-    background-color: red;
+    background-color: #0dcaf0;
     padding: 10px;
     /*border-radius: 5px;*/
     height: 50px;

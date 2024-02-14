@@ -1,0 +1,162 @@
+﻿@model DashboardViewModel;
+@using static HalloDoc.EnumStatus;
+@{
+    ViewData["Title"] = "Patient-Dashboard";
+}
+@section Styles {
+    <link href="~/css/patientDashboard.css" rel="stylesheet" type="text/css" />
+}
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+<div>
+    <partial name="header" />
+
+    <hr class="mb-0 mt-0 hidden-sm horizontal-line">
+
+    <partial name="navbar"/>
+
+
+
+    <div class="pt-5 ps-4 pe-4 bigdiv">
+        <span class="h3 mb-3">Medical History</span>
+        <div class="history shadow mt-3 ">
+            <div class="createNewrequest d-flex justify-content-end align-items-center pe-4 pt-3 pb-3">
+                <!-- Button trigger modal -->
+                <button class="plus d-sm-block d-md-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0dcaf0" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                    </svg>
+                </button>
+
+                <button type="button" class="btn btn-outline-primary d-none d-md-block" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                    Create New Request
+                </button>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade shadow" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Create New Request</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <span>Here, I want to create new request for...</span>
+                            <div class="d-flex justify-content-center  align-items-center mt-3">
+                                <button class="btn btn-primary me-3">
+                                    <span>Me</span>
+                                </button>
+                                <button class="btn btn-outline-primary">
+                                    <span>Some One Else</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary"><span>Continue</span></button>
+                            <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"><span>Cancel</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="accordion container-fluid d-sm-block d-md-none" id="accordionExample">
+                <div class="accordion-item">
+                    @foreach (var item in Model.requests)
+                    {
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <div class="me-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0dcaf0" class="bi bi-clock" viewBox="0 0 16 16">
+                                        <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />
+                                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0" />
+                                    </svg>
+                                </div>
+                                <span class="blacktext"><strong>Created Date: </strong>@item.CreatedDate.ToString("MMMM dd,yyyy")</span>
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="mb-2">
+                                    <div class="d-inline circle">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0bb6d0" class="bi bi-person" viewBox="0 0 16 16">
+                                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                                        </svg>
+                                    </div>
+                                    <strong>Provider:</strong><span class="ms-2">
+                                        @if (item.Name != null)
+                                        {
+                                            @item.Name
+                                        }
+                                        else
+                                        {
+                                            <text>N/A</text>
+                                        }
+                                    </span>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-inline circle">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0bb6d0" class="bi bi-check" viewBox="0 0 16 16">
+                                            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
+                                        </svg>
+                                    </div>
+                                    <strong>CurrentStatus:</strong><span>@Enum.GetName(typeof(Status), @item.Status)</span>
+                                </div>
+                                <div>
+                                    @if (item.Count > 0)
+                                    {
+                                        <a asp-controller="PatientDashboard" asp-action="ViewDoc" style="width:100px!important; border:1px solid #00ccff;padding:6px;margin:auto;color:#00ccff;border-radius:5px;"><span>(@item.Count) Document</span></a>
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+
+            </div>
+
+            <table class="table table-responsive d-none d-md-block">
+                <thead style="width:100%">
+                    <tr class="table-light htable" style=" background-color: #ededed !important;" >
+                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;">Created Date <strong> &darr; </strong></th>
+                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 70%;">Current State</th>
+                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;">Document</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.requests)
+                    {
+                        <tr>
+                            <td style="width=40px;">@item.CreatedDate.ToString("MMMM dd,yyyy")</td>
+                            <td>
+                                @Enum.GetName(typeof(Status), @item.Status)
+                            </td>
+                            @if (item.Count > 0)
+                            {
+                                <td>
+                                    <div class="docbutton" style="border:1px solid #00ccff;padding:6px;margin:auto;border-radius:5px;">
+                                        <a asp-controller="PatientDashboard" asp-action="ViewDoc">
+                                            <span style="color:#00ccff;text-decoration:none;">
+                                                (@item.Count) Documents
+                                            </span>
+                                        </a>
+                                    </div>
+                                </td>
+                                
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>      

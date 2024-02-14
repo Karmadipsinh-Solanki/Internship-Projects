@@ -1,9 +1,14 @@
-﻿@model HalloDoc.Models.RequestViewModel;
+﻿@model RequestViewModelPatient;
 @{
     ViewData["Title"] = "Patient-Request";
 }
 @section Styles {
     <link href="~/css/createRequest.css" rel="stylesheet" type="text/css" />
+}
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
 }
 <div>
     <!-- Modal -->
@@ -38,7 +43,7 @@
             </a>
         </div>
         <div class="content shadow ">
-        <form asp-controller="PatientRequest" asp-action="createPatientRequest" method="post" class="h-100  ps-3 pt-3 pe-3 g-3">
+            <form asp-controller="PatientRequest" asp-action="createPatientRequest" method="post" class="h-100  ps-3 pt-3 pe-3 g-3">
                 <header class="h5">Patient Information</header>
                 <div class="form-floating mb-3">
                     <!-- <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"> -->
@@ -50,15 +55,15 @@
                         <div class="form-floating mb-3">
                             <input type="name" class="form-control" id="floatingInput" placeholder="First Name" asp-for="FirstName">
                             <label class="floatingInput">First Name</label>
-                        </div>
                     <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="name" class="form-control" id="floatingInput" placeholder="Last Name" asp-for="LastName">
                             <label for="floatingInput">Last Name</label>
-                        </div>
                     <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -66,9 +71,9 @@
                         <div class="form-floating mb-3">
                             <input type="date" class="form-control" id="floatingInput" asp-for="DOB">
                             <label for="floatingInput">Date of Birth</label>
+                    <span asp-validation-for="DOB" class="text-danger"></span>
                         </div>
                     </div>
-                    <span asp-validation-for="DOB" class="text-danger"></span>
                 </div>
                 <header class="h5">Patient Contact Information</header>
                 <div class="row">
@@ -76,15 +81,15 @@
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control" id="inputEmail4" placeholder="Email" asp-for="Email">
                             <label for="floatingInput">Email</label>
-                        </div>
                         <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="number" class="form-control" id="floatingInput" placeholder="(201)555-0123" asp-for="PhoneNumber">
                             <label for="floatingInput">Phone Number</label>
-                        </div>
                         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
                     </div>
                 </div>
                 @* <div class="row">
@@ -109,15 +114,15 @@
                         <div class="form-floating mb-3">
                             <input type="name" class="form-control" id="floatingInput" placeholder="Street" asp-for="Street">
                             <label for="floatingInput">Street</label>
-                        </div>
                         <span asp-validation-for="Street" class="text-danger"></span>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="name" class="form-control" id="floatingInput" placeholder="City" asp-for="City">
                             <label for="floatingInput">City</label>
-                        </div>
                             <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -125,15 +130,15 @@
                         <div class="form-floating mb-3">
                             <input type="name" class="form-control" id="floatingInput" placeholder="State" asp-for="State">
                             <label for="floatingInput">State</label>
-                        </div>
                         <span asp-validation-for="State" class="text-danger"></span>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="name" class="form-control" id="floatingInput" placeholder="Zip Code" asp-for="ZipCode">
                             <label for="floatingInput">Zip Code</label>
-                        </div>
                         <span asp-validation-for="ZipCode" class="text-danger"></span>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -156,7 +161,6 @@
                 <div class="submit pb-3">
                     <button type="submit" class="btn btn-outline-pri">Submit</button>&nbsp&nbsp&nbsp
                     <button type="button" class="btn btn-outline-pri">Cancel</button>
-
                 </div>
             </form>
         </div>
@@ -166,4 +170,33 @@
         <span>|</span>
         <span class="h5">Privacy Policy</span>
     </footer>
+
+    <script>
+        var modal = document.getElementById("myModal");
+
+        var btn = document.getElementById("submit-button");
+
+        var span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function () {
+            modal.style.display = "flex";
+        }
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        const phoneInputField = document.getElementsByClassName("phone");
+        for (let i = 0; i < phoneInputField.length; ++i) {
+            const phoneInput = window.intlTelInput(phoneInputField[i], {
+                utilsScript:
+                    "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+            });
+        }
+
+
+    </script>   
 </div>

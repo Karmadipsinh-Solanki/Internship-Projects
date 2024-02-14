@@ -32,7 +32,12 @@ namespace Hallodoc.Controllers
                 {
                     if (model.PasswordHash == user.PasswordHash)
                     {
-                        return RedirectToAction("patientDashboard");
+                        var user2 = _db.Users.Where(x => x.Email == model.Email);
+                        User users = user2.ToList().First();
+                        HttpContext.Session.SetInt32("id", users.UserId);
+                        HttpContext.Session.SetString("Name", users.FirstName);
+                        HttpContext.Session.SetString("IsLoggedIn", "true");
+                        return RedirectToAction("patientDashboard", "PatientDashboard");
                     }
                     else
                     {
@@ -105,16 +110,7 @@ namespace Hallodoc.Controllers
         {
             return View();
         }
-        public IActionResult patientDashboard()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        
     }
 
 }

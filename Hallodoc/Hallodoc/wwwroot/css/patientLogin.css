@@ -2,7 +2,7 @@
     height: 100%;
 }
 
-.parent-div{
+.parent-div {
     height: 100%;
 }
 
@@ -23,13 +23,25 @@
     margin: auto;
     display: flex;
 }
-.outerform{
-    z-index:2;
+
+.outerform {
+    z-index: 2;
 }
+
 .patientsite {
     width: 220px !important;
     height: 170px;
 }
+
+.form-control {
+    padding: 4px 8px;
+    border-radius: 8px; /* Sadly outline does not round! therefore...*/
+}
+
+    .form-control:focus {
+        outline: none; /* Remove default outline and use border or box-shadow */
+        box-shadow: 0 0 0 2px #0dcaf0; /* Full freedom. (works also with border-radius) */
+    }
 
 .profile {
     position: absolute;
@@ -53,6 +65,7 @@
     color: #fff;
     text-decoration: none;
 }
+
 .back {
     color: #00aee3;
 }

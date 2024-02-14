@@ -1,0 +1,39 @@
+﻿.patientsite {
+    width: 231px !important;
+    height: 105px;
+}
+.upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    --bs-btn-active-bg: #00576f !important;
+    --bs-btn-active-border-color: #0686a3 !important;
+}
+
+.inputUpload {
+    border: none;
+    border-radius: 5px;
+    flex-basis: 85%;
+    background-color: #f0f0f0;
+    padding: 10px;
+    height: 50px;
+    /* width: 100%; */
+}
+
+
+.uploadButton {
+    border: none;
+    border-radius: 5px;
+    flex-basis: 15%;
+    /*background-color: #0dcaf0;*/
+    background-color: #0dcaf0;
+    padding: 10px;
+    /*border-radius: 5px;*/
+    height: 50px;
+    /*border: 1px solid #0dcaf0;*/
+}
+.square{
+    background-color:white;
+    height:10px;
+    width:10px;
+}
