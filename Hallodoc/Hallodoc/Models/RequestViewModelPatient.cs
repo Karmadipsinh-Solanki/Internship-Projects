@@ -58,6 +58,12 @@ namespace HalloDoc.Models
         [Required(ErrorMessage = "Email is required")]
         public required string FEmail { get; set; }
 
+        [Required(ErrorMessage = "This is required")]
+        public required string PasswordHash { get; set; }
+
+        [Required(ErrorMessage = "This phield is required")]
+        public required string RequirePasswordHash { get; set; }
+
         [Required(ErrorMessage = "Relation name is required")]
         public required string Relation { get; set; }
 

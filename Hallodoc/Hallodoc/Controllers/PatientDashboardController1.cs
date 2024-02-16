@@ -34,17 +34,41 @@ namespace Hallodoc.Controllers
         public IActionResult patientDashboard()
         {
             var id = HttpContext.Session.GetInt32("id");
-            var data = _db.TableContents.FromSqlRaw($"SELECT * FROM PatientDashboardData({id})").ToList();
             var curr_user = _db.Users.FirstOrDefault(u => u.UserId == id);
+
+            var data = _db.TableContents.FromSqlRaw($"SELECT * FROM PatientDashboardData({id})").ToList();
             DashboardViewModel dashboardViewModel = new DashboardViewModel
             {
                 requests = data,
                 name = string.Concat(curr_user.FirstName, ' ', curr_user.LastName)
             };
+
+
             //return View();
             return View(dashboardViewModel);
         }
-        public IActionResult ViewDoc()
+        public IActionResult ViewDocument(int requestid)
+        {
+            var user_id = HttpContext.Session.GetInt32("id");
+            var request = _db.Requests.Include(r => r.RequestClient).FirstOrDefault(u => u.RequestId == requestid);
+            var documents = _db.RequestWiseFiles.Include(u => u.Admin).Include(u => u.Physician).Where(u => u.RequestId == requestid).ToList();
+            var user = _db.Users.FirstOrDefault(u => u.UserId == user_id);
+            ViewDocumentModel viewDocumentModal = new ViewDocumentModel()
+            {
+                patient_name = string.Concat(request.RequestClient.FirstName, ' ', request.RequestClient.LastName),
+                name = string.Concat(user.FirstName, ' ', user.LastName),
+                confirmation_number = request.ConfirmationNumber,
+                requestWiseFiles = documents,
+                uploader_name = string.Concat(request.FirstName, ' ', request.LastName),
+                RequestId = requestid,
+            };
+            return View(viewDocumentModal);
+        }
+        public IActionResult meModal()
+        {
+            return View();
+        }
+        public IActionResult someoneModal()
         {
             return View();
         }

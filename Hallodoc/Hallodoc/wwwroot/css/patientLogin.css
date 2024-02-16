@@ -69,3 +69,12 @@
 .back {
     color: #00aee3;
 }
+
+.nightmode {
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #0dcaf0;
+    padding: 5px;
+    height: 45px;
+    width: 50px;
+}

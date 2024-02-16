@@ -102,8 +102,26 @@ namespace Hallodoc.Controllers
         //    }
 
         //}
-        public IActionResult resetPassword()
+        public IActionResult resetPassword(ResetPasswordViewModel model)
         {
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (user != null)
+        //        {
+        //            if (model.Username == user.Username)
+        //            {
+        //                var user2 = _db.Users.Where(x => x.Username == model.Username);
+        //                return RedirectToAction("patientDashboard", "PatientDashboard");
+        //            }
+        //            else
+        //            {
+        //                ModelState.AddModelError("PasswordHash", "Incorrect Username");
+        //            }
+        //        }
+                
+        //    }
+
+            // If we reach here, something went wrong, return the same view with validation errors
             return View();
         }
         public IActionResult submitrequest()

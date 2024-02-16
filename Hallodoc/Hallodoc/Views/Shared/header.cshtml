@@ -9,25 +9,34 @@
             <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
         </svg>
         </button>
-        <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+        <div class="offcanvas offcanvas-start w-50" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Offcanvas with body scrolling</h5>
+                <h5 class="offcanvas-title" id="offcanvasScrollingLabel"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-            <div class="offcanvas-body">
+            <div class="offcanvas-body ">
                 <ul class="navbar-nav nav-underline me-auto mb-2 mb-lg-0" id="mylinks">
                     <li class="nav-item">
                         <a asp-controller="Login" asp-action="patientDashboard" class="nav-link navdash" aria-current="page">
-                            <strong>Dashboard</strong>
+                            <div>
+                                <strong class="h4" style="color:#00ccff">Dashboard</strong>
+                                
+                            </div>
                         </a>
                     </li>
+                    <hr />
                     <li class="nav-item">
-                        <a class="nav-link navdash" asp-controller="Login" asp-action="patientsite"><strong>Profile</strong></a>
+                        <a class="nav-link navdash" asp-controller="Login" asp-action="patientsite">
+                            <div>
+                                <strong class="h4" style="color:#00ccff">Profile</strong>
+                            </div>
+                        </a>
                     </li>
+                    <hr />
                 </ul>
             </div>
         </div>
-        <img src = "~/SRS Screen Shorts/Fig56. Patient site 1.png" class="patientsite">
+        <img src="~/SRS Screen Shorts/Fig56. Patient site 1.png" class="patientsite" style="height: 65px;margin-left: 30px;width: 117px!important;">
         <div class="nav d-flex">
             <button class="shortnav d-block d-md-none">
             <svg xmlns = "http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
@@ -41,8 +50,10 @@
             <!-- d-flex justify-content-evenly align-items-center -->
             <div class="hideinmob d-none d-md-block">
                 <span class="me-3" style="margin-right: 10px;margin-left: 15px;">Welcome </span>
-                <button type = "button" class="btn btn-outline-primary me-3">
-                    <a asp-controller="Login" asp-action="patientLogin">Logout</a>
+                <button type="button" class="me-3" style="border:1px solid #00ccff;border-radius:5px;background-color:white;height: 36px;width: 80px;">
+                    <a asp-controller="Login" asp-action="patientLogin" style="text-decoration:none;">
+                        <span style="color:#00ccff;">Logout</span>
+                    </a>
                 </button>
             </div>
             <div class="nightmode ms-2">

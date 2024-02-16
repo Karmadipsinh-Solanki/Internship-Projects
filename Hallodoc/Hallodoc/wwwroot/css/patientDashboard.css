@@ -4,14 +4,9 @@
     top: 20px;
     right: 0;
 } */
-.patientsite {
-    height: 65px;
-    margin-left: 30px;
-}
-
-.navBar {
+/*.navBar {
     background-color: #fff !important;
-}
+}*/
 /*
 .nav {
     display: flex;
@@ -70,6 +65,12 @@
     background-color: #fff !important;
 }
 
+/*.table{
+    display:block;
+}*/
+
+
+
 /* .modal {
     display: none;
     position: fixed;
@@ -95,7 +96,6 @@
 } */
 .modal-header {
     background-color: #0dcaf0;
-    /* background-color: #0dcaf0; */
 }
 
 .modal-title {
@@ -114,17 +114,17 @@
     align-items: center;
 } */
 
-thead{
+/*thead{
     width:100%;
     display:inline-block;
-}
-tr {
+}*/
+/*tr {
     width: 100%;
     display:inline-block;
 }
 th {
     width:33.33%;
-}
+}*/
 .history {
     background-color: #fff;
     border-radius: 10px;
@@ -136,6 +136,9 @@ th {
     }
 }
     @media only screen and (max-width:530px) {
+        /*.table{
+            display:none;
+        }*/
         .patientsite {
             height: 45px;
         }

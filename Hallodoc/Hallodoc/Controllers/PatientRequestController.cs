@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using System.Diagnostics;
+using System.Globalization;
 //using Region = HalloDoc.Models.Region;
 
 //using HalloDoc.Data;
@@ -86,8 +87,7 @@ namespace Hallodoc.Controllers
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\uploads", model.File.FileName);
                 using (var stream = System.IO.File.Create(filePath))
                 {
-                    await model.File.CopyToAsync(stream)
-;
+                    await model.File.CopyToAsync(stream);
                 }
             }
 
@@ -107,7 +107,7 @@ namespace Hallodoc.Controllers
                     aspNetUser.Email = model.Email;
                     aspNetUser.PhoneNumber = model.PhoneNumber;
                     aspNetUser.CreatedDate = DateTime.Now;
-                    aspNetUser.PasswordHash = model.Password;
+                    aspNetUser.PasswordHash = model.PasswordHash;
                     //aspNetUser.UserName = model.FirstName + " " + model.LastName;
                     _db.AspNetUsers.Add(aspNetUser);
                     await _db.SaveChangesAsync();
@@ -126,6 +126,7 @@ namespace Hallodoc.Controllers
                     user.IntYear = model.DOB.Year;
                     user.CreatedBy = aspNetUser.Id;
                     user.CreatedDate = DateTime.Now;
+                //user.PasswordHash = 
                     _db.Users.Add(user);
                     await _db.SaveChangesAsync();
                 }
@@ -189,7 +190,7 @@ namespace Hallodoc.Controllers
                 _db.RequestStatusLogs.Add(requestStatusLog);
                 await _db.SaveChangesAsync();
             //}
-            return RedirectToAction("patientDashboard", "Login");
+            return RedirectToAction("patientLogin", "Login");
         }
 
         [HttpPost]
@@ -294,7 +295,7 @@ namespace Hallodoc.Controllers
                 _db.RequestStatusLogs.Add(requestStatusLog);
                 await _db.SaveChangesAsync();
             }
-            return RedirectToAction("patientDashboard", "Login");
+            return RedirectToAction("patientLogin", "Login");
         }
 
         [HttpPost]
@@ -410,7 +411,7 @@ namespace Hallodoc.Controllers
             _db.RequestConcierges.Add(requestConcierge);
             await _db.SaveChangesAsync();
 
-            return RedirectToAction("patientDashboard", "Login");
+            return RedirectToAction("patientLogin", "Login");
         }
 
         [HttpPost]
@@ -517,7 +518,32 @@ namespace Hallodoc.Controllers
             //business.Name = model.BFirstName + " " + model.BLastName;
 
 
-            return RedirectToAction("patientDashboard", "Login");
+            return RedirectToAction("patientLogin", "Login");
+        }
+        public IActionResult PatientCheck(string email)
+        {
+            if (email == null)
+            {
+                return View();
+            }
+            var existingUser = _db.AspNetUsers.SingleOrDefault(u => u.Email == email);
+            bool isValidEmail;
+            if (existingUser == null)
+            {
+                isValidEmail = false;
+            }
+            else
+            {
+                isValidEmail = true;
+            }
+            return Json(new { isValid = isValidEmail });
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
+

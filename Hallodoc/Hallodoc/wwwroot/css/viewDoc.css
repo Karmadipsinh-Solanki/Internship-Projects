@@ -2,6 +2,9 @@
     width: 231px !important;
     height: 105px;
 }
+.textdeco{
+    text-decoration:none;
+}
 .upload {
     display: flex;
     justify-content: center;
@@ -32,8 +35,55 @@
     height: 50px;
     /*border: 1px solid #0dcaf0;*/
 }
-.square{
-    background-color:white;
-    height:10px;
-    width:10px;
+
+.backbutton {
+    border: 1px solid #0dcaf0;
+    background-color: white!important;
+    border-radius: 5px;
 }
+/*.textback {
+    color: #0dcaf0!important;
+}*/
+
+/*map css*/
+.square {
+    background-color: white;
+    height: 10px;
+    width: 10px;
+}
+
+.file-icon {
+    position: relative;
+    padding-left: 24px;
+}
+
+    .file-icon:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 16px;
+        width: 16px;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+    }
+
+    .file-icon.pdf:before {
+        background-image: url("~/SRS Screen Shorts/PDFIcon.png");
+    }
+
+    .file-icon.doc:before {
+        background-image: url("~/SRS Screen Shorts/docimg.png");
+    }
+
+    .file-icon.jpg:before {
+        background-image: url("~/SRS Screen Shorts/jpgimg.png");
+    }
+
+.filename {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: -24px;
+}
+/*map css end*/

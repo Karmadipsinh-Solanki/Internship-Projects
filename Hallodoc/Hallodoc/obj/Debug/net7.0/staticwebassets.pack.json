@@ -597,6 +597,22 @@
       "PackagePath": "staticwebassets\\SRS Screen Shorts\\cloud-upload-icon.svg"
     },
     {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\docimg.png",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\docimg.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\jpgimg.png",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\jpgimg.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\pngimg",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\pptimg.png",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\pptimg.png"
+    },
+    {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\profile.png",
       "PackagePath": "staticwebassets\\SRS Screen Shorts\\profile.png"
     },
@@ -875,6 +891,54 @@
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\KD.txt",
+      "PackagePath": "staticwebassets\\uploads\\KD.txt"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (10).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (10).png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (11).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (11).png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (15).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (15).png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (16).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (16).png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (17).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (17).png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (21).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (21).png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (6).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (6).png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (9).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (9).png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Today's task.txt",
+      "PackagePath": "staticwebassets\\uploads\\Today's task.txt"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\remaining work.txt",
+      "PackagePath": "staticwebassets\\uploads\\remaining work.txt"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\vs error exception.png",
+      "PackagePath": "staticwebassets\\uploads\\vs error exception.png"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.Hallodoc.Microsoft.AspNetCore.StaticWebAssets.props",
