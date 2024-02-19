@@ -1,6 +1,8 @@
-﻿@page
+﻿@using Hallodoc.Models.ViewModels
+
 @* @model Hallodoc.Views.Shared.headerModel *@
-@model DashboardViewModel
+@model partialViewModel
+
 
     <div class="shadow navBar">
         <navbar class="d-flex justify-content-between align-items-center">
@@ -49,7 +51,7 @@
             </button>
             <!-- d-flex justify-content-evenly align-items-center -->
             <div class="hideinmob d-none d-md-block">
-                <span class="me-3" style="margin-right: 10px;margin-left: 15px;">Welcome </span>
+                <span class="me-3" style="margin-right: 10px;margin-left: 15px;">Welcome @* Karmadipsinh Solanki *@@Model.patient_name</span>
                 <button type="button" class="me-3" style="border:1px solid #00ccff;border-radius:5px;background-color:white;height: 36px;width: 80px;">
                     <a asp-controller="Login" asp-action="patientLogin" style="text-decoration:none;">
                         <span style="color:#00ccff;">Logout</span>

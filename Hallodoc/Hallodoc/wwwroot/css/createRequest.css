@@ -53,7 +53,9 @@
 }
 
 .form-control {
-    padding: 4px 8px !important;
+    height: 70px;
+    padding: 12px !important;
+    /*padding: 4px 8px !important;*/
     border-radius: 8px !important; /* Sadly outline does not round! therefore...*/
 }
 

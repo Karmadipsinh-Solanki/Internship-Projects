@@ -1,5 +1,6 @@
 ﻿@model DashboardViewModel;
 @using static HalloDoc.EnumStatus;
+@using Hallodoc.Models.ViewModels;
 @{
     ViewData["Title"] = "Patient-Dashboard";
 }
@@ -12,11 +13,11 @@
     }
 }
 <div>
-    <partial name="header" />
+    <partial name="header" model="@Model.partialViewModel" />
 
     <hr class="mb-0 mt-0 hidden-sm horizontal-line">
 
-    <partial name="navbar"/>
+    <partial name="navbar" />
 
 
 
@@ -48,12 +49,12 @@
                         <div class="modal-body">
                             <span>Here, I want to create new request for...</span>
                             <div class="d-flex justify-content-center  align-items-center mt-3">
-                                <button class="btn btn-primary me-3" style="background-color:#01bce9;border:1px solid #01bce9;">
+                                <button class="btn btn-primary me-3 active" id="btnme" style="border:1px solid #01bce9;">
                                     <a asp-controller="PatientDashboard" asp-action="meModal" style="text-decoration:none;">
                                         <span style="color:white;">Me</span>
                                     </a>
                                 </button>
-                                <button class="btn btn-outline-primary" style="border:1px solid #01bce9;">
+                                <button class="btn btn-outline-primary" id="btnsomeone" style="border:1px solid #01bce9;">
                                     <a asp-controller="PatientDashboard" asp-action="someoneModal" style="text-decoration:none;">
                                     <span style="color:#01bce9;">Some One Else</span>
                                     </a>
@@ -114,7 +115,7 @@
                                 <div class="docbutton" style="border:1px solid #00ccff;padding:6px;margin:auto;border-radius:5px;text-align:center;">
                                     @if (item.Count > 0)
                                     {
-                                        <a asp-controller="PatientDashboard" asp-action="ViewDoc" style="padding:6px;margin:auto;color:#00ccff;border-radius:5px;text-decoration:none;"><span>(@item.Count) Document</span></a>
+                                        <a asp-controller="PatientDashboard" asp-action="viewDoc" asp-route-id="@item.RequestId" style="padding:6px;margin:auto;color:#00ccff;border-radius:5px;text-decoration:none;"><span>(@item.Count) Document</span></a>
                                     }
                                 </div>
 
@@ -185,7 +186,7 @@
                             {
                                 <td>
                                         <div class="docbutton" style="border:1px solid #00ccff;padding:6px;margin:auto;border-radius:5px;text-align:center;">
-                                        <a asp-controller="PatientDashboard" asp-action="ViewDoc" style="text-decoration:none;">
+                                            <a asp-controller="PatientDashboard" asp-route-id="@item.RequestId" asp-action="ViewDoc" style="text-decoration:none;">
                                             <span style="color:#00ccff;">
                                                 (@item.Count) Documents
                                             </span>
@@ -206,4 +207,16 @@
         </div>
 
     </div>
+    <script>
+        $(document).ready(function () {
+            // Add click event to all buttons
+            $('.btn').click(function () {
+                // Remove active class from all buttons
+                $('.btn').removeClass('active');
+
+                // Add active class to clicked button
+                $(this).addClass('active');
+            });
+        });
+    </script>
 </div>      

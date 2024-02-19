@@ -1,6 +1,6 @@
-﻿@model MeViewModel;
+﻿@model EditProfileViewModel;
 @{
-    ViewData["Title"] = "My Request";
+    ViewData["Title"] = "Profile";
 }
 @section Styles {
     <link href="~/css/createRequest.css" rel="stylesheet" type="text/css" />
@@ -11,11 +11,13 @@
     }
 }
 <div>
+    <partial name="header" model="@Model.partialViewModel" />
+    <partial name="navbar" />
     <div class="container">
 
         <div>
             <div class="d-flex justify-content-between align-items-center p-3">
-                <h3>Submit Information</h3>
+                <h3>User Profile</h3>
                 <div class="d-flex justify-content-center align-items-center mb-3 mt-3" style="background-color:white;width: 90px;height: 45px;border:1px solid #0dcaf0;border-radius:5px;">
                     <a class="textdeco" asp-controller="PatientDashboard" asp-action="patientDashboard" style="text-decoration:none;">
                         <span class="textback" style="color:#0dcaf0;">&lt Back</span>
@@ -24,127 +26,124 @@
             </div>
         </div>
         <div class="content shadow ">
-            <form asp-controller="PatientDashboard" asp-action="MeModalSubmit" enctype="multipart/form-data" method="post" class="h-100  ps-3 pt-3 pe-3 g-3">
-                <header class="h5">Patient Information</header>
-                <div class="form-floating mb-3 p-0">
-                    <!-- <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"> -->
-                    <textarea class="text-area form-control" id="exampleFormControlTextarea1" rows="7" asp-for="Symptoms"></textarea>
-                    <label class="color" for="exampleFormControlTextarea1">Enter Brief Details Of Symptoms(Optional)</label>
-                </div>
+            <form asp-controller="PatientRequest" asp-action="createPatientRequest" enctype="multipart/form-data" method="post" class="h-100  ps-3 pt-3 pe-3 g-3">
+                <header class="h5">General Information</header>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput1"  placeholder="First Name" asp-for="FirstName" readonly>
-                            <label class="floatingInput1">First Name</label>
+                            <input type="name" class="form-control" id="floatingInput1" placeholder="First Name" asp-for="FirstName">
+                            <label for="floatingInput1">First Name</label>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput2" placeholder="Last Name" asp-for="LastName" readonly>
+                            <input type="name" class="form-control" id="floatingInput2" placeholder="Last Name" asp-for="LastName">
                             <label for="floatingInput2">Last Name</label>
+                            <span asp-validation-for="LastName" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="floatingInput3"  asp-for="DOB">
+                            <input type="date" class="form-control" id="floatingInput3" asp-for="DOB">
                             <label for="floatingInput3">Date of Birth</label>
+                            <span asp-validation-for="DOB" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
-                <header class="h5">Patient Contact Information</header>
+                <header class="h5">Contact Information</header>
                 <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="floatingSelect" >@* asp-for="Type" *@
+                                <option value="">Mobile</option>
+                                <option value="Email">Email</option>
+                                <option value="SMS">SMS</option>
+                            </select>
+                            <label for="floatingSelect">Type</label>
+                            @* <span asp-validation-for="Type" class="text-danger"></span> *@
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3">
+                            <input type="tel" class="phone form-control" id="floatingInput5" placeholder="(201)555-0123" asp-for="PhoneNumber" >
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
                     <div class="col-md-6 ">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="inputEmail4"  placeholder="Email" asp-for="Email" readonly>
-                            <label for="inputEmail4">Email</label>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="floatingInput4" placeholder="(201)555-0123" asp-for="PhoneNumber" readonly>
-                            <label for="floatingInput4">Phone Number</label>
-                        </div>
-                    </div>
-                </div>
-                <header class="h5">Patient Location</header>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="street" placeholder="Street"  asp-for="Street" >
-                            <label for="floatingInput5">Street</label>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="city"  placeholder="City" asp-for="City" >
-                            <label for="floatingInput6">City</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="state"  placeholder="State" asp-for="State">
-                            <label for="floatingInput7">State</label>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="zipcode" placeholder="Zip Code" asp-for="ZipCode" >
-                            <label for="floatingInput8">Zip Code</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput9"
-                                   placeholder="Room#/Suite(Optional)" asp-for="Room">
-                            <label for="floatingInput9">Room#/ Suite(Optional)</label>
+                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email" asp-for="Email">
+                            <label for="floatingInput4">Email</label>
+                            <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                     </div>
 
+                    <div class="hidden" id="pass">
+                        <div class="col-md-6">
+                            <div class="password form-floating mb-3">
+                                <input type="password" class="form-control" id="floatingpassword1" placeholder="Password" asp-for="PasswordHash">
+                                <label for="floatingPassword1">Password</label>
+                                @* <div class="eye">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" fill="currentColor" class="bi bi-eye"
+                                viewBox="0 0 16 16">
+                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
+                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
+                                </svg>
+                                </div> *@
+                            </div>
+                            <span asp-validation-for="PasswordHash" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <header class="h5">Location Information</header>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="name" class="form-control" id="floatingInput6" placeholder="Street" asp-for="Street">
+                            <label for="floatingInput6">Street</label>
+                            <span asp-validation-for="Street" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="name" class="form-control" id="floatingInput7" placeholder="City" asp-for="City">
+                            <label for="floatingInput7">City</label>
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="name" class="form-control" id="floatingInput8" placeholder="State" asp-for="State">
+                            <label for="floatingInput8">State</label>
+                            <span asp-validation-for="State" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-floating mb-3">
+                            <input type="name" class="form-control" id="floatingInput9" placeholder="Zip Code" asp-for="ZipCode">
+                            <label for="floatingInput9">Zip Code</label>
+                            <span asp-validation-for="ZipCode" class="text-danger"></span>
+                        </div>
+                    </div>
                     <div class="col-md-1" >
-                        <div style="border:1px solid #0bb6d0;height:58px;width:110px;border-radius:5px;" class="map form-control d-flex justify-content-center align-items-center">
+                        <div style="border:1px solid #0bb6d0;height:58px;border-radius:5px;" class="map form-control d-flex justify-content-center align-items-center">
                             <a id="map-button" style="text-decoration:none;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0bb6d0" class="bi bi-geo-alt" viewBox="0 0 16 16">
-                                <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
-                                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                            </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0bb6d0" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                </svg>
                             <span style="color:#0bb6d0">Map</span>
-                        </a>
+                            </a>
                         </div>
                     </div>
-                </div>
-                <div id="map">
-                <div id="myModal" class="modal">
-                    <div class="modal-content">
-                        <h5 style="text-align: center;">Your Location</h5>
-                        <div class="gmap_canvas" style="height:100%;width:100%">
-                            <iframe id="gmap_canvas" style="height:95%;width:100%;border-radius:15px;" src="" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
-                            </iframe>
-                        </div>
-                        <span class="close">Ok</span>
-                    </div>
-                </div>
-                </div>
-                
-                <header class="h5">Upload Photo or Document(Optional)</header>
-                <div class="upload mb-3 ">
-                    <input type="file" class="inputUpload" placeholder="Select File" asp-for="File">
-                    <button class="uploadButton" type="button" onclick="choose_file()" id="choose-file-button">
-                        <img src="~/SRS Screen Shorts/cloud-upload-icon.svg">
-                        <span class="button">Upload</span>
-                    </button>
                 </div>
                 <div class="submit pb-3">
-                    <button type="submit" class="btn btn-outline-pri" id="submit-button">
-                        Submit
-                    </button>&nbsp&nbsp&nbsp
-                    <button class="btn btn-outline-pri">Cancel</button>
-
+                    <input type="submit" class="btn btn-outline-pri" id="submit-button" />
+                    <span>Edit</span>
                 </div>
             </form>
         </div>
@@ -156,12 +155,6 @@
     </footer>
 
     <script>
-      
-
-        var btn = document.getElementById("submit-button");
-
-        var span = document.getElementsByClassName("close")[0];
-
         //for creating countrywise phone format
         const phoneInputField = document.getElementsByClassName("phone");
         for (let i = 0; i < phoneInputField.length; ++i) {
@@ -171,15 +164,6 @@
             });
         }
 
-        //to get filename which is uploaded by user
-        function choose_file() {
-            document.getElementById('file-input-button').addEventListener('change', getFileName);
-        }
-        const getFileName = (event) => {
-            const files = event.target.files;
-            const fileName = files[0].name;
-            document.getElementById('select-file-text').innerHTML = fileName;
-        }
         //to add password and confirm password fields
         $(document).ready(function () {
             $('#inputEmail4').on('blur', function () {
@@ -198,6 +182,42 @@
                 });
             });
         });
+
+        //to check pwd and confirm pwd are same or not
+        function validate() {
+            var passwordInput = document.getElementById("password");
+            var confirmPasswordInput = document.getElementById("retype_password");
+
+            if (passwordInput.value === confirmPasswordInput.value) {
+                // Passwords match
+                return true;
+            } else {
+                alert("Passwords do not match!");
+                return false;
+            }
+        }
+        var form = document.getElementById("myForm");
+        form.addEventListener("submit", function (event) {
+            if (!validate()) {
+                event.preventDefault();
+            }
+        });
+
+
+
+
+                var btn = document.getElementById("submit-button");
+
+        var span = document.getElementsByClassName("close")[0];
+
+        //for creating countrywise phone format
+        // const phoneInputField = document.getElementsByClassName("phone");
+        // for (let i = 0; i < phoneInputField.length; ++i) {
+        //     const phoneInput = window.intlTelInput(phoneInputField[i], {
+        //         utilsScript:
+        //             "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+        //     });
+        // }
 
         //map
         var modal = document.getElementById("myModal");

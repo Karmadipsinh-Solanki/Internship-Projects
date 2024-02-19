@@ -1,7 +1,7 @@
-﻿@*
+﻿@using Hallodoc.Models.ViewModels
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model DashboardViewModel
 
 <nav class="navbar navbar-expand-lg navbar-expand-md d-none d-md-block bg-body-tertiary shadow" style="background-color: white!important;">
     <div class="container-fluid">
@@ -13,7 +13,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link navdash" asp-controller="Login" asp-action="patientsite">
+                    <a class="nav-link navdash" asp-controller="PatientDashboard" asp-action="profile">
                         <strong style ="color:#00ccff">Profile</strong>
                     </a>
                 </li>

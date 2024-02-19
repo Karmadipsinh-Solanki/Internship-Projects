@@ -1,16 +1,16 @@
-﻿@model ViewDocViewModel;
+﻿@model ViewDocumentModel;
 @{
-    ViewData["Title"] = "View-Document";
+    ViewData["Title"] = "View-Doc";
 }
 @section Styles {
     <link href="~/css/viewDoc.css" rel="stylesheet" type="text/css" />
 }
 @section Scripts {
     @{
-        <partial name="_ValidationScriptsPartial" />
+                            <partial name="_ValidationScriptsPartial" />
     }
 }
-<partial name="header" />
+<partial name="header" model="@Model.partialViewModel" />
 <hr class="mb-0 mt-0 d-none d-md-block horizontal-line">
 <partial name="navbar" />
 <div class="maindiv container d-flex flex-column justify-content-center">
@@ -33,13 +33,15 @@
         <div class="mb-3">
             <span class="text-secondary">Check here for any files that you or the doctors of your subsequents requestors have attached for you to review.</span>
         </div>
+            <form asp-route-id=@Model.RequestId asp-controller="PatientDashboard" asp-action="viewDoc" method="post" enctype="multipart/form-data">
         <div class="upload mb-3">
-            <input type="file" class="inputUpload" placeholder="Select File">
-            <button class="uploadButton" type="button" onclick="choose_file()" id="choose-file-button">
+            <input type="file" class="inputUpload" placeholder="Select File" asp-for=@Model.File>
+            <button class="uploadButton" type="submit" id="choose-file-button">
                 <img src="~/SRS Screen Shorts/cloud-upload-icon.svg" style="color:#0dcaf0">
                 <span class="textback" style="color:white;">Upload</span>
             </button>
         </div>
+            </form>
 
         <div class="seconddiv d-flex justify-content-between align-items-center mb-3">
             <h5>Documents</h5>
@@ -56,7 +58,7 @@
             <table class="table">
                 <thead>
                     <tr class="table-light htable"  style="background-color: #ededed !important;">
-                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 10%;"><input type="checkbox" /></th>
+                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 10%;"><input id="checkall" onclick="oncheck()"  type="checkbox" /></th>
                         <th></th>
                         <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 25%;">Uploader</th>
                         <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 25%;">Upload Date <span class="mx-1"><strong>&uarr;</strong></span></th>
@@ -66,7 +68,7 @@
                 @foreach (var item in Model.requestWiseFiles)
                 {
                 <tr>
-                    <td><input type="checkbox" /></td>
+                    <td><input class="checkboxes" type="checkbox" /></td>
                     <td>
            
                             <div class="file-icon">
@@ -107,6 +109,48 @@
 
 
     <script>
+        function oncheck() {
+            var check = document.getElementById('checkall').checked;
+            if (check) {
+                var len = document.getElementsByClassName('checkboxes');
+                for (var i = 0; i < len.length; i++) {
+                    len[i].checked = true;
+                }
+            } else {
+                var len = document.getElementsByClassName('checkboxes');
+                for (var i = 0; i < len.length; i++) {
+                    len[i].checked = false;
+                }
+            }
+            console.log(check);
+        }
+        function downloadall() {
+            var classes = document.getElementsByClassName('checkboxes');
+
+            var count = 0;
+            for (var i = 0; i < classes.length; i++) {
+                if (classes[i].checked == true) {
+                    document.getElementsByClassName('link')[i].click();
+                } else {
+                    count++;
+                }
+            }
+            if (count == classes.length) {
+                alert('No checkboxes are ticked');
+            }
+
+        }
+        // var check = document.getElementById('checked').checked;
+        // var allcheckboxes = document.getElementsByClassName('checkboxes');
+        // if (check) {
+        //     for (var i = 0; i < allcheckboxes.length; i++) {
+        //         allcheckboxes[i].checked = true;
+        //     }
+        // } else {
+        //     for (var i = 0; i < allcheckboxes.length; i++) {
+        //         allcheckboxes[i].checked = false;
+        //     }
+        // }
             // console.log('hello');
         var trial = document.getElementsByClassName("appdata");
         for (var i = 0; i < trial.length; i++) {
@@ -128,22 +172,7 @@
         //<i class="bi bi-file-earmark-pdf-fill" > </i>
         //<i class="bi bi-file-earmark-spreadsheet-fill" > </i>
         console.log('hii');
-        function downloadall() {
-            var classes = document.getElementsByClassName('checkboxes');
 
-            var count = 0;
-            for (var i = 0; i < classes.length; i++) {
-                if (classes[i].checked == true) {
-                    document.getElementsByClassName('link')[i].click();
-                } else {
-                    count++;
-                }
-            }
-            if (count == classes.length) {
-                alert('No checkboxes are ticked');
-            }
-
-        }
         function openTab(evt, cityName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
@@ -158,21 +187,7 @@
             evt.currentTarget.className += " active";
         }
         document.getElementById("defaultOpen").click();
-        function oncheck() {
-            var check = document.getElementById('checkall').checked;
-            if (check) {
-                var len = document.getElementsByClassName('checkboxes');
-                for (var i = 0; i < len.length; i++) {
-                    len[i].checked = true;
-                }
-            } else {
-                var len = document.getElementsByClassName('checkboxes');
-                for (var i = 0; i < len.length; i++) {
-                    len[i].checked = false;
-                }
-            }
-            console.log(check);
-        }
+
         function choose_file() {
             document.getElementById('file-input-button').addEventListener('change', getFileName);
         }
@@ -190,108 +205,92 @@
             document.getElementById('delete-icon').style.display = "block";
 
         }
+        // var modal = document.getElementById("myModal");
+
+        // var btn = document.getElementById("submit-button");
+
+        // var span = document.getElementsByClassName("close")[0];
+        // var span2 = document.getElementById("close-icon");
 
 
-        function mePressed() {
-            document.getElementById('someone-else-button').style.backgroundColor = "white";
-            document.getElementById('someone-else-button').style.color = "#00ccff";
-            document.getElementById('me-button').style.backgroundColor = "#00ccff";
-            document.getElementById('me-button').style.color = "white";
-            document.getElementById('continue-button').href = "./PatientForm.html";
-        }
-        function someoneElsePressed() {
-            document.getElementById('someone-else-button').style.backgroundColor = "#00ccff";
-            document.getElementById('someone-else-button').style.color = "white";
-            document.getElementById('me-button').style.backgroundColor = "white";
-            document.getElementById('me-button').style.color = "#00ccff";
-            document.getElementById('continue-button').href = "./PatientFormRelative.html";
-        }
-        var modal = document.getElementById("myModal");
+        // btn.onclick = function () {
+        //     modal.style.display = "flex";
+        // }
+        // span.onclick = function () {
+        //     modal.style.display = "none";
+        // }
+        // span2.onclick = function () {
+        //     modal.style.display = "none";
+        // }
+        // window.onclick = function (event) {
+        //     if (event.target == modal) {
+        //         modal.style.display = "none";
+        //     }
+        // }
+        // let sidebarOpen = false;
+        // function hamburger() {
+        //     if (!sidebarOpen) {
+        //         console.log('hi');
+        //         document.getElementById('sidebar').style.display = "flex";
+        //         document.getElementById('main-div').style.opacity = "0.5";
+        //         document.getElementById('main-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        //         document.getElementById("defaultOpen2").click();
 
-        var btn = document.getElementById("submit-button");
+        //         // document.getElementById('main-sub-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        //         sidebarOpen = true;
+        //     } else {
+        //         console.log('hii');
+        //         document.getElementById('sidebar').style.display = "none";
+        //         document.getElementById('main-div').style.opacity = "1";
+        //         document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
 
-        var span = document.getElementsByClassName("close")[0];
-        var span2 = document.getElementById("close-icon");
-
-
-        btn.onclick = function () {
-            modal.style.display = "flex";
-        }
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
-        span2.onclick = function () {
-            modal.style.display = "none";
-        }
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-        let sidebarOpen = false;
-        function hamburger() {
-            if (!sidebarOpen) {
-                console.log('hi');
-                document.getElementById('sidebar').style.display = "flex";
-                document.getElementById('main-div').style.opacity = "0.5";
-                document.getElementById('main-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
-                document.getElementById("defaultOpen2").click();
-
-                // document.getElementById('main-sub-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
-                sidebarOpen = true;
-            } else {
-                console.log('hii');
-                document.getElementById('sidebar').style.display = "none";
-                document.getElementById('main-div').style.opacity = "1";
-                document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
-
-                sidebarOpen = false;
-            }
-        }
+        //         sidebarOpen = false;
+        //     }
+        // }
 
         // document.getElementById("defaultOpen2").click();
-        const phoneInputField = document.querySelector("#phone");
-        const phoneInput = window.intlTelInput(phoneInputField, {
-            utilsScript:
-                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-        });
-        window.onload = function checkingTheme() {
-            try {
-                let themeCheck = localStorage.getItem('theme');
-                if (themeCheck == null || themeCheck == 'light') {
-                    document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
-                    // document.getElementById('main-sub-div').style.backgroundColor = "white";
-                    document.getElementById('body').style.backgroundColor = "#f5f5f5";
-                    document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
-                    document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
-                } else {
-                    document.getElementById('main-div').style.backgroundColor = "black";
-                    // document.getElementById('main-sub-div').style.backgroundColor = "black";
-                    document.getElementById('body').style.backgroundColor = "black";
-                    document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
-                    document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
-                }
-            } catch (error) {
-                console.log('no themes decided yet');
-            }
-        }
-        function changeTheme() {
-            let theme = localStorage.getItem('theme');
-            if (theme == null || theme == 'light') {
-                localStorage.setItem('theme', 'dark');
-                document.getElementById('main-div').style.backgroundColor = "black";
-                // document.getElementById('main-sub-div').style.backgroundColor = "black";
-                document.getElementById('body').style.backgroundColor = "black";
-                document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
-                document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
-            } else if (theme == 'dark') {
-                localStorage.setItem('theme', 'light');
-                document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
-                // document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
-                document.getElementById('body').style.backgroundColor = "#f5f5f5";
-                document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
-                document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
-            }
-        }
+        // const phoneInputField = document.querySelector("#phone");
+        // const phoneInput = window.intlTelInput(phoneInputField, {
+        //     utilsScript:
+        //         "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        // });
+        // window.onload = function checkingTheme() {
+        //     try {
+        //         let themeCheck = localStorage.getItem('theme');
+        //         if (themeCheck == null || themeCheck == 'light') {
+        //             document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+        //             // document.getElementById('main-sub-div').style.backgroundColor = "white";
+        //             document.getElementById('body').style.backgroundColor = "#f5f5f5";
+        //             document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
+        //             document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+        //         } else {
+        //             document.getElementById('main-div').style.backgroundColor = "black";
+        //             // document.getElementById('main-sub-div').style.backgroundColor = "black";
+        //             document.getElementById('body').style.backgroundColor = "black";
+        //             document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
+        //             document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
+        //         }
+        //     } catch (error) {
+        //         console.log('no themes decided yet');
+        //     }
+        // }
+        // function changeTheme() {
+        //     let theme = localStorage.getItem('theme');
+        //     if (theme == null || theme == 'light') {
+        //         localStorage.setItem('theme', 'dark');
+        //         document.getElementById('main-div').style.backgroundColor = "black";
+        //         // document.getElementById('main-sub-div').style.backgroundColor = "black";
+        //         document.getElementById('body').style.backgroundColor = "black";
+        //         document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
+        //         document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
+        //     } else if (theme == 'dark') {
+        //         localStorage.setItem('theme', 'light');
+        //         document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+        //         // document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
+        //         document.getElementById('body').style.backgroundColor = "#f5f5f5";
+        //         document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
+        //         document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+        //     }
+        // }
     </script>
 </div>

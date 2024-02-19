@@ -30,11 +30,11 @@ public partial class User
 
     public string? ZipCode { get; set; }
 
-    public string? StrMonth { get; set; }
+    public string StrMonth { get; set; }
 
-    public int? IntYear { get; set; }
+    public int IntYear { get; set; }
 
-    public int? IntDate { get; set; }
+    public int IntDate { get; set; }
 
     public int CreatedBy { get; set; }
 

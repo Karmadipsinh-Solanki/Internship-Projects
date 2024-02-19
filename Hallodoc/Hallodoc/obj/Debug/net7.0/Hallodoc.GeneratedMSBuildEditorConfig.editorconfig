@@ -54,6 +54,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudERhc2hib2FyZFxwYXRpZW50UHJvZmlsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/pca161/Desktop/Internship-Projects/Hallodoc/Hallodoc/Views/PatientDashboard/profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudERhc2hib2FyZFxwcm9maWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/pca161/Desktop/Internship-Projects/Hallodoc/Hallodoc/Views/PatientDashboard/someoneModal.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudERhc2hib2FyZFxzb21lb25lTW9kYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

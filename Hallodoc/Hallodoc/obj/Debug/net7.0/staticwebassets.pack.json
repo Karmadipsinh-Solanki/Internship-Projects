@@ -893,6 +893,18 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\.net-Whole-Plane-2024.pdf (1)",
+      "PackagePath": "staticwebassets\\uploads\\.net-Whole-Plane-2024.pdf (1)"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\HalloDoc - DB.xlsx",
+      "PackagePath": "staticwebassets\\uploads\\HalloDoc - DB.xlsx"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Hanuman.jfif",
+      "PackagePath": "staticwebassets\\uploads\\Hanuman.jfif"
+    },
+    {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\KD.txt",
       "PackagePath": "staticwebassets\\uploads\\KD.txt"
     },
@@ -917,8 +929,16 @@
       "PackagePath": "staticwebassets\\uploads\\Screenshot (17).png"
     },
     {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (2).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (2).png"
+    },
+    {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (21).png",
       "PackagePath": "staticwebassets\\uploads\\Screenshot (21).png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (34).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (34).png"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (6).png",
@@ -929,8 +949,16 @@
       "PackagePath": "staticwebassets\\uploads\\Screenshot (9).png"
     },
     {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Session 2 (1).txt",
+      "PackagePath": "staticwebassets\\uploads\\Session 2 (1).txt"
+    },
+    {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Today's task.txt",
       "PackagePath": "staticwebassets\\uploads\\Today's task.txt"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\net-Whole-Plane-2024.pdf",
+      "PackagePath": "staticwebassets\\uploads\\net-Whole-Plane-2024.pdf"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\remaining work.txt",
