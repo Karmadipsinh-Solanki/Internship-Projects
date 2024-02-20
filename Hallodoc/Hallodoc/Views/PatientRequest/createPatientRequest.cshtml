@@ -1,4 +1,5 @@
-﻿@model RequestViewModelPatient;
+﻿@using Hallodoc.Models.ViewModels
+@model RequestViewModelPatient;
 @{
     ViewData["Title"] = "Patient-Request";
 }
@@ -11,7 +12,6 @@
     }
 }
 <div>
-    <partial name="header" />
     <div class="container">
         <div class="backbutton mb-3 mt-3">
             <a asp-controller="Login" asp-action="submitrequest">

@@ -1,4 +1,5 @@
-﻿@model HalloDoc.Models.RequestViewModelBusiness;
+﻿@using Hallodoc.Models.ViewModels
+@model RequestViewModelBusiness;
 @{
     ViewData["Title"] = "Business Request";
 }
@@ -11,7 +12,6 @@
     }
 }
 <div onload="myFunction()">
-    <partial name="header" />
     <!-- Modal -->
     <div id="myModal" class="modal">
         <div class="modal-dialog">

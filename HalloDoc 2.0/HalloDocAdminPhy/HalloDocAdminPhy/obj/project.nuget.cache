@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "2KuUUCaHUP53vXliPmHqbc/Xe0JqBRvIlQVWbNSwx5o/RpqUl3r/gZNDrk6YW47RRxNkRkLuCOqnUkUh8Ttw+Q==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\HalloDoc 2.0\\HalloDocAdminPhy\\HalloDocAdminPhy\\HalloDocAdminPhy.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\pca161\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.14\\microsoft.windowsdesktop.app.ref.7.0.14.nupkg.sha512",
+    "C:\\Users\\pca161\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.14\\microsoft.netcore.app.ref.7.0.14.nupkg.sha512",
+    "C:\\Users\\pca161\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.14\\microsoft.aspnetcore.app.ref.7.0.14.nupkg.sha512",
+    "C:\\Users\\pca161\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.14\\microsoft.netcore.app.host.win-x64.7.0.14.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,11 +1,12 @@
 ﻿using Hallodoc.Data;
 using Hallodoc.Models;
-using HalloDoc.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using System.Diagnostics;
 using System.Globalization;
+using Hallodoc.Models.ViewModels;
+using Hallodoc.Models.Models;
 //using Region = HalloDoc.Models.Region;
 
 //using HalloDoc.Data;
@@ -192,6 +193,12 @@ namespace Hallodoc.Controllers
             //}
             return RedirectToAction("patientLogin", "Login");
         }
+
+
+
+
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

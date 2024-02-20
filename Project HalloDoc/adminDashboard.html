@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <style>
+        .hovercolor {
+            color: #a8acaa;
+        }
+
+        .hovercolor:hover {
+            color: #01bce8;
+            /* Hover state text color */
+        }
+
+        .hovercolor:active {
+            color: #01bce8;
+            /* Active state text color */
+        }
+
+
+        .new{
+            color: #2a3b83;
+            border:2px solid #d4d7e2;
+            border-radius: 5px;
+            background-color: #e9eaef;
+        }
+        .new:hover{
+            color: white;
+            background-color: #203f9a;
+        }
+        .new:active{
+            color: white;
+            background-color: #203f9a;
+        }
+        .pending{
+            color: #309fd8;
+            border:2px solid #a6d8e2;
+            border-radius: 5px;
+            background-color: #e5f2f8;
+        }
+        .pending:hover{
+            color: white;
+            background-color: #00adef;
+        }
+        .pending:active{
+            color: white;
+            background-color: #00adef;
+        }
+        .active{
+            color: #45843a;
+            border:2px solid #acd1aa;
+            border-radius: 5px;
+            background-color: #e9f0e8;
+        }
+        .active:hover{
+            color: white;
+            background-color: #228c20;
+        }
+        .active:active{
+            color: white;
+            background-color: #228c20;
+        }
+        .conclude{
+            color: #b92272;
+            border:2px solid #cab5c2;
+            border-radius: 5px;
+            background-color: #f7e6ee;
+        }
+        .conclude:hover{
+            color: white;
+            background-color: #da0f82;
+        }
+        .conclude:active{
+            color: white;
+            background-color: #da0f82;
+        }
+        .toclose{
+            color: #2171ba;
+            border:2px solid #d2e5f5;
+            border-radius: 5px;
+            background-color: #e5eef5;
+        }
+        .toclose:hover{
+            color: white;
+            background-color: #0370d7;
+        }
+        .toclose:active{
+            color: white;
+            background-color: #0370d7;
+        }
+        .unpaid{
+            color: #926eb7;
+            border:2px solid #c5b8cf;
+            border-radius: 5px;
+            background-color: #efeef4;
+        }
+        .unpaid:hover{
+            color: white;
+            background-color: #9966cd;
+        }
+        .unpaid:active{
+            color: white;
+            background-color: #9966cd;
+        }
+    </style>
+</head>
+
+<body class="w-100 h-100 ">
+    <div class="d-flex justify-content-between  align-items-center header">
+        <div class="d-flex ">
+            <div class="navbarToggler d-sm-block d-md-none d-flex justify-content-center align-items-center mt-3"
+                data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"
+                style="width: 45px;height: 36px;border:1px solid #01bce8;border-radius: 5px; ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                </svg>
+            </div>
+            <div class="offcanvas offcanvas-start w-50" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+                id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasScrollingLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body ">
+                    <ul class="navbar-nav nav-underline me-auto mb-2 mb-lg-0" id="mylinks">
+                        <li class="nav-item">
+                            <a asp-controller="Login" asp-action="patientDashboard" class="nav-link navdash"
+                                aria-current="page">
+                                <div>
+                                    <strong class="h4" style="color:#00ccff">Dashboard</strong>
+
+                                </div>
+                            </a>
+                        </li>
+                        <hr />
+                        <li class="nav-item">
+                            <a class="nav-link navdash" asp-controller="Login" asp-action="patientsite">
+                                <div>
+                                    <strong class="h4" style="color:#00ccff">Profile</strong>
+                                </div>
+                            </a>
+                        </li>
+                        <hr />
+                    </ul>
+                </div>
+            </div>
+            <img src="~/SRS Screen Shorts/Fig56. Patient site 1.png" class="patientsite"
+                style="height: 65px;margin-left: 30px;width: 117px!important;">
+        </div>
+        <div class="d-flex ">
+            <div class="shortnav d-flex justify-content-center align-items-center me-2 d-block d-md-none"
+                style="width: 45px;height: 36px;border:1px solid #01bce8;border-radius: 5px; ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#01bce8"
+                    class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
+                    <path fill-rule="evenodd"
+                        d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                </svg>
+            </div>
+            <div class="hideinmob d-none d-md-block">
+                <span class="me-3" style="margin-right: 10px;margin-left: 15px;">Welcome @Model.patient_name</span>
+                <button type="button" class="me-3"
+                    style="border:1px solid #01bce8;border-radius:5px;background-color:white;height: 36px;width: 80px;">
+                    <a asp-controller="Login" asp-action="patientLogin" style="text-decoration:none;">
+                        <span style="color:#01bce8;">Logout</span>
+                    </a>
+                </button>
+            </div>
+            <button onclick="changeTheme()" class="change-theme me-2"
+                style="border:1px solid #01bce8;border-radius: 5px;height: 36px;width: 45px;background-color: white;">
+                <!-- <i class="bi bi-brightness-high"></i> -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00ccff"
+                    class="bi bi-moon night-mode-icon" viewBox="0 0 16 16">
+                    <path
+                        d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286" />
+                </svg>
+            </button>
+            <button onclick="changeTheme()" class="change-theme hide-icon me-2"
+                style="border:1px solid #01bce8;border-radius: 5px;height: 36px;width: 45px;background-color: white;">
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00ccff"
+                    class="bi bi-brightness-high night-mode-icon" viewBox="0 0 16 16">
+                    <path
+                        d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708" />
+                </svg>
+            </button>
+
+        </div>
+    </div>
+    <hr class="m-0">
+    <nav class="navbar navbar-expand-lg navbar-expand-md d-none d-md-block bg-body-tertiary shadow mb-5"
+        style="background-color: white!important;">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav nav-underline me-auto mb-2 mb-lg-0" id="mylinks">
+                    <li class="nav-item">
+                        <a class="nav-link hovercolor" asp-controller="PatientDashboard" asp-action="patientDashboard">
+                            <strong>Dashboard</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hovercolor" asp-controller="PatientDashboard" asp-action="profile">
+                            <strong>Provider Location</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hovercolor" asp-controller="PatientDashboard" asp-action="profile">
+                            <strong>My Profile</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hovercolor" asp-controller="PatientDashboard" asp-action="profile">
+                            <strong>Providers</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hovercolor" asp-controller="PatientDashboard" asp-action="profile">
+                            <strong>Partners</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hovercolor" asp-controller="PatientDashboard" asp-action="profile">
+                            <strong>Access</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hovercolor" asp-controller="PatientDashboard" asp-action="profile">
+                            <strong>Records</strong>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- <div class="card new-card">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-auto">
+                    <span class="badge bg-danger">NEW</span>
+                </div>
+                <div class="col">
+                    <h5 class="card-title m-0">1452</h5>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="container-fluid mx-3">
+        <div class="row">
+            <div class="card new col-sm-4 col-md-2 mx-2"
+                >
+                <div class="card-body">
+                    <div class="col-auto">
+                        <span class="h5"><span >NEW</span></span>
+                    </div>
+                    <div class="col">
+                        <h2 class="card-title m-0"><span ><strong>1452</strong></span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="card pending col-sm-4 col-md-2 mx-2"
+                >
+                <div class="card-body">
+                    <div class="col-auto">
+                        <span class="h5"><span >PENDING</span></span>
+                    </div>
+                    <div class="col">
+                        <h2 class="card-title m-0"><span ><strong>266</strong></span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="card active col-sm-4 col-md-2 mx-2"
+                >
+                <div class="card-body">
+                    <div class="col-auto">
+                        <span class="h5"><span >ACTIVE</span></span>
+                    </div>
+                    <div class="col">
+                        <h2 class="card-title m-0"><span ><strong>26</strong></span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="card conclude col-sm-4 col-md-2 mx-2"
+                >
+                <div class="card-body">
+                    <div class="col-auto">
+                        <span class="h5"><span >CONCLUDE</span></span>
+                    </div>
+                    <div class="col">
+                        <h2 class="card-title m-0"><span ><strong>1078</strong></span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="card toclose col-sm-4 col-md-2 mx-2"
+                >
+                <div class="card-body">
+                    <div class="col-auto">
+                        <span class="h5"><span >TO CLOSE</span></span>
+                    </div>
+                    <div class="col">
+                        <h2 class="card-title m-0"><span ><strong>519</strong></span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="card unpaid col-sm-4 col-md-2 mx-2"
+                >
+                <div class="card-body">
+                    <div class="col-auto">
+                        <span class="h5"><span >UNPAID</span></span>
+                    </div>
+                    <div class="col">
+                        <h2 class="card-title m-0"><span ><strong>16</strong></span></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+
+<script>
+    window.onload = function checkingTheme() {
+        try {
+            let themeCheck = localStorage.getItem('theme');
+            if (themeCheck == null || themeCheck == 'light') {
+                document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+                document.getElementById('body').style.backgroundColor = "#f5f5f5";
+                document.getElementsByClassName('login-title')[0].style.color = "black";
+                document.getElementsByClassName('t-and-c')[0].style.color = "gray";
+                document.getElementsByClassName('demo-bg')[0].style.display = "flex";
+                document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
+                document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+            } else {
+                document.getElementById('main-div').style.backgroundColor = "black";
+                document.getElementById('body').style.backgroundColor = "black";
+                document.getElementsByClassName('login-title')[0].style.color = "white";
+                document.getElementsByClassName('t-and-c')[0].style.color = "white";
+                document.getElementsByClassName('demo-bg')[0].style.display = "none";
+                document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
+                document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
+            }
+        } catch (error) {
+            console.log('no themes decided yet');
+        }
+    }
+    function changeTheme() {
+        let theme = localStorage.getItem('theme');
+        if (theme == null || theme == 'light') {
+            localStorage.setItem('theme', 'dark');
+            // console.log('theme changed to dark');
+            document.getElementById('main-div').style.backgroundColor = "black";
+            document.getElementById('body').style.backgroundColor = "black";
+            document.getElementsByClassName('login-title')[0].style.color = "white";
+            document.getElementsByClassName('t-and-c')[0].style.color = "white";
+            document.getElementsByClassName('demo-bg')[0].style.display = "none";
+            document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
+            document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
+        } else if (theme == 'dark') {
+            localStorage.setItem('theme', 'light');
+            // console.log('theme changed to light');
+            document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+            document.getElementById('body').style.backgroundColor = "#f5f5f5";
+            document.getElementsByClassName('login-title')[0].style.color = "black";
+            document.getElementsByClassName('t-and-c')[0].style.color = "gray";
+            document.getElementsByClassName('demo-bg')[0].style.display = "flex";
+            document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
+            document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+        }
+        console.log(theme);
+    }
+</script>
+
+</html>

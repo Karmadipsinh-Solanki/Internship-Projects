@@ -12,7 +12,9 @@
 .content{
     z-index:2;
 }
-
+.textdeco{
+    text-decoration:none;
+}
 /*.bg-img {
     background-image: url("SRS Screen Shorts/11116016_415.jpg");
     filter: blur(8px);

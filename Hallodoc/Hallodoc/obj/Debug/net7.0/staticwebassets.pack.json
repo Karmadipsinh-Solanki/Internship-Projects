@@ -621,6 +621,10 @@
       "PackagePath": "staticwebassets\\css\\createRequest.css"
     },
     {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\forgotPassword.css",
+      "PackagePath": "staticwebassets\\css\\forgotPassword.css"
+    },
+    {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\patientDashboard.css",
       "PackagePath": "staticwebassets\\css\\patientDashboard.css"
     },
@@ -655,6 +659,10 @@
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\js\\darkmode.js",
       "PackagePath": "staticwebassets\\js\\darkmode.js"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\js\\hideeye.js",
+      "PackagePath": "staticwebassets\\js\\hideeye.js"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\js\\patientLoginValidation.js",
@@ -939,6 +947,10 @@
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (34).png",
       "PackagePath": "staticwebassets\\uploads\\Screenshot (34).png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (36).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (36).png"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (6).png",

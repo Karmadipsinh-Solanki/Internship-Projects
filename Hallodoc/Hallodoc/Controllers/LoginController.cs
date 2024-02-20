@@ -1,12 +1,18 @@
 ﻿using Hallodoc.Data;
 using Hallodoc.Models;
+using Hallodoc.Models.Models;
+using Hallodoc.Models.ViewModels;
 using HalloDoc.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
+using NuGet.Protocol.Plugins;
 using System;
 using System.Data;
 using System.Diagnostics;
+using System.Net.Mail;
+using System.Net;
 
 namespace Hallodoc.Controllers
 {
@@ -27,22 +33,29 @@ namespace Hallodoc.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                
                 var user = _db.AspNetUsers.FirstOrDefault(u => u.Email == model.Email);
                 if (user != null)
                 {
-                    if (model.PasswordHash == user.PasswordHash)
-                    {
+                    //var passwordHasher = new PasswordHasher<AspNetUser>();
+                    //var result = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, model.PasswordHash);
+                    //if (result == PasswordVerificationResult.Success)
+                    //{
+                        //if (model.PasswordHash == user.PasswordHash)
+
                         var user2 = _db.Users.Where(x => x.Email == model.Email);
                         User users = user2.ToList().First();
                         HttpContext.Session.SetInt32("id", users.UserId);
                         HttpContext.Session.SetString("Name", users.FirstName);
                         HttpContext.Session.SetString("IsLoggedIn", "true");
                         return RedirectToAction("patientDashboard", "PatientDashboard");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("PasswordHash", "Incorrect Password");
-                    }
+                    //}
+                    //else
+                    //{
+                    //    ModelState.AddModelError("PasswordHash", "Incorrect Password");
+                    //}
+                    
                 }
                 else
                 {
@@ -53,6 +66,91 @@ namespace Hallodoc.Controllers
             // If we reach here, something went wrong, return the same view with validation errors
             return View();
         }
+
+
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+        public IActionResult ResetPassword(string email, DateTime date)
+        {
+            if (DateTime.Now.Date.Day - date.Day > 0)
+            {
+                return RedirectToAction("LinkExpired");
+            }
+            return View();
+        }
+        public IActionResult PasswordUpdatedSuccessfully()
+        {
+            return View();
+        }
+        public IActionResult LinkExpired()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ResetPasswordFromEmail(CreateNewPassword model)
+        {
+            var aspnetUser = _db.AspNetUsers.FirstOrDefault(u => u.Email == model.email);
+            var passwordHasher = new PasswordHasher<AspNetUser>();
+            aspnetUser.PasswordHash = passwordHasher.HashPassword(aspnetUser, model.password);
+            //aspnetUser.PasswordHash = model.password;
+            _db.AspNetUsers.Update(aspnetUser);
+            _db.SaveChanges();
+            return RedirectToAction("PasswordUpdatedSuccessfully");
+        }
+        [HttpPost]
+        public IActionResult ForgotPassword(ForgotPassword model)
+        {
+            //var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
+            //{
+            //    Credentials = new NetworkCredential("c3f46c2b681459", "d860d68bf5a0db"),
+            //    EnableSsl = true
+            //};
+            string senderEmail = "tatva.dotnet.Karmadipsinhsolanki@outlook.com";
+            string senderPassword = "Karmadips@2311";
+
+            SmtpClient client = new SmtpClient("smtp.office365.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false
+            };
+            string email = model.email;
+            var aspnetUser = _db.AspNetUsers.FirstOrDefault(u => u.Email == email);
+            var userdb = _db.Users.FirstOrDefault(u => u.Email == email);
+            var userFirstName = userdb.FirstName;
+            //string date = new DateTime.Now;
+            var formatedDate = DateTime.Now.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+            string resetLink = $"https://localhost:44339/Login/ResetPassword?email={email}&date={formatedDate}";
+            string message = $@"<html>
+                                <body>  
+                                <h1>Reset password request</h1>
+                                <h2>Hii {userFirstName},</h2>
+                                <p style=""margin-top:30px;"">To reset your password, click the below link:</p>
+                                <p><a href=""{resetLink}"">Reset Password</a></p> 
+                                <p>If you didn't request a password reset, you can ignore this email.</p>
+                                </body>
+                                </html>";
+            if (aspnetUser != null)
+            {
+                MailMessage mailMessage = new MailMessage
+                {
+                    From = new MailAddress(senderEmail, "HalloDoc"),
+                    Subject = "Reset Password for HalloDoc account",
+                    IsBodyHtml = true,
+                    Body = message,
+                };
+                mailMessage.To.Add(email);
+                client.Send(mailMessage);
+                return RedirectToAction("patientLogin");
+            }
+            return RedirectToAction("ForgotPassword");
+        }
+
+
 
         public IActionResult Index()
         {
@@ -102,28 +200,6 @@ namespace Hallodoc.Controllers
         //    }
 
         //}
-        public IActionResult resetPassword(ResetPasswordViewModel model)
-        {
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (user != null)
-        //        {
-        //            if (model.Username == user.Username)
-        //            {
-        //                var user2 = _db.Users.Where(x => x.Username == model.Username);
-        //                return RedirectToAction("patientDashboard", "PatientDashboard");
-        //            }
-        //            else
-        //            {
-        //                ModelState.AddModelError("PasswordHash", "Incorrect Username");
-        //            }
-        //        }
-                
-        //    }
-
-            // If we reach here, something went wrong, return the same view with validation errors
-            return View();
-        }
         public IActionResult submitrequest()
         {
             return View();

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hallodoc.Models;
-using HalloDoc.Models;
+using Hallodoc.Models.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hallodoc.Data;
@@ -42,6 +41,8 @@ public partial class ApplicationDbContext : DbContext
     public virtual DbSet<Menu> Menus { get; set; }
 
     public virtual DbSet<OrderDetail> OrderDetails { get; set; }
+
+    public virtual DbSet<Passwordreset> Passwordresets { get; set; }
 
     public virtual DbSet<Physician> Physicians { get; set; }
 
@@ -84,9 +85,8 @@ public partial class ApplicationDbContext : DbContext
     public virtual DbSet<Smslog> Smslogs { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+
     public virtual DbSet<TableContent> TableContents { get; set; }
-
-
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
@@ -332,6 +332,26 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.CreatedDate).HasColumnType("timestamp without time zone");
             entity.Property(e => e.Email).HasMaxLength(50);
             entity.Property(e => e.FaxNumber).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<Passwordreset>(entity =>
+        {
+            entity.HasKey(e => e.Token).HasName("passwordreset_pkey");
+
+            entity.ToTable("passwordreset");
+
+            entity.Property(e => e.Token)
+                .HasMaxLength(256)
+                .HasColumnName("token");
+            entity.Property(e => e.Createddate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("createddate");
+            entity.Property(e => e.Email)
+                .HasMaxLength(256)
+                .HasColumnName("email");
+            entity.Property(e => e.Isupdated)
+                .HasColumnType("bit(1)")
+                .HasColumnName("isupdated");
         });
 
         modelBuilder.Entity<Physician>(entity =>
@@ -847,7 +867,10 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(d => d.ModifiedBy)
                 .HasConstraintName("User_ModifiedBy_fkey");
         });
+
         modelBuilder.Entity<TableContent>().HasNoKey();
+
+
         OnModelCreatingPartial(modelBuilder);
     }
 
