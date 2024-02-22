@@ -593,8 +593,24 @@
       "PackagePath": "staticwebassets\\SRS Screen Shorts\\PDFIcon.png"
     },
     {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\active.png",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\active.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\active_active.png",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\active_active.png"
+    },
+    {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\cloud-upload-icon.svg",
       "PackagePath": "staticwebassets\\SRS Screen Shorts\\cloud-upload-icon.svg"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\conclude.png",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\conclude.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\conclude_active.png",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\conclude_active.png"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\docimg.png",
@@ -603,6 +619,22 @@
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\jpgimg.png",
       "PackagePath": "staticwebassets\\SRS Screen Shorts\\jpgimg.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\new.png",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\new.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\new_active.png",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\new_active.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\pending.png",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\pending.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\pending_active.png",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\pending_active.png"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\pngimg",
@@ -615,6 +647,22 @@
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\profile.png",
       "PackagePath": "staticwebassets\\SRS Screen Shorts\\profile.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\toclose.png",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\toclose.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\toclose_active.png",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\toclose_active.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\unpaid.png",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\unpaid.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\unpaid_active.png",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\unpaid_active.png"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\createRequest.css",
@@ -925,6 +973,10 @@
       "PackagePath": "staticwebassets\\uploads\\Screenshot (11).png"
     },
     {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (13).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (13).png"
+    },
+    {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (15).png",
       "PackagePath": "staticwebassets\\uploads\\Screenshot (15).png"
     },
@@ -943,6 +995,10 @@
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (21).png",
       "PackagePath": "staticwebassets\\uploads\\Screenshot (21).png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (3).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (3).png"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (34).png",

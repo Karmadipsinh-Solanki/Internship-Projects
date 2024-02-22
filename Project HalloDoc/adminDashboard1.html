@@ -1,0 +1,2356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" />
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <style>
+        body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.navigation-bar-top {
+    height: 80px;
+    background-color: white;
+    flex-direction: row;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+}
+
+.navigation-bar-top-2 {
+    height: 80px;
+    background-color: white;
+    flex-direction: row;
+    align-items: center;
+    display: flex;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+}
+
+#sidebar {
+    width: 260px;
+    height: 100vh;
+    background-color: white;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.table-header {
+    width: 80px !important;
+    background-color: #ededed !important;
+    font-weight: 300;
+}
+
+.logo {
+    height: 5rem;
+    width: 9rem;
+    align-self: center;
+    margin-left: 10px;
+}
+
+.change-theme {
+    border: none;
+    background-color: transparent;
+}
+
+.hamburger {
+    height: 36px;
+    width: 36px;
+    color: gray;
+    border: 1px solid gray;
+    border-radius: 7px;
+    padding: 6px;
+    margin-left: 20px;
+    margin-right: 6px;
+    display: none;
+}
+
+.night-mode-icon {
+    height: 45px;
+    width: 45px;
+    color: #00ccff;
+    border: 2px solid #00ccff;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.hide-icon {
+    display: none;
+}
+
+.back-navigation-link-2 {
+    text-decoration: none;
+    color: #00ccff;
+    font-weight: 400;
+    cursor: pointer;
+    font-size: 17px;
+    text-align: center;
+    border: 1px solid #00ccff;
+    padding: 5px;
+    border-radius: 6px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.back-navigation {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.hide {
+    display: none;
+}
+
+#body {
+    padding-bottom: 100px;
+}
+
+#main-sub-div {
+    width: 100%;
+    margin: auto;
+}
+
+#choose-file-button {
+    padding-top: 0%;
+    padding-bottom: 0%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 0%;
+    padding-left: 15px;
+    height: 45px;
+    width: 100%;
+    border: 1px solid rgb(194, 193, 193);
+    background-color: rgb(252, 252, 252);
+    border-radius: 8px;
+}
+
+#choose-file-button-sub-div {
+    width: 105px;
+    height: 45px;
+    justify-content: center;
+    position: relative;
+}
+
+#choose-file-button-sub-sub-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #00ccff;
+    border-radius: 8px;
+}
+
+#upload-icon {
+    margin-right: 10px;
+    height: 45px;
+}
+
+#upload-text {
+    color: white;
+    font-weight: 400;
+}
+
+#file-input-button {
+    opacity: 0;
+    width: 105px;
+    height: 45px;
+    position: absolute;
+    right: -2px;
+    top: 10px;
+}
+
+#submit-button {
+    text-decoration: none;
+    margin-right: 17px;
+    background-color: #00ccff;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: white;
+    font-weight: 500;
+    border-radius: 6px;
+}
+
+#cancel-button {
+    text-decoration: none;
+    background-color: white;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: #00ccff;
+    font-weight: 500;
+    border-radius: 6px;
+    border: 1px solid #00ccff;
+}
+
+.login-fields-2 {
+    margin-right: 3%;
+}
+
+.iti {
+    width: 100%;
+}
+
+#me-button {
+    background-color: #00ccff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    width: 60px;
+    border: 1px solid #00ccff;
+    color: white;
+    font-size: 16px;
+}
+
+#someone-else-button {
+    background-color: white;
+    border: 1px solid #00ccff;
+    border-radius: 8px;
+    padding: 10px;
+    width: 150px;
+    margin-left: 10px;
+    color: #00ccff;
+    font-size: 16px;
+}
+
+.close {
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    background-color: #00ccff;
+    text-align: center;
+    border-radius: 5px;
+    width: 70px;
+    height: 40px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+    .close:hover,
+    .close:focus {
+        text-decoration: none;
+        cursor: pointer;
+        background-color: #01b4e0;
+    }
+
+.welcome-title {
+    font-size: 16px;
+    color: rgb(104, 104, 104);
+    margin-right: 5px;
+    margin-top: 2px;
+}
+
+.name-title {
+    font-weight: 600;
+    font-size: 19px;
+    margin-right: 10px;
+}
+
+.logout-icon {
+    display: none;
+    color: black;
+    margin-right: 10px;
+}
+
+.tab {
+    overflow: hidden;
+    border-bottom: 3px solid #ededed;
+    background-color: white;
+    margin-top: 2px;
+    padding-left: 30px;
+    margin-top: 82px;
+    border-top: 1px solid rgb(180, 180, 180);
+}
+
+.tab-2 {
+    overflow: hidden;
+    border-bottom: 3px solid #ededed;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    margin: 100px auto;
+}
+
+    .tab-2 button {
+        background-color: inherit;
+        align-self: center;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+        margin-top: 15px;
+        margin-left: 0px;
+        width: 167px;
+        border: 1px solid #00ccff;
+        border-radius: 10px;
+    }
+
+        .tab-2 button:hover {
+            background-color: #ddd;
+        }
+
+        .tab-2 button.active {
+            background-color: #00ccff;
+            color: white;
+            border: 2px solid #00ccff;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    color: rgb(51, 51, 51);
+}
+
+    .tab button:hover {
+        background-color: #ddd;
+    }
+
+    .tab button.active {
+        background-color: white;
+        color: #00ccff;
+        border-bottom: 3px solid #00ccff;
+        font-weight: 500;
+        /* height: 50px; */
+    }
+
+.main-div {
+    background-color: #f5f5f5;
+}
+
+table.dataTable tbody th, table.dataTable tbody td {
+    width: 400px !important;
+}
+
+td {
+    /* color: white !important; */
+    height: 50px;
+    align-items: center;
+    background-color: #5FBC61 !important;
+    /* background-color: #00ccff; */
+}
+
+.name-td {
+    width: 280px !important;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.others-td {
+    display: flex;
+    height: 100%;
+}
+
+.chat-td {
+    height: 100%;
+    display: flex;
+}
+
+.phone-td {
+    display: flex;
+    align-items: center;
+    border: 1px solid white;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.address-td {
+    width: 400px !important;
+    height: 100%;
+    display: flex;
+}
+
+.td-data {
+    color: white !important;
+    margin: auto 5px !important;
+}
+
+.chat-td-data {
+    color: white !important;
+    margin: auto 10px !important;
+    height: 75%;
+    width: 80%;
+    margin-left: -5px !important;
+}
+
+.patient {
+    background-color: #5FBC61 !important;
+    color:white !important;
+}
+
+.family {
+    color: white !important;
+    background-color: #ED9124 !important;
+}
+
+.business {
+    background-color: #CD6C7D !important;
+    color: white !important;
+}
+
+.concierge {
+    background-color: #037EB9 !important;
+    color: white !important;
+}
+
+.table-row {
+    background-color: #228C20 !important;
+}
+
+.logo-and-hamburger {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+    border: none;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #00ccff;
+    border-radius: 10px;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #01b4e0;
+    }
+
+.modal-header {
+    display: flex;
+    height: 50px;
+    background-color: #00ccff;
+    width: 100%;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 15px;
+}
+
+.main-tabs {
+    padding: 30px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding-right: 0px;
+}
+
+.icon-size {
+    height: 26px;
+    width: 26px;
+}
+
+.caret {
+    height: 35px;
+    width: 35px;
+    display: flex;
+    margin: auto;
+    margin-top: -12px
+}
+
+.state {
+    border-radius: 10px;
+    height: 110px;
+    /* margin-right: 15px; */
+    padding: 10px;
+    /* margin-left: 15px; */
+}
+
+.no {
+    font-weight: 900;
+    margin-top: 8px;
+    font-size: 28px;
+    display: flex;
+}
+
+.title-sub-div {
+    font-weight: 500;
+    margin-left: 5px;
+}
+
+.newState {
+    background-color: #E9EAEF;
+    border: 1px solid #203F9A;
+    color: #203F9A;
+}
+
+.newState-active {
+    background-color: #203F9A;
+    border: 1px solid #203F9A;
+    color: white;
+}
+
+.pendingState {
+    background-color: #E5F2F8;
+    border: 1px solid #00ADEF;
+    color: #00ADEF;
+}
+
+.pendingState-active {
+    background-color: #00ADEF;
+    border: 1px solid #00ADEF;
+    color: white;
+}
+
+.activeState {
+    background-color: #E9F0E8;
+    border: 1px solid #228C20;
+    color: #228C20;
+}
+
+.activeState-active {
+    background-color: #228C20;
+    border: 1px solid #228C20;
+    color: white;
+}
+
+.concludeState {
+    background-color: #F7E6EE;
+    border: 1px solid #DA0F82;
+    color: #DA0F82;
+}
+
+.concludeState-active {
+    background-color: #DA0F82;
+    border: 1px solid #DA0F82;
+    color: white;
+}
+
+.tocloseState {
+    background-color: #E5EEF5;
+    border: 1px solid #0370D7;
+    color: #0370D7;
+}
+
+.tocloseState-active {
+    background-color: #0370D7;
+    border: 1px solid #0370D7;
+    color: white;
+}
+
+.unpaidState {
+    border: 1px solid #9966CD;
+    background-color: #EFEEF4;
+    color: #9966CD;
+}
+
+.unpaidState-active {
+    border: 1px solid #9966CD;
+    background-color: #9966CD;
+    color: white;
+}
+
+.hidden {
+    display: none;
+}
+
+.dashboard-button {
+    border: none;
+    background-color: #00ccff;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    height: 43px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-right: 10px;
+    ;
+}
+
+.dashboard-button-text {
+    color: white;
+    margin-left: 10px;
+    font-size: 17px;
+}
+
+.dashboard-sub-div {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 45px;
+    padding-right: 45px;
+    align-items: center;
+}
+
+.dashboard-sub-div-2 {
+    margin-top: 25px;
+    margin-left: 35px;
+    margin-right: 35px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+table.dataTable thead th, table.dataTable tfoot th {
+    font-weight: 500 !important;
+    color: rgb(56, 56, 56) !important;
+    font-size: 16px !important;
+}
+
+#status-text {
+    color: #203F9A;
+    font-size: 18px;
+    margin-left: 3px;
+}
+
+.searchPatientInput {
+    border: none;
+    margin-left: 10px;
+}
+
+    .searchPatientInput:focus {
+        border: none;
+    }
+
+.patient-title {
+    font-weight: 500;
+    margin-bottom: 0px;
+}
+
+.tablinks {
+    margin-right: 10px;
+}
+
+.dashboard-sub-div-2-sub {
+    display: flex;
+    margin-top: 15px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: -13px;
+}
+
+.search-div {
+    display: flex;
+    margin: 18px;
+    flex-wrap: wrap;
+}
+
+.search-div-sub {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgb(211, 210, 210);
+    padding: 8px;
+    border-radius: 8px;
+    padding-left: 12px;
+}
+
+.search-div-sub-2 {
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+    border: 1px solid rgb(211, 210, 210);
+    padding: 8px;
+    border-radius: 8px;
+    padding-left: 12px;
+}
+
+.categories-div {
+    display: flex;
+    align-items: center;
+}
+
+.categories-div-all-button {
+    background-color: white;
+    border: 1px solid rgb(211, 210, 210);
+    text-align: center;
+    padding: 4px;
+    color: gray;
+    padding-left: 13px;
+    padding-right: 13px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.categories-div-sub {
+    display: flex;
+    align-items: center;
+    margin-right: 13px;
+    margin-left: 13px;
+}
+
+.categories-div-sub-sub {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+#dtBasicExample_length {
+    margin-left: 20px;
+    color: gray;
+    margin-bottom: 20px;
+}
+
+#dtBasicExample_filter {
+    display: none;
+}
+
+.dataTables_wrapper .dataTables_info {
+    margin-left: 20px;
+    margin-top: 20px;
+    /* color: rgb(219, 217, 217); */
+}
+
+#dtBasicExample_info {
+    color: rgb(80, 79, 79);
+}
+/* .dataTables_info */
+.dataTables_paginate {
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+/* .dataTables_wrapper .dataTables_length select{
+    height: 30px;
+} */
+
+@media only screen and (max-width:1200px) {
+    .dashboard-sub-div-2-sub {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width:1100px) {
+    .modal-content {
+        height: 33%;
+        width: 45%;
+    }
+
+    .tab {
+        display: block;
+    }
+
+    .title-sub-div {
+        /* font-weight: 500; */
+        margin-left: 5px;
+        font-size: 15px;
+    }
+
+    .dashboard-button-text {
+        color: white;
+        margin-left: 5px;
+        font-size: 15px;
+    }
+
+    .dashboard-sub-div-icon {
+        height: 15px;
+        width: 15px;
+    }
+}
+
+@media only screen and (max-width:965px) {
+    .dashboard-button-text {
+        color: white;
+        margin-left: 5px;
+        font-size: 13px;
+    }
+
+    .dashboard-sub-div-icon {
+        height: 15px;
+        width: 15px;
+    }
+}
+
+@media only screen and (max-width:965px) {
+    .dashboard-button-text {
+        display: none;
+    }
+
+    .dashboard-sub-div-icon {
+        height: 18px;
+        width: 18px;
+    }
+}
+
+@media only screen and (max-width:860px) {
+    .no {
+        font-size: 23px;
+    }
+
+    .icon-size {
+        height: 22px;
+        width: 22px;
+    }
+
+    .logo {
+        height: 4rem;
+        width: 7.8rem;
+        margin-left: 0px;
+    }
+
+    .labels {
+        font-size: 0.80rem;
+    }
+
+    .title {
+        font-size: 18px;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .tab {
+        display: none;
+    }
+
+    #main-sub-div {
+        margin-top: 100px;
+    }
+
+    .state {
+        margin-top: 20px;
+    }
+
+    .main-tabs {
+        padding-top: 0px;
+    }
+}
+
+@media only screen and (max-width:760px) {
+}
+
+@media only screen and (max-width:743px) {
+    .categories-div-all-button {
+        display: none;
+    }
+}
+
+@media only screen and (max-width:743px) {
+    .categories-div-sub {
+        flex-direction: column;
+    }
+
+    .categories-div-sub-sub {
+        margin-right: 0px;
+        margin-bottom: 3px;
+    }
+}
+
+
+@media only screen and (max-width:603px) {
+    .search-div-sub {
+        margin: auto;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .search-div-sub-2 {
+        margin: auto;
+        width: 100%;
+        /* margin-top: 15px; */
+    }
+
+    .form-sub-div {
+        flex-direction: column;
+    }
+
+    .login-fields {
+        width: 100%;
+    }
+
+    .login-fields-2 {
+        margin-right: 0px !important;
+    }
+
+    .modal-content {
+        height: 35%;
+        width: 65%;
+    }
+
+    .dashboard-sub-div {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .dashboard-sub-div-2 {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}
+
+@media only screen and (max-width:550px) {
+    .dashboard-sub-div-icon {
+        height: 15px;
+        width: 15px;
+    }
+
+    .icon-size {
+        display: none;
+    }
+
+    .state-sub-div {
+        text-align: center;
+    }
+
+    .no {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        margin-top: 3px;
+    }
+
+    .title-sub-div {
+        margin-left: 0px;
+    }
+
+    .state {
+        align-content: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .caret {
+        display: none;
+    }
+
+    .state {
+        border-radius: 0px;
+    }
+
+    .categories-div-sub {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+}
+
+@media only screen and (max-width:510px) {
+
+    .welcome-title,
+    .name-title,
+    .back-navigation-link-2 {
+        display: none;
+    }
+
+    .logout-icon {
+        display: block;
+    }
+
+    .dashboard-button {
+        padding: 12px;
+        padding-top: 9px;
+    }
+}
+
+@media only screen and (max-width:500px) {
+    .dataTables_length {
+        margin-top: 15px;
+        font-size: 15px;
+    }
+}
+
+@media only screen and (max-width:450px) {
+    .categories-div-sub {
+        margin-right: 7px;
+        margin-left: 7px;
+        margin-top: 5px;
+    }
+
+    .categories-div-sub-text {
+        font-size: 14px;
+    }
+
+    .patient-title {
+        font-size: 18px;
+    }
+
+    #status-text {
+        font-size: 15px;
+    }
+
+    .title-sub-div {
+        font-size: 13px;
+    }
+
+    .no {
+        font-size: 20px;
+    }
+
+    .state {
+        height: 90px;
+    }
+
+    .search-div-sub {
+        padding: 5px;
+        padding-left: 10px;
+    }
+
+    .search-div-sub-2 {
+        padding: 5px;
+        padding-left: 10px;
+    }
+
+    .searchPatientInput {
+        font-size: 14px;
+    }
+
+    .categories-div {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .categories-div-sub {
+        margin-top: 10px;
+    }
+}
+
+@media only screen and (max-width:370px) {
+    .dashboard-button {
+        margin-right: 4px;
+        padding: 10px;
+    }
+}
+
+@media only screen and (max-width:400px) {
+    .labels {
+        font-size: 0.70rem;
+    }
+
+    .title {
+        font-size: 16px;
+    }
+}
+
+        .maindiv {
+            background-color: #f9f9f9;
+        }
+
+        .hovercolor {
+            color: #a8acaa;
+        }
+
+        .hovercolor:hover {
+            color: #01bce8;
+            /* Hover state text color */
+        }
+
+        .hovercolor:active {
+            color: #01bce8;
+            /* Active state text color */
+        }
+
+        .hidden {
+            display: none;
+        }
+
+
+        .new {
+            color: #2a3b83;
+            border: 2px solid #d4d7e2;
+            border-radius: 5px;
+            background-color: #e9eaef;
+        }
+
+        .new:hover,
+        .new-active {
+            color: white;
+            background-color: #203f9a;
+        }
+
+
+        .pending {
+            color: #309fd8;
+            border: 2px solid #a6d8e2;
+            border-radius: 5px;
+            background-color: #e5f2f8;
+        }
+
+        .pending:hover,
+        .pending-active {
+            color: white;
+            background-color: #00adef;
+        }
+
+        .active {
+            color: #45843a;
+            border: 2px solid #acd1aa;
+            border-radius: 5px;
+            background-color: #e9f0e8;
+        }
+
+        .active:hover,
+        .active-active {
+            color: white;
+            background-color: #228c20;
+        }
+
+        .conclude {
+            color: #b92272;
+            border: 2px solid #cab5c2;
+            border-radius: 5px;
+            background-color: #f7e6ee;
+        }
+
+        .conclude:hover,
+        .conclude-active {
+            color: white;
+            background-color: #da0f82;
+        }
+
+        .toclose {
+            color: #2171ba;
+            border: 2px solid #d2e5f5;
+            border-radius: 5px;
+            background-color: #e5eef5;
+        }
+
+        .toclose:hover,
+        .toclose-active {
+            color: white;
+            background-color: #0370d7;
+        }
+
+        .unpaid {
+            color: #926eb7;
+            border: 2px solid #c5b8cf;
+            border-radius: 5px;
+            background-color: #efeef4;
+        }
+
+        .unpaid-active,
+        .unpaid:hover {
+            color: white;
+            background-color: #9966cd;
+        }
+
+        .imagesize {
+            height: 25px;
+            width: 25px;
+            margin-right: 10px;
+        }
+
+        .button {
+            border: 1px solid #02bae9;
+            border-radius: 5px;
+            background-color: #02bae9;
+            padding: 10px;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 40px;
+        }
+
+        .bi-reply-mirrored {
+            transform: rotateY(180deg);
+        }
+
+        .bi-reply-all-mirrored {
+            transform: rotateY(180deg);
+        }
+
+        /* #region-select {
+            border: none;
+        }
+
+        .search {
+            border: 2px solid #e5e5e5;
+            border-radius: 5px;
+            padding: 7px;
+            width: 300px;
+        }
+
+        .bottomdiv {
+            background-color: white;
+        }
+
+        .radiocheck {
+            height: 25px;
+            width: 25px;
+        } */
+
+        /* search to radiocheck css */
+        .dashboard-sub-div {
+            margin-top: 5px;
+            display: flex;
+            justify-content: space-between;
+            padding-left: 45px;
+            padding-right: 45px;
+            align-items: center;
+        }
+
+        .dashboard-sub-div-2 {
+            margin-top: 25px;
+            margin-left: 35px;
+            margin-right: 35px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        .patient-title {
+            font-weight: 500;
+            margin-bottom: 0px;
+        }
+
+        #status-text {
+            color: #203F9A;
+            font-size: 18px;
+            margin-left: 3px;
+        }
+
+        .dashboard-button {
+            border: none;
+            background-color: #00ccff;
+            border-radius: 8px;
+            justify-content: center;
+            align-items: center;
+            height: 43px;
+            padding-left: 15px;
+            padding-right: 15px;
+            margin-right: 10px;
+            ;
+        }
+
+        .dashboard-button-text {
+            color: white;
+            margin-left: 10px;
+            font-size: 17px;
+        }
+
+        .dashboard-sub-div-2-sub {
+            display: flex;
+            margin-top: 15px;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: -13px;
+        }
+
+        .search-div {
+            display: flex;
+            margin: 18px;
+            flex-wrap: wrap;
+        }
+
+        .search-div-sub {
+            display: flex;
+            align-items: center;
+            border: 1px solid rgb(211, 210, 210);
+            padding: 8px;
+            border-radius: 8px;
+            padding-left: 12px;
+        }
+
+        .search-div-sub-2 {
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            border: 1px solid rgb(211, 210, 210);
+            padding: 8px;
+            border-radius: 8px;
+            padding-left: 12px;
+        }
+
+        .categories-div {
+            display: flex;
+            align-items: center;
+        }
+
+        .categories-div-all-button {
+            background-color: white;
+            border: 1px solid rgb(211, 210, 210);
+            text-align: center;
+            padding: 4px;
+            color: gray;
+            padding-left: 13px;
+            padding-right: 13px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        .categories-div-sub {
+            display: flex;
+            align-items: center;
+            margin-right: 13px;
+            margin-left: 13px;
+        }
+
+        .categories-div-sub-sub {
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .searchPatientInput {
+    border: none;
+    margin-left: 10px;
+}
+
+    .searchPatientInput:focus {
+        border: none;
+    }
+        /* search to radiocheck css */
+
+        .border {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid white;
+            border-radius: 5px;
+            width: 32px;
+            height: 32px;
+        }
+
+        .aquaborder {
+            border: 1px solid #00bce7;
+            border-radius: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .main-tabs {
+            padding: 30px;
+            width: 100%;
+            /* display: flex;
+            flex-direction: column;
+            flex-wrap: wrap; */
+            padding-right: 0px;
+        }
+
+        .aquatext {
+            color: #00bce7;
+        }
+
+        /* .button.accordion-button{
+            background-color: #ebfafd;
+        } */
+        hr {
+            position: relative;
+            width: 100%;
+            height: 1px;
+            border: none;
+            background-color: #ccc;
+        }
+
+        .hrbody {
+            position: relative;
+        }
+
+        .viewcase {
+            border: 1px solid #5169af;
+            border-radius: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            height: 30px;
+            width: 100px;
+            background-color: white;
+
+            position: absolute;
+            top: -48px;
+            left: 88%;
+            transform: translateX(-50%);
+            /* padding: 10px 20px; */
+            /* background-color: #f00; */
+            color: #5169af;
+            cursor: pointer;
+        }
+
+        .caret {
+            height: 35px;
+            width: 35px;
+            display: flex;
+            margin: auto;
+            margin-top: -12px
+        }
+
+        /* .caret-container {
+            position: absolute;
+            bottom: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+        } */
+
+        /* .row-cards {
+            position: relative;
+        } */
+
+        .tablecolor {
+            background-color: #5fbc61 !important;
+        }
+
+        .whitefont {
+            color: white;
+        }
+
+        .circle {
+            border: 1px solid #34c7e8;
+            border-radius: 50%;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+
+        .textdeco {
+            text-decoration: none;
+        }
+
+        @media only screen and (max-width:1024px) {
+            .search {
+                width: 185px;
+
+                /* flex-wrap: none; */
+            }
+        }
+
+        @media only screen and (max-width:768px) {
+            .search {
+                width: 100%;
+                margin: 10px;
+            }
+
+            .radiocheckhidden {
+                display: block;
+            }
+
+            .radiocheck {
+                display: none !important;
+            }
+
+            .largeview {
+                display: none !important;
+            }
+        }
+
+        /* @media only screen and (max-width:768px) and (min-width:550px) {
+            .tabletview{
+                display: block!important;
+                display: flex;
+            }
+        } */
+
+        @media only screen and (max-width:550px) {
+            .state-sub-div {
+                text-align: center;
+            }
+
+            .title-sub-div {
+                margin-left: 0px;
+                font-size: 14px !important;
+            }
+
+            .number {
+                font-size: 20px;
+            }
+
+            .button {
+                margin: 2px !important;
+            }
+
+            .patienttext {
+                font-size: 16px;
+            }
+
+            .statetext {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body class="w-100 h-100 ">
+    <div class="d-flex justify-content-between  align-items-center header">
+        <div class="d-flex ">
+            <div class="navbarToggler d-sm-block d-md-none d-flex justify-content-center align-items-center mt-3"
+                data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"
+                style="width: 45px;height: 36px;border:1px solid #01bce8;border-radius: 5px; ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                </svg>
+            </div>
+            <div class="offcanvas offcanvas-start w-50" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+                id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasScrollingLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body ">
+                    <ul class="navbar-nav nav-underline me-auto mb-2 mb-lg-0" id="mylinks">
+                        <li class="nav-item">
+                            <a asp-controller="Login" asp-action="patientDashboard" class="nav-link navdash"
+                                aria-current="page">
+                                <div>
+                                    <strong class="h4" style="color:#00ccff">Dashboard</strong>
+
+                                </div>
+                            </a>
+                        </li>
+                        <hr />
+                        <li class="nav-item">
+                            <a class="nav-link navdash" asp-controller="Login" asp-action="patientsite">
+                                <div>
+                                    <strong class="h4" style="color:#00ccff">Profile</strong>
+                                </div>
+                            </a>
+                        </li>
+                        <hr />
+                    </ul>
+                </div>
+            </div>
+            <img src="SRS Screen Shorts/Fig56. Patient site 1.png" class="patientsite"
+                style="height: 65px;margin-left: 30px;width: 117px!important;">
+        </div>
+        <div class="d-flex ">
+            <div class="shortnav d-flex justify-content-center align-items-center me-2 d-block d-md-none"
+                style="width: 45px;height: 36px;border:1px solid #01bce8;border-radius: 5px; ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#01bce8"
+                    class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
+                    <path fill-rule="evenodd"
+                        d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                </svg>
+            </div>
+            <div class="hideinmob d-none d-md-block">
+                <span class="me-3" style="margin-right: 10px;margin-left: 15px;">Welcome @Model.patient_name</span>
+                <button type="button" class="me-3"
+                    style="border:1px solid #01bce8;border-radius:5px;background-color:white;height: 36px;width: 80px;">
+                    <a asp-controller="Login" asp-action="patientLogin" style="text-decoration:none;">
+                        <span style="color:#01bce8;">Logout</span>
+                    </a>
+                </button>
+            </div>
+            <button onclick="changeTheme()" class="change-theme me-2"
+                style="border:1px solid #01bce8;border-radius: 5px;height: 36px;width: 45px;background-color: white;">
+                <!-- <i class="bi bi-brightness-high"></i> -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00ccff"
+                    class="bi bi-moon night-mode-icon" viewBox="0 0 16 16">
+                    <path
+                        d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286" />
+                </svg>
+            </button>
+            <button onclick="changeTheme()" class="change-theme hide-icon me-2"
+                style="border:1px solid #01bce8;border-radius: 5px;height: 36px;width: 45px;background-color: white;">
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00ccff"
+                    class="bi bi-brightness-high night-mode-icon" viewBox="0 0 16 16">
+                    <path
+                        d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708" />
+                </svg>
+            </button>
+
+        </div>
+    </div>
+    <hr class="m-0">
+    <nav class="navbar navbar-expand-lg navbar-expand-md d-none d-md-block bg-body-tertiary shadow"
+        style="background-color: white!important;">
+        <div class="ms-4">
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav nav-underline me-auto mb-2 mb-lg-0" id="mylinks">
+                    <li class="nav-item">
+                        <a class="nav-link hovercolor" asp-controller="PatientDashboard" asp-action="patientDashboard">
+                            <strong>Dashboard</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hovercolor" asp-controller="PatientDashboard" asp-action="profile">
+                            <strong>Provider Location</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hovercolor" asp-controller="PatientDashboard" asp-action="profile">
+                            <strong>My Profile</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hovercolor" asp-controller="PatientDashboard" asp-action="profile">
+                            <strong>Providers</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hovercolor" asp-controller="PatientDashboard" asp-action="profile">
+                            <strong>Partners</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hovercolor" asp-controller="PatientDashboard" asp-action="profile">
+                            <strong>Access</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hovercolor" asp-controller="PatientDashboard" asp-action="profile">
+                            <strong>Records</strong>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="m-0 maindiv p-4">
+        <div class="row flex-row justify-content-between main-tabs ">
+            <!-- <div class="col-lg-2 col-md-4 col-4 mb-2">
+                <div class="row-cards new new-active" id="card1" onclick="changeStatus(this)">
+                    <div class="inner-row-cards">
+                        <img src="~/images/new.png" alt="" class="row-card-img hidden" id="new" />
+                        <img src="../../images/new_active.png" alt="" class="row-card-img" id="new-active" />
+                        <span class="row-card-text">NEW</span>
+                    </div>
+                    <h4 class="type_no_txt">@Model.new_count</h4>
+                    <div id="new-img" class="absolutivity">
+                        <img src="../../images/caret-down-fill.svg" alt="" class="arrow-width" />
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- real <div class="col-lg-2 col-md-4 col-4 mb-2 mx-1 ">
+                <div class="row-cards new new-active p-2" id="card1" onclick="changeStatus(this)">
+                    <div class="d-flex inner-row-cards">
+                        <img src="SRS Screen Shorts/new.png" class="imagesize row-card-img hidden" id="new" />
+                        <img src="SRS Screen Shorts/new_active.png" alt="" class="imagesize row-card-img"
+                            id="new-active" />
+                        <span class="h5"><span>NEW</span></span>
+                    </div>
+                    <h3 class=" m-0"><span><strong>1452</strong></span></h2>
+                </div>
+                <img src="SRS Screen Shorts/caret-down-fill.svg" id="status-text" />
+            </div> -->
+
+            <!-- 
+                <div class="row flex-row justify-content-between main-tabs">
+                <a class="col-lg-2 col-md-4 col-4" style="text-decoration:none">
+                    <div class="state newState newState-active" onclick="changeStatus(this)">
+                        <div class="state-sub-div">
+                            <img src="~/images/new.svg" id="newState" class="icon-size hide" />
+                            <img src="~/images/new_active.png" id="newState-active" class="icon-size" />
+                            <span class="title-sub-div">NEW</span>
+                        </div>
+                        <span class="no">1452</span>
+                    </div>
+                    <img src="~/images/caret-down-fill.svg" id="newState-img" class="caret" />
+                </a> het-->
+
+            <a class="col-lg-2 col-md-4 col-4 mb-2 textdeco">
+                <div class="row-cards new new-active p-2" id="card1" onclick="changeStatus(this)">
+                    <div class="d-flex state-sub-div">
+                        <img src="SRS Screen Shorts/new.png" class="imagesize  hidden" id="new" />
+                        <img src="SRS Screen Shorts/new_active.png" alt="" class="imagesize" id="new-active" />
+                        <span class="h5 title-sub-div"><span>NEW</span></span>
+                    </div>
+                    <h3 class="number m-0"><span><strong>1452</strong></span></h2>
+                </div>
+                <div class="caret-container">
+                    <img src="SRS Screen Shorts/caret-down-fill.svg" id="new-img" class="caret" />
+                </div>
+            </a>
+
+            <a class="col-lg-2 col-md-4 col-4 mb-2 textdeco">
+                <div class="row-cards pending p-2" id="card1" onclick="changeStatus(this)">
+                    <div class="d-flex state-sub-div">
+                        <img src="SRS Screen Shorts/pending.png" class="imagesize  hidden" id="pending" />
+                        <img src="SRS Screen Shorts/pending_active.png" alt="" class="imagesize" id="pending-active" />
+                        <span class="h5 title-sub-div"><span>PENDING</span></span>
+                    </div>
+                    <h3 class="number m-0"><span><strong>1452</strong></span></h2>
+                </div>
+                <div class="caret-container">
+                    <img src="SRS Screen Shorts/caret-down-fill1.svg" id="pending-img" class="caret" />
+                </div>
+            </a>
+            <a class="col-lg-2 col-md-4 col-4 mb-2 textdeco">
+                <div class="row-cards active p-2" id="card1" onclick="changeStatus(this)">
+                    <div class="d-flex state-sub-div">
+                        <img src="SRS Screen Shorts/active.png" class="imagesize  hidden" id="active" />
+                        <img src="SRS Screen Shorts/active_active.png" alt="" class="imagesize" id="active-active" />
+                        <span class="h5 title-sub-div"><span>ACTIVE</span></span>
+                    </div>
+                    <h3 class="number m-0"><span><strong>26</strong></span></h2>
+                </div>
+                <div class="caret-container">
+                    <img src="SRS Screen Shorts/caret-down-fill2.svg" id="active-img" class="caret" />
+                </div>
+            </a>
+            <a class="col-lg-2 col-md-4 col-4 mb-2 textdeco">
+                <div class="row-cards conclude p-2" id="card1" onclick="changeStatus(this)">
+                    <div class="d-flex state-sub-div">
+                        <img src="SRS Screen Shorts/conclude.png" class="imagesize  hidden" id="conclude" />
+                        <img src="SRS Screen Shorts/conclude_active.png" alt="" class="imagesize"
+                            id="conclude-active" />
+                        <span class="h5 title-sub-div"><span>CONCLUDE</span></span>
+                    </div>
+                    <h3 class="number m-0"><span><strong>1078</strong></span></h2>
+                </div>
+                <div class="caret-container">
+                    <img src="SRS Screen Shorts/caret-down-fill3.svg" id="conclude-img" class="caret" />
+                </div>
+            </a>
+            <a class="col-lg-2 col-md-4 col-4 mb-2 textdeco">
+                <div class="row-cards toclose p-2" id="card1" onclick="changeStatus(this)">
+                    <div class="d-flex state-sub-div">
+                        <img src="SRS Screen Shorts/toclose.png" class="imagesize  hidden" id="toclose" />
+                        <img src="SRS Screen Shorts/toclose_active.png" alt="" class="imagesize" id="toclose-active" />
+                        <span class="h5 title-sub-div"><span>TOCLOSE</span></span>
+                    </div>
+                    <h3 class="number m-0"><span><strong>519</strong></span></h2>
+                </div>
+                <div class="caret-container">
+                    <img src="SRS Screen Shorts/caret-down-fill4.svg" id="toclose-img" class="caret" />
+                </div>
+            </a>
+            <a class="col-lg-2 col-md-4 col-4 mb-2 textdeco">
+                <div class="row-cards unpaid p-2" id="card1" onclick="changeStatus(this)">
+                    <div class="d-flex state-sub-div">
+                        <img src="SRS Screen Shorts/unpaid.png" class="imagesize hidden" id="unpaid" />
+                        <img src="SRS Screen Shorts/unpaid_active.png" alt="" class="imagesize" id="unpaid-active" />
+                        <span class="h5 title-sub-div"><span>UNPAID</span></span>
+                    </div>
+                    <h3 class="number m-0"><span><strong>16</strong></span></h2>
+                </div>
+                <div class="caret-container">
+                    <img src="SRS Screen Shorts/caret-down-fill5.svg" id="unpaid-img" class="caret" />
+                </div>
+            </a>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <span class="h4 patienttext">Patients<span class="statetext ms-2 h5" id>(State)</span></span>
+            </div>
+            <div class="d-flex ">
+                <div class="button m-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="bi bi-send" viewBox="0 0 16 16">
+                        <path
+                            d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+                    </svg>
+                    <span class="d-none d-md-block ">Send Link</span>
+                </div>
+                <div class="button m-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="bi bi-file-text" viewBox="0 0 16 16">
+                        <path
+                            d="M5 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5M5 8a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1z" />
+                        <path
+                            d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1" />
+                    </svg>
+                    <span class="d-none d-md-block ">Create Requests</span>
+                </div>
+                <div class="button m-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="bi bi-reply-mirrored" viewBox="0 0 16 16">
+                        <path
+                            d="M6.598 5.013a.144.144 0 0 1 .202.134V6.3a.5.5 0 0 0 .5.5c.667 0 2.013.005 3.3.822.984.624 1.99 1.76 2.595 3.876-1.02-.983-2.185-1.516-3.205-1.799a8.7 8.7 0 0 0-1.921-.306 7 7 0 0 0-.798.008h-.013l-.005.001h-.001L7.3 9.9l-.05-.498a.5.5 0 0 0-.45.498v1.153c0 .108-.11.176-.202.134L2.614 8.254l-.042-.028a.147.147 0 0 1 0-.252l.042-.028zM7.8 10.386q.103 0 .223.006c.434.02 1.034.086 1.7.271 1.326.368 2.896 1.202 3.94 3.08a.5.5 0 0 0 .933-.305c-.464-3.71-1.886-5.662-3.46-6.66-1.245-.79-2.527-.942-3.336-.971v-.66a1.144 1.144 0 0 0-1.767-.96l-3.994 2.94a1.147 1.147 0 0 0 0 1.946l3.994 2.94a1.144 1.144 0 0 0 1.767-.96z" />
+                    </svg>
+                    <span class="d-none d-md-block ">Export</span>
+                </div>
+                <div class="button m-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="bi bi-reply-all-mirrored" viewBox="0 0 16 16">
+                        <path
+                            d="M8.098 5.013a.144.144 0 0 1 .202.134V6.3a.5.5 0 0 0 .5.5c.667 0 2.013.005 3.3.822.984.624 1.99 1.76 2.595 3.876-1.02-.983-2.185-1.516-3.205-1.799a8.7 8.7 0 0 0-1.921-.306 7 7 0 0 0-.798.008h-.013l-.005.001h-.001L8.8 9.9l-.05-.498a.5.5 0 0 0-.45.498v1.153c0 .108-.11.176-.202.134L4.114 8.254l-.042-.028a.147.147 0 0 1 0-.252l.042-.028zM9.3 10.386q.102 0 .223.006c.434.02 1.034.086 1.7.271 1.326.368 2.896 1.202 3.94 3.08a.5.5 0 0 0 .933-.305c-.464-3.71-1.886-5.662-3.46-6.66-1.245-.79-2.527-.942-3.336-.971v-.66a1.144 1.144 0 0 0-1.767-.96l-3.994 2.94a1.147 1.147 0 0 0 0 1.946l3.994 2.94a1.144 1.144 0 0 0 1.767-.96z" />
+                        <path
+                            d="M5.232 4.293a.5.5 0 0 0-.7-.106L.54 7.127a1.147 1.147 0 0 0 0 1.946l3.994 2.94a.5.5 0 1 0 .593-.805L1.114 8.254l-.042-.028a.147.147 0 0 1 0-.252l.042-.028 4.012-2.954a.5.5 0 0 0 .106-.699" />
+                    </svg>
+                    <span class="d-none d-md-block ">Export All</span>
+                </div>
+                <div class="button m-2 me-0 ">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="bi bi-person" viewBox="0 0 16 16">
+                        <path
+                            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                    </svg>
+                    <span class="d-none d-md-block ">Request DIY Support</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="">
+            <!-- het -->
+            <div class="dashboard-sub-div">
+                <h4 class="patient-title">Patients <span id="status-text">(New)</span></h4>
+                <div style="display: flex;">
+                    <button class="dashboard-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white"
+                            class="bi bi-send dashboard-sub-div-icon" viewBox="0 0 16 16">
+                            <path
+                                d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+                        </svg><span class="dashboard-button-text">Send Link</span>
+                    </button>
+
+                    <button class="dashboard-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white"
+                            class="bi bi-journal-medical dashboard-sub-div-icon" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M8 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L9 6l.549.317a.5.5 0 1 1-.5.866L8.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L7 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 8 4M5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+                            <path
+                                d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
+                            <path
+                                d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
+                        </svg><span class="dashboard-button-text">Create Request</span>
+                    </button>
+
+                    <button class="dashboard-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white"
+                            class="bi bi-arrow-up-right dashboard-sub-div-icon" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
+                        </svg><span class="dashboard-button-text">Export</span>
+                    </button>
+
+                    <button class="dashboard-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white"
+                            class="bi bi-box-arrow-up-right dashboard-sub-div-icon" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5" />
+                            <path fill-rule="evenodd"
+                                d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z" />
+                        </svg><span class="dashboard-button-text">Export All</span>
+                    </button>
+
+                    <button class="dashboard-button" style="margin-right: 0px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white"
+                            class="bi bi-person-plus dashboard-sub-div-icon" viewBox="0 0 16 16">
+                            <path
+                                d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                            <path fill-rule="evenodd"
+                                d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                        </svg><span class="dashboard-button-text">Request DTY Support</span>
+                    </button>
+                </div>
+            </div>
+            <div class="dashboard-sub-div-2">
+                <div class="dashboard-sub-div-2-sub">
+                    <div class="search-div">
+                        <div class="search-div-sub">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray"
+                                class="bi bi-search" viewBox="0 0 16 16">
+                                <path
+                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                            </svg>
+                            <input placeholder="Search Patients" class="searchPatientInput" type="text" />
+                        </div>
+                        <div class="search-div-sub-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray"
+                                class="bi bi-search" viewBox="0 0 16 16">
+                                <path
+                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                            </svg>
+                            <input placeholder="All Regions" type="text" class="searchPatientInput" />
+                        </div>
+                    </div>
+                    <div class="categories-div">
+                        <button class="categories-div-all-button">All</button>
+                        <div class="categories-div-sub">
+                            <div class="categories-div-sub-sub" style="background-color: #10bb0d;"></div>
+                            <span style="color:gray" class="categories-div-sub-text">Patient</span>
+                        </div>
+                        <div class="categories-div-sub">
+                            <div class="categories-div-sub-sub" style="background-color: rgb(238, 196, 11);"></div>
+                            <span style="color:gray" class="categories-div-sub-text">Family/Friend</span>
+                        </div>
+                        <div class="categories-div-sub">
+                            <div class="categories-div-sub-sub" style="background-color: rgb(236, 91, 116);"></div>
+                            <span style="color:gray" class="categories-div-sub-text">Business</span>
+                        </div>
+                        <div class="categories-div-sub">
+                            <div class="categories-div-sub-sub" style="background-color: rgb(3, 87, 241);"></div>
+                            <span style="color:gray" class="categories-div-sub-text">Concierge</span>
+                        </div>
+                        <!-- <div class="categories-div-sub">
+                            <div class="categories-div-sub-sub" style="background-color: rgb(207, 18, 207);"></div>
+                            <span style="color:gray" class="categories-div-sub-text">VIP</span>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="table-responsive" style="margin-top: 20px;width: 100%;">
+                    @*<table id="dtBasicExample" class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="table-header">
+                                    Name
+                                </th>
+                                <th scope="col" class="table-header">
+                                    Date of Birth
+                                </th>
+                                <th scope="col" class="table-header">
+                                    Requestor
+                                </th>
+                                <th scope="col" class="table-header">
+                                    Requestor Date
+                                </th>
+                                <th scope="col" class="table-header">
+                                    Phone
+                                </th>
+                                <th scope="col" class="table-header">
+                                    Address
+                                </th>
+                                <th scope="col" class="table-header">
+                                    Notes
+                                </th>
+                                <!-- <th scope="col" class="table-header">
+                                    Chat With
+                                </th> -->
+                                <th scope="col" class="table-header">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="name-td">
+                                        <span class="td-data">test, test</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            style="padding:5px;border: 1px solid white;border-radius: 5px;margin: auto 5px;"
+                                            width="30" height="30" fill="white" class="bi bi-envelope"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+                                        </svg>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="others-td">
+                                        <span class="td-data">Sep 4, 2002</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="others-td">
+                                        <span class="td-data">Patient test,test</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="others-td">
+                                        <span class="td-data">Sep 4, 2002 336h 2m</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="phone-td">
+                                        <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;" width="16"
+                                            height="16" fill="white" class="bi bi-telephone" viewBox="0 0 16 16">
+                                            <path
+                                                d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                                        </svg>
+                                        <span class="td-data">7698545581</span>
+                                    </div>
+                                    <span class="td-data">(Patient)</span>
+                                </td>
+                                <td>
+                                    <div class="addess-td"><span class="td-data">Room location: 101</span></div>
+                                </td>
+                                <td>
+                                    <div class="others-td">
+                                        <span class="td-data">-</span>
+                                    </div>
+                                </td>
+                                <!-- <td>
+                                    <div class="chat-td">
+                                        <span class="chat-td-data phone-td">Provider</span>
+                                    </div>
+                                </td> -->
+                                <td>
+                                    <div class="chat-td">
+                                        <span class="chat-td-data phone-td">Actions</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="name-td">
+                                        <span class="td-data">test, test</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            style="padding:5px;border: 1px solid white;border-radius: 5px;margin: auto 5px;"
+                                            width="30" height="30" fill="white" class="bi bi-envelope"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+                                        </svg>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="others-td">
+                                        <span class="td-data">Sep 4, 2002</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="others-td">
+                                        <span class="td-data">Patient test,test</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="others-td">
+                                        <span class="td-data">Sep 4, 2002 336h 2m</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="phone-td">
+                                        <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;" width="16"
+                                            height="16" fill="white" class="bi bi-telephone" viewBox="0 0 16 16">
+                                            <path
+                                                d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                                        </svg>
+                                        <span class="td-data">7698545581</span>
+                                    </div>
+                                    <span class="td-data">(Patient)</span>
+                                </td>
+                                <td>
+                                    <div class="addess-td"><span class="td-data">Room location: 101</span></div>
+                                </td>
+                                <td>
+                                    <div class="others-td">
+                                        <span class="td-data">-</span>
+                                    </div>
+                                </td>
+                                <!-- <td>
+                                    <div  class="others-td">
+                                        <span class="td-data">Provider</span>
+                                    </div>
+                                </td> -->
+                                <td>
+                                    <div class="others-td">
+                                        <span class="td-data">Actions</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="name-td">
+                                        <span class="td-data">test, test</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            style="padding:5px;border: 1px solid white;border-radius: 5px;margin: auto 5px;"
+                                            width="30" height="30" fill="white" class="bi bi-envelope"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+                                        </svg>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="others-td">
+                                        <span class="td-data">Sep 4, 2002</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="others-td">
+                                        <span class="td-data">Patient test,test</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="others-td">
+                                        <span class="td-data">Sep 4, 2002 336h 2m</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="phone-td">
+                                        <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;" width="16"
+                                            height="16" fill="white" class="bi bi-telephone" viewBox="0 0 16 16">
+                                            <path
+                                                d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                                        </svg>
+                                        <span class="td-data">7698545581</span>
+                                    </div>
+                                    <span class="td-data">(Patient)</span>
+                                </td>
+                                <td>
+                                    <div class="addess-td"><span class="td-data">Room location: 101</span></div>
+                                </td>
+                                <td>
+                                    <div class="others-td">
+                                        <span class="td-data">-</span>
+                                    </div>
+                                </td>
+                                <!-- <td>
+                                    <div  class="others-td">
+                                        <span class="td-data">Provider</span>
+                                    </div>
+                                </td> -->
+                                <td>
+                                    <div class="others-td">
+                                        <span class="td-data">Actions</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>*@
+                    <div class="table-responsive" style="margin-top: 20px;width: 100%;">
+                        <div id="AdminDashboardPartialView"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- het -->
+            <div class="d-none d-md-block">
+                <table class="table" id="#dtBasicExample">
+                    <thead>
+                        <tr class="table-active">
+                            <th style="color: rgb(73, 73, 73);font-weight:500;width:20%;">Name</th>
+                            <th style="color: rgb(73, 73, 73);font-weight:500;width:10%;">Date Of Birth</th>
+                            <th style="color: rgb(73, 73, 73);font-weight:500;width:10%;">Requestor</th>
+                            <th style="color: rgb(73, 73, 73);font-weight:500;width:15%;">Requested Date</th>
+                            <th style="color: rgb(73, 73, 73);font-weight:500;width:15%;">Phone</th>
+                            <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width:20%;">Address</th>
+                            <th style="color: rgb(73, 73, 73);font-weight:500;width:15%;">Notes</th>
+                            <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width:5%;text-align:center;">
+                                Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="tablecolor ">
+                                <div class="d-flex justify-content-between align-items-center ">
+                                    <span class="whitefont">Patient,Test</span>
+                                    <div class="border me-3 whitefont">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                                            <path
+                                                d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="tablecolor"> <span class="whitefont">date</span></td>
+                            <td class="tablecolor">
+                                <span class="whitefont">phy name</span>
+                            </td>
+                            <td class="tablecolor">
+                                <span class="whitefont">service</span>
+                            </td>
+                            <td class="tablecolor">
+                                <span class="whitefont">phone</span>
+                            </td>
+                            <td class="tablecolor">
+                                <span class="whitefont">Notes</span>
+                            </td>
+                            <td class="tablecolor">
+                                <span class="whitefont">address</span>
+                            </td>
+                            <td class="tablecolor">
+                                <span class="whitefont">actions</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-block d-md-none ">
+                <div class="accordion d-sm-block d-md-none" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                style="background-color: #ebfafd; " data-bs-target="#collapseOne" aria-expanded="true"
+                                aria-controls="collapseOne">
+                                <div class="d-flex flex-column ">
+                                    <div class="d-flex justify-content-between align-items-center mb-3"
+                                        style="width:290px">
+                                        <div class="d-flex justify-content-between flex-column " style="height: 60px;">
+                                            <span mb-3>AgolaThree,Bhoomi...</span>
+                                            <div><span>Address</span></div>
+                                        </div>
+                                        <div>
+                                            <div class="d-flex justify-content-end align-items-center ">
+                                                <span class="me-1 ">Patient</span>
+                                                <img src="SRS Screen Shorts/radio-checked-patient.svg"
+                                                    class="radiocheck" />
+                                            </div>
+                                            <div class="aquaborder aquatext" style="height: 30px;"><span>Map
+                                                    Location</span></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <span class="me-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="#0dcaf0" class="bi bi-clock" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />
+                                                    <path
+                                                        d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0" />
+                                                </svg>
+                                            </span>
+                                            Wait Time:<strong class="ms-1">DateTime Below</strong>
+                                            <!-- @item.CreatedDate.ToString("MMMM dd,yyyy") -->
+                                        </span>
+                                    </div>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body" style="background-color: #dae8eb;">
+                                <div class="hrbody">
+                                    <hr>
+                                    <div class="viewcase"><span>View Case</span></div>
+                                </div>
+
+
+                                <div class="mb-2">
+                                    <div class="d-inline circle">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                            fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+                                            <path
+                                                d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857z" />
+                                            <path
+                                                d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
+                                        </svg>
+                                    </div>
+                                    <span>Date Of Birth:</span>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-inline circle">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0bb6d0"
+                                            class="bi bi-check" viewBox="0 0 16 16">
+                                            <path
+                                                d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
+                                        </svg>
+                                    </div>
+                                    <strong>CurrentStatus:</strong><span>@Enum.GetName(typeof(Status),
+                                        @item.Status)</span>
+                                </div>
+                                <div class="docbutton"
+                                    style="border:1px solid #00ccff;padding:6px;margin:auto;border-radius:5px;text-align:center;">
+
+                                    <a asp-controller="PatientDashboard" asp-action="viewDoc"
+                                        asp-route-id="@item.RequestId"
+                                        style="padding:6px;margin:auto;color:#00ccff;border-radius:5px;text-decoration:none;"><span>(@item.Count)
+                                            Document</span></a>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+
+<script>
+    // function selectDiv(event) {
+    //     event.currentTarget.classList.toggle("selected");
+    // }
+
+
+    //for pagination of table
+    // $(document).ready(function () {
+    //     $("#dtBasicExample").DataTable();
+    // });
+
+    //triangle under cards and cards color after selection
+    const changeStatus = (element) => {
+        const states = document.getElementsByClassName("row-cards")
+        console.log(states)
+        const current_state = element.classList[1]
+        for (let i = 0; i < states.length; ++i) {
+            if (states[i].classList.length == 3 && states[i].classList[1] == current_state) {
+                break;
+            } else if (states[i].classList[1] == current_state) {
+                states[i].classList.add(`${states[i].classList[1]}-active`)
+                document.getElementById(`${states[i].classList[1]}-active`).classList.remove('hidden')
+                document.getElementById(`${states[i].classList[1]}`).classList.add('hidden')
+                document.getElementById(`${states[i].classList[1]}-img`).classList.remove('hidden')
+            } else if
+                (states[i].classList.length == 3) {
+                states[i].classList.remove(`${states[i].classList[1]}-active`)
+                document.getElementById(`${states[i].classList[1]}-active`).classList.add('hidden')
+                document.getElementById(`${states[i].classList[1]}`).classList.remove('hidden')
+                document.getElementById(`${states[i].classList[1]}-img`).classList.add('hidden')
+            }
+        }
+    }
+
+
+
+    //dark theme
+    // window.onload = function checkingTheme() {
+    //     try {
+    //         let themeCheck = localStorage.getItem('theme'); if (themeCheck == null ||
+    //             themeCheck == 'light') {
+    //             document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+    //             document.getElementById('body').style.backgroundColor = "#f5f5f5";
+    //             document.getElementsByClassName('login-title')[0].style.color = "black";
+    //             document.getElementsByClassName('t-and-c')[0].style.color = "gray";
+    //             document.getElementsByClassName('demo-bg')[0].style.display = "flex";
+    //             document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
+    //             document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+    //         } else {
+    //             document.getElementById('main-div').style.backgroundColor = "black";
+    //             document.getElementById('body').style.backgroundColor = "black";
+    //             document.getElementsByClassName('login-title')[0].style.color = "white";
+    //             document.getElementsByClassName('t-and-c')[0].style.color = "white";
+    //             document.getElementsByClassName('demo-bg')[0].style.display = "none";
+    //             document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
+    //             document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
+    //         }
+    //     } catch (error) {
+    //         console.log('no themes decided yet');
+    //     }
+    // } function changeTheme() {
+    //     let theme = localStorage.getItem('theme'); if
+    //         (theme == null || theme == 'light') {
+    //         localStorage.setItem('theme', 'dark'); // console.log('theme changed to dark');
+    //         document.getElementById('main-div').style.backgroundColor = "black";
+    //         document.getElementById('body').style.backgroundColor = "black";
+    //         document.getElementsByClassName('login-title')[0].style.color = "white";
+    //         document.getElementsByClassName('t-and-c')[0].style.color = "white";
+    //         document.getElementsByClassName('demo-bg')[0].style.display = "none";
+    //         document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
+    //         document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
+    //     } else if (theme == 'dark') {
+    //         localStorage.setItem('theme', 'light'); // console.log('theme changed to light');
+    //         document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+    //         document.getElementById('body').style.backgroundColor = "#f5f5f5";
+    //         document.getElementsByClassName('login-title')[0].style.color = "black";
+    //         document.getElementsByClassName('t-and-c')[0].style.color = "gray";
+    //         document.getElementsByClassName('demo-bg')[0].style.display = "flex";
+    //         document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
+    //         document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+    //     } console.log(theme);
+    // } 
+</script>
+
+</html>
