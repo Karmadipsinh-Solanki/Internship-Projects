@@ -1,8 +1,6 @@
 ﻿using Hallodoc.Data;
 using Hallodoc.Models;
 using Hallodoc.Models.Models;
-using Hallodoc.Models.ViewModels;
-using HalloDoc.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +11,8 @@ using System.Data;
 using System.Diagnostics;
 using System.Net.Mail;
 using System.Net;
+using HalloDoc.DataLayer.ViewModels;
+using HalloDoc.LogicLayer.Patient_Interface;
 
 namespace Hallodoc.Controllers
 {
@@ -20,11 +20,17 @@ namespace Hallodoc.Controllers
     {
         private readonly ILogger<LoginController> _logger;
         private readonly ApplicationDbContext _db;
+        private readonly IPatientLogin _patientLogin;
+        private readonly IResetPasswordFromEmail _resetPasswordFromEmail;
+        private readonly IForgotPassword _forgotPassword;
 
-        public LoginController(ILogger<LoginController> logger, ApplicationDbContext db)
+        public LoginController(ILogger<LoginController> logger, ApplicationDbContext db, IPatientLogin patientLogin,IResetPasswordFromEmail resetPasswordFromEmail, IForgotPassword forgotPassword)
         {
             _logger = logger;
             _db = db;
+            _patientLogin = patientLogin;
+            _resetPasswordFromEmail = resetPasswordFromEmail;
+            _forgotPassword = forgotPassword;
         }
 
         [HttpPost]
@@ -33,21 +39,19 @@ namespace Hallodoc.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                
-                var user = _db.AspNetUsers.FirstOrDefault(u => u.Email == model.Email);
+                var user = _patientLogin.ValidateUser(model);
                 if (user != null)
                 {
                     //var passwordHasher = new PasswordHasher<AspNetUser>();
                     //var result = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, model.PasswordHash);
                     //if (result == PasswordVerificationResult.Success)
                     //{
-                        //if (model.PasswordHash == user.PasswordHash)
+                    //if (model.PasswordHash == user.PasswordHash)
 
-                        var user2 = _db.Users.Where(x => x.Email == model.Email);
-                        User users = user2.ToList().First();
-                        HttpContext.Session.SetInt32("id", users.UserId);
-                        HttpContext.Session.SetString("Name", users.FirstName);
+                    var user2 = _patientLogin.ValidateUsers(model);
+                    //User users = user2.ToList().First();
+                        HttpContext.Session.SetInt32("id", user2.UserId);
+                        HttpContext.Session.SetString("Name", user2.FirstName);
                         HttpContext.Session.SetString("IsLoggedIn", "true");
                         return RedirectToAction("patientDashboard", "PatientDashboard");
                     //}
@@ -91,12 +95,15 @@ namespace Hallodoc.Controllers
         [HttpPost]
         public IActionResult ResetPasswordFromEmail(CreateNewPassword model)
         {
-            var aspnetUser = _db.AspNetUsers.FirstOrDefault(u => u.Email == model.email);
+            var aspnetUser = _resetPasswordFromEmail.ResetPwdFromEmail(model);
             var passwordHasher = new PasswordHasher<AspNetUser>();
             aspnetUser.PasswordHash = passwordHasher.HashPassword(aspnetUser, model.password);
             //aspnetUser.PasswordHash = model.password;
+
+            //Ishan
             _db.AspNetUsers.Update(aspnetUser);
             _db.SaveChanges();
+            //Ishan
             return RedirectToAction("PasswordUpdatedSuccessfully");
         }
         [HttpPost]
@@ -119,7 +126,7 @@ namespace Hallodoc.Controllers
                 UseDefaultCredentials = false
             };
             string email = model.email;
-            var aspnetUser = _db.AspNetUsers.FirstOrDefault(u => u.Email == email);
+            var aspnetUser = _forgotPassword.ForgotpwdAspnetuserEmail(model);
             var userdb = _db.Users.FirstOrDefault(u => u.Email == email);
             var userFirstName = userdb.FirstName;
             //string date = new DateTime.Now;

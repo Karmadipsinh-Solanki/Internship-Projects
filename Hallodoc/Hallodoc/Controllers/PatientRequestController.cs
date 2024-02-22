@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using System.Diagnostics;
 using System.Globalization;
-using Hallodoc.Models.ViewModels;
 using Hallodoc.Models.Models;
+using HalloDoc.DataLayer.ViewModels;
 //using Region = HalloDoc.Models.Region;
 
 //using HalloDoc.Data;

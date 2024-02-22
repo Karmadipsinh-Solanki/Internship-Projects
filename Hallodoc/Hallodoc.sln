@@ -5,6 +5,10 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hallodoc", "Hallodoc\Hallodoc.csproj", "{15F5B8EB-9611-4F1D-80A2-AB2DB27678F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HalloDoc.DataLayer", "HalloDoc.DataLayer\HalloDoc.DataLayer.csproj", "{04438D81-1790-45FA-A000-D810B44BE540}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HalloDoc.LogicLayer", "HalloDoc.LogicLayer\HalloDoc.LogicLayer.csproj", "{CC9B5315-E6A5-44DA-9B44-E5408F8C638D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{15F5B8EB-9611-4F1D-80A2-AB2DB27678F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15F5B8EB-9611-4F1D-80A2-AB2DB27678F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15F5B8EB-9611-4F1D-80A2-AB2DB27678F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04438D81-1790-45FA-A000-D810B44BE540}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04438D81-1790-45FA-A000-D810B44BE540}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04438D81-1790-45FA-A000-D810B44BE540}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04438D81-1790-45FA-A000-D810B44BE540}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC9B5315-E6A5-44DA-9B44-E5408F8C638D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC9B5315-E6A5-44DA-9B44-E5408F8C638D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC9B5315-E6A5-44DA-9B44-E5408F8C638D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC9B5315-E6A5-44DA-9B44-E5408F8C638D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

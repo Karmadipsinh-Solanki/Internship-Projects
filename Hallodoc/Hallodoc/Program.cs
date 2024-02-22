@@ -1,4 +1,7 @@
 using Hallodoc.Data;
+using HalloDoc.DataLayer.ViewModels;
+using HalloDoc.LogicLayer.Patient_Interface;
+using HalloDoc.LogicLayer.Patient_Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +20,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options=>options.UseNpgsql(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
+//3tier
+builder.Services.AddScoped<IPatientLogin, PatientLogin>();
+builder.Services.AddScoped<IResetPasswordFromEmail, ResetPasswordFromEmail>();
+builder.Services.AddScoped<IForgotPassword, ForgotPassword>();
+
+//3tier
 
 var app = builder.Build();
 

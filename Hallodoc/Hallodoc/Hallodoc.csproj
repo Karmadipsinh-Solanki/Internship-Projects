@@ -23,4 +23,9 @@
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HalloDoc.DataLayer\HalloDoc.DataLayer.csproj" />
+    <ProjectReference Include="..\HalloDoc.LogicLayer\HalloDoc.LogicLayer.csproj" />
+  </ItemGroup>
+
 </Project>

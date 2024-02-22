@@ -11,11 +11,11 @@ using Hallodoc.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Hallodoc.Models.ViewModels;
 using System.Drawing;
 using System.Globalization;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Hallodoc.Models.Models;
+using HalloDoc.DataLayer.ViewModels;
 
 namespace Hallodoc.Controllers
 {

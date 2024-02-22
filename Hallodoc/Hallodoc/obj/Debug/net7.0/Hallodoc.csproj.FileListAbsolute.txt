@@ -463,3 +463,10 @@ C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\obj\Debug\net7.0\r
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\obj\Debug\net7.0\Hallodoc.pdb
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\obj\Debug\net7.0\Hallodoc.genruntimeconfig.cache
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\obj\Debug\net7.0\ref\Hallodoc.dll
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\HalloDoc.DataLayer.dll
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\HalloDoc.LogicLayer.dll
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\HalloDoc.LogicLayer.pdb
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\HalloDoc.DataLayer.pdb
