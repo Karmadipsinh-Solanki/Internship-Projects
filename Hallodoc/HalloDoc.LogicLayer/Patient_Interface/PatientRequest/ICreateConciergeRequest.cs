@@ -6,11 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HalloDoc.LogicLayer.Patient_Interface
+namespace HalloDoc.LogicLayer.Patient_Interface.PatientRequest
 {
-    public interface IResetPasswordFromEmail
+    public interface ICreateConciergeRequest
     {
-        public AspNetUser ResetPwdFromEmail(CreateNewPassword model);
-
+        public BlockRequest EmailFromBlockReq(RequestViewModelConcierge model);
     }
 }

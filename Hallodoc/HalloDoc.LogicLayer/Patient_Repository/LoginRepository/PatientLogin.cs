@@ -1,18 +1,17 @@
-﻿using HalloDoc.LogicLayer.Patient_Interface;
-using HalloDoc.LogicLayer.Patient_Interface;
-using HalloDoc.DataLayer.ViewModels;
+﻿using HalloDoc.DataLayer.ViewModels;
 using Hallodoc.Data;
 using Microsoft.Extensions.Logging;
 using Hallodoc.Models.Models;
 using Microsoft.EntityFrameworkCore;
+using HalloDoc.LogicLayer.Patient_Interface.LoginControllerInterface;
 
-namespace HalloDoc.LogicLayer.Patient_Repository
+namespace HalloDoc.LogicLayer.Patient_Repository.LoginRepository
 {
     public class PatientLogin : IPatientLogin
     {
         private readonly ApplicationDbContext _db;
 
-        public PatientLogin( ApplicationDbContext db)
+        public PatientLogin(ApplicationDbContext db)
         {
             _db = db;
         }
@@ -40,6 +39,6 @@ namespace HalloDoc.LogicLayer.Patient_Repository
             //User user1 = new User { UserId = user.UserId };
             return user;
         }
-       
+
     }
 }

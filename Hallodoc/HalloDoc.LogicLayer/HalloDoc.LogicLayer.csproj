@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -8,6 +8,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HalloDoc.DataLayer\HalloDoc.DataLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Admin_Interface\" />
+    <Folder Include="Admin_Repository\" />
   </ItemGroup>
 
 </Project>

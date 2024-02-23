@@ -1,8 +1,14 @@
 using Hallodoc.Data;
 using HalloDoc.DataLayer.ViewModels;
-using HalloDoc.LogicLayer.Patient_Interface;
-using HalloDoc.LogicLayer.Patient_Repository;
+using HalloDoc.LogicLayer.Patient_Interface.LoginControllerInterface;
+using HalloDoc.LogicLayer.Patient_Interface.LoginInterface;
+using HalloDoc.LogicLayer.Patient_Interface.PatientDashboardInterface;
+using HalloDoc.LogicLayer.Patient_Interface.PatientRequest;
+using HalloDoc.LogicLayer.Patient_Repository.LoginRepository;
+using HalloDoc.LogicLayer.Patient_Repository.PatientDashboardRepository;
+using HalloDoc.LogicLayer.Patient_Repository.PatientRequest;
 using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,8 +29,18 @@ builder.Services.AddDbContext<ApplicationDbContext>(options=>options.UseNpgsql(
 //3tier
 builder.Services.AddScoped<IPatientLogin, PatientLogin>();
 builder.Services.AddScoped<IResetPasswordFromEmail, ResetPasswordFromEmail>();
-builder.Services.AddScoped<IForgotPassword, ForgotPassword>();
-
+builder.Services.AddScoped<IForgotPwd, ForgotPwd>();
+builder.Services.AddScoped<IPatientDashboard, PatientDashboard>();
+builder.Services.AddScoped<IViewDoc, ViewDoc>();
+builder.Services.AddScoped<IMeModalSubmit, MeModalSubmit>();
+builder.Services.AddScoped<IMeModal, MeModal>();
+builder.Services.AddScoped<IRelativeModalSubmit, RelativeModalSubmit>();
+builder.Services.AddScoped<IProfile, Profile>();
+builder.Services.AddScoped<ICreatePatientRequest, CreatePatientRequest>();
+builder.Services.AddScoped<ICreatePatientRequest, CreatePatientRequest>();
+builder.Services.AddScoped<ICreatePatientRequest, CreatePatientRequest>();
+builder.Services.AddScoped<ICreatePatientRequest, CreatePatientRequest>();
+builder.Services.AddScoped<IPatientCheck, PatientCheck>();
 //3tier
 
 var app = builder.Build();

@@ -7,12 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HalloDoc.LogicLayer.Patient_Interface
+namespace HalloDoc.LogicLayer.Patient_Interface.LoginInterface
 {
-    public interface IForgotPassword
+    public interface IForgotPwd
     {
         public AspNetUser ForgotpwdAspnetuserEmail(ForgotPassword model);
-        public AspNetUser EmailInForgotPwd(ForgotPassword model);
-        public Users ForgotpwdUsersEmail(ForgotPassword model);
+        //public AspNetUser EmailInForgotPwd(ForgotPassword model);
+        public User ForgotpwdUsersEmail(ForgotPassword model);
     }
 }

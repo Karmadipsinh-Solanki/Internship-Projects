@@ -16,6 +16,9 @@ using System.Globalization;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Hallodoc.Models.Models;
 using HalloDoc.DataLayer.ViewModels;
+using HalloDoc.LogicLayer.Patient_Interface.PatientDashboardInterface;
+using HalloDoc.LogicLayer.Patient_Repository.PatientDashboardRepository;
+using System.Diagnostics.Metrics;
 
 namespace Hallodoc.Controllers
 {
@@ -23,11 +26,23 @@ namespace Hallodoc.Controllers
     {
         private readonly ILogger<PatientDashboardController> _logger;
         private readonly ApplicationDbContext _db;
+        private readonly IPatientDashboard _patientDashboard;
+        private readonly IViewDoc _viewDoc;
+        private readonly IMeModalSubmit _meModalSubmit;
+        private readonly IMeModal _meModal;
+        private readonly IRelativeModalSubmit _relativeModalSubmit;
+        private readonly IProfile _profile;
+        
 
-        public PatientDashboardController(ILogger<PatientDashboardController> logger, ApplicationDbContext db)
+        public PatientDashboardController(ILogger<PatientDashboardController> logger, ApplicationDbContext db, IPatientDashboard patientDashboard , IViewDoc viewDoc, IMeModalSubmit meModalSubmit, IMeModal meModal, IRelativeModalSubmit relativeModalSubmit, IProfile profile)
         {
             _logger = logger;
             _db = db;
+            _patientDashboard = patientDashboard;
+            _viewDoc = viewDoc;
+            _meModalSubmit = meModalSubmit;
+            _meModal = meModal;
+            _profile = profile;
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -38,9 +53,12 @@ namespace Hallodoc.Controllers
         public IActionResult patientDashboard()
         {
             var id = HttpContext.Session.GetInt32("id");
-            var curr_user = _db.Users.FirstOrDefault(u => u.UserId == id);
+            //var curr_user = _db.Users.FirstOrDefault(u => u.UserId == id);
+            var curr_user = _patientDashboard.CurrentUserIdFromUser((int)id);
 
-            var data = _db.TableContents.FromSqlRaw($"SELECT * FROM PatientDashboardData({id})").ToList();
+            //var data = _db.TableContents.FromSqlRaw($"SELECT * FROM PatientDashboardData({id})").ToList();
+            var data = _patientDashboard.FetchDataFromContentTable((int)id);
+
             DashboardViewModel dashboardViewModel = new DashboardViewModel
             {
                 requests = data,
@@ -58,9 +76,12 @@ namespace Hallodoc.Controllers
             //to save file in wwwroot,that is uploaded by patient
          
             var user_id = HttpContext.Session.GetInt32("id");
-            var request = _db.Requests.Include(r => r.RequestClient).FirstOrDefault(u => u.RequestId == id);
-            var documents = _db.RequestWiseFiles.Include(u => u.Admin).Include(u => u.Physician).Where(u => u.RequestId == id).ToList();
-            var user = _db.Users.FirstOrDefault(u => u.UserId == user_id);
+            //var request = _db.Requests.Include(r => r.RequestClient).FirstOrDefault(u => u.RequestId == id);
+            var request = _viewDoc.ListOfIncludeAdminPhysicianToReq(id);
+            //var documents = _db.RequestWiseFiles.Include(u => u.Admin).Include(u => u.Physician).Where(u => u.RequestId == id).ToList();
+            var documents = _viewDoc.ListOfIncludeAdminPhysicianToReqwisefile(id);
+            //var user = _db.Users.FirstOrDefault(u => u.UserId == user_id);
+            var user = _viewDoc.UserIdFromUser((int)user_id);
             ViewDocumentModel viewDocumentModel = new ViewDocumentModel()
             {
                 patient_name = string.Concat(request.RequestClient.FirstName, ' ', request.RequestClient.LastName),
@@ -88,8 +109,10 @@ namespace Hallodoc.Controllers
                 //IformFile has a property that to store filepath u need to add .filename behind it to store path
                 requestWiseFile.FileName = model.File.FileName;
                 requestWiseFile.CreatedDate = DateTime.Now;
+                //ishan
                 _db.RequestWiseFiles.Add(requestWiseFile);
                 await _db.SaveChangesAsync();
+                //Ishan
                 return RedirectToAction("viewDoc",new {id=id});
             }
             else
@@ -103,7 +126,8 @@ namespace Hallodoc.Controllers
         {
             
             var user = HttpContext.Session.GetInt32("id");
-            var userDetail = _db.Users.FirstOrDefault(u => u.UserId == user);
+            //var userDetail = _db.Users.FirstOrDefault(u => u.UserId == user);
+            var userDetail = _meModal.UserIdFromUserInMeModal((int)user);
             MeViewModel meViewModel = new MeViewModel();
             meViewModel.City = userDetail.City;
             meViewModel.Street = userDetail.Street;
@@ -130,7 +154,8 @@ namespace Hallodoc.Controllers
             RequestStatusLog requestStatusLog = new RequestStatusLog();
 
             //to add one more state,that is to show that we dont give service in particular region
-            var region = _db.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
+            //var region = _db.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
+            var region = _meModalSubmit.StatesFromRegion(model);
             if (region == null)
             {
                 ModelState.AddModelError("State", "Currently we are not serving in this region");
@@ -171,10 +196,14 @@ namespace Hallodoc.Controllers
             requestClient.City = model.City;
             requestClient.State = model.State;
             requestClient.ZipCode = model.ZipCode;
+            //ishan
             _db.RequestClients.Add(requestClient);
             await _db.SaveChangesAsync();
+            //ishan
 
             //to generate confirmation number(method is given in srs that how to generate confirmation number
+
+            //int requests = _meModalSubmit.CountOfReqAtDate(count);
             int requests = _db.Requests.Where(u => u.CreatedDate == DateTime.Now.Date).Count();
             string ConfirmationNumber = string.Concat(region.Abbreviation, model.FirstName.Substring(0, 2).ToUpper(), model.LastName.Substring(0, 2).ToUpper(), requests.ToString("D" + 4));
             //
@@ -192,8 +221,10 @@ namespace Hallodoc.Controllers
             request.CreatedDate = DateTime.Now;
             //RequestId dropped from requestClient and requestClientId added in request + foreign key
             request.RequestClientId = requestClient.RequestClientId;
+            //ishan
             _db.Requests.Add(request);
             await _db.SaveChangesAsync();
+            //ishan
 
             if (model.File != null)
             {
@@ -201,16 +232,19 @@ namespace Hallodoc.Controllers
                 //IformFile has a property that to store filepath u need to add .filename behind it to store path
                 requestWiseFile.FileName = model.File.FileName;
                 requestWiseFile.CreatedDate = DateTime.Now;
+                //ishan
                 _db.RequestWiseFiles.Add(requestWiseFile);
                 await _db.SaveChangesAsync();
+                //ishan
             }
 
             requestStatusLog.RequestId = request.RequestId;
             requestStatusLog.Status = 1;
             requestStatusLog.Notes = model.Symptoms;
             requestStatusLog.CreatedDate = DateTime.Now;
+            //ishan
             _db.RequestStatusLogs.Add(requestStatusLog);
-            await _db.SaveChangesAsync();
+            await _db.SaveChangesAsync();//ishan
 
             return RedirectToAction("patientDashboard", "PatientDashboard");
         }
@@ -231,7 +265,8 @@ namespace Hallodoc.Controllers
             RequestStatusLog requestStatusLog = new RequestStatusLog();
 
             //to add one more state,that is to show that we dont give service in particular region
-            var region = _db.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
+            //var region = _db.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
+            var region = _relativeModalSubmit.StatesFromRegionInSomeoneModal(model);
             if (region == null)
             {
                 ModelState.AddModelError("State", "Currently we are not serving in this region");
@@ -272,15 +307,19 @@ namespace Hallodoc.Controllers
             requestClient.City = model.City;
             requestClient.State = model.State;
             requestClient.ZipCode = model.ZipCode;
+            //ishan
             _db.RequestClients.Add(requestClient);
             await _db.SaveChangesAsync();
+            //ishan
 
             //to generate confirmation number(method is given in srs that how to generate confirmation number
+            //int requests = _meModalSubmit.CountOfReqAtDate(count);
             int requests = _db.Requests.Where(u => u.CreatedDate == DateTime.Now.Date).Count();
             string ConfirmationNumber = string.Concat(region.Abbreviation, model.FirstName.Substring(0, 2).ToUpper(), model.LastName.Substring(0, 2).ToUpper(), requests.ToString("D" + 4));
             //
             var id = HttpContext.Session.GetInt32("id");
-            var curr_user = _db.Users.FirstOrDefault(u => u.UserId == id);
+            //var curr_user = _db.Users.FirstOrDefault(u => u.UserId == id);
+            var curr_user = _relativeModalSubmit.CurrentUserFromUser((int)id);
 
             request.RequestTypeId = 1;
 
@@ -295,8 +334,10 @@ namespace Hallodoc.Controllers
             request.CreatedDate = DateTime.Now;
             //RequestId dropped from requestClient and requestClientId added in request + foreign key
             request.RequestClientId = requestClient.RequestClientId;
+            //ishan
             _db.Requests.Add(request);
             await _db.SaveChangesAsync();
+            //ishan
 
             if (model.File != null)
             {
@@ -304,16 +345,20 @@ namespace Hallodoc.Controllers
                 //IformFile has a property that to store filepath u need to add .filename behind it to store path
                 requestWiseFile.FileName = model.File.FileName;
                 requestWiseFile.CreatedDate = DateTime.Now;
+                //ishan
                 _db.RequestWiseFiles.Add(requestWiseFile);
                 await _db.SaveChangesAsync();
+                //ishan
             }
 
             requestStatusLog.RequestId = request.RequestId;
             requestStatusLog.Status = 1;
             requestStatusLog.Notes = model.Symptoms;
             requestStatusLog.CreatedDate = DateTime.Now;
+            //ishan
             _db.RequestStatusLogs.Add(requestStatusLog);
             await _db.SaveChangesAsync();
+            //ishan
 
             return RedirectToAction("patientDashboard", "PatientDashboard");
         }
@@ -321,7 +366,8 @@ namespace Hallodoc.Controllers
         public IActionResult profile()
         {
             var user = HttpContext.Session.GetInt32("id");
-            var userDetail = _db.Users.FirstOrDefault(u => u.UserId == user);
+            //var userDetail = _db.Users.FirstOrDefault(u => u.UserId == user);
+            var userDetail = _profile.UserIdFromUserInProfile((int)user);
             EditProfileViewModel profileViewModel = new EditProfileViewModel()
             {
                 City = userDetail.City,
@@ -356,14 +402,16 @@ namespace Hallodoc.Controllers
             RequestStatusLog requestStatusLog = new RequestStatusLog();
 
             //to add one more state,that is to show that we dont give service in particular region
-            var region = _db.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
+            //var region = _db.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
+            var region = _profile.StateFromRegionInProfile(model);
             if (region == null)
             {
                 ModelState.AddModelError("State", "Currently we are not serving in this region");
                 return View(model);
             }
 
-            var existingUser = _db.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
+            //var existingUser = _db.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
+            var existingUser = _profile.EmailFromAspnetuserinProfile(model);
             bool userExists = true;
             if (existingUser == null)
             {
@@ -381,8 +429,10 @@ namespace Hallodoc.Controllers
                 aspNetUser.CreatedDate = DateTime.Now;
                 aspNetUser.PasswordHash = model.PasswordHash;
                 //aspNetUser.UserName = model.FirstName + " " + model.LastName;
+                //ishan
                 _db.AspNetUsers.Add(aspNetUser);
                 await _db.SaveChangesAsync();
+                //ishan
 
                 user.AspNetUserId = aspNetUser.Id;
                 user.FirstName = model.FirstName;
@@ -398,9 +448,10 @@ namespace Hallodoc.Controllers
                 user.IntYear = model.DOB.Year;
                 user.CreatedBy = aspNetUser.Id;
                 user.CreatedDate = DateTime.Now;
-                //user.PasswordHash = 
+                //ishan
                 _db.Users.Add(user);
                 await _db.SaveChangesAsync();
+                //ishan
             }
 
             requestClient.FirstName = model.FirstName;
@@ -421,8 +472,10 @@ namespace Hallodoc.Controllers
             requestClient.City = model.City;
             requestClient.State = model.State;
             requestClient.ZipCode = model.ZipCode;
+            //ishan
             _db.RequestClients.Add(requestClient);
             await _db.SaveChangesAsync();
+            //ishan
 
             //to generate confirmation number(method is given in srs that how to generate confirmation number
             int requests = _db.Requests.Where(u => u.CreatedDate == DateTime.Now.Date).Count();
@@ -442,8 +495,10 @@ namespace Hallodoc.Controllers
             request.CreatedDate = DateTime.Now;
             //RequestId dropped from requestClient and requestClientId added in request + foreign key
             request.RequestClientId = requestClient.RequestClientId;
+            //ishan
             _db.Requests.Add(request);
             await _db.SaveChangesAsync();
+            //ishan
 
             //if (model.File != null)
             //{
@@ -459,8 +514,10 @@ namespace Hallodoc.Controllers
             requestStatusLog.Status = 1;
             //requestStatusLog.Notes = model.Symptoms;
             requestStatusLog.CreatedDate = DateTime.Now;
+            //ishan
             _db.RequestStatusLogs.Add(requestStatusLog);
             await _db.SaveChangesAsync();
+            //ishan
 
             return RedirectToAction("patientDashboard", "PatientDashboard");
         }

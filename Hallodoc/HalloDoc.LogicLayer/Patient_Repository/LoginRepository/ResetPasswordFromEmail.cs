@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Hallodoc.Data;
-using HalloDoc.LogicLayer.Patient_Interface;
+using HalloDoc.LogicLayer.Patient_Interface.LoginControllerInterface;
 
-namespace HalloDoc.LogicLayer.Patient_Repository
+namespace HalloDoc.LogicLayer.Patient_Repository.LoginRepository
 {
     public class ResetPasswordFromEmail : IResetPasswordFromEmail
-    { 
+    {
         private readonly ApplicationDbContext _db;
 
         public ResetPasswordFromEmail(ApplicationDbContext db)

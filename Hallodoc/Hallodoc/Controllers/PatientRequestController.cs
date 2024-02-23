@@ -7,17 +7,8 @@ using System.Diagnostics;
 using System.Globalization;
 using Hallodoc.Models.Models;
 using HalloDoc.DataLayer.ViewModels;
-//using Region = HalloDoc.Models.Region;
-
-//using HalloDoc.Data;
-//using HalloDoc.Models;
-//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.EntityFrameworkCore;
-
-
-
-
-
+using HalloDoc.LogicLayer.Patient_Repository.PatientRequest;
+using HalloDoc.LogicLayer.Patient_Interface.PatientRequest;
 namespace Hallodoc.Controllers
 {
     public class PatientRequestController : Controller
@@ -45,11 +36,22 @@ namespace Hallodoc.Controllers
         }
         private readonly ILogger<PatientRequestController> _logger;
         private readonly ApplicationDbContext _db;
+        private readonly ICreatePatientRequest _createPatientRequest;
+        private readonly ICreateFamilyRequest _createFamilyRequest;
+        private readonly ICreateConciergeRequest _createConciergeRequest;
+        private readonly ICreateBusinessRequest _createBusinessRequest;
+        private readonly IPatientCheck _patientCheck;
+        
 
-        public PatientRequestController(ILogger<PatientRequestController> logger, ApplicationDbContext db)
+        public PatientRequestController(ILogger<PatientRequestController> logger, ApplicationDbContext db, ICreatePatientRequest createPatientRequest, ICreateFamilyRequest createFamilyRequest, ICreateConciergeRequest createConciergeRequest, ICreateBusinessRequest createBusinessRequest, IPatientCheck patientCheck)
         {
             _logger = logger;
             _db = db;
+            _createPatientRequest = createPatientRequest;
+            _createFamilyRequest = createFamilyRequest;
+            _createConciergeRequest = createConciergeRequest;
+            _createBusinessRequest = createBusinessRequest;
+            _patientCheck = patientCheck;
         }
 
         [HttpPost]
@@ -69,14 +71,16 @@ namespace Hallodoc.Controllers
                 RequestConcierge requestConcierge = new RequestConcierge();
 
             //to add one more state,that is to show that we dont give service in particular region
-            var region = _db.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
+            //var region = _db.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
+            var region = _createPatientRequest.StateFromRegionInCreatePatientRequest(model);
             if (region == null)
             {
                 ModelState.AddModelError("State", "Currently we are not serving in this region");
                 return View(model);
             }
             //for block request
-            var blockedUser = _db.BlockRequests.FirstOrDefault(u => u.Email == model.Email);
+            //var blockedUser = _db.BlockRequests.FirstOrDefault(u => u.Email == model.Email);
+            var blockedUser = _createPatientRequest.EmailFromBlockReq(model);
             if (blockedUser != null)
             {
                 ModelState.AddModelError("Email", "This patient is blocked.");
@@ -92,8 +96,9 @@ namespace Hallodoc.Controllers
                 }
             }
 
-            var existingUser = _db.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
-                bool userExists = true;
+            //var existingUser = _db.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
+            var existingUser = _createPatientRequest.EmailFromAspnetuser(model);
+            bool userExists = true;
                 if (existingUser == null)
                 {
                     userExists = false;
@@ -110,8 +115,10 @@ namespace Hallodoc.Controllers
                     aspNetUser.CreatedDate = DateTime.Now;
                     aspNetUser.PasswordHash = model.PasswordHash;
                     //aspNetUser.UserName = model.FirstName + " " + model.LastName;
+                    //ishan
                     _db.AspNetUsers.Add(aspNetUser);
                     await _db.SaveChangesAsync();
+                //ishan
 
                     user.AspNetUserId = aspNetUser.Id;
                     user.FirstName = model.FirstName;
@@ -127,9 +134,10 @@ namespace Hallodoc.Controllers
                     user.IntYear = model.DOB.Year;
                     user.CreatedBy = aspNetUser.Id;
                     user.CreatedDate = DateTime.Now;
-                //user.PasswordHash = 
+                    //ishan
                     _db.Users.Add(user);
                     await _db.SaveChangesAsync();
+                    //ishan
                 }
 
                 requestClient.FirstName = model.FirstName;
@@ -150,8 +158,10 @@ namespace Hallodoc.Controllers
                 requestClient.City = model.City;
                 requestClient.State = model.State;
                 requestClient.ZipCode = model.ZipCode;
+            //ishan
                 _db.RequestClients.Add(requestClient);
                 await _db.SaveChangesAsync();
+            //ishan
 
             //to generate confirmation number(method is given in srs that how to generate confirmation number
             int requests = _db.Requests.Where(u => u.CreatedDate == DateTime.Now.Date).Count();
@@ -171,25 +181,32 @@ namespace Hallodoc.Controllers
                 request.CreatedDate = DateTime.Now;
                 //RequestId dropped from requestClient and requestClientId added in request + foreign key
                 request.RequestClientId = requestClient.RequestClientId;
-                _db.Requests.Add(request);
+                //ishan
+                 _db.Requests.Add(request);
                 await _db.SaveChangesAsync();
+                //ishan 
 
-                if (model.File != null)
+            if (model.File != null)
                 {
                     requestWiseFile.RequestId = request.RequestId;
                 //IformFile has a property that to store filepath u need to add .filename behind it to store path
                 requestWiseFile.FileName = model.File.FileName;
                     requestWiseFile.CreatedDate = DateTime.Now;
-                    _db.RequestWiseFiles.Add(requestWiseFile);
+                //ishan
+                _db.RequestWiseFiles.Add(requestWiseFile);
                     await _db.SaveChangesAsync();
+                //ishan
+
                 }
 
                 requestStatusLog.RequestId = request.RequestId;
                 requestStatusLog.Status = 1;
                 requestStatusLog.Notes = model.Symptoms;
                 requestStatusLog.CreatedDate = DateTime.Now;
-                _db.RequestStatusLogs.Add(requestStatusLog);
+            //ishan
+            _db.RequestStatusLogs.Add(requestStatusLog);
                 await _db.SaveChangesAsync();
+            //ishan
             //}
             return RedirectToAction("patientLogin", "Login");
         }
@@ -216,7 +233,8 @@ namespace Hallodoc.Controllers
                 Concierge concierge = new Concierge();
                 RequestConcierge requestConcierge = new RequestConcierge();
 
-                var existingUser = _db.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
+                //var existingUser = _db.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
+                var existingUser = _createFamilyRequest.EmailFromBlockReq(model);
                 bool userExists = true;
                 if (existingUser == null)
                 {
@@ -226,8 +244,10 @@ namespace Hallodoc.Controllers
                     aspNetUser.PhoneNumber = model.PhoneNumber;
                     aspNetUser.CreatedDate = DateTime.Now;
                     aspNetUser.PasswordHash = model.Password;
+                    //ishan
                     _db.AspNetUsers.Add(aspNetUser);
                     await _db.SaveChangesAsync();
+                    //ishan
 
                     user.AspNetUserId = aspNetUser.Id;
                     user.FirstName = model.FirstName;
@@ -243,8 +263,10 @@ namespace Hallodoc.Controllers
                     user.IntYear = model.DOB.Year;
                     user.CreatedBy = aspNetUser.Id;
                     user.CreatedDate = DateTime.Now;
+                    //ishan
                     _db.Users.Add(user);
                     await _db.SaveChangesAsync();
+                    //ishan
                 }
 
                 requestClient.FirstName = model.FirstName;
@@ -265,8 +287,10 @@ namespace Hallodoc.Controllers
                 requestClient.City = model.City;
                 requestClient.State = model.State;
                 requestClient.ZipCode = model.ZipCode;
+                //ishan
                 _db.RequestClients.Add(requestClient);
                 await _db.SaveChangesAsync();
+                //ishan
 
                 request.RequestTypeId = 2;
                 if (!userExists)
@@ -282,8 +306,10 @@ namespace Hallodoc.Controllers
                 request.CreatedDate = DateTime.Now;
                 //RequestId dropped from requestClient and requestClientId added in request + foreign key
                 request.RequestClientId = requestClient.RequestClientId;
+                //ishan
                 _db.Requests.Add(request);
                 await _db.SaveChangesAsync();
+                //ishan
 
                 if (model.File != null)
                 {
@@ -291,16 +317,20 @@ namespace Hallodoc.Controllers
                     //IformFile has a property that to store filepath u need to add .filename behind it to store path
                     requestWiseFile.FileName = model.File.FileName;
                     requestWiseFile.CreatedDate = DateTime.Now;
+                    //ishan
                     _db.RequestWiseFiles.Add(requestWiseFile);
                     await _db.SaveChangesAsync();
+                    //ishan
                 }
 
                 requestStatusLog.RequestId = request.RequestId;
                 requestStatusLog.Status = 1;
                 requestStatusLog.Notes = model.Symptoms;
                 requestStatusLog.CreatedDate = DateTime.Now;
+                //ishan
                 _db.RequestStatusLogs.Add(requestStatusLog);
                 await _db.SaveChangesAsync();
+                //ishan
             }
             return RedirectToAction("patientLogin", "Login");
         }
@@ -320,7 +350,8 @@ namespace Hallodoc.Controllers
             Concierge concierge = new Concierge();
             RequestConcierge requestConcierge = new RequestConcierge();
 
-            var existingUser = _db.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
+            //var existingUser = _db.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
+            var existingUser = _createConciergeRequest.EmailFromBlockReq(model);
             bool userExists = true;
             if (existingUser == null)
             {
@@ -437,7 +468,8 @@ namespace Hallodoc.Controllers
             RequestConcierge requestConcierge = new RequestConcierge();
             Business business = new Business();
 
-            var existingUser = _db.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
+            //var existingUser = _db.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
+            var existingUser = _createBusinessRequest.EmailFromBlockReq(model);
             bool userExists = true;
             if (existingUser == null)
             {
@@ -447,8 +479,10 @@ namespace Hallodoc.Controllers
                 aspNetUser.PhoneNumber = model.PhoneNumber;
                 aspNetUser.CreatedDate = DateTime.Now;
                 aspNetUser.PasswordHash = model.Password;
+                //ishan
                 _db.AspNetUsers.Add(aspNetUser);
                 await _db.SaveChangesAsync();
+                //ishan
 
                 user.AspNetUserId = aspNetUser.Id;
                 user.FirstName = model.FirstName;
@@ -464,8 +498,10 @@ namespace Hallodoc.Controllers
                 user.IntYear = model.DOB.Year;
                 user.CreatedBy = aspNetUser.Id;
                 user.CreatedDate = DateTime.Now;
+                //ishan
                 _db.Users.Add(user);
                 await _db.SaveChangesAsync();
+                //ishan
             }
 
             requestClient.FirstName = model.FirstName;
@@ -486,8 +522,10 @@ namespace Hallodoc.Controllers
             requestClient.City = model.City;
             requestClient.State = model.State;
             requestClient.ZipCode = model.ZipCode;
+            //ishan
             _db.RequestClients.Add(requestClient);
             await _db.SaveChangesAsync();
+            //ishan
 
             request.RequestTypeId = 4;
             if (!userExists)
@@ -503,25 +541,30 @@ namespace Hallodoc.Controllers
             request.CreatedDate = DateTime.Now;
             //RequestId dropped from requestClient and requestClientId added in request + foreign key
             request.RequestClientId = requestClient.RequestClientId;
+            //ishan
             _db.Requests.Add(request);
             await _db.SaveChangesAsync();
+            //ishan
 
             if (model.File != null)
             {
                 requestWiseFile.RequestId = request.RequestId;
                 requestWiseFile.FileName = model.File;
+                //ishan
                 requestWiseFile.CreatedDate = DateTime.Now;
                 _db.RequestWiseFiles.Add(requestWiseFile);
                 await _db.SaveChangesAsync();
+                //ishan
             }
 
             requestStatusLog.RequestId = request.RequestId;
             requestStatusLog.Status = 1;
             requestStatusLog.Notes = model.Symptoms;
             requestStatusLog.CreatedDate = DateTime.Now;
+            //ishan
             _db.RequestStatusLogs.Add(requestStatusLog);
             await _db.SaveChangesAsync();
-
+            //ishan
             //business.Name = model.BFirstName + " " + model.BLastName;
 
 
@@ -533,7 +576,9 @@ namespace Hallodoc.Controllers
             {
                 return View();
             }
-            var existingUser = _db.AspNetUsers.SingleOrDefault(u => u.Email == email);
+
+            //var existingUser = _db.AspNetUsers.SingleOrDefault(u => u.Email == email);
+            var existingUser = _patientCheck.EmailFromAspnetuserInPatientCheck(email);
             bool isValidEmail;
             if (existingUser == null)
             {

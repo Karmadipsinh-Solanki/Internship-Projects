@@ -575,7 +575,7 @@ td {
 
 .dashboard-button {
     border: none;
-    background-color: #00ccff;
+    background-color: #02bae9;
     border-radius: 8px;
     justify-content: center;
     align-items: center;
@@ -584,6 +584,13 @@ td {
     padding-right: 15px;
     margin-right: 10px;
     ;
+}
+.bi-reply-mirrored {
+    transform: rotateY(180deg);
+}
+
+.bi-reply-all-mirrored {
+    transform: rotateY(180deg);
 }
 
 .dashboard-button-text {

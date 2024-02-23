@@ -12,7 +12,8 @@ using System.Diagnostics;
 using System.Net.Mail;
 using System.Net;
 using HalloDoc.DataLayer.ViewModels;
-using HalloDoc.LogicLayer.Patient_Interface;
+using HalloDoc.LogicLayer.Patient_Interface.LoginControllerInterface;
+using HalloDoc.LogicLayer.Patient_Interface.LoginInterface;
 
 namespace Hallodoc.Controllers
 {
@@ -22,9 +23,9 @@ namespace Hallodoc.Controllers
         private readonly ApplicationDbContext _db;
         private readonly IPatientLogin _patientLogin;
         private readonly IResetPasswordFromEmail _resetPasswordFromEmail;
-        private readonly IForgotPassword _forgotPassword;
+        private readonly IForgotPwd _forgotPassword;
 
-        public LoginController(ILogger<LoginController> logger, ApplicationDbContext db, IPatientLogin patientLogin,IResetPasswordFromEmail resetPasswordFromEmail, IForgotPassword forgotPassword)
+        public LoginController(ILogger<LoginController> logger, ApplicationDbContext db, IPatientLogin patientLogin,IResetPasswordFromEmail resetPasswordFromEmail, IForgotPwd forgotPassword)
         {
             _logger = logger;
             _db = db;
@@ -127,7 +128,8 @@ namespace Hallodoc.Controllers
             };
             string email = model.email;
             var aspnetUser = _forgotPassword.ForgotpwdAspnetuserEmail(model);
-            var userdb = _db.Users.FirstOrDefault(u => u.Email == email);
+            //var userdb = _db.Users.FirstOrDefault(u => u.Email == email);
+            var userdb = _forgotPassword.ForgotpwdUsersEmail(model);
             var userFirstName = userdb.FirstName;
             //string date = new DateTime.Now;
             var formatedDate = DateTime.Now.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
