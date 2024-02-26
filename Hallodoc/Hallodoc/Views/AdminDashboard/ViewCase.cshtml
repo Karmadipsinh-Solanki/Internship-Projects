@@ -1,0 +1,170 @@
+﻿@using HalloDoc.DataLayer.ViewModels.AdminViewModels
+@model ViewCaseModel;
+@{
+    ViewData["Title"] = "View-Case";
+}
+@section Styles {
+    <link href="~/css/viewcase.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/AdminDashboardStyle.css" rel="stylesheet" type="text/css" />
+}
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+<div>
+    <partial name="AdminDashboardHeader" />
+    <hr class="mb-0 mt-0 d-none d-md-block horizontal-line">
+    <partial name="AdminDashboardNavbar" />
+    <div class="maindiv container d-flex flex-column justify-content-center">
+        <div>
+            <div class="firstdiv d-flex justify-content-between align-items-center p-3">
+                <h3>View Reservationsssss</h3>
+                <div class="btn btn-primary backbutton mb-3 mt-3">
+                    <a class="textdeco" asp-controller="AdminDashboard" asp-action="AdminDashboard">
+                        <span class="textback" style="color:#0dcaf0;">&lt Back</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="content shadow ">
+
+
+            
+            <form asp-action="ViewCase" asp-controller="AdminDashboard" method="post">
+
+
+                <div class="form-sub-div" style="margin-top: 0;">
+                    <div class="form-floating login-fields login-fields-2">
+                        <input type="text" placeholder="First Namessss" class="form-control" readonly asp-for="FirstName" />
+                        <label for="first-name" class="labels">First Name</label>
+                    </div>
+                    <div class="form-floating login-fields">
+                        <input type="text" placeholder="Last Name" class="form-control" readonly asp-for="LastName" />
+                        <label for="last-name" class="labels">Last Name</label>
+                    </div>
+                </div>
+                <div class="form-sub-div" style="margin-top: 0;">
+                    <div class="form-floating login-fields login-fields-2">
+                        <input type="date" class="form-control" readonly asp-for="DOB" />
+                        <label class="labels">Date of Birth</label>
+                    </div>
+                    <div class="business-address-div">
+                        <div class="form-floating login-fields" style="width:100%;margin-right:15px;">
+                            <input type="tel" class="form-control" id="phone" readonly asp-for="PhoneNumber" />
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" style="border:1px solid #00ccff;border-radius:5px;padding:13px;" width="50" height="50" fill="#00ccff" class="bi bi-telephone" viewBox="0 0 16 16">
+                            <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                        </svg>
+                    </div>
+                </div>
+                <div style="display:flex;">
+
+                    <div class="form-floating login-fields" style="margin-right:3%;">
+                        <input type="text" asp-for="RequestId" value="@Model.RequestId" style="display:none;" />
+                        <input type="email" placeholder="Email" class="form-control" readonly asp-for="Email" />
+                        <label for="Email" class="labels">Email</label>
+                    </div>
+                    @if (Model.Status.Equals("Reserved"))
+                    {
+                        <a class="edit-button" id="edit-button">
+                            <span>Edit</span>
+                        </a>
+                        <button type="submit" class="edit-button" id="save-button" style="display:none;text-decoration:none;">
+                            <span>Save</span>
+                        </button>
+                        <a class="cancel-button" id="cancel-btn" style="display:none;">
+                            <span>Cancel</span>
+                        </a>
+                    }
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <footer class="footer mt-3 ">
+        <span class="h5">Terms Of Conditions</span>
+        <span>|</span>
+        <span class="h5">Privacy Policy</span>
+    </footer>
+
+    <script>
+        //for showing modal
+        // var modal = document.getElementById("myModal");
+
+        // var btn = document.getElementById("submit-button");
+
+        // var span = document.getElementsByClassName("close")[0];
+
+        //for showing modal
+        // btn.onclick = function () {
+        //     modal.style.display = "flex";
+        // }
+        // span.onclick = function () {
+        //     modal.style.display = "none";
+        // }
+        // window.onclick = function (event) {
+        //     if (event.target == modal) {
+        //         modal.style.display = "none";
+        //     }
+        // }
+        //for creating countrywise phone format
+        const phoneInputField = document.getElementsByClassName("phone");
+        for (let i = 0; i < phoneInputField.length; ++i) {
+            const phoneInput = window.intlTelInput(phoneInputField[i], {
+                utilsScript:
+                    "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+            });
+        }
+
+        //to get filename
+        function choose_file() {
+            document.getElementById('file-input-button').addEventListener('change', getFileName);
+        }
+        const getFileName = (event) => {
+            const files = event.target.files;
+            const fileName = files[0].name;
+            document.getElementById('select-file-text').innerHTML = fileName;
+        }
+
+        //to add password and confirm password fields
+        $(document).ready(function () {
+            $('#inputEmail4').on('blur', function () {
+                var inputValue = $('#inputEmail4').val();
+                console.log(inputValue)
+
+                $.get('/PatientRequest/PatientCheck', { email: inputValue }, function (response) {
+                    console.log(response.isValid)
+                    if (!response.isValid) {
+                        document.getElementById("pass").classList.remove('hidden')
+
+                    }
+                    else {
+                        document.getElementById("pass").classList.add('hidden')
+                    }
+                });
+            });
+        });
+
+        //to check pwd and confirm pwd are same or not
+        function validate() {
+            var passwordInput = document.getElementById("password");
+            var confirmPasswordInput = document.getElementById("retype_password");
+
+            if (passwordInput.value === confirmPasswordInput.value) {
+                // Passwords match
+                return true;
+            } else {
+                alert("Passwords do not match!");
+                return false;
+            }
+        }
+        var form = document.getElementById("myForm");
+        form.addEventListener("submit", function (event) {
+            if (!validate()) {
+                event.preventDefault();
+            }
+        });
+
+    </script>
+</div>

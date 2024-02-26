@@ -601,6 +601,30 @@
       "PackagePath": "staticwebassets\\SRS Screen Shorts\\active_active.png"
     },
     {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\caret-down-fill.svg",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\caret-down-fill.svg"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\caret-down-fill1.svg",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\caret-down-fill1.svg"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\caret-down-fill2.svg",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\caret-down-fill2.svg"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\caret-down-fill3.svg",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\caret-down-fill3.svg"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\caret-down-fill4.svg",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\caret-down-fill4.svg"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\caret-down-fill5.svg",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\caret-down-fill5.svg"
+    },
+    {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\cloud-upload-icon.svg",
       "PackagePath": "staticwebassets\\SRS Screen Shorts\\cloud-upload-icon.svg"
     },
@@ -611,6 +635,14 @@
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\conclude_active.png",
       "PackagePath": "staticwebassets\\SRS Screen Shorts\\conclude_active.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\createRequest.png",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\createRequest.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\diysupport.png",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\diysupport.png"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\docimg.png",
@@ -649,6 +681,30 @@
       "PackagePath": "staticwebassets\\SRS Screen Shorts\\profile.png"
     },
     {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\radio-checked-business.svg",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\radio-checked-business.svg"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\radio-checked-concierge.svg",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\radio-checked-concierge.svg"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\radio-checked-family.svg",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\radio-checked-family.svg"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\radio-checked-patient.svg",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\radio-checked-patient.svg"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\radio-checked-vip.svg",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\radio-checked-vip.svg"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\requestdiysupport",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts"
+    },
+    {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\toclose.png",
       "PackagePath": "staticwebassets\\SRS Screen Shorts\\toclose.png"
     },
@@ -663,6 +719,14 @@
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\unpaid_active.png",
       "PackagePath": "staticwebassets\\SRS Screen Shorts\\unpaid_active.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\view case.webp",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\view case.webp"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\AdminDashboardStyle.css",
+      "PackagePath": "staticwebassets\\css\\AdminDashboardStyle.css"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\createRequest.css",
@@ -699,6 +763,10 @@
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\viewDoc.css",
       "PackagePath": "staticwebassets\\css\\viewDoc.css"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\viewcase.css",
+      "PackagePath": "staticwebassets\\css\\viewcase.css"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\favicon.ico",

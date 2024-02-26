@@ -247,7 +247,13 @@ C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\H
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Hallodoc.runtimeconfig.json
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Hallodoc.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Hallodoc.pdb
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\ClosedXML.dll
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\DocumentFormat.OpenXml.dll
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\ExcelNumberFormat.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Humanizer.dll
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Irony.dll
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Microsoft.Build.dll
@@ -280,6 +286,7 @@ C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\M
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Mono.TextTemplating.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Npgsql.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\NuGet.Common.dll
@@ -291,6 +298,7 @@ C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\N
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\NuGet.ProjectModel.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\NuGet.Protocol.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\NuGet.Versioning.dll
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\SixLabors.Fonts.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\System.CodeDom.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\System.Composition.AttributedModel.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\System.Composition.Convention.dll
@@ -299,10 +307,12 @@ C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\S
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\System.Composition.TypedParts.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\System.Configuration.ConfigurationManager.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\System.Drawing.Common.dll
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\System.IO.Packaging.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\System.Reflection.MetadataLoadContext.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\System.Security.Permissions.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\System.Windows.Extensions.dll
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\XLParser.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\af\Humanizer.resources.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\ar\Humanizer.resources.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\az\Humanizer.resources.dll
@@ -447,6 +457,10 @@ C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\r
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\HalloDoc.DataLayer.dll
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\HalloDoc.LogicLayer.dll
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\HalloDoc.DataLayer.pdb
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\HalloDoc.LogicLayer.pdb
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\obj\Debug\net7.0\staticwebassets.build.json
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\obj\Debug\net7.0\staticwebassets.development.json
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\obj\Debug\net7.0\staticwebassets\msbuild.Hallodoc.Microsoft.AspNetCore.StaticWebAssets.props
@@ -463,10 +477,3 @@ C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\obj\Debug\net7.0\r
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\obj\Debug\net7.0\Hallodoc.pdb
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\obj\Debug\net7.0\Hallodoc.genruntimeconfig.cache
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\obj\Debug\net7.0\ref\Hallodoc.dll
-C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Microsoft.AspNetCore.JsonPatch.dll
-C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
-C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
-C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\HalloDoc.DataLayer.dll
-C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\HalloDoc.LogicLayer.dll
-C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\HalloDoc.LogicLayer.pdb
-C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\HalloDoc.DataLayer.pdb

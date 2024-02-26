@@ -1,6 +1,6 @@
 ﻿@* @using HalloDoc.DataLayer.Models; *@
 @using HalloDoc.DataLayer.ViewModels;
-@model DashboardViewModel;
+@model AdminDashboardTableView;
 @using static HalloDoc.EnumStatus;
 @{
     ViewData["Title"] = "Admin-Dashboard";
@@ -16,153 +16,81 @@
 
 <div id="body">
     <div style="display: flex;flex-direction: row;">
-        <div id="sidebar">
-            <div class="navigation-bar-top-2">
-                <button class="logo-and-hamburger" onclick="hamburger()">
-
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-list hamburger" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                              d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
-                    </svg>
-                </button>
-                <img class="logo" src="./images/logo1.png" alt="">
-            </div>
-            <div class="tab-2">
-                <button class="tablinks" onclick="openTab(event, 'main-sub-div')" id="defaultOpen2">Dashboard</button>
-                <button class="tablinks" onclick="openTab(event, 'main-sub-div-2')">Provider Location</button>
-                <button class="tablinks" onclick="openTab(event, 'main-sub-div-2')">My Profile</button>
-                <button class="tablinks" onclick="openTab(event, 'main-sub-div-2')">Providers</button>
-                <button class="tablinks" onclick="openTab(event, 'main-sub-div-2')">Partners</button>
-                <button class="tablinks" onclick="openTab(event, 'main-sub-div-2')">Access</button>
-                <button class="tablinks" onclick="openTab(event, 'main-sub-div-2')">Records</button>
-            </div>
-        </div>
+        
         <div id="main-div" style="width: 100%;">
-            <div class="navigation-bar-top">
-                <button class="logo-and-hamburger" onclick="hamburger()">
-
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-list hamburger" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                              d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
-                    </svg>
-                    <img class="logo" src="~/images/logo1.png" alt="">
-                </button>
-
-                <div style="display: flex;align-items: center;">
-
-                    <span class="welcome-title">Welcome</span>
-                    <span class="name-title">Karmadipsinh Solanki</span>
-                    <a asp-controller="AdminDashboard" asp-action="index" class="back-navigation-link-2">
-                        <div class="back-navigation">
-                            <span>Logout</span>
-                        </div>
-                    </a>
-                    <a asp-controller="AdminDashboard" asp-action="index" class="logout-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                             class="bi bi-box-arrow-right night-mode-icon" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                  d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
-                            <path fill-rule="evenodd"
-                                  d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
-                        </svg>
-                    </a>
-                    <button onclick="changeTheme()" class="change-theme">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-moon night-mode-icon" viewBox="0 0 16 16">
-                            <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286" />
-                        </svg>
-                    </button>
-                    <button onclick="changeTheme()" class="change-theme hide-icon">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-brightness-high night-mode-icon" viewBox="0 0 16 16">
-                            <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            <div class="tab">
-                <button class="tablinks" onclick="openTab(event, 'main-sub-div')" id="defaultOpen">Dashboard</button>
-                <button class="tablinks" onclick="openTab(event, 'main-sub-div-2')">Provider Location</button>
-                <button class="tablinks" onclick="openTab(event, 'main-sub-div-2')">My Profile</button>
-                <button class="tablinks" onclick="openTab(event, 'main-sub-div-2')">Providers</button>
-                <button class="tablinks" onclick="openTab(event, 'main-sub-div-2')">Partners</button>
-                <button class="tablinks" onclick="openTab(event, 'main-sub-div-2')">Access</button>
-                <button class="tablinks" onclick="openTab(event, 'main-sub-div-2')">Records</button>
-            </div>
+            <partial name="AdminDashboardHeader" />
+            <partial name="AdminDashboardNavbar" />
             <div id="main-sub-div" class="tabcontent">
 
                 <div class="row flex-row justify-content-between main-tabs">
                     <a class="col-lg-2 col-md-4 col-4" style="text-decoration:none">
                         <div class="state newState newState-active" onclick="changeStatus(this)">
                             <div class="state-sub-div">
-                                <img src="~/images/new.svg" id="newState" class="icon-size hide" />
-                                <img src="~/images/new_active.png" id="newState-active" class="icon-size" />
+                                <img src="~/SRS Screen Shorts/new.png" id="newState" class="icon-size hide" />
+                                <img src="~/SRS Screen Shorts/new_active.png" id="newState-active" class="icon-size" />
                                 <span class="title-sub-div">NEW</span>
                             </div>
-                            <span class="no">1452</span>
+                            <span class="no">@Model.new_count</span>
                         </div>
-                        <img src="~/images/caret-down-fill.svg" id="newState-img" class="caret" />
+                        <img src="~/SRS Screen Shorts/caret-down-fill.svg" id="newState-img" class="caret" />
                     </a>
                     <a class="col-lg-2 col-md-4 col-4" style="text-decoration:none">
                         <div class="state pendingState" onclick="changeStatus(this)">
                             <div class="state-sub-div">
-                                <img src="~/images/pending.svg" id="pendingState" class="icon-size" />
-                                <img src="~/images/pending_active.png" id="pendingState-active"
+                                <img src="~/SRS Screen Shorts/pending.png" id="pendingState" class="icon-size" />
+                                <img src="~/SRS Screen Shorts/pending_active.png" id="pendingState-active"
                                      class="icon-size hide" />
                                 <span class="title-sub-div">PENDING</span>
                             </div>
-                            <span class="no">266</span>
+                            <span class="no">@Model.pending_count</span>
                         </div>
-                        <img src="~/images/caret-down-fill1.svg" id="pendingState-img" class="caret hidden" />
+                        <img src="~/SRS Screen Shorts/caret-down-fill1.svg" id="pendingState-img" class="caret hidden" />
                     </a>
                     <a class="col-lg-2 col-md-4 col-4" style="text-decoration:none">
                         <div class="state activeState" onclick="changeStatus(this)">
                             <div class="state-sub-div">
-                                <img src="~/images/active.svg" id="activeState" class="icon-size" />
-                                <img src="~/images/active_active.png" id="activeState-active" class="icon-size hide" />
+                                <img src="~/SRS Screen Shorts/active.png" id="activeState" class="icon-size" />
+                                <img src="~/SRS Screen Shorts/active_active.png" id="activeState-active" class="icon-size hide" />
                                 <span class="title-sub-div">ACTIVE</span>
                             </div>
-                            <span class="no">26</span>
+                            <span class="no">@Model.active_count</span>
                         </div>
-                        <img src="~/images/caret-down-fill2.svg" id="activeState-img" class="caret hidden" />
+                        <img src="~/SRS Screen Shorts/caret-down-fill2.svg" id="activeState-img" class="caret hidden" />
                     </a>
                     <a class="col-lg-2 col-md-4 col-4" style="text-decoration:none">
                         <div class="state concludeState" onclick="changeStatus(this)">
                             <div class="state-sub-div">
-                                <img src="~/images/conclude.svg" id="concludeState" class="icon-size" />
-                                <img src="~/images/conclude_active.png" id="concludeState-active"
+                                <img src="~/SRS Screen Shorts/conclude.png" id="concludeState" class="icon-size" />
+                                <img src="~/SRS Screen Shorts/conclude_active.png" id="concludeState-active"
                                      class="icon-size hide" />
                                 <span class="title-sub-div">CONCLUDE</span>
                             </div>
-                            <span class="no">1078</span>
+                            <span class="no">@Model.conclude_count</span>
                         </div>
-                        <img src="~/images/caret-down-fill3.svg" id="concludeState-img" class="caret hidden" />
+                        <img src="~/SRS Screen Shorts/caret-down-fill3.svg" id="concludeState-img" class="caret hidden" />
                     </a>
                     <a class="col-lg-2 col-md-4 col-4" style="text-decoration:none">
                         <div class="state tocloseState" onclick="changeStatus(this)">
                             <div class="state-sub-div">
-                                <img src="~/images/toclose.svg" id="tocloseState" class="icon-size" />
-                                <img src="~/images/toclose_active.png" id="tocloseState-active"
+                                <img src="~/SRS Screen Shorts/toclose.png" id="tocloseState" class="icon-size" />
+                                <img src="~/SRS Screen Shorts/toclose_active.png" id="tocloseState-active"
                                      class="icon-size hide" />
                                 <span class="title-sub-div">TO CLOSE</span>
                             </div>
-                            <span class="no">519</span>
+                            <span class="no">@Model.toclose_count</span>
                         </div>
-                        <img src="~/images/caret-down-fill4.svg" id="tocloseState-img" class="caret hidden" />
+                        <img src="~/SRS Screen Shorts/caret-down-fill4.svg" id="tocloseState-img" class="caret hidden" />
                     </a>
                     <a class="col-lg-2 col-md-4 col-4" style="text-decoration:none">
                         <div class="state unpaidState" onclick="changeStatus(this)">
                             <div class="state-sub-div">
-                                <img src="~/images/unpaid.svg" id="unpaidState" class="icon-size" />
-                                <img src="~/images/unpaid_active.png" id="unpaidState-active" class="icon-size hide" />
+                                <img src="~/SRS Screen Shorts/unpaid.png" id="unpaidState" class="icon-size" />
+                                <img src="~/SRS Screen Shorts/unpaid_active.png" id="unpaidState-active" class="icon-size hide" />
                                 <span class="title-sub-div">UNPAID</span>
                             </div>
-                            <span class="no">16</span>
+                            <span class="no">@Model.unpaid_count</span>
                         </div>
-                        <img src="~/images/caret-down-fill5.svg" id="unpaidState-img" class="caret hidden" />
+                        <img src="~/SRS Screen Shorts/caret-down-fill5.svg" id="unpaidState-img" class="caret hidden" />
                     </a>
                 </div>
                 <div class="dashboard-sub-div">
@@ -228,32 +156,34 @@
                                 <input placeholder="All Regions" type="text" class="searchPatientInput" />
                             </div>
                         </div>
+
                         <div class="categories-div">
-                            <button class="categories-div-all-button">All</button>
-                            <div class="categories-div-sub">
+                            <div class ="clickable-text" data-selected="true" tabindex="0">All</div>
+                            @* <button class="categories-div-all-button">All</button> *@
+                            <div class="categories-div-sub clickable-text" data-selected="false" tabindex="0">
                                 <div class="categories-div-sub-sub" style="background-color: #10bb0d;"></div>
                                 <span style="color:gray" class="categories-div-sub-text">Patient</span>
                             </div>
-                            <div class="categories-div-sub">
+                            <div class="categories-div-sub clickable-text" data-selected="false" tabindex="0">
                                 <div class="categories-div-sub-sub" style="background-color: rgb(238, 196, 11);"></div>
                                 <span style="color:gray" class="categories-div-sub-text">Family/Friend</span>
                             </div>
-                            <div class="categories-div-sub">
+                            <div class="categories-div-sub clickable-text" data-selected="false" tabindex="0">
                                 <div class="categories-div-sub-sub" style="background-color: rgb(236, 91, 116);"></div>
                                 <span style="color:gray" class="categories-div-sub-text">Business</span>
                             </div>
-                            <div class="categories-div-sub">
+                            <div class="categories-div-sub clickable-text" data-selected="false" tabindex="0">
                                 <div class="categories-div-sub-sub" style="background-color: rgb(3, 87, 241);"></div>
                                 <span style="color:gray" class="categories-div-sub-text">Concierge</span>
                             </div>
-                            <!-- <div class="categories-div-sub">
+                            <!-- <div class="categories-div-sub clickable-text" data-selected="false" tabindex="0">
                                 <div class="categories-div-sub-sub" style="background-color: rgb(207, 18, 207);"></div>
                                 <span style="color:gray" class="categories-div-sub-text">VIP</span>
                             </div> -->
                         </div>
                     </div>
-                    <div class="table-responsive" style="margin-top: 20px;width: 100%;">
-                        <table id="dtBasicExample" class="table">
+                    <div style="margin-top: 20px;width: 100%;">
+                       @*  <table id="dtBasicExample" class="table">
                             <thead>
                                 <tr>
                                     <th scope="col" class="table-header">
@@ -461,7 +391,7 @@
                                     </td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </table> *@
                         <div class="table-responsive" style="margin-top: 20px;width: 100%;">
                             <div id="AdminDashboardPartialView"></div>
                         </div>
@@ -518,6 +448,18 @@
             document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
             sidebarOpen = false;
         }
+        $.ajax({
+            url: `/AdminDashboard/New`,
+            type: 'POST',
+            dataType: 'html',
+            // Pass your data here
+            success: function (response) {
+                $("#AdminDashboardPartialView").html(response)
+            },
+            error: function () {
+                alert('An error occurred.');
+            }
+        });
         document.getElementById("defaultOpen").click();
         const changeStatus = (element) => {
             const states = document.getElementsByClassName("state");
@@ -547,7 +489,7 @@
                 document.getElementById("status-text").innerHTML = `(${finalName.charAt(0).toUpperCase() + finalName.slice(1)})`;
             }
             $.ajax({
-                url: `/Admin/${finalname.charAt(0).toUpperCase() + finalname.slice(1)}`,
+                url: `/AdminDashboard/${finalName.charAt(0).toUpperCase() + finalName.slice(1)}`,
                 type: 'POST',
                 dataType: 'html',
                 // Pass your data here
@@ -574,6 +516,17 @@
             }
             console.log(check);
         }
+
+        // toggleDropdown
+        function toggleDropdown() {
+            var x = document.getElementById("myDIV");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+
 
         function mePressed() {
             document.getElementById('someone-else-button').style.backgroundColor = "white";
@@ -628,8 +581,19 @@
                 document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
             }
         }
+
+        /*categories-div border around text*/
+        const clickableTexts = document.querySelectorAll('.clickable-text');
+        clickableTexts.forEach((text) => {
+            text.addEventListener('click', () => {
+                clickableTexts.forEach((otherText) => {
+                    otherText.classList.remove('selected');
+                    otherText.dataset.selected = 'false';
+                });
+                text.classList.add('selected');
+                text.dataset.selected = 'true';
+            });
+        });
     </script>
 
 </div>
-
-</html>
