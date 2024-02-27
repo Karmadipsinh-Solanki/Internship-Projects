@@ -375,6 +375,9 @@ td {
     border-radius: 5px;
 }
 
+.textdeconone{
+    text-decoration:none;
+}
 .address-td {
     width: 400px !important;
     height: 100%;
@@ -444,17 +447,20 @@ td {
         background: #01b4e0;
     }
 
-.modal-header {
+/*.modal-header {
     display: flex;
     height: 50px;
-    background-color: #00ccff;
+    background-color: #01bce9;
     width: 100%;
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
     border-top-left-radius: 5px;
     border-top-right-radius: 15px;
-}
+}*/
+/*.modal-title {
+    color: #a2fbff;
+}*/
 
 .main-tabs {
     padding: 30px;
@@ -577,6 +583,7 @@ td {
     border: none;
     background-color: #02bae9;
     border-radius: 8px;
+    display:flex;
     justify-content: center;
     align-items: center;
     height: 43px;
@@ -707,6 +714,7 @@ table.dataTable thead th, table.dataTable tfoot th {
     align-items: center;
     margin-right: 13px;
     margin-left: 13px;
+    text-decoration:none;
 }
 
 .categories-div-sub-sub {
@@ -778,13 +786,16 @@ table.dataTable thead th, table.dataTable tfoot th {
 }
 /*action dropdown css*/
 .dropdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     display: inline-block;
-    display: flex;
-    align-items: center;
     border: 1px solid white;
-    justify-content: center;
     border-radius: 5px;
+    text-decoration:none;
+    height:40px!important;
+    width:80px;
 }
 
 .dropdown-content {
@@ -810,10 +821,10 @@ table.dataTable thead th, table.dataTable tfoot th {
             background-color: #f1f1f1
         }
 
-/*.dropdown:hover .dropdown-content,
+.dropdown:hover .dropdown-content,
 .dropdown.active .dropdown-content {
     display: block;
-}*/
+}
 /*.dropdown {
     display: flex;
     align-items: center;
@@ -826,8 +837,42 @@ table.dataTable thead th, table.dataTable tfoot th {
     background-color: #3e8e41;
 }
 
-@media only screen and (max-width:1200px) {
-    .dashboard-sub-div-2-sub {
+/*modal*/
+
+.modal-header {
+    background-color: #01bce9;
+}
+.saveButton {
+    background-color: #01bbe8;
+    border: 1px solid #01bbe8;
+    border-radius: 5px;
+    height:40px;
+    width:80px;
+}
+.saveButtonText{
+    color:white;
+}
+.CancelButton {
+    background-color: white;
+    border: 1px solid #01bbe8;
+    border-radius: 5px;
+    height: 40px;
+    width: 80px;
+}
+.cancelButtonText {
+    color: #01bbe8;
+}
+#phone{
+    height:60px;
+}
+/*.modal-content {
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    border-radius: 0px !important;
+}*/
+
+    @media only screen and (max-width:1200px) {
+        .dashboard-sub-div-2-sub {
         flex-direction: column;
     }
 }
@@ -1114,6 +1159,7 @@ table.dataTable thead th, table.dataTable tfoot th {
 
     .categories-div-sub {
         margin-top: 10px;
+        text-decoration:none;
     }
 }
 

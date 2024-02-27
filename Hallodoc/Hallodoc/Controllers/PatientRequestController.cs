@@ -9,31 +9,12 @@ using Hallodoc.Models.Models;
 using HalloDoc.DataLayer.ViewModels;
 using HalloDoc.LogicLayer.Patient_Repository.PatientRequest;
 using HalloDoc.LogicLayer.Patient_Interface.PatientRequest;
+using HalloDoc.DataLayer.Models;
 namespace Hallodoc.Controllers
 {
     public class PatientRequestController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
-        public IActionResult createPatientRequest()
-        {
-            return View();
-        }
-       
-        public IActionResult createConciergeRequest()
-        {
-            return View();
-        }
-        public IActionResult createFamilyRequest()
-        {
-            return View();
-        }
-        public IActionResult createBusinessRequest()
-        {
-            return View();
-        }
+        
         private readonly ILogger<PatientRequestController> _logger;
         private readonly ApplicationDbContext _db;
         private readonly ICreatePatientRequest _createPatientRequest;
@@ -589,6 +570,28 @@ namespace Hallodoc.Controllers
                 isValidEmail = true;
             }
             return Json(new { isValid = isValidEmail });
+        }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+        public IActionResult createPatientRequest()
+        {
+            return View();
+        }
+
+        public IActionResult createConciergeRequest()
+        {
+            return View();
+        }
+        public IActionResult createFamilyRequest()
+        {
+            return View();
+        }
+        public IActionResult createBusinessRequest()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

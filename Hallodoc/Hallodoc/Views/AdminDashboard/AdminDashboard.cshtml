@@ -16,7 +16,7 @@
 
 <div id="body">
     <div style="display: flex;flex-direction: row;">
-        
+
         <div id="main-div" style="width: 100%;">
             <partial name="AdminDashboardHeader" />
             <partial name="AdminDashboardNavbar" />
@@ -96,12 +96,48 @@
                 <div class="dashboard-sub-div">
                     <h4 class="patient-title">Patients <span id="status-text">(New)</span></h4>
                     <div style="display: flex;">
-                        <button class="dashboard-button">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="dashboard-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white"
                                  class="bi bi-send dashboard-sub-div-icon" viewBox="0 0 16 16">
                                 <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
-                            </svg><span class="dashboard-button-text">Send Link</span>
+                            </svg>
+                            <span class="dashboard-button-text">Send Link</span>
                         </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="saveButtonText fs-5" id="exampleModalLabel">Send mail to patient for submitting request</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-floating mb-3">
+                                            <input type="name" class="form-control" id="floatingInput" placeholder="First Name">
+                                            <label for="floatingInput">First Name</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="name" class="form-control" id="floatingPassword" placeholder="Last Name">
+                                            <label for="floatingPassword">Last Name</label>
+                                        </div>
+                                        <div class="form-floating login-fields mb-3" style="width:100%;margin-right:15px;">
+                                            @* <input type="tel" class="form-control" id="phone" readonly asp-for="PhoneNumber" /> *@
+                                            <input type="tel" class="form-control" id="phone" />
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="email" class="form-control" id="floatingInput" placeholder="Email">
+                                            <label for="floatingInput">Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer form-floating mb-3">
+                                        <button type="submit" class="saveButton"><span class="saveButtonText">Save</span> </button>
+                                        <button class="CancelButton" data-bs-dismiss="modal"><span class="cancelButtonText">Cancel</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
 
                         <button class="dashboard-button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white"
@@ -120,13 +156,13 @@
                             </svg><span class="dashboard-button-text">Export</span>
                         </button>
 
-                        <button class="dashboard-button">
+                        <a asp-controller="AdminDashboard" asp-action="DownloadExcel" class="textdeconone dashboard-button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white"
                                  class="bi bi-reply-all-mirrored" viewBox="0 0 16 16">
                                 <path d="M8.098 5.013a.144.144 0 0 1 .202.134V6.3a.5.5 0 0 0 .5.5c.667 0 2.013.005 3.3.822.984.624 1.99 1.76 2.595 3.876-1.02-.983-2.185-1.516-3.205-1.799a8.7 8.7 0 0 0-1.921-.306 7 7 0 0 0-.798.008h-.013l-.005.001h-.001L8.8 9.9l-.05-.498a.5.5 0 0 0-.45.498v1.153c0 .108-.11.176-.202.134L4.114 8.254l-.042-.028a.147.147 0 0 1 0-.252l.042-.028zM9.3 10.386q.102 0 .223.006c.434.02 1.034.086 1.7.271 1.326.368 2.896 1.202 3.94 3.08a.5.5 0 0 0 .933-.305c-.464-3.71-1.886-5.662-3.46-6.66-1.245-.79-2.527-.942-3.336-.971v-.66a1.144 1.144 0 0 0-1.767-.96l-3.994 2.94a1.147 1.147 0 0 0 0 1.946l3.994 2.94a1.144 1.144 0 0 0 1.767-.96z" />
                                 <path d="M5.232 4.293a.5.5 0 0 0-.7-.106L.54 7.127a1.147 1.147 0 0 0 0 1.946l3.994 2.94a.5.5 0 1 0 .593-.805L1.114 8.254l-.042-.028a.147.147 0 0 1 0-.252l.042-.028 4.012-2.954a.5.5 0 0 0 .106-.699" />
                             </svg><span class="dashboard-button-text">Export All</span>
-                        </button>
+                        </a>
 
                         <button class="dashboard-button" style="margin-right: 0px;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white"
@@ -158,24 +194,34 @@
                         </div>
 
                         <div class="categories-div">
-                            <div class ="clickable-text" data-selected="true" tabindex="0">All</div>
+                            <div class="clickable-text" data-selected="true" tabindex="0">
+                                <span class="text-secondary">All</span>
+                            </div>
                             @* <button class="categories-div-all-button">All</button> *@
-                            <div class="categories-div-sub clickable-text" data-selected="false" tabindex="0">
+                            <a asp-controller="AdminDashboard" asp-action="patientdataintable" class="categories-div-sub clickable-text" data-selected="false" tabindex="0">
                                 <div class="categories-div-sub-sub" style="background-color: #10bb0d;"></div>
-                                <span style="color:gray" class="categories-div-sub-text">Patient</span>
-                            </div>
-                            <div class="categories-div-sub clickable-text" data-selected="false" tabindex="0">
-                                <div class="categories-div-sub-sub" style="background-color: rgb(238, 196, 11);"></div>
-                                <span style="color:gray" class="categories-div-sub-text">Family/Friend</span>
-                            </div>
-                            <div class="categories-div-sub clickable-text" data-selected="false" tabindex="0">
-                                <div class="categories-div-sub-sub" style="background-color: rgb(236, 91, 116);"></div>
-                                <span style="color:gray" class="categories-div-sub-text">Business</span>
-                            </div>
-                            <div class="categories-div-sub clickable-text" data-selected="false" tabindex="0">
-                                <div class="categories-div-sub-sub" style="background-color: rgb(3, 87, 241);"></div>
-                                <span style="color:gray" class="categories-div-sub-text">Concierge</span>
-                            </div>
+                                <span style="color:gray" class="categories-div-sub-text">
+                                    Patient
+                                </span>
+                            </a>
+                            <a asp-controller="AdminDashboard" asp-action="familydataintable" class="categories-div-sub clickable-text" data-selected="false" tabindex="0">
+                                <div class="categories-div-sub-sub" style="background-color: #ea902e;"></div>
+                                <span style="color:gray" class="categories-div-sub-text">
+                                    Family/Friend
+                                </span>
+                            </a>
+                            <a asp-controller="AdminDashboard" asp-action="businessdataintable" class="categories-div-sub clickable-text" data-selected="false" tabindex="0">
+                                <div class="categories-div-sub-sub" style="background-color: #e16479"></div>
+                                <span style="color:gray" class="categories-div-sub-text">
+                                    Business
+                                </span>
+                            </a>
+                            <a asp-controller="AdminDashboard" asp-action="conciergedataintable" class="categories-div-sub clickable-text" data-selected="false" tabindex="0">
+                                <div class="categories-div-sub-sub" style="background-color: #047dc2;"></div>
+                                <span style="color:gray" class="categories-div-sub-text">
+                                    Concierge
+                                </span>
+                            </a>
                             <!-- <div class="categories-div-sub clickable-text" data-selected="false" tabindex="0">
                                 <div class="categories-div-sub-sub" style="background-color: rgb(207, 18, 207);"></div>
                                 <span style="color:gray" class="categories-div-sub-text">VIP</span>
@@ -183,214 +229,214 @@
                         </div>
                     </div>
                     <div style="margin-top: 20px;width: 100%;">
-                       @*  <table id="dtBasicExample" class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col" class="table-header">
-                                        Name
-                                    </th>
-                                    <th scope="col" class="table-header">
-                                        Date of Birth
-                                    </th>
-                                    <th scope="col" class="table-header">
-                                        Requestor
-                                    </th>
-                                    <th scope="col" class="table-header">
-                                        Requestor Date
-                                    </th>
-                                    <th scope="col" class="table-header">
-                                        Phone
-                                    </th>
-                                    <th scope="col" class="table-header">
-                                        Address
-                                    </th>
-                                    <th scope="col" class="table-header">
-                                        Notes
-                                    </th>
-                                    <!-- <th scope="col" class="table-header">
-                                        Chat With
-                                    </th> -->
-                                    <th scope="col" class="table-header">
-                                        Actions
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="name-td">
-                                            <span class="td-data">test, test</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                 style="padding:5px;border: 1px solid white;border-radius: 5px;margin: auto 5px;"
-                                                 width="30" height="30" fill="white" class="bi bi-envelope"
-                                                 viewBox="0 0 16 16">
-                                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
-                                            </svg>
-                                        </div>
-                                    </td>
+                        @*  <table id="dtBasicExample" class="table">
+                        <thead>
+                        <tr>
+                        <th scope="col" class="table-header">
+                        Name
+                        </th>
+                        <th scope="col" class="table-header">
+                        Date of Birth
+                        </th>
+                        <th scope="col" class="table-header">
+                        Requestor
+                        </th>
+                        <th scope="col" class="table-header">
+                        Requestor Date
+                        </th>
+                        <th scope="col" class="table-header">
+                        Phone
+                        </th>
+                        <th scope="col" class="table-header">
+                        Address
+                        </th>
+                        <th scope="col" class="table-header">
+                        Notes
+                        </th>
+                        <!-- <th scope="col" class="table-header">
+                        Chat With
+                        </th> -->
+                        <th scope="col" class="table-header">
+                        Actions
+                        </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                        <td>
+                        <div class="name-td">
+                        <span class="td-data">test, test</span>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                        style="padding:5px;border: 1px solid white;border-radius: 5px;margin: auto 5px;"
+                        width="30" height="30" fill="white" class="bi bi-envelope"
+                        viewBox="0 0 16 16">
+                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+                        </svg>
+                        </div>
+                        </td>
 
-                                    <td>
-                                        <div class="others-td">
-                                            <span class="td-data">Sep 4, 2002</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="others-td">
-                                            <span class="td-data">Patient test,test</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="others-td">
-                                            <span class="td-data">Sep 4, 2002 336h 2m</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="phone-td">
-                                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;"
-                                                 width="16" height="16" fill="white" class="bi bi-telephone"
-                                                 viewBox="0 0 16 16">
-                                                <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
-                                            </svg>
-                                            <span class="td-data">7698545581</span>
-                                        </div>
-                                        <span class="td-data">(Patient)</span>
-                                    </td>
-                                    <td>
-                                        <div class="addess-td"><span class="td-data">Room location: 101</span></div>
-                                    </td>
-                                    <td>
-                                        <div class="others-td">
-                                            <span class="td-data">-</span>
-                                        </div>
-                                    </td>
-                                    <!-- <td>
-                                        <div class="chat-td">
-                                            <span class="chat-td-data phone-td">Provider</span>
-                                        </div>
-                                    </td> -->
-                                    <td>
-                                        <div class="chat-td">
-                                            <span class="chat-td-data phone-td">Actions</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="name-td">
-                                            <span class="td-data">test, test</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                 style="padding:5px;border: 1px solid white;border-radius: 5px;margin: auto 5px;"
-                                                 width="30" height="30" fill="white" class="bi bi-envelope"
-                                                 viewBox="0 0 16 16">
-                                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
-                                            </svg>
-                                        </div>
-                                    </td>
+                        <td>
+                        <div class="others-td">
+                        <span class="td-data">Sep 4, 2002</span>
+                        </div>
+                        </td>
+                        <td>
+                        <div class="others-td">
+                        <span class="td-data">Patient test,test</span>
+                        </div>
+                        </td>
+                        <td>
+                        <div class="others-td">
+                        <span class="td-data">Sep 4, 2002 336h 2m</span>
+                        </div>
+                        </td>
+                        <td>
+                        <div class="phone-td">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;"
+                        width="16" height="16" fill="white" class="bi bi-telephone"
+                        viewBox="0 0 16 16">
+                        <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                        </svg>
+                        <span class="td-data">7698545581</span>
+                        </div>
+                        <span class="td-data">(Patient)</span>
+                        </td>
+                        <td>
+                        <div class="addess-td"><span class="td-data">Room location: 101</span></div>
+                        </td>
+                        <td>
+                        <div class="others-td">
+                        <span class="td-data">-</span>
+                        </div>
+                        </td>
+                        <!-- <td>
+                        <div class="chat-td">
+                        <span class="chat-td-data phone-td">Provider</span>
+                        </div>
+                        </td> -->
+                        <td>
+                        <div class="chat-td">
+                        <span class="chat-td-data phone-td">Actions</span>
+                        </div>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td>
+                        <div class="name-td">
+                        <span class="td-data">test, test</span>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                        style="padding:5px;border: 1px solid white;border-radius: 5px;margin: auto 5px;"
+                        width="30" height="30" fill="white" class="bi bi-envelope"
+                        viewBox="0 0 16 16">
+                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+                        </svg>
+                        </div>
+                        </td>
 
-                                    <td>
-                                        <div class="others-td">
-                                            <span class="td-data">Sep 4, 2002</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="others-td">
-                                            <span class="td-data">Patient test,test</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="others-td">
-                                            <span class="td-data">Sep 4, 2002 336h 2m</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="phone-td">
-                                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;"
-                                                 width="16" height="16" fill="white" class="bi bi-telephone"
-                                                 viewBox="0 0 16 16">
-                                                <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
-                                            </svg>
-                                            <span class="td-data">7698545581</span>
-                                        </div>
-                                        <span class="td-data">(Patient)</span>
-                                    </td>
-                                    <td>
-                                        <div class="addess-td"><span class="td-data">Room location: 101</span></div>
-                                    </td>
-                                    <td>
-                                        <div class="others-td">
-                                            <span class="td-data">-</span>
-                                        </div>
-                                    </td>
-                                    <!-- <td>
-                                        <div  class="others-td">
-                                            <span class="td-data">Provider</span>
-                                        </div>
-                                    </td> -->
-                                    <td>
-                                        <div class="others-td">
-                                            <span class="td-data">Actions</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="name-td">
-                                            <span class="td-data">test, test</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                 style="padding:5px;border: 1px solid white;border-radius: 5px;margin: auto 5px;"
-                                                 width="30" height="30" fill="white" class="bi bi-envelope"
-                                                 viewBox="0 0 16 16">
-                                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
-                                            </svg>
-                                        </div>
-                                    </td>
+                        <td>
+                        <div class="others-td">
+                        <span class="td-data">Sep 4, 2002</span>
+                        </div>
+                        </td>
+                        <td>
+                        <div class="others-td">
+                        <span class="td-data">Patient test,test</span>
+                        </div>
+                        </td>
+                        <td>
+                        <div class="others-td">
+                        <span class="td-data">Sep 4, 2002 336h 2m</span>
+                        </div>
+                        </td>
+                        <td>
+                        <div class="phone-td">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;"
+                        width="16" height="16" fill="white" class="bi bi-telephone"
+                        viewBox="0 0 16 16">
+                        <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                        </svg>
+                        <span class="td-data">7698545581</span>
+                        </div>
+                        <span class="td-data">(Patient)</span>
+                        </td>
+                        <td>
+                        <div class="addess-td"><span class="td-data">Room location: 101</span></div>
+                        </td>
+                        <td>
+                        <div class="others-td">
+                        <span class="td-data">-</span>
+                        </div>
+                        </td>
+                        <!-- <td>
+                        <div  class="others-td">
+                        <span class="td-data">Provider</span>
+                        </div>
+                        </td> -->
+                        <td>
+                        <div class="others-td">
+                        <span class="td-data">Actions</span>
+                        </div>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td>
+                        <div class="name-td">
+                        <span class="td-data">test, test</span>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                        style="padding:5px;border: 1px solid white;border-radius: 5px;margin: auto 5px;"
+                        width="30" height="30" fill="white" class="bi bi-envelope"
+                        viewBox="0 0 16 16">
+                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+                        </svg>
+                        </div>
+                        </td>
 
-                                    <td>
-                                        <div class="others-td">
-                                            <span class="td-data">Sep 4, 2002</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="others-td">
-                                            <span class="td-data">Patient test,test</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="others-td">
-                                            <span class="td-data">Sep 4, 2002 336h 2m</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="phone-td">
-                                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;"
-                                                 width="16" height="16" fill="white" class="bi bi-telephone"
-                                                 viewBox="0 0 16 16">
-                                                <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
-                                            </svg>
-                                            <span class="td-data">7698545581</span>
-                                        </div>
-                                        <span class="td-data">(Patient)</span>
-                                    </td>
-                                    <td>
-                                        <div class="addess-td"><span class="td-data">Room location: 101</span></div>
-                                    </td>
-                                    <td>
-                                        <div class="others-td">
-                                            <span class="td-data">-</span>
-                                        </div>
-                                    </td>
-                                    <!-- <td>
-                                        <div  class="others-td">
-                                            <span class="td-data">Provider</span>
-                                        </div>
-                                    </td> -->
-                                    <td>
-                                        <div class="others-td">
-                                            <span class="td-data">Actions</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
+                        <td>
+                        <div class="others-td">
+                        <span class="td-data">Sep 4, 2002</span>
+                        </div>
+                        </td>
+                        <td>
+                        <div class="others-td">
+                        <span class="td-data">Patient test,test</span>
+                        </div>
+                        </td>
+                        <td>
+                        <div class="others-td">
+                        <span class="td-data">Sep 4, 2002 336h 2m</span>
+                        </div>
+                        </td>
+                        <td>
+                        <div class="phone-td">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;"
+                        width="16" height="16" fill="white" class="bi bi-telephone"
+                        viewBox="0 0 16 16">
+                        <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                        </svg>
+                        <span class="td-data">7698545581</span>
+                        </div>
+                        <span class="td-data">(Patient)</span>
+                        </td>
+                        <td>
+                        <div class="addess-td"><span class="td-data">Room location: 101</span></div>
+                        </td>
+                        <td>
+                        <div class="others-td">
+                        <span class="td-data">-</span>
+                        </div>
+                        </td>
+                        <!-- <td>
+                        <div  class="others-td">
+                        <span class="td-data">Provider</span>
+                        </div>
+                        </td> -->
+                        <td>
+                        <div class="others-td">
+                        <span class="td-data">Actions</span>
+                        </div>
+                        </td>
+                        </tr>
+                        </tbody>
                         </table> *@
                         <div class="table-responsive" style="margin-top: 20px;width: 100%;">
                             <div id="AdminDashboardPartialView"></div>
@@ -516,17 +562,66 @@
             }
             console.log(check);
         }
+        //for creating countrywise phone format
+        // const phoneInputField = document.getElementsByClassName("phone");
+        // for (let i = 0; i < phoneInputField.length; ++i) {
+        //     const phoneInput = window.intlTelInput(phoneInputField[i], {
+        //         utilsScript:
+        //             "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+        //     });
+        // }
 
+
+        const phoneInputField = document.querySelector("#phone");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            innerHeight: 1,
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
         // toggleDropdown
-        function toggleDropdown() {
-            var x = document.getElementById("myDIV");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
+        // function toggleDropdown() {
+        //     var x = document.getElementById("myDIV");
+        //     if (x.style.display === "none") {
+        //         x.style.display = "block";
+        //     } else {
+        //         x.style.display = "none";
+        //     }
+        // }
 
+        // let isDropdownActive = false;
+
+        // function toggleDropdown() {
+        //     const dropdown = document.querySelector('.dropdown');
+        //     isDropdownActive = !isDropdownActive;
+        //     dropdown.classList.toggle('active');
+        // }
+        // document.addEventListener('click', (event) => {
+        //     const dropdown = document.querySelector('.dropdown');
+        //     if (isDropdownActive && !dropdown.contains(event.target)) {
+        //         isDropdownActive = false;
+        //         dropdown.classList.remove('active');
+        //     }
+        // });
+        // $(document).ready(function () {
+        //     $("#dtBasicExample").DataTable();
+        // });
+
+        function toggleDropdown(event) {
+            var dropdownContent = event.target.nextElementSibling;
+            var requestId = dropdownContent.getAttribute("data-request-id");
+
+            // Hide all dropdowns
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                if (dropdowns[i].getAttribute("data-request-id") != requestId) {
+                    dropdowns[i].classList.add("hidden");
+                }
+            }
+
+            // Toggle the visibility of the current dropdown
+            dropdownContent.classList.toggle("hidden");
+        }
+        //endtoggledropdown
 
         function mePressed() {
             document.getElementById('someone-else-button').style.backgroundColor = "white";

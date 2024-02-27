@@ -97,6 +97,10 @@ footer {
     .content {
         margin-bottom: 5px;
     }
+    .submit-request.btn-primary {
+        width: 200px;
+        height: 45px;
+    }
 
     /*.bg-img {
         height: 100vh;

@@ -14,6 +14,9 @@ using ClosedXML.Excel;
 using Hallodoc.Data;
 using HalloDoc.DataLayer.ViewModels;
 using Hallodoc.Models.Models;
+using HalloDoc.DataLayer.Models;
+using DocumentFormat.OpenXml.InkML;
+using DocumentFormat.OpenXml.Spreadsheet;
 //using System.Diagnostics;
 //using HalloDoc.Data;
 
@@ -46,6 +49,7 @@ namespace HalloDoc.Controllers
                 active_count = count_active,
                 conclude_count = count_conclude,
                 toclose_count = count_toclose,
+                unpaid_count = count_unpaid,
                 query_requests = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 1),
                 requests = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 1).ToList(),
                 regions = _context.Regions.ToList(),
@@ -309,6 +313,86 @@ namespace HalloDoc.Controllers
         //    return View();
         //}
 
+        //for showing table according to all,patient,concierge,business
+        public IActionResult patientdataintable()
+        {
+            //int id = int.Parse(buttonValue);
+            //var data = _context.DevicesList.FirstOrDefault(d => d.Device == id);
+            //return View(data);
+
+
+            var count_patient = _context.Requests.Count(r => r.RequestTypeId == 1);
+            var count_family = _context.Requests.Count(r => r.RequestTypeId == 2);
+            var count_concierge = _context.Requests.Count(r => r.RequestTypeId == 3);
+            var count_business = _context.Requests.Count(r => r.RequestTypeId == 4);
+
+            IQueryable<Request> req = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs);
+            List<Request> list = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.RequestTypeId == 1).ToList();
+            List<Region> region = _context.Regions.ToList();
+
+            AdminDashboardReqWiseTableView adminDashboardReqWiseViewModel = new AdminDashboardReqWiseTableView
+            {
+                patient_count = count_patient,
+                family_count = count_family,
+                concierge_count = count_concierge,
+                business_count = count_business,
+                query_requests = req,
+                requests = list,
+                regions = region,
+            };
+            return PartialView("AdminDashboardTablePartialView", adminDashboardReqWiseViewModel);
+        }
+        public IActionResult familydataintable()
+        {
+            var count_family = _context.Requests.Count(r => r.RequestTypeId == 2);
+
+            IQueryable<Request> req = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs);
+            List<Request> list = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.RequestTypeId == 2).ToList();
+            List<Region> region = _context.Regions.ToList();
+
+            AdminDashboardReqWiseTableView adminDashboardReqWiseViewModel = new AdminDashboardReqWiseTableView
+            {
+                family_count = count_family,
+                query_requests = req,
+                requests = list,
+                regions = region,
+            };
+            return PartialView("AdminDashboardTablePartialView", adminDashboardReqWiseViewModel);
+        }
+        public IActionResult conciergedataintable()
+        {
+            var count_concierge = _context.Requests.Count(r => r.RequestTypeId == 3);
+
+            IQueryable<Request> req = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs);
+            List<Request> list = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.RequestTypeId == 3).ToList();
+            List<Region> region = _context.Regions.ToList();
+
+            AdminDashboardReqWiseTableView adminDashboardReqWiseViewModel = new AdminDashboardReqWiseTableView
+            {
+                concierge_count = count_concierge,
+                query_requests = req,
+                requests = list,
+                regions = region,
+            };
+            return PartialView("AdminDashboardTablePartialView", adminDashboardReqWiseViewModel);
+        }
+        public IActionResult businessdataintable()
+        {
+            var count_business = _context.Requests.Count(r => r.RequestTypeId == 4);
+
+            IQueryable<Request> req = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs);
+            List<Request> list = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.RequestTypeId == 4).ToList();
+            List<Region> region = _context.Regions.ToList();
+
+            AdminDashboardReqWiseTableView adminDashboardReqWiseViewModel = new AdminDashboardReqWiseTableView
+            {
+                business_count = count_business,
+                query_requests = req,
+                requests = list,
+                regions = region,
+            };
+            return PartialView("AdminDashboardTablePartialView", adminDashboardReqWiseViewModel);
+        }
 
 
         public IActionResult ViewCase(int id)
@@ -350,233 +434,229 @@ namespace HalloDoc.Controllers
                 requestor = "Business";
             }
             viewCaseModel.Requestor = requestor;
-            //viewCaseModel.DOB = new DateOnly((int)data.RequestClient.IntYear, DateTime.ParseExact(data.RequestClient.StrMonth, "MMMM", new CultureInfo("en-US")).Month, (int)data.RequestClient.IntDate);
+            //var monthName = data.RequestClient.StrMonth;
+            
             // Assuming data.RequestClient.StrMonth is a string containing the full month name
 
-            //try
-            //{
-            //    var month1 = data.RequestClient.StrMonth;
-            //    string monthName;
-            //    switch (month1)
-            //    {
-            //        case "1":
-            //            monthName = "January";
-            //            break;
-            //        case "2":
-            //            monthName = "February";
-            //            break;
-            //        case "3":
-            //            monthName = "March";
-            //            break;
-            //        case "4":
-            //            monthName = "April";
-            //            break;
-            //        case "5":
-            //            monthName = "May";
-            //            break;
-            //        case "6":
-            //            monthName = "June";
-            //            break;
-            //        case "7":
-            //            monthName = "July";
-            //            break;
-            //        case "8":
-            //            monthName = "August";
-            //            break;
-            //        case "9":
-            //            monthName = "September";
-            //            break;
-            //        case "10":
-            //            monthName = "October";
-            //            break;
-            //        case "11":
-            //            monthName = "November";
-            //            break;
-            //        case "12":
-            //            monthName = "December";
-            //            break;
-            //        default:
-            //            monthName = "Invalid month";
-            //            break;
-            //    }
-
+            try
+            {
+                var month1 = data.RequestClient.StrMonth;
+                string monthName;
+                switch (month1)
+                {
+                    case "1":
+                        monthName = "January";
+                        break;
+                    case "2":
+                        monthName = "February";
+                        break;
+                    case "3":
+                        monthName = "March";
+                        break;
+                    case "4":
+                        monthName = "April";
+                        break;
+                    case "5":
+                        monthName = "May";
+                        break;
+                    case "6":
+                        monthName = "June";
+                        break;
+                    case "7":
+                        monthName = "July";
+                        break;
+                    case "8":
+                        monthName = "August";
+                        break;
+                    case "9":
+                        monthName = "September";
+                        break;
+                    case "10":
+                        monthName = "October";
+                        break;
+                    case "11":
+                        monthName = "November";
+                        break;
+                    case "12":
+                        monthName = "December";
+                        break;
+                    default:
+                        monthName = "Invalid month";
+                        break;
+                }
                 int month = DateTime.ParseExact(monthName, "MMMM", new CultureInfo("en-US")).Month;
                 viewCaseModel.DOB = new DateTime((int)data.RequestClient.IntYear, month, (int)data.RequestClient.IntDate);
-        }
-        //catch (FormatException ex)
-        //{
-        //    // Handle parsing error gracefully, e.g., log the exception or provide a user-friendly message
-        //}
-
-        
+            }
+            catch (FormatException ex)
+            {
+                // Handle parsing error gracefully, e.g., log the exception or provide a user-friendly message
+            }
             return View(viewCaseModel);
         }
+            
 
 
 
-        //public IActionResult ViewCase()
-        //{
-        //    var user = HttpContext.Session.GetInt32("int id");
-        //    var userDetail = _context.Users.FirstOrDefault(u => u.UserId == user);
-        //    //var userDetail = _profile.UserIdFromUserInProfile((int)user);
-        //    ViewCaseModel viewCaseModel = new ViewCaseModel()
-        //    {
-        //        FirstName = userDetail.FirstName,
-        //        LastName = userDetail.LastName,
-        //        DOB = DateTime.Parse(userDetail.IntYear.ToString() + '-' + userDetail.StrMonth + '-' + userDetail.IntDate.ToString()),
-        //        //meViewModel.DOB = new DateTime(userDetail.IntYear, DateTime.ParseExact(userDetail.StrMonth, "MMMM", CultureInfo.CurrentCulture).Month, userDetail.IntDate);
-        //        PhoneNumber = userDetail.Mobile,
-        //        Email = userDetail.Email,
-        //        Region = userDetail.Region,
-        //        Street = userDetail.Street,
-        //        State = userDetail.State,
-        //        ZipCode = userDetail.ZipCode,
-        //        //partialViewModel = new partialViewModel() { patient_name = string.Concat(userDetail.FirstName + ' ' + userDetail) },
-
-        //    };
-
-
-        //    return View(ViewCase);
-        //}
-
-        [HttpPost]
-        public async Task<IActionResult> ViewCase(ViewCaseModel model)
-        {
-            //if (ModelState.IsValid)
+            //public IActionResult ViewCase()
             //{
-            AspNetUser aspNetUser = new AspNetUser();
-            User user = new User();
-            RequestClient requestClient = new RequestClient();
-            Request request = new Request();
-            RequestWiseFile requestWiseFile = new RequestWiseFile();
-            RequestStatusLog requestStatusLog = new RequestStatusLog();
+            //    var user = HttpContext.Session.GetInt32("int id");
+            //    var userDetail = _context.Users.FirstOrDefault(u => u.UserId == user);
+            //    //var userDetail = _profile.UserIdFromUserInProfile((int)user);
+            //    ViewCaseModel viewCaseModel = new ViewCaseModel()
+            //    {
+            //        FirstName = userDetail.FirstName,
+            //        LastName = userDetail.LastName,
+            //        DOB = DateTime.Parse(userDetail.IntYear.ToString() + '-' + userDetail.StrMonth + '-' + userDetail.IntDate.ToString()),
+            //        //meViewModel.DOB = new DateTime(userDetail.IntYear, DateTime.ParseExact(userDetail.StrMonth, "MMMM", CultureInfo.CurrentCulture).Month, userDetail.IntDate);
+            //        PhoneNumber = userDetail.Mobile,
+            //        Email = userDetail.Email,
+            //        Region = userDetail.Region,
+            //        Street = userDetail.Street,
+            //        State = userDetail.State,
+            //        ZipCode = userDetail.ZipCode,
+            //        //partialViewModel = new partialViewModel() { patient_name = string.Concat(userDetail.FirstName + ' ' + userDetail) },
 
-            //to add one more state,that is to show that we dont give service in particular region
-            var region = _context.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
-            //var region = _profile.StateFromRegionInProfile(model);
-            if (region == null)
-            {
-                ModelState.AddModelError("State", "Currently we are not serving in this region");
-                return View(model);
-            }
+            //    };
 
-            var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
-            //var existingUser = _profile.EmailFromAspnetuserinProfile(model);
-            bool userExists = true;
-            if (existingUser == null)
-            {
-                userExists = false;
-                if (string.IsNullOrWhiteSpace(model.FirstName) || string.IsNullOrWhiteSpace(model.LastName))
-                {
-                    aspNetUser.UserName = "GuestUser";
-                }
-                else
-                {
-                    aspNetUser.UserName = model.FirstName + " " + model.LastName;
-                }
-                aspNetUser.Email = model.Email;
-                aspNetUser.PhoneNumber = model.PhoneNumber;
-                aspNetUser.CreatedDate = DateTime.Now;
-                aspNetUser.PasswordHash = model.PasswordHash;
-                //aspNetUser.UserName = model.FirstName + " " + model.LastName;
-                //ishan
-                _context.AspNetUsers.Add(aspNetUser);
-                await _context.SaveChangesAsync();
-                //ishan
 
-                user.AspNetUserId = aspNetUser.Id;
-                user.FirstName = model.FirstName;
-                user.LastName = model.LastName;
-                user.Email = model.Email;
-                user.Mobile = model.PhoneNumber;
-                user.Street = model.Street;
-                user.City = model.City;
-                user.State = model.State;
-                user.ZipCode = model.ZipCode;
-                user.IntDate = model.DOB.Day;
-                user.StrMonth = model.DOB.Month.ToString();
-                user.IntYear = model.DOB.Year;
-                user.CreatedBy = aspNetUser.Id;
-                user.CreatedDate = DateTime.Now;
-                //ishan
-                _context.Users.Add(user);
-                await _context.SaveChangesAsync();
-                //ishan
-            }
-
-            requestClient.FirstName = model.FirstName;
-            requestClient.LastName = model.LastName;
-            requestClient.PhoneNumber = model.PhoneNumber;
-            requestClient.Location = model.City;
-            requestClient.Address = model.Street;
-            requestClient.RegionId = 1;
-            //if (model.Symptoms != null)
-            //{
-            //    requestClient.Notes = model.Symptoms;
-            //}
-            requestClient.Email = model.Email;
-            requestClient.IntDate = model.DOB.Day;
-            requestClient.StrMonth = model.DOB.Month.ToString();
-            requestClient.IntYear = model.DOB.Year;
-            requestClient.Street = model.Street;
-            requestClient.City = model.City;
-            requestClient.State = model.State;
-            requestClient.ZipCode = model.ZipCode;
-            //ishan
-            _context.RequestClients.Add(requestClient);
-            await _context.SaveChangesAsync();
-            //ishan
-
-            //to generate confirmation number(method is given in srs that how to generate confirmation number
-            int requests = _context.Requests.Where(u => u.CreatedDate == DateTime.Now.Date).Count();
-            string ConfirmationNumber = string.Concat(region.Abbreviation, model.FirstName.Substring(0, 2).ToUpper(), model.LastName.Substring(0, 2).ToUpper(), requests.ToString("D" + 4));
-            //
-            var id = HttpContext.Session.GetInt32("id");
-            request.RequestTypeId = 1;
-
-            request.UserId = id;
-
-            request.FirstName = model.FirstName;
-            request.LastName = model.LastName;
-            request.Email = model.Email;
-            request.PhoneNumber = model.PhoneNumber;
-            request.Status = 1;
-            request.ConfirmationNumber = ConfirmationNumber;
-            request.CreatedDate = DateTime.Now;
-            //RequestId dropped from requestClient and requestClientId added in request + foreign key
-            request.RequestClientId = requestClient.RequestClientId;
-            //ishan
-            _context.Requests.Add(request);
-            await _context.SaveChangesAsync();
-            //ishan
-
-            //if (model.File != null)
-            //{
-            //    requestWiseFile.RequestId = request.RequestId;
-            //    //IformFile has a property that to store filepath u need to add .filename behind it to store path
-            //    requestWiseFile.FileName = model.File.FileName;
-            //    requestWiseFile.CreatedDate = DateTime.Now;
-            //    _db.RequestWiseFiles.Add(requestWiseFile);
-            //    await _db.SaveChangesAsync();
+            //    return View(ViewCase);
             //}
 
-            requestStatusLog.RequestId = request.RequestId;
-            requestStatusLog.Status = 1;
-            //requestStatusLog.Notes = model.Symptoms;
-            requestStatusLog.CreatedDate = DateTime.Now;
-            //ishan
-            _context.RequestStatusLogs.Add(requestStatusLog);
-            await _context.SaveChangesAsync();
-            //ishan
+            //[HttpPost]
+            //public async Task<IActionResult> ViewCase(ViewCaseModel model)
+            //{
+            //    //if (ModelState.IsValid)
+            //    //{
+            //    AspNetUser aspNetUser = new AspNetUser();
+            //    User user = new User();
+            //    RequestClient requestClient = new RequestClient();
+            //    Request request = new Request();
+            //    RequestWiseFile requestWiseFile = new RequestWiseFile();
+            //    RequestStatusLog requestStatusLog = new RequestStatusLog();
 
-            return RedirectToAction("patientDashboard", "PatientDashboard");
-        }
+            //    //to add one more state,that is to show that we dont give service in particular region
+            //    var region = _context.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
+            //    //var region = _profile.StateFromRegionInProfile(model);
+            //    if (region == null)
+            //    {
+            //        ModelState.AddModelError("State", "Currently we are not serving in this region");
+            //        return View(model);
+            //    }
 
+            //    var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
+            //    //var existingUser = _profile.EmailFromAspnetuserinProfile(model);
+            //    bool userExists = true;
+            //    if (existingUser == null)
+            //    {
+            //        userExists = false;
+            //        if (string.IsNullOrWhiteSpace(model.FirstName) || string.IsNullOrWhiteSpace(model.LastName))
+            //        {
+            //            aspNetUser.UserName = "GuestUser";
+            //        }
+            //        else
+            //        {
+            //            aspNetUser.UserName = model.FirstName + " " + model.LastName;
+            //        }
+            //        aspNetUser.Email = model.Email;
+            //        aspNetUser.PhoneNumber = model.PhoneNumber;
+            //        aspNetUser.CreatedDate = DateTime.Now;
+            //        //aspNetUser.UserName = model.FirstName + " " + model.LastName;
+            //        //ishan
+            //        _context.AspNetUsers.Add(aspNetUser);
+            //        await _context.SaveChangesAsync();
+            //        //ishan
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+            //        user.AspNetUserId = aspNetUser.Id;
+            //        user.FirstName = model.FirstName;
+            //        user.LastName = model.LastName;
+            //        user.Email = model.Email;
+            //        user.Mobile = model.PhoneNumber;
+            //        user.Street = model.Street;
+            //        user.City = model.City;
+            //        user.State = model.State;
+            //        user.ZipCode = model.ZipCode;
+            //        user.IntDate = model.DOB.Day;
+            //        user.StrMonth = model.DOB.Month.ToString();
+            //        user.IntYear = model.DOB.Year;
+            //        user.CreatedBy = aspNetUser.Id;
+            //        user.CreatedDate = DateTime.Now;
+            //        //ishan
+            //        _context.Users.Add(user);
+            //        await _context.SaveChangesAsync();
+            //        //ishan
+            //    }
+
+            //    requestClient.FirstName = model.FirstName;
+            //    requestClient.LastName = model.LastName;
+            //    requestClient.PhoneNumber = model.PhoneNumber;
+            //    requestClient.Location = model.City;
+            //    requestClient.Address = model.Street;
+            //    requestClient.RegionId = 1;
+            //    //if (model.Symptoms != null)
+            //    //{
+            //    //    requestClient.Notes = model.Symptoms;
+            //    //}
+            //    requestClient.Email = model.Email;
+            //    requestClient.IntDate = model.DOB.Day;
+            //    requestClient.StrMonth = model.DOB.Month.ToString();
+            //    requestClient.IntYear = model.DOB.Year;
+            //    requestClient.Street = model.Street;
+            //    requestClient.City = model.City;
+            //    requestClient.State = model.State;
+            //    requestClient.ZipCode = model.ZipCode;
+            //    //ishan
+            //    _context.RequestClients.Add(requestClient);
+            //    await _context.SaveChangesAsync();
+            //    //ishan
+
+            //    //to generate confirmation number(method is given in srs that how to generate confirmation number
+            //    int requests = _context.Requests.Where(u => u.CreatedDate == DateTime.Now.Date).Count();
+            //    string ConfirmationNumber = string.Concat(region.Abbreviation, model.FirstName.Substring(0, 2).ToUpper(), model.LastName.Substring(0, 2).ToUpper(), requests.ToString("D" + 4));
+            //    //
+            //    var id = HttpContext.Session.GetInt32("id");
+            //    request.RequestTypeId = 1;
+
+            //    request.UserId = id;
+
+            //    request.FirstName = model.FirstName;
+            //    request.LastName = model.LastName;
+            //    request.Email = model.Email;
+            //    request.PhoneNumber = model.PhoneNumber;
+            //    request.Status = 1;
+            //    request.ConfirmationNumber = ConfirmationNumber;
+            //    request.CreatedDate = DateTime.Now;
+            //    //RequestId dropped from requestClient and requestClientId added in request + foreign key
+            //    request.RequestClientId = requestClient.RequestClientId;
+            //    //ishan
+            //    _context.Requests.Add(request);
+            //    await _context.SaveChangesAsync();
+            //    //ishan
+
+            //    //if (model.File != null)
+            //    //{
+            //    //    requestWiseFile.RequestId = request.RequestId;
+            //    //    //IformFile has a property that to store filepath u need to add .filename behind it to store path
+            //    //    requestWiseFile.FileName = model.File.FileName;
+            //    //    requestWiseFile.CreatedDate = DateTime.Now;
+            //    //    _db.RequestWiseFiles.Add(requestWiseFile);
+            //    //    await _db.SaveChangesAsync();
+            //    //}
+
+            //    requestStatusLog.RequestId = request.RequestId;
+            //    requestStatusLog.Status = 1;
+            //    //requestStatusLog.Notes = model.Symptoms;
+            //    requestStatusLog.CreatedDate = DateTime.Now;
+            //    //ishan
+            //    _context.RequestStatusLogs.Add(requestStatusLog);
+            //    await _context.SaveChangesAsync();
+            //    //ishan
+
+            //    return RedirectToAction("patientDashboard", "PatientDashboard");
+            //}
+            [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+            public IActionResult Error()
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
     }
 }

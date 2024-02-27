@@ -19,6 +19,7 @@ using HalloDoc.DataLayer.ViewModels;
 using HalloDoc.LogicLayer.Patient_Interface.PatientDashboardInterface;
 using HalloDoc.LogicLayer.Patient_Repository.PatientDashboardRepository;
 using System.Diagnostics.Metrics;
+using HalloDoc.DataLayer.Models;
 
 namespace Hallodoc.Controllers
 {

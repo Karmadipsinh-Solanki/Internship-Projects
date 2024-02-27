@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HalloDoc.LogicLayer.Patient_Interface.PatientRequest;
 
 namespace HalloDoc.LogicLayer.Patient_Repository.PatientRequest
 {
-    public class CreateConciergeRequest
+    public class CreateConciergeRequest : ICreateConciergeRequest
     {
         private readonly ApplicationDbContext _db;
 

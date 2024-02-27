@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HalloDoc.LogicLayer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9df4d52bbae0614cb850a8b5a95c990dce3d8dd2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8220f34590fb5c4abc575189f311b9a2b9cdbf73")]
 [assembly: System.Reflection.AssemblyProductAttribute("HalloDoc.LogicLayer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HalloDoc.LogicLayer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

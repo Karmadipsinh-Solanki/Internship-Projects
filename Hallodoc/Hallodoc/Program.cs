@@ -37,9 +37,9 @@ builder.Services.AddScoped<IMeModal, MeModal>();
 builder.Services.AddScoped<IRelativeModalSubmit, RelativeModalSubmit>();
 builder.Services.AddScoped<IProfile, Profile>();
 builder.Services.AddScoped<ICreatePatientRequest, CreatePatientRequest>();
-builder.Services.AddScoped<ICreatePatientRequest, CreatePatientRequest>();
-builder.Services.AddScoped<ICreatePatientRequest, CreatePatientRequest>();
-builder.Services.AddScoped<ICreatePatientRequest, CreatePatientRequest>();
+builder.Services.AddScoped<ICreateFamilyRequest, CreateFamilyRequest>();
+builder.Services.AddScoped<ICreateConciergeRequest, CreateConciergeRequest>();
+builder.Services.AddScoped<ICreateBusinessRequest, CreateBusinessRequest>();
 builder.Services.AddScoped<IPatientCheck, PatientCheck>();
 //3tier
 
