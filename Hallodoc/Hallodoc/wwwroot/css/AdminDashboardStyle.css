@@ -852,7 +852,7 @@ table.dataTable thead th, table.dataTable tfoot th {
 .saveButtonText{
     color:white;
 }
-.CancelButton {
+.cancelButton {
     background-color: white;
     border: 1px solid #01bbe8;
     border-radius: 5px;
@@ -870,6 +870,18 @@ table.dataTable thead th, table.dataTable tfoot th {
     -moz-border-radius: 0px !important;
     border-radius: 0px !important;
 }*/
+.action-mob-btn {
+    background-color: #228C20;
+    color: white;
+    border: 1px solid #228C20;
+    padding: 10px 15px;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+    width: 100%;
+    min-width: 55px;
+    cursor: pointer;
+}
 
     @media only screen and (max-width:1200px) {
         .dashboard-sub-div-2-sub {
@@ -879,8 +891,8 @@ table.dataTable thead th, table.dataTable tfoot th {
 
 @media only screen and (max-width:1100px) {
     .modal-content {
-        height: 33%;
-        width: 45%;
+        height: 33%!important;
+        width: 100%!important;
     }
 
     .tab {
@@ -1021,8 +1033,8 @@ table.dataTable thead th, table.dataTable tfoot th {
     }
 
     .modal-content {
-        height: 35%;
-        width: 65%;
+        height: 35%!important;
+        width: 100%!important;
     }
 
     .dashboard-sub-div {

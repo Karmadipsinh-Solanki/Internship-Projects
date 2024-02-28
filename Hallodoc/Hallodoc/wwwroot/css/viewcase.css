@@ -52,17 +52,6 @@
     align-items: center;
 }
 
-.form-control {
-    height: 70px;
-    padding: 12px !important;
-    /*padding: 4px 8px !important;*/
-    border-radius: 8px !important; /* Sadly outline does not round! therefore...*/
-}
-
-    .form-control:focus {
-        outline: none !important; /* Remove default outline and use border or box-shadow */
-        box-shadow: 0 0 0 1px #0dcaf0 !important; /* Full freedom. (works also with border-radius) */
-    }
 
 .floatingInput:focus {
     color: #0dcaf0 !important;
@@ -260,11 +249,17 @@
 }
 
 .form-control {
-    height: 49px !important;
+    height: 54px !important;
     box-shadow: none;
     border-width: 2px;
+    border-radius: 8px !important; /* Sadly outline does not round! therefore...*/
     width: 100%;
 }
+    .form-control:focus {
+        outline: none !important; /* Remove default outline and use border or box-shadow */
+        box-shadow: 0 0 0 1px #0dcaf0 !important; /* Full freedom. (works also with border-radius) */
+    }
+
 
 .form-floating > label {
     top: -4px;
@@ -280,6 +275,39 @@
 .login-fields {
     margin-bottom: 25px;
     width: 48.5%;
+}
+.saveButton {
+    background-color: #01bbe8;
+    border: 1px solid #01bbe8;
+    border-radius: 5px;
+    height: 40px;
+    width: 80px;
+}
+
+.saveButtonText {
+    color: white;
+}
+
+.CancelButton {
+    background-color: white;
+    border: 1px solid #01bbe8;
+    border-radius: 5px;
+    height: 40px;
+    width: 100%;
+}
+
+.cancelButtonText {
+    color: #01bbe8;
+}
+.hrdashed {
+    border: 1px dashed #f4f4f4;
+}
+.redCancelButton {
+    
+    border:1px solid #d72d31;
+    border-radius:5px;
+    height: 40px;
+    width: 80px;
 }
 
 @media only screen and (max-width:770px) {

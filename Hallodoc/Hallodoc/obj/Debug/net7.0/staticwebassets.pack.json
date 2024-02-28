@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\SRS Screen Shorts\\7774236_3736765.jpg"
     },
     {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\Admin_icon.svg",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\Admin_icon.svg"
+    },
+    {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\Fig Contact your Provider.jpg",
       "PackagePath": "staticwebassets\\SRS Screen Shorts\\Fig Contact your Provider.jpg"
     },
@@ -669,6 +673,10 @@
       "PackagePath": "staticwebassets\\SRS Screen Shorts\\pending_active.png"
     },
     {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\physician_image.webp",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\physician_image.webp"
+    },
+    {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\pngimg",
       "PackagePath": "staticwebassets\\SRS Screen Shorts"
     },
@@ -711,6 +719,10 @@
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\toclose_active.png",
       "PackagePath": "staticwebassets\\SRS Screen Shorts\\toclose_active.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\transfer_image.png",
+      "PackagePath": "staticwebassets\\SRS Screen Shorts\\transfer_image.png"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\unpaid.png",
@@ -763,6 +775,10 @@
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\viewDoc.css",
       "PackagePath": "staticwebassets\\css\\viewDoc.css"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\viewNotes.css",
+      "PackagePath": "staticwebassets\\css\\viewNotes.css"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\viewcase.css",

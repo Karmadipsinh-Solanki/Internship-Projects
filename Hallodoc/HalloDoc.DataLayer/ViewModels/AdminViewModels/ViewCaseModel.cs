@@ -24,5 +24,6 @@ namespace HalloDoc.DataLayer.ViewModels.AdminViewModels
         public string ConfirmationNo { get; set; }
         public string PatientNotes { get; set; }
         public string Requestor { get; set; }
+        //public object State { get; set; }
     }
 }

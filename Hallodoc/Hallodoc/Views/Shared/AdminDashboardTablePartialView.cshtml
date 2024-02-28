@@ -18,204 +18,206 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" />
 <script type="text/javascript" charset="utf8"
         src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-<table id="dtBasicExample" class="table">
-    <thead>
-        <tr>
-            <th scope="col" class="table-header"><strong>Name</strong></th>
-            <th class ="table-header"></th>
-            @if (Model.status != "Unpaid")
-            {
-                <th class="table-header"><strong>Date Of Birth</strong> </th>
-            }
-            @if (Model.status == "New" || Model.status == "Pending" || Model.status == "Active")
-            {
-                <th class="table-header"><strong>Requestor</strong> </th>
-            }
-            @if (Model.status != "New")
-            {
-                <th class="table-header"><strong>Physician Name</strong></th>
-                <th class="table-header"><strong>Date Of Service</strong></th>
-            }
-            @if (Model.status == "New")
-            {
-                <th class="table-header"><strong>Requested Date</strong></th>
-            }
-            @if (Model.status != "ToClose")
-            {
-                <th class="table-header" style="min-width: 175px;"><strong>Phone</strong></th>
-            }
-            <th class="table-header"><strong>Address</strong></th>
-            @if (Model.status != "Conclude" || Model.status != "Unpaid")
-            {
-                <th class="table-header"><strong>Notes</strong></th>
-            }
-            <th class="table-header"><strong>Actions</strong></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.requests)
-        {
-            var statusClass = "";
-            var dos = "";
-            var notes = "";
-            @if (item.RequestTypeId == 4)
-            {
-                statusClass = "business";
-            }
-            else if (item.RequestTypeId == 1)
-            {
-                statusClass = "patient";
-            }
-            else if (item.RequestTypeId == 2)
-            {
-                statusClass = "family";
-            }
-            else
-            {
-                statusClass = "concierge";
-            }
-            foreach (var stat in item.RequestStatusLogs)
-            {
-                if (stat.Status == 2)
-                {
-                    dos = stat.CreatedDate.ToString("MMMM dd,yyyy");
-                    notes = stat.Notes ?? "";
-                }
-            }
-            <tr class="@statusClass">
-                <td class="@statusClass">@(string.Concat(item.RequestClient.FirstName, ',', item.RequestClient.LastName))</td>
-                <td class="@statusClass">
-                    <svg xmlns="http://www.w3.org/2000/svg" style="padding:5px;border: 1px solid white;border-radius: 5px;margin: auto 5px;" width="30" height="30"
-                         fill="white" class="bi bi-envelope" viewBox="0 0 16 16">
-                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
-                    </svg>
-                </td>
+
+<div class=" d-none d-md-block">
+    <table id="dtBasicExample" class="table ">
+        <thead>
+            <tr>
+                <th scope="col" class="table-header"><strong>Name</strong></th>
+                <th class="table-header"></th>
                 @if (Model.status != "Unpaid")
                 {
-                    <td class="@statusClass">@(DateTime.Parse($"{item.RequestClient.IntYear}-{item.RequestClient.StrMonth}-{item.RequestClient.IntDate}").ToString("MMMM dd,yyyy"))(12)</td>
+                    <th class="table-header"><strong>Date Of Birth</strong> </th>
                 }
                 @if (Model.status == "New" || Model.status == "Pending" || Model.status == "Active")
                 {
-                    <td class="@statusClass">@(statusClass != null && statusClass.Length > 1 ? (statusClass.Substring(0, 1).ToUpper() + statusClass.Substring(1).ToLower()) : statusClass) @(string.Concat(item.FirstName, ',', item.LastName))</td>
-                    @* <td class="@statusClass">@(statusClass.Substring(0, 1).ToUpper() + statusClass.Substring(1).ToLower()) @(string.Concat(item.FirstName, ',', item.LastName))</td> *@
+                    <th class="table-header"><strong>Requestor</strong> </th>
                 }
                 @if (Model.status != "New")
                 {
-                    <td class="@statusClass">Dr. @(item.Physician == null ? "" : item.Physician.FirstName)</td>
+                    <th class="table-header"><strong>Physician Name</strong></th>
+                    <th class="table-header"><strong>Date Of Service</strong></th>
                 }
                 @if (Model.status == "New")
                 {
-                    <td class="@statusClass">@(item.CreatedDate.ToString("MMMM dd,yyyy"))</td>
-                }
-                @if (Model.status != "New")
-                {
-                    <td class="@statusClass">@dos</td>
+                    <th class="table-header"><strong>Requested Date</strong></th>
                 }
                 @if (Model.status != "ToClose")
                 {
+                    <th class="table-header" style="min-width: 175px;"><strong>Phone</strong></th>
+                }
+                <th class="table-header"><strong>Address</strong></th>
+                @if (Model.status != "Conclude" || Model.status != "Unpaid")
+                {
+                    <th class="table-header"><strong>Notes</strong></th>
+                }
+                <th class="table-header"><strong>Actions</strong></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.requests)
+            {
+                var statusClass = "";
+                var dos = "";
+                var notes = "";
+                @if (item.RequestTypeId == 4)
+                {
+                    statusClass = "business";
+                }
+                else if (item.RequestTypeId == 1)
+                {
+                    statusClass = "patient";
+                }
+                else if (item.RequestTypeId == 2)
+                {
+                    statusClass = "family";
+                }
+                else
+                {
+                    statusClass = "concierge";
+                }
+                foreach (var stat in item.RequestStatusLogs)
+                {
+                    if (stat.Status == 2)
+                    {
+                        dos = stat.CreatedDate.ToString("MMMM dd,yyyy");
+                        notes = stat.Notes ?? "";
+                    }
+                }
+                <tr class="@statusClass">
+                    <td class="@statusClass">@(string.Concat(item.RequestClient.FirstName, ',', item.RequestClient.LastName))</td>
                     <td class="@statusClass">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="padding:5px;border: 1px solid white;border-radius: 5px;margin: auto 5px;" width="30" height="30"
+                             fill="white" class="bi bi-envelope" viewBox="0 0 16 16">
+                            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+                        </svg>
+                    </td>
+                    @if (Model.status != "Unpaid")
+                    {
+                        <td class="@statusClass">@(DateTime.Parse($"{item.RequestClient.IntYear}-{item.RequestClient.StrMonth}-{item.RequestClient.IntDate}").ToString("MMMM dd,yyyy"))(12)</td>
+                    }
+                    @if (Model.status == "New" || Model.status == "Pending" || Model.status == "Active")
+                    {
+                        <td class="@statusClass">@(statusClass != null && statusClass.Length > 1 ? (statusClass.Substring(0, 1).ToUpper() + statusClass.Substring(1).ToLower()) : statusClass) @(string.Concat(item.FirstName, ',', item.LastName))</td>
+                        @* <td class="@statusClass">@(statusClass.Substring(0, 1).ToUpper() + statusClass.Substring(1).ToLower()) @(string.Concat(item.FirstName, ',', item.LastName))</td> *@
+                    }
+                    @if (Model.status != "New")
+                    {
+                        <td class="@statusClass">Dr. @(item.Physician == null ? "" : item.Physician.FirstName)</td>
+                    }
+                    @if (Model.status == "New")
+                    {
+                        <td class="@statusClass">@(item.CreatedDate.ToString("MMMM dd,yyyy"))</td>
+                    }
+                    @if (Model.status != "New")
+                    {
+                        <td class="@statusClass">@dos</td>
+                    }
+                    @if (Model.status != "ToClose")
+                    {
+                        <td class="@statusClass">
 
-                        <div class="phone-td" style="width:75%">
-                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;" width="16" height="16" fill="white" class="bi bi-telephone" viewBox="0 0 16 16">
-                                <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
-                            </svg>
-                            <span class="td-data">@item.RequestClient.PhoneNumber</span>
-                        </div>
-                        <span class="td-data">(Patient)</span>
-
-                        @*<span class="phone-container">
-                <img src="../../images/telephone.svg"
-                class=""
-                alt="" /><span class="phone-number">@item.RequestClient.PhoneNumber</span>
-                </span><br />
-                (Patient)<br />*@
-                        @if (item.RequestTypeId != 4)
-                        {
                             <div class="phone-td" style="width:75%">
                                 <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;" width="16" height="16" fill="white" class="bi bi-telephone" viewBox="0 0 16 16">
                                     <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
                                 </svg>
-                                <span class="td-data">@item.PhoneNumber</span>
+                                <span class="td-data">@item.RequestClient.PhoneNumber</span>
                             </div>
-                            @($"({statusClass.Substring(0, 1).ToUpper() + statusClass.Substring(1).ToLower()})")
-                        }
+                            <span class="td-data">(Patient)</span>
 
-                    </td>
-                }
-                <td class="@statusClass">@(item.RequestClient.Address == null ? string.Concat(item.RequestClient.Address, ',', item.RequestClient.Street, ',', item.RequestClient.City, ',', item.RequestClient.State, ',', item.RequestClient.ZipCode) : string.Concat(item.RequestClient.Street, ',', item.RequestClient.City, ',', item.RequestClient.State, ',', item.RequestClient.ZipCode))</td>
-                @if (Model.status != "Conclude" || Model.status != "Unpaid")
-                {
+                            @*<span class="phone-container">
+                    <img src="../../images/telephone.svg"
+                    class=""
+                    alt="" /><span class="phone-number">@item.RequestClient.PhoneNumber</span>
+                    </span><br />
+                    (Patient)<br />*@
+                            @if (item.RequestTypeId != 4)
+                            {
+                                <div class="phone-td" style="width:75%">
+                                    <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;" width="16" height="16" fill="white" class="bi bi-telephone" viewBox="0 0 16 16">
+                                        <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                                    </svg>
+                                    <span class="td-data">@item.PhoneNumber</span>
+                                </div>
+                                @($"({statusClass.Substring(0, 1).ToUpper() + statusClass.Substring(1).ToLower()})")
+                            }
+
+                        </td>
+                    }
+                    <td class="@statusClass">@(item.RequestClient.Address == null ? string.Concat(item.RequestClient.Address, ',', item.RequestClient.Street, ',', item.RequestClient.City, ',', item.RequestClient.State, ',', item.RequestClient.ZipCode) : string.Concat(item.RequestClient.Street, ',', item.RequestClient.City, ',', item.RequestClient.State, ',', item.RequestClient.ZipCode))</td>
+                    @if (Model.status != "Conclude" || Model.status != "Unpaid")
+                    {
+                        <td class="@statusClass">
+                            Admin transferred to Dr. AGOLA on 10\10\2023 at 4:11:38 AM :
+                            test
+                        </td>
+                    }
                     <td class="@statusClass">
-                        Admin transferred to Dr. AGOLA on 10\10\2023 at 4:11:38 AM :
-                        test
-                    </td>
-                }
-                <td class="@statusClass">
-                    <div class="dropdown" style="height:100%;display:flex">
-                        <div class="dropbtn @statusClass" onclick="toggleDropdown(event)">Action</div>
-                        <div class="dropdown-content hidden" data-request-id="@item.RequestId">
-                            <a class="dropdown-item" href="#">
-                                <div class="action-item">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
-                                        <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z" />
-                                        <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0" />
-                                    </svg>
-                                    <span>Assign Case</span>
-                                </div>
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <div class="action-item">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
-                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
-                                    </svg>
-                                    <span>Cancel Case</span>
-                                </div>
-                            </a>
-                            <a class="dropdown-item" asp-action="ViewCase" asp-controller="AdminDashboard" asp-route-id="@item.RequestId">
-                                <div class="action-item">
-                                    <img src="../../SRS Screen Shorts/view case.webp" alt="" class="viewcaseimg">
-                                    <span>View Case</span>
-                                </div>
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <div class="action-item">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
-                                        <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
-                                        <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
-                                        <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
-                                    </svg>
-                                    <span>View Notes</span>
-                                </div>
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <div class="action-item">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban-mirrored" viewBox="0 0 16 16">
-                                        <path d="M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0" />
-                                    </svg>
-                                    <span>Block Patient</span>
-                                </div>
+                        <div class="dropdown" style="height:100%;display:flex">
+                            <div class="dropbtn @statusClass" onclick="toggleDropdown(event)">Action</div>
+                            <div class="dropdown-content hidden" data-request-id="@item.RequestId">
+                                <a class="dropdown-item" href="#">
+                                    <div class="action-item">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
+                                            <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z" />
+                                            <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0" />
+                                        </svg>
+                                        <span>Assign Case</span>
+                                    </div>
                                 </a>
+                                <!--Cancel Case Button trigger modal -->
+                                <a class="dropdown-item" class="dashboard-button" data-bs-toggle="modal" data-bs-target="#cancelCaseModal">
+                                    <div class="action-item">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                                        </svg>
+                                        <span>Cancel Case</span>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item" asp-action="ViewCase" asp-controller="AdminDashboard" asp-route-id="@item.RequestId">
+                                    <div class="action-item">
+                                        <img src="../../SRS Screen Shorts/view case.webp" alt="" class="viewcaseimg">
+                                        <span>View Case</span>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item" asp-action="ViewNotes" asp-controller="AdminDashboard" asp-route-id="@item.RequestId">
+                                    <div class="action-item">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
+                                            <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+                                            <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
+                                            <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
+                                        </svg>
+                                        <span>View Notes</span>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <div class="action-item">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban-mirrored" viewBox="0 0 16 16">
+                                            <path d="M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0" />
+                                        </svg>
+                                        <span>Block Patient</span>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-        }
-    </tbody>
-
-
-   
-
-
-</table>
+                    </td>
+                </tr>
+            }
+        </tbody>
 
 
 
 
 
+    </table>
+</div>
+
+
+
+
+@* mychange ,here idea is to make table by creating only 5 if statements and making different table for each of status,thus reducing compile time
 <table>
-
-    @* mychange *@
     @if (Model.status != "New")
     {
         <thead>
@@ -241,9 +243,6 @@
                 <th scope="col" class="table-header">
                     Notes
                 </th>
-                <!-- <th scope="col" class="table-header">
-                    Chat With
-                </th> -->
                 <th scope="col" class="table-header">
                     Actions
                 </th>
@@ -256,13 +255,13 @@
                 var dos = "";
                 var notes = "";
                 <tr class="@statusClass">
-                    @* <td class="@statusClass">@(string.Concat(item.RequestClient.FirstName, ',', item.RequestClient.LastName))</td>
+                    <td class="@statusClass">@(string.Concat(item.RequestClient.FirstName, ',', item.RequestClient.LastName))</td>
             <td class="@statusClass">
             <svg xmlns="http://www.w3.org/2000/svg" style="padding:5px;border: 1px solid white;border-radius: 5px;margin: auto 5px;" width="30" height="30"
             fill="white" class="bi bi-envelope" viewBox="0 0 16 16">
             <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
             </svg>
-            </td> *@
+            </td>
                     <td>
                         <div class="name-td">
                             <span class="td-data">@(string.Concat(item.RequestClient.FirstName, ',', item.RequestClient.LastName))</span>
@@ -278,7 +277,9 @@
                         @(DateTime.Parse($"{item.RequestClient.IntYear}-{item.RequestClient.StrMonth}-{item.RequestClient.IntDate}").ToString("MMMM dd,yyyy"))(12)
                     </td>
                     <td class="@statusClass">@(statusClass != null && statusClass.Length > 1 ? (statusClass.Substring(0, 1).ToUpper() + statusClass.Substring(1).ToLower()) : statusClass) @(string.Concat(item.FirstName, ',', item.LastName))</td>
-                    @* <td class="@statusClass">@(statusClass.Substring(0, 1).ToUpper() + statusClass.Substring(1).ToLower()) @(string.Concat(item.FirstName, ',', item.LastName))</td> *@
+                    //
+                    <td class="@statusClass">@(statusClass.Substring(0, 1).ToUpper() + statusClass.Substring(1).ToLower()) @(string.Concat(item.FirstName, ',', item.LastName))</td>
+                    //
                     <td class="@statusClass">@(item.CreatedDate.ToString("MMMM dd,yyyy"))</td>
                     <td class="@statusClass">
                         <div class="phone-td" style="width:75%">
@@ -312,13 +313,11 @@
             }
         </tbody>
     }
-    @* mychange *@
+    mychange
+</table>*@
 
-
-
-</table>
 @* accordian *@
-@* <div class="d-block d-md-none ">
+<div class="d-block d-md-none ">
     <div class="accordion d-sm-block d-md-none" id="accordionExample">
         <div class="accordion-item">
             <h2 class="accordion-header">
@@ -340,8 +339,7 @@
                                 </div>
                                 <div class="aquaborder aquatext" style="height: 30px;">
                                     <span>
-                                        Map
-                                        Location
+                                        Map Location
                                     </span>
                                 </div>
                             </div>
@@ -356,7 +354,7 @@
                                     </svg>
                                 </span>
                                 Wait Time:<strong class="ms-1">DateTime Below</strong>
-                                <!-- @item.CreatedDate.ToString("MMMM dd,yyyy") -->
+                                @* @item.CreatedDate.ToString("MMMM dd,yyyy")  *@
                             </span>
                         </div>
                     </div>
@@ -383,35 +381,138 @@
                     </div>
                     <div class="mb-3">
                         <div class="d-inline circle">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0bb6d0"
-                                 class="bi bi-check" viewBox="0 0 16 16">
-                                <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
                             </svg>
                         </div>
-                        <strong>CurrentStatus:</strong><span>
-                            @Enum.GetName(typeof(Status),
-                                     @item.Status)
+                        <span>Email:</span>
+                        <span>
+                            @* @item.email *@email
                         </span>
                     </div>
-                    <div class="docbutton"
-                         style="border:1px solid #00ccff;padding:6px;margin:auto;border-radius:5px;text-align:center;">
-
-                        <a asp-controller="PatientDashboard" asp-action="viewDoc"
-                           asp-route-id="@item.RequestId"
-                           style="padding:6px;margin:auto;color:#00ccff;border-radius:5px;text-decoration:none;">
+                    <div class="mb-3">
+                        <div class="d-inline circle">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                                <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                            </svg>
+                        </div>
+                        <span>Patient:</span>
+                        <span>
+                            @* @item.PhoneNumber *@Phone number
+                        </span>
+                    </div>
+                    <div class="mb-1">
+                        <div class="d-inline circle">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-medical" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L9 6l.549.317a.5.5 0 1 1-.5.866L8.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L7 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 8 4M5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+                                <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
+                                <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
+                            </svg>
+                        </div>
+                        <span>Transfer:</span>
+                        <div class="mb-3">
+                            <span>Notes:</span>
                             <span>
-                                (@item.Count)
-                                Document
+                                on @* @item.Date*@ at @* @item.Time*@ :test
                             </span>
-                        </a>
-
+                        </div>
+                        <span>
+                            Admin transferred to Dr. @* @item.PhoneNumber *@
+                        </span>
+                    </div>
+                    <div class="mb-3">
+                        <span>Notes:</span>
+                        <span>
+                            on @* @item.Date*@ at @* @item.Time*@ :test
+                        </span>
+                    </div>
+                    <div class="mb-2">
+                        <div class="d-inline circle">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                 fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+                                <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857z" />
+                                <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
+                            </svg>
+                        </div>
+                        <span>Date Of Service:</span><span class="ms-1">@* @item.Date*@</span>
+                    </div>
+                    <div class="mb-2">
+                        <div class="d-inline circle">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                            </svg>
+                        </div>
+                        <span>Physian:</span><span class="ms-1">@* @item.Date*@</span>
+                    </div>
+                    <div class="mb-2">
+                        <div class="d-inline circle">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-video" viewBox="0 0 16 16">
+                                <path d="M8 9.05a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                                <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm10.798 11c-.453-1.27-1.76-3-4.798-3-3.037 0-4.345 1.73-4.798 3H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1z" />
+                            </svg>
+                        </div>
+                        <span>Requestor:</span><span class="ms-1">@* @item.Date*@</span>
+                    </div>
+                    <div class="mb-2">
+                        <div class="d-inline circle">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-globe" viewBox="0 0 16 16">
+                                <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m7.5-6.923c-.67.204-1.335.82-1.887 1.855A8 8 0 0 0 5.145 4H7.5zM4.09 4a9.3 9.3 0 0 1 .64-1.539 7 7 0 0 1 .597-.933A7.03 7.03 0 0 0 2.255 4zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a7 7 0 0 0-.656 2.5zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5zM8.5 5v2.5h2.99a12.5 12.5 0 0 0-.337-2.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5zM5.145 12q.208.58.468 1.068c.552 1.035 1.218 1.65 1.887 1.855V12zm.182 2.472a7 7 0 0 1-.597-.933A9.3 9.3 0 0 1 4.09 12H2.255a7 7 0 0 0 3.072 2.472M3.82 11a13.7 13.7 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5zm6.853 3.472A7 7 0 0 0 13.745 12H11.91a9.3 9.3 0 0 1-.64 1.539 7 7 0 0 1-.597.933M8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855q.26-.487.468-1.068zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.7 13.7 0 0 1-.312 2.5m2.802-3.5a7 7 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7 7 0 0 0-3.072-2.472c.218.284.418.598.597.933M10.855 4a8 8 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4z" />
+                            </svg>
+                        </div>
+                        <span>Region:</span><span class="ms-1">@* @item.State*@</span>
                     </div>
 
+                    <div class="row">
+                        @if (Model.status == "New")
+                        {
+                            <a class="col-md-3 col-sm-6 col-6 textdeconone  "><div class="action-mob-btn">Assign Case</div></a>
+                            <a class="col-md-3 col-sm-6 col-6 cancel-case textdeconone" @* data-id="@Model.requests[i].RequestId" data-name="@(string.Concat(Model.requests[i].RequestClient.FirstName, ' ', Model.requests[i].RequestClient.LastName))" *@><div class="action-mob-btn">Cancel Case</div></a>
+                        }
+                        @if (Model.status == "New" || Model.status == "Pending" || Model.status == "Active" || Model.status == "Conclude" || Model.status == "ToClose" || Model.status == "Unpaid")
+                        {
+                            <a class="col-md-3 col-sm-6 col-6 textdeconone" @* asp-action="ViewNotes" asp-controller="Admin" asp-route-id="@Model.requests[i].RequestId" *@><div class="action-mob-btn">View Notes</div></a>
+                        }
+                        @if (Model.status == "New")
+                        {
+                            <a class="col-md-3 col-sm-6 col-6 textdeconone"><div class="action-mob-btn">Block Patient</div></a>
+                        }
+                        @if (Model.status == "Pending" || Model.status == "Active" || Model.status == "Conclude" || Model.status == "ToClose" || Model.status == "Unpaid")
+                        {
+                            <a class="col-md-3 col-sm-6 col-6 textdeconone" @* asp-action="ViewUploads" asp-controller="Admin" asp-route-id="@Model.requests[i].RequestId" *@><div class="action-mob-btn">View Uploads</div></a>
+                        }
+                        @if (Model.status == "Pending")
+                        {
+                            <a class="col-md-3 col-sm-6 col-6 textdeconone"><div class="action-mob-btn">Transfer</div></a>
+                        }
+                        @if (Model.status == "Pending" || Model.status == "ToClose")
+                        {
+                            <a class="col-md-3 col-sm-6 col-6 textdecononediv class="action-mob-btn">
+                                Clear Case
+                            </a>
+                        }
+                        @if (Model.status == "Pending")
+                        {
+                            <a class="col-md-3 col-sm-6 col-6 textdeconone"><div class="action-mob-btn">Send Agreement</div></a>
+                        }
+                        @if (Model.status == "Conclude" || Model.status == "ToClose" || Model.status == "Active")
+                        {
+                            <a class="col-md-3 col-sm-6 col-6"><div class="action-mob-btn">Doctor Note</div></a>
+                            <a class="col-md-3 col-sm-6 col-6"><div class="action-mob-btn">Encounter</div></a>
+                        }
+                        @if (Model.status == "Conclude" || Model.status == "Active")
+                        {
+                            <a class="col-md-3 col-sm-6 col-6 textdeconone"><div class="action-mob-btn">Orders</div></a>
+                        }
+                        @if (Model.status == "ToClose")
+                        {
+                            <a class="col-md-3 col-sm-6 col-6 textdeconone"><div class="action-mob-btn">Close Case</div></a>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div> *@
+</div>
 
 @* <script>
     let isDropdownActive = false;

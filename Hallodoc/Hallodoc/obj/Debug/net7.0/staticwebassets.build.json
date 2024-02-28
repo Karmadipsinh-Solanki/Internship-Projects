@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "MN1Db/IMrtCCsFULZpXN9Zm35ak1Fi+2L3AwvWpF0Po=",
+  "Hash": "Ljs9YTC7GqMteB8WFf89Z+jIZ/loWL7hcvhM+rXOyzs=",
   "Source": "Hallodoc",
   "BasePath": "_content/Hallodoc",
   "Mode": "Default",
@@ -262,6 +262,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\viewDoc.css"
+    },
+    {
+      "Identity": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\viewNotes.css",
+      "SourceId": "Hallodoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\",
+      "BasePath": "_content/Hallodoc",
+      "RelativePath": "css/viewNotes.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\viewNotes.css"
     },
     {
       "Identity": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\favicon.ico",
@@ -1535,6 +1554,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\SRS Screen Shorts\\active_active.png"
+    },
+    {
+      "Identity": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\Admin_icon.svg",
+      "SourceId": "Hallodoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\",
+      "BasePath": "_content/Hallodoc",
+      "RelativePath": "SRS Screen Shorts/Admin_icon.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\SRS Screen Shorts\\Admin_icon.svg"
     },
     {
       "Identity": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\caret-down-fill.svg",
@@ -4596,6 +4634,25 @@
       "OriginalItemSpec": "wwwroot\\SRS Screen Shorts\\pending_active.png"
     },
     {
+      "Identity": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\physician_image.webp",
+      "SourceId": "Hallodoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\",
+      "BasePath": "_content/Hallodoc",
+      "RelativePath": "SRS Screen Shorts/physician_image.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\SRS Screen Shorts\\physician_image.webp"
+    },
+    {
       "Identity": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\pngimg",
       "SourceId": "Hallodoc",
       "SourceType": "Discovered",
@@ -4803,6 +4860,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\SRS Screen Shorts\\toclose_active.png"
+    },
+    {
+      "Identity": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\transfer_image.png",
+      "SourceId": "Hallodoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\",
+      "BasePath": "_content/Hallodoc",
+      "RelativePath": "SRS Screen Shorts/transfer_image.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\SRS Screen Shorts\\transfer_image.png"
     },
     {
       "Identity": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\SRS Screen Shorts\\unpaid.png",

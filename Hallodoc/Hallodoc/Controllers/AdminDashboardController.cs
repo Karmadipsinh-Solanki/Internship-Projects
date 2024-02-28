@@ -493,167 +493,64 @@ namespace HalloDoc.Controllers
             }
             return View(viewCaseModel);
         }
-            
 
 
+        //public IActionResult ViewCase()
+        //{
+        //    var user = HttpContext.Session.GetInt32("int id");
+        //    var userDetail = _context.Users.FirstOrDefault(u => u.UserId == user);
+        //    //var userDetail = _profile.UserIdFromUserInProfile((int)user);
+        //    ViewCaseModel viewCaseModel = new ViewCaseModel()
+        //    {
+        //        FirstName = userDetail.FirstName,
+        //        LastName = userDetail.LastName,
+        //        DOB = DateTime.Parse(userDetail.IntYear.ToString() + '-' + userDetail.StrMonth + '-' + userDetail.IntDate.ToString()),
+        //        //meViewModel.DOB = new DateTime(userDetail.IntYear, DateTime.ParseExact(userDetail.StrMonth, "MMMM", CultureInfo.CurrentCulture).Month, userDetail.IntDate);
+        //        PhoneNumber = userDetail.Mobile,
+        //        Email = userDetail.Email,
+        //        Region = userDetail.Region,
+        //        Street = userDetail.Street,
+        //        State = userDetail.State,
+        //        ZipCode = userDetail.ZipCode,
+        //        //partialViewModel = new partialViewModel() { patient_name = string.Concat(userDetail.FirstName + ' ' + userDetail) },
 
-            //public IActionResult ViewCase()
-            //{
-            //    var user = HttpContext.Session.GetInt32("int id");
-            //    var userDetail = _context.Users.FirstOrDefault(u => u.UserId == user);
-            //    //var userDetail = _profile.UserIdFromUserInProfile((int)user);
-            //    ViewCaseModel viewCaseModel = new ViewCaseModel()
-            //    {
-            //        FirstName = userDetail.FirstName,
-            //        LastName = userDetail.LastName,
-            //        DOB = DateTime.Parse(userDetail.IntYear.ToString() + '-' + userDetail.StrMonth + '-' + userDetail.IntDate.ToString()),
-            //        //meViewModel.DOB = new DateTime(userDetail.IntYear, DateTime.ParseExact(userDetail.StrMonth, "MMMM", CultureInfo.CurrentCulture).Month, userDetail.IntDate);
-            //        PhoneNumber = userDetail.Mobile,
-            //        Email = userDetail.Email,
-            //        Region = userDetail.Region,
-            //        Street = userDetail.Street,
-            //        State = userDetail.State,
-            //        ZipCode = userDetail.ZipCode,
-            //        //partialViewModel = new partialViewModel() { patient_name = string.Concat(userDetail.FirstName + ' ' + userDetail) },
-
-            //    };
+        //    };
 
 
-            //    return View(ViewCase);
-            //}
+        //    return View(ViewCase);
+        //}
+        
+        [HttpPost]
+        public IActionResult ViewCase(ViewCaseModel userProfile)
+        {
+            int requestId = userProfile.RequestId;
+            if (requestId != null)
+            {
+                var rid = _context.Requests.Where(u => u.RequestId == requestId).FirstOrDefault();
+                var userToUpdate = _context.RequestClients.Where(u => u.RequestClientId == rid.RequestClientId).FirstOrDefault();
+                if (userToUpdate != null)
+                {
+                    userToUpdate.FirstName = userProfile.FirstName;
+                    userToUpdate.LastName = userProfile.LastName;
+                    userToUpdate.PhoneNumber = userProfile.PhoneNumber;
+                    userToUpdate.Email = userProfile.Email;
+                    userToUpdate.IntDate = userProfile.DOB.Day;
+                    userToUpdate.IntYear = userProfile.DOB.Year;
+                    userToUpdate.StrMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(userProfile.DOB.Month);
+                    _context.RequestClients.Update(userToUpdate);
+                    _context.SaveChanges();
+                }
+            }
+            return RedirectToAction("ViewCase", new { requestId = requestId });
+        }
+        
 
-            //[HttpPost]
-            //public async Task<IActionResult> ViewCase(ViewCaseModel model)
-            //{
-            //    //if (ModelState.IsValid)
-            //    //{
-            //    AspNetUser aspNetUser = new AspNetUser();
-            //    User user = new User();
-            //    RequestClient requestClient = new RequestClient();
-            //    Request request = new Request();
-            //    RequestWiseFile requestWiseFile = new RequestWiseFile();
-            //    RequestStatusLog requestStatusLog = new RequestStatusLog();
+        public IActionResult ViewNotes(int id)
+        {
+            return View();
+        }
 
-            //    //to add one more state,that is to show that we dont give service in particular region
-            //    var region = _context.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
-            //    //var region = _profile.StateFromRegionInProfile(model);
-            //    if (region == null)
-            //    {
-            //        ModelState.AddModelError("State", "Currently we are not serving in this region");
-            //        return View(model);
-            //    }
-
-            //    var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
-            //    //var existingUser = _profile.EmailFromAspnetuserinProfile(model);
-            //    bool userExists = true;
-            //    if (existingUser == null)
-            //    {
-            //        userExists = false;
-            //        if (string.IsNullOrWhiteSpace(model.FirstName) || string.IsNullOrWhiteSpace(model.LastName))
-            //        {
-            //            aspNetUser.UserName = "GuestUser";
-            //        }
-            //        else
-            //        {
-            //            aspNetUser.UserName = model.FirstName + " " + model.LastName;
-            //        }
-            //        aspNetUser.Email = model.Email;
-            //        aspNetUser.PhoneNumber = model.PhoneNumber;
-            //        aspNetUser.CreatedDate = DateTime.Now;
-            //        //aspNetUser.UserName = model.FirstName + " " + model.LastName;
-            //        //ishan
-            //        _context.AspNetUsers.Add(aspNetUser);
-            //        await _context.SaveChangesAsync();
-            //        //ishan
-
-            //        user.AspNetUserId = aspNetUser.Id;
-            //        user.FirstName = model.FirstName;
-            //        user.LastName = model.LastName;
-            //        user.Email = model.Email;
-            //        user.Mobile = model.PhoneNumber;
-            //        user.Street = model.Street;
-            //        user.City = model.City;
-            //        user.State = model.State;
-            //        user.ZipCode = model.ZipCode;
-            //        user.IntDate = model.DOB.Day;
-            //        user.StrMonth = model.DOB.Month.ToString();
-            //        user.IntYear = model.DOB.Year;
-            //        user.CreatedBy = aspNetUser.Id;
-            //        user.CreatedDate = DateTime.Now;
-            //        //ishan
-            //        _context.Users.Add(user);
-            //        await _context.SaveChangesAsync();
-            //        //ishan
-            //    }
-
-            //    requestClient.FirstName = model.FirstName;
-            //    requestClient.LastName = model.LastName;
-            //    requestClient.PhoneNumber = model.PhoneNumber;
-            //    requestClient.Location = model.City;
-            //    requestClient.Address = model.Street;
-            //    requestClient.RegionId = 1;
-            //    //if (model.Symptoms != null)
-            //    //{
-            //    //    requestClient.Notes = model.Symptoms;
-            //    //}
-            //    requestClient.Email = model.Email;
-            //    requestClient.IntDate = model.DOB.Day;
-            //    requestClient.StrMonth = model.DOB.Month.ToString();
-            //    requestClient.IntYear = model.DOB.Year;
-            //    requestClient.Street = model.Street;
-            //    requestClient.City = model.City;
-            //    requestClient.State = model.State;
-            //    requestClient.ZipCode = model.ZipCode;
-            //    //ishan
-            //    _context.RequestClients.Add(requestClient);
-            //    await _context.SaveChangesAsync();
-            //    //ishan
-
-            //    //to generate confirmation number(method is given in srs that how to generate confirmation number
-            //    int requests = _context.Requests.Where(u => u.CreatedDate == DateTime.Now.Date).Count();
-            //    string ConfirmationNumber = string.Concat(region.Abbreviation, model.FirstName.Substring(0, 2).ToUpper(), model.LastName.Substring(0, 2).ToUpper(), requests.ToString("D" + 4));
-            //    //
-            //    var id = HttpContext.Session.GetInt32("id");
-            //    request.RequestTypeId = 1;
-
-            //    request.UserId = id;
-
-            //    request.FirstName = model.FirstName;
-            //    request.LastName = model.LastName;
-            //    request.Email = model.Email;
-            //    request.PhoneNumber = model.PhoneNumber;
-            //    request.Status = 1;
-            //    request.ConfirmationNumber = ConfirmationNumber;
-            //    request.CreatedDate = DateTime.Now;
-            //    //RequestId dropped from requestClient and requestClientId added in request + foreign key
-            //    request.RequestClientId = requestClient.RequestClientId;
-            //    //ishan
-            //    _context.Requests.Add(request);
-            //    await _context.SaveChangesAsync();
-            //    //ishan
-
-            //    //if (model.File != null)
-            //    //{
-            //    //    requestWiseFile.RequestId = request.RequestId;
-            //    //    //IformFile has a property that to store filepath u need to add .filename behind it to store path
-            //    //    requestWiseFile.FileName = model.File.FileName;
-            //    //    requestWiseFile.CreatedDate = DateTime.Now;
-            //    //    _db.RequestWiseFiles.Add(requestWiseFile);
-            //    //    await _db.SaveChangesAsync();
-            //    //}
-
-            //    requestStatusLog.RequestId = request.RequestId;
-            //    requestStatusLog.Status = 1;
-            //    //requestStatusLog.Notes = model.Symptoms;
-            //    requestStatusLog.CreatedDate = DateTime.Now;
-            //    //ishan
-            //    _context.RequestStatusLogs.Add(requestStatusLog);
-            //    await _context.SaveChangesAsync();
-            //    //ishan
-
-            //    return RedirectToAction("patientDashboard", "PatientDashboard");
-            //}
-            [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
             public IActionResult Error()
             {
                 return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
