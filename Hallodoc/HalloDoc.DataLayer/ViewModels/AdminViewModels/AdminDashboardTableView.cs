@@ -18,4 +18,16 @@ public class AdminDashboardTableView
     public IQueryable<Request> query_requests { get; set; }
     public List<Region> regions { get; set; } = new List<Region>();
     public string status { get; set; }
+
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string PhoneNo { get; set; }
+    public string Email { get; set; }
+    public string Message { get; set; }
+    public string Description { get; set; }
+    public int PhysicianId { get; set; }
+    public int RequestId { get; set; }
+    public string CancelDescription { get; set; }
+    public string CaseTagId { get; set; }
+    public string BlockReason { get; set; }
 }

@@ -741,6 +741,10 @@
       "PackagePath": "staticwebassets\\css\\AdminDashboardStyle.css"
     },
     {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\createPassword.css",
+      "PackagePath": "staticwebassets\\css\\createPassword.css"
+    },
+    {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\createRequest.css",
       "PackagePath": "staticwebassets\\css\\createRequest.css"
     },

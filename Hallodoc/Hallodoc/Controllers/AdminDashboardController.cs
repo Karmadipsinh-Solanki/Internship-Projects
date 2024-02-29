@@ -17,6 +17,8 @@ using Hallodoc.Models.Models;
 using HalloDoc.DataLayer.Models;
 using DocumentFormat.OpenXml.InkML;
 using DocumentFormat.OpenXml.Spreadsheet;
+//using System.Drawing;
+using System.Linq;
 //using System.Diagnostics;
 //using HalloDoc.Data;
 
@@ -59,7 +61,7 @@ namespace HalloDoc.Controllers
             return View(adminDashboardViewModel);
         }
 
-        public IActionResult New()
+        public IActionResult New(string? search,int? region,string? requestor)
         {
             var count_new = _context.Requests.Count(r => r.Status == 1);
             var count_pending = _context.Requests.Count(r => r.Status == 2);
@@ -68,9 +70,39 @@ namespace HalloDoc.Controllers
             var count_toclose = _context.Requests.Count(r => r.Status == 5);
             var count_unpaid = _context.Requests.Count(r => r.Status == 6);
 
-            IQueryable<Request> req = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 1);
-            List<Request> list = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 1).ToList();
-            List<Region> region = _context.Regions.ToList();
+            IQueryable<Request> query = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 1);
+            List<Region> regions = _context.Regions.ToList();
+
+            if (search != null)
+            {
+                query = query.Where(r => r.RequestClient.FirstName.Contains(search) || r.RequestClient.LastName.Contains(search));
+            }
+
+            if (requestor == "Family")
+            {
+                query = query.Where(r => r.RequestTypeId == 2);
+            }
+
+            if (requestor == "Business")
+            {
+                query = query.Where(r => r.RequestTypeId == 4);
+            }
+
+            if (requestor == "Concierge")
+            {
+                query = query.Where(r => r.RequestTypeId == 3);
+            }
+
+            if (requestor == "Patient")
+            {
+                query = query.Where(r => r.RequestTypeId == 1);
+            }
+            if (region != null && region != -1)
+            {
+                query = query.Where(r => r.RequestClient.RegionId == region);
+
+            }
+
 
             AdminDashboardTableView adminDashboardViewModel = new AdminDashboardTableView
             {
@@ -79,15 +111,15 @@ namespace HalloDoc.Controllers
                 active_count = count_active,
                 conclude_count = count_conclude,
                 toclose_count = count_toclose,
-                query_requests = req,
-                requests = list,
-                regions = region,
+                query_requests = query,
+                requests = query.ToList(),
+                regions = regions,
                 status = "New",
             };
             return PartialView("AdminDashboardTablePartialView", adminDashboardViewModel);
         }
 
-        public IActionResult Pending()
+        public IActionResult Pending(string? search, int? region, string? requestor)
         {
             var count_new = _context.Requests.Count(r => r.Status == 1);
             var count_pending = _context.Requests.Count(r => r.Status == 2);
@@ -96,9 +128,38 @@ namespace HalloDoc.Controllers
             var count_toclose = _context.Requests.Count(r => r.Status == 5);
             var count_unpaid = _context.Requests.Count(r => r.Status == 6);
 
-            IQueryable<Request> req = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 2);
-            List<Request> list = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 2).ToList();
-            List<Region> region = _context.Regions.ToList();
+            IQueryable<Request> query = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 2);
+            List<Region> regions = _context.Regions.ToList();
+
+            if (search != null)
+            {
+                query = query.Where(r => r.RequestClient.FirstName.Contains(search) || r.RequestClient.LastName.Contains(search));
+            }
+
+            if (requestor == "Family")
+            {
+                query = query.Where(r => r.RequestTypeId == 2);
+            }
+
+            if (requestor == "Business")
+            {
+                query = query.Where(r => r.RequestTypeId == 4);
+            }
+
+            if (requestor == "Concierge")
+            {
+                query = query.Where(r => r.RequestTypeId == 3);
+            }
+
+            if (requestor == "Patient")
+            {
+                query = query.Where(r => r.RequestTypeId == 1);
+            }
+            if (region != null && region != -1)
+            {
+                query = query.Where(r => r.RequestClient.RegionId == region);
+
+            }
 
             AdminDashboardTableView adminDashboardViewModel = new AdminDashboardTableView
             {
@@ -107,15 +168,15 @@ namespace HalloDoc.Controllers
                 active_count = count_active,
                 conclude_count = count_conclude,
                 toclose_count = count_toclose,
-                query_requests = req,
-                requests = list,
-                regions = region,
+                query_requests = query,
+                requests = query.ToList(),
+                regions = regions,
                 status = "Pending",
             };
             return PartialView("AdminDashboardTablePartialView", adminDashboardViewModel);
         }
 
-        public IActionResult Active()
+        public IActionResult Active(string? search, int? region, string? requestor)
         {
             var count_new = _context.Requests.Count(r => r.Status == 1);
             var count_pending = _context.Requests.Count(r => r.Status == 2);
@@ -124,9 +185,38 @@ namespace HalloDoc.Controllers
             var count_toclose = _context.Requests.Count(r => r.Status == 5);
             var count_unpaid = _context.Requests.Count(r => r.Status == 6);
 
-            IQueryable<Request> req = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 3);
-            List<Request> list = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 3).ToList();
-            List<Region> region = _context.Regions.ToList();
+            IQueryable<Request> query = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 3);
+            List<Region> regions = _context.Regions.ToList();
+
+            if (search != null)
+            {
+                query = query.Where(r => r.RequestClient.FirstName.Contains(search) || r.RequestClient.LastName.Contains(search));
+            }
+
+            if (requestor == "Family")
+            {
+                query = query.Where(r => r.RequestTypeId == 2);
+            }
+
+            if (requestor == "Business")
+            {
+                query = query.Where(r => r.RequestTypeId == 4);
+            }
+
+            if (requestor == "Concierge")
+            {
+                query = query.Where(r => r.RequestTypeId == 3);
+            }
+
+            if (requestor == "Patient")
+            {
+                query = query.Where(r => r.RequestTypeId == 1);
+            }
+            if (region != null && region != -1)
+            {
+                query = query.Where(r => r.RequestClient.RegionId == region);
+
+            }
 
             AdminDashboardTableView adminDashboardViewModel = new AdminDashboardTableView
             {
@@ -135,15 +225,15 @@ namespace HalloDoc.Controllers
                 active_count = count_active,
                 conclude_count = count_conclude,
                 toclose_count = count_toclose,
-                query_requests = req,
-                requests = list,
-                regions = region,
+                query_requests = query,
+                requests = query.ToList(),
+                regions = regions,
                 status = "Active",
             };
             return PartialView("AdminDashboardTablePartialView", adminDashboardViewModel);
         }
 
-        public IActionResult Conclude()
+        public IActionResult Conclude(string? search, int? region, string? requestor)
         {
             var count_new = _context.Requests.Count(r => r.Status == 1);
             var count_pending = _context.Requests.Count(r => r.Status == 2);
@@ -152,9 +242,38 @@ namespace HalloDoc.Controllers
             var count_toclose = _context.Requests.Count(r => r.Status == 5);
             var count_unpaid = _context.Requests.Count(r => r.Status == 6);
 
-            IQueryable<Request> req = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 4);
-            List<Request> list = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 4).ToList();
-            List<Region> region = _context.Regions.ToList();
+            IQueryable<Request> query = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 4);
+            List<Region> regions = _context.Regions.ToList();
+
+            if (search != null)
+            {
+                query = query.Where(r => r.RequestClient.FirstName.Contains(search) || r.RequestClient.LastName.Contains(search));
+            }
+
+            if (requestor == "Family")
+            {
+                query = query.Where(r => r.RequestTypeId == 2);
+            }
+
+            if (requestor == "Business")
+            {
+                query = query.Where(r => r.RequestTypeId == 4);
+            }
+
+            if (requestor == "Concierge")
+            {
+                query = query.Where(r => r.RequestTypeId == 3);
+            }
+
+            if (requestor == "Patient")
+            {
+                query = query.Where(r => r.RequestTypeId == 1);
+            }
+            if (region != null && region != -1)
+            {
+                query = query.Where(r => r.RequestClient.RegionId == region);
+
+            }
 
             AdminDashboardTableView adminDashboardViewModel = new AdminDashboardTableView
             {
@@ -163,15 +282,15 @@ namespace HalloDoc.Controllers
                 active_count = count_active,
                 conclude_count = count_conclude,
                 toclose_count = count_toclose,
-                query_requests = req,
-                requests = list,
-                regions = region,
+                query_requests = query,
+                requests = query.ToList(),
+                regions = regions,
                 status = "Conclude",
             };
             return PartialView("AdminDashboardTablePartialView", adminDashboardViewModel);
         }
 
-        public IActionResult Toclose()
+        public IActionResult Toclose(string? search, int? region, string? requestor)
         {
             var count_new = _context.Requests.Count(r => r.Status == 1);
             var count_pending = _context.Requests.Count(r => r.Status == 2);
@@ -180,9 +299,38 @@ namespace HalloDoc.Controllers
             var count_toclose = _context.Requests.Count(r => r.Status == 5);
             var count_unpaid = _context.Requests.Count(r => r.Status == 6);
 
-            IQueryable<Request> req = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 5);
-            List<Request> list = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 5).ToList();
-            List<Region> region = _context.Regions.ToList();
+            IQueryable<Request> query = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 5);
+            List<Region> regions = _context.Regions.ToList();
+
+            if (search != null)
+            {
+                query = query.Where(r => r.RequestClient.FirstName.Contains(search) || r.RequestClient.LastName.Contains(search));
+            }
+
+            if (requestor == "Family")
+            {
+                query = query.Where(r => r.RequestTypeId == 2);
+            }
+
+            if (requestor == "Business")
+            {
+                query = query.Where(r => r.RequestTypeId == 4);
+            }
+
+            if (requestor == "Concierge")
+            {
+                query = query.Where(r => r.RequestTypeId == 3);
+            }
+
+            if (requestor == "Patient")
+            {
+                query = query.Where(r => r.RequestTypeId == 1);
+            }
+            if (region != null && region != -1)
+            {
+                query = query.Where(r => r.RequestClient.RegionId == region);
+
+            }
 
             AdminDashboardTableView adminDashboardViewModel = new AdminDashboardTableView
             {
@@ -191,15 +339,15 @@ namespace HalloDoc.Controllers
                 active_count = count_active,
                 conclude_count = count_conclude,
                 toclose_count = count_toclose,
-                query_requests = req,
-                requests = list,
-                regions = region,
+                query_requests = query,
+                requests = query.ToList(),
+                regions = regions,
                 status = "ToClose",
             };
             return PartialView("AdminDashboardTablePartialView", adminDashboardViewModel);
         }
 
-        public IActionResult Unpaid()
+        public IActionResult Unpaid(string? search, int? region, string? requestor)
         {
             var count_new = _context.Requests.Count(r => r.Status == 1);
             var count_pending = _context.Requests.Count(r => r.Status == 2);
@@ -208,9 +356,38 @@ namespace HalloDoc.Controllers
             var count_toclose = _context.Requests.Count(r => r.Status == 5);
             var count_unpaid = _context.Requests.Count(r => r.Status == 6);
 
-            IQueryable<Request> req = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 6);
-            List<Request> list = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 6).ToList();
-            List<Region> region = _context.Regions.ToList();
+            IQueryable<Request> query = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 6);
+            List<Region> regions = _context.Regions.ToList();
+
+            if (search != null)
+            {
+                query = query.Where(r => r.RequestClient.FirstName.Contains(search) || r.RequestClient.LastName.Contains(search));
+            }
+
+            if (requestor == "Family")
+            {
+                query = query.Where(r => r.RequestTypeId == 2);
+            }
+
+            if (requestor == "Business")
+            {
+                query = query.Where(r => r.RequestTypeId == 4);
+            }
+
+            if (requestor == "Concierge")
+            {
+                query = query.Where(r => r.RequestTypeId == 3);
+            }
+
+            if (requestor == "Patient")
+            {
+                query = query.Where(r => r.RequestTypeId == 1);
+            }
+            if (region != null && region != -1)
+            {
+                query = query.Where(r => r.RequestClient.RegionId == region);
+
+            }
 
             AdminDashboardTableView adminDashboardViewModel = new AdminDashboardTableView
             {
@@ -219,9 +396,9 @@ namespace HalloDoc.Controllers
                 active_count = count_active,
                 conclude_count = count_conclude,
                 toclose_count = count_toclose,
-                query_requests = req,
-                requests = list,
-                regions = region,
+                query_requests = query,
+                requests = query.ToList(),
+                regions = regions,
                 status = "Unpaid",
             };
             return PartialView("AdminDashboardTablePartialView", adminDashboardViewModel);
@@ -314,86 +491,34 @@ namespace HalloDoc.Controllers
         //}
 
         //for showing table according to all,patient,concierge,business
-        public IActionResult patientdataintable()
-        {
-            //int id = int.Parse(buttonValue);
-            //var data = _context.DevicesList.FirstOrDefault(d => d.Device == id);
-            //return View(data);
+        //public IActionResult patientdataintable()
+        //{
+        //    //int id = int.Parse(buttonValue);
+        //    //var data = _context.DevicesList.FirstOrDefault(d => d.Device == id);
+        //    //return View(data);
 
 
-            var count_patient = _context.Requests.Count(r => r.RequestTypeId == 1);
-            var count_family = _context.Requests.Count(r => r.RequestTypeId == 2);
-            var count_concierge = _context.Requests.Count(r => r.RequestTypeId == 3);
-            var count_business = _context.Requests.Count(r => r.RequestTypeId == 4);
+        //    var count_patient = _context.Requests.Count(r => r.RequestTypeId == 1);
+        //    var count_family = _context.Requests.Count(r => r.RequestTypeId == 2);
+        //    var count_concierge = _context.Requests.Count(r => r.RequestTypeId == 3);
+        //    var count_business = _context.Requests.Count(r => r.RequestTypeId == 4);
 
-            IQueryable<Request> req = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs);
-            List<Request> list = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.RequestTypeId == 1).ToList();
-            List<Region> region = _context.Regions.ToList();
+        //    IQueryable<Request> req = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs);
+        //    List<Region> regions = _context.Regions.ToList();
 
-            AdminDashboardReqWiseTableView adminDashboardReqWiseViewModel = new AdminDashboardReqWiseTableView
-            {
-                patient_count = count_patient,
-                family_count = count_family,
-                concierge_count = count_concierge,
-                business_count = count_business,
-                query_requests = req,
-                requests = list,
-                regions = region,
-            };
-            return PartialView("AdminDashboardTablePartialView", adminDashboardReqWiseViewModel);
-        }
-        public IActionResult familydataintable()
-        {
-            var count_family = _context.Requests.Count(r => r.RequestTypeId == 2);
-
-            IQueryable<Request> req = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs);
-            List<Request> list = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.RequestTypeId == 2).ToList();
-            List<Region> region = _context.Regions.ToList();
-
-            AdminDashboardReqWiseTableView adminDashboardReqWiseViewModel = new AdminDashboardReqWiseTableView
-            {
-                family_count = count_family,
-                query_requests = req,
-                requests = list,
-                regions = region,
-            };
-            return PartialView("AdminDashboardTablePartialView", adminDashboardReqWiseViewModel);
-        }
-        public IActionResult conciergedataintable()
-        {
-            var count_concierge = _context.Requests.Count(r => r.RequestTypeId == 3);
-
-            IQueryable<Request> req = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs);
-            List<Request> list = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.RequestTypeId == 3).ToList();
-            List<Region> region = _context.Regions.ToList();
-
-            AdminDashboardReqWiseTableView adminDashboardReqWiseViewModel = new AdminDashboardReqWiseTableView
-            {
-                concierge_count = count_concierge,
-                query_requests = req,
-                requests = list,
-                regions = region,
-            };
-            return PartialView("AdminDashboardTablePartialView", adminDashboardReqWiseViewModel);
-        }
-        public IActionResult businessdataintable()
-        {
-            var count_business = _context.Requests.Count(r => r.RequestTypeId == 4);
-
-            IQueryable<Request> req = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs);
-            List<Request> list = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.RequestTypeId == 4).ToList();
-            List<Region> region = _context.Regions.ToList();
-
-            AdminDashboardReqWiseTableView adminDashboardReqWiseViewModel = new AdminDashboardReqWiseTableView
-            {
-                business_count = count_business,
-                query_requests = req,
-                requests = list,
-                regions = region,
-            };
-            return PartialView("AdminDashboardTablePartialView", adminDashboardReqWiseViewModel);
-        }
-
+        //    AdminDashboardReqWiseTableView adminDashboardReqWiseViewModel = new AdminDashboardReqWiseTableView
+        //    {
+        //        patient_count = count_patient,
+        //        family_count = count_family,
+        //        concierge_count = count_concierge,
+        //        business_count = count_business,
+        //        query_requests = req,
+        //        requests = list,
+        //        regions = regions,
+        //    };
+        //    return PartialView("AdminDashboardTablePartialView", adminDashboardReqWiseViewModel);
+        //}
+      
 
         public IActionResult ViewCase(int id)
         {
@@ -494,32 +619,6 @@ namespace HalloDoc.Controllers
             return View(viewCaseModel);
         }
 
-
-        //public IActionResult ViewCase()
-        //{
-        //    var user = HttpContext.Session.GetInt32("int id");
-        //    var userDetail = _context.Users.FirstOrDefault(u => u.UserId == user);
-        //    //var userDetail = _profile.UserIdFromUserInProfile((int)user);
-        //    ViewCaseModel viewCaseModel = new ViewCaseModel()
-        //    {
-        //        FirstName = userDetail.FirstName,
-        //        LastName = userDetail.LastName,
-        //        DOB = DateTime.Parse(userDetail.IntYear.ToString() + '-' + userDetail.StrMonth + '-' + userDetail.IntDate.ToString()),
-        //        //meViewModel.DOB = new DateTime(userDetail.IntYear, DateTime.ParseExact(userDetail.StrMonth, "MMMM", CultureInfo.CurrentCulture).Month, userDetail.IntDate);
-        //        PhoneNumber = userDetail.Mobile,
-        //        Email = userDetail.Email,
-        //        Region = userDetail.Region,
-        //        Street = userDetail.Street,
-        //        State = userDetail.State,
-        //        ZipCode = userDetail.ZipCode,
-        //        //partialViewModel = new partialViewModel() { patient_name = string.Concat(userDetail.FirstName + ' ' + userDetail) },
-
-        //    };
-
-
-        //    return View(ViewCase);
-        //}
-        
         [HttpPost]
         public IActionResult ViewCase(ViewCaseModel userProfile)
         {
@@ -548,6 +647,31 @@ namespace HalloDoc.Controllers
         public IActionResult ViewNotes(int id)
         {
             return View();
+        }
+
+        public async Task<IActionResult> CancelCase(AdminDashboardTableView model)
+        {
+            int requestId = model.RequestId;
+            if (requestId != null)
+            {
+                var requestToUpdate = _context.Requests.Where(u => u.RequestId == requestId).FirstOrDefault();
+
+                if (requestToUpdate != null)
+                {
+                    requestToUpdate.Status = 6;
+                    requestToUpdate.CaseTag = model.CaseTagId;
+                    _context.Requests.Update(requestToUpdate);
+                    await _context.SaveChangesAsync();
+                }
+                RequestStatusLog requestStatusLog = new RequestStatusLog();
+                requestStatusLog.RequestId = requestId;
+                requestStatusLog.Status = 6;
+                requestStatusLog.Notes = model.CancelDescription;
+                requestStatusLog.CreatedDate = DateTime.Now;
+                _context.RequestStatusLogs.Add(requestStatusLog);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("AdminDashboard");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
