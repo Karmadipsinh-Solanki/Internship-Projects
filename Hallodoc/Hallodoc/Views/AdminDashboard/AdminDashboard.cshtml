@@ -139,7 +139,7 @@
                         </div>
 
 
-                        <button class="dashboard-button">
+                        <button class="dashboard-button" asp-action="">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white"
                                  class="bi bi-journal-medical dashboard-sub-div-icon" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
@@ -241,6 +241,7 @@
                     </svg>
                     <span class="dashboard-button-text">Send Link</span>
                     </button> *@
+
                     <!--Cancel Case Modal -->
                     <div class="modal fade " id="cancelCaseModal" tabindex="-1" aria-labelledby="cancelCaseModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
@@ -266,19 +267,92 @@
                                             <option value="5">Not appropriate for service</option>
                                             <option value="6">Referral to Clinic or Hospital</option>
                                             </select> *@
-                                            <select class="custom-select-3" asp-for="CaseTagId">
+                                            <select class="custom-select-3 text-secondary dropdownBorder" asp-for="CaseTagId" style="width: 100%;height: 54px;padding:8px;">
                                                 <option value="0" style="color:gray !important;"><span style="color:gray;">Reason for Cancellation:</span></option>
+                                                @for (var i = 0; i < Model.caseTags.Count; ++i)
+                                                {
+                                                    <option value="@Model.caseTags[i].CaseTagId"><span @* style="color:gray;" *@>@Model.caseTags[i].Name</span></option>
+                                                }
                                             </select>
                                         </div>
                                         <div class="form-floating login-fields" style="width: 100%;margin-top: 20px;">
                                             <textarea type="text" placeholder="Username" class="form-control"
                                                       style="height: 135px !important;" asp-for="CancelDescription"></textarea>
-                                            <label for="floatingInput">Admin Notes</label>
+                                            <label for="floatingInput">Provide Additional Notes</label>
                                         </div>
                                     </div>
                                     <div class="modal-footer form-floating mb-3">
                                         <button type="submit" class="saveButton"><span class="saveButtonText">Confirm</span> </button>
-                                        <button class="cancelButton" data-bs-dismiss="modal"><span class="cancelButtonText">Cancel</span></button>
+                                        <button class="cancelButton" data-bs-dismiss="modal" onclick="cancel4()"><span class="cancelButtonText">Cancel</span></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Assign Case Modal -->
+                    <div class="modal fade " id="assignCaseModal" tabindex="-1" aria-labelledby="assignCaseModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="saveButtonText fs-5" id="assignCaseModalLabel">Assign Request</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form asp-action="AssignCase" asp-controller="AdminDashboard" method="post">
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <span class="text-secondary" style="font-size:14px"><strong>To assign this request, search and select another Physian.</strong></span>
+                                        </div>
+
+                                        <div class="form-floating mb-3">
+                                            <input type="text" asp-for="RequestId" style="display:none;" id="requestId" />
+                                            <select class="custom-select text-secondary dropdownBorder" id="regionDropdown" style="width: 100%;height: 54px;padding:8px;">
+                                                <option value="0" disabled selected hidden><span>Narrow Search by Region</span></option>
+                                               
+                                            </select>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <select class="custom-select-3 text-secondary dropdownBorder" id="physicianDropdown" style="width: 100%;height: 54px;padding:8px;">
+                                                <option value="0" disabled selected hidden><span>Select Physician</</span></option>
+                                            </select>
+                                        </div>
+                                        <div class="form-floating login-fields" style="width: 100%;margin-top: 20px;">
+                                            <textarea type="text" placeholder="Description" class="form-control"
+                                                      style="height: 135px !important;" asp-for="Description"></textarea>
+                                            <label for="floatingInput">Description</label>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer form-floating mb-3">
+                                        <button type="submit" class="saveButton"><span class="saveButtonText">Submit</span> </button>
+                                        <button class="cancelButton" data-bs-dismiss="modal" onclick="cancel4()"><span class="cancelButtonText">Cancel</span></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--BLOCK Case Modal -->
+                    <div class="modal fade " id="blockCaseModal" tabindex="-1" aria-labelledby="blockCaseModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="saveButtonText fs-5" id="blockCaseModalLabel">Confirm Block</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form asp-action="BlockCase" asp-controller="AdminDashboard" method="post">
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <h6><span>Patient Name</span><span class="mx-1">:</span><span style="color:#01bce9;">test test</span></h6>
+                                        </div>
+                                        <div class="form-floating login-fields" style="width: 100%;margin-top: 20px;">
+                                            <textarea type="text" placeholder="Username" class="form-control"
+                                                      style="height: 135px !important;" @* asp-for="BlockDescription" *@></textarea>
+                                            <label for="floatingInput">Reason for Block Request</label>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer form-floating mb-3">
+                                        <button type="submit" class="saveButton"><span class="saveButtonText">Submit</span> </button>
+                                        <button class="cancelButton" data-bs-dismiss="modal" onclick="cancel4()"><span class="cancelButtonText">Cancel</span></button>
                                     </div>
                                 </form>
                             </div>
@@ -351,10 +425,159 @@
         //     // Your existing code for handling the click event
         // }
 
-        // //for cancelcase action
+        //for cancelcase action
+        $(document).ready(function () {
+            $.ajax({
+                url: '/AdminDashboard/FetchTags',
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    $('.custom-select-3 option:not(:first)').remove();
+                    $.each(response, function (index, tags) {
+                        var option = $('<option></option>')
+                            .attr('value', tags.id)
+                            .text(tags.name);
+                        $('.custom-select-3').append(option);
+                    });
+                },
+                error: function () {
+                    alert('An error occurred.');
+                }
+            });
+            window.onpopstate = function () {
+                $.ajax({
+                    url: '/AdminDashboard/FetchTags',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        $('.custom-select-3 option:not(:first)').remove();
+                        $.each(response, function (index, tags) {
+                            var option = $('<option></option>')
+                                .attr('value', tags.id)
+                                .text(tags.name);
+                            $('.custom-select-3').append(option);
+                        });
+                    },
+                    error: function () {
+                        alert('An error occurred.');
+                    }
+                });
+            };
+        });
+
+
+        var cancelModal = document.getElementById("cancelCaseModal");
+
+        // var span4 = document.getElementsByClassName("close-btn")[3];
+        function CancelCase(requestId) {
+            console.log(requestId);
+            document.getElementById("requestId2").value = requestId;
+            cancelModal.style.display = "block";
+        };
+
+        // span4.onclick = function () {
+        //     cancelModal.style.display = "none";
+        // };
+        function cancel4() {
+            cancelModal.style.display = "none";
+        }
+        window.onclick = function (event) {
+            if (event.target == cancelModal) {
+                cancelModal.style.display = "none";
+            }
+        };
+
+        //for assigncase action
+        //here we have to use ajax, because a dropdown is dependant on another dropdown, as after selecting region, we get physians in particular region
+        //and we need to load page to get data dynamically from database, to avoid loading, we use ajax
+        $(document).ready(function () {
+            $.ajax({
+                url: '/AdminDashboard/FetchRegions',
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response);
+                    $('.custom-select option:not(:first)').remove();
+                    $.each(response, function (index, region) {
+                        var option = $('<option></option>')
+                            .attr('value', region.id)
+                            .text(region.name);
+                        $('.custom-select').append(option);
+                    });
+                },
+                error: function () {
+                    alert('An error occurred.');
+                }
+            });
+            window.onpopstate = function () {
+                $.ajax({
+                    url: '/AdminDashboard/FetchRegions',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log(response);
+                        $('.custom-select option:not(:first)').remove();
+                        $.each(response, function (index, region) {
+                            var option = $('<option></option>')
+                                .attr('value', region.id)
+                                .text(region.name);
+                            $('.custom-select').append(option);
+                        });
+                    },
+                    error: function () {
+                        alert('An error occurred.');
+                    }
+                });
+            };
+        });
+
+        $('#regionDropdown').change(function () {
+            var selectedRegion = $(this).val();
+
+            $.ajax({
+                url: '/AdminDashboard/FetchPhysicians',
+                type: 'GET',
+                data: { id: selectedRegion },
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response);
+                    $('#physicianDropdown option:not(:first)').remove();
+                    $.each(response, function (index, physician) {
+                        var option = $('<option></option>')
+                            .attr('value', physician.physicianId)
+                            .text(physician.firstName + " " + physician.lastName);
+                        $('#physicianDropdown').append(option);
+                    });
+                },
+                error: function () {
+                    alert('An error occurred.');
+                }
+            });
+        });
+
+        // var modal3 = document.getElementById("myModal3");
+        //var dtySupport = document.getElementById("dty-support");
+        // var span3 = document.getElementsByClassName("close-btn")[2];
+        function AssignCase(requestId) {
+            console.log(requestId);
+            document.getElementById("requestId").value = requestId;
+            modal3.style.display = "block";
+        };
+        // span3.onclick = function () {
+        //     modal3.style.display = "none";
+        // };
+        // function cancel3() {
+        //     modal3.style.display = "none";
+        // }
+        // window.onclick = function (event) {
+        //     if (event.target == modal3) {
+        //         modal3.style.display = "none";
+        //     }
+        // };
+        //
         // $(document).ready(function () {
         //     $.ajax({
-        //         url: '/Admin/FetchTags',
+        //         url: '/AdminDashboard/FetchTags',
         //         type: 'GET',
         //         dataType: 'json',
         //         success: function (response) {
@@ -372,7 +595,7 @@
         //     });
         //     window.onpopstate = function () {
         //         $.ajax({
-        //             url: '/Admin/FetchTags',
+        //             url: '/AdminDashboard/FetchTags',
         //             type: 'GET',
         //             dataType: 'json',
         //             success: function (response) {
@@ -392,24 +615,13 @@
         // });
 
 
-        // var cancelModal = document.getElementById("cancelCaseModal");
+        // var assignModal = document.getElementById("assignCaseModal");
 
         // // var span4 = document.getElementsByClassName("close-btn")[3];
-        // function CancelCase(requestId) {
+        // function AssignCase(requestId) {
         //     console.log(requestId);
         //     document.getElementById("requestId2").value = requestId;
-        //     cancelModal.style.display = "block";
-        // };
-        // // span4.onclick = function () {
-        // //     cancelModal.style.display = "none";
-        // // };
-        // function cancel4() {
-        //     cancelModal.style.display = "none";
-        // }
-        // window.onclick = function (event) {
-        //     if (event.target == cancelModal) {
-        //         cancelModal.style.display = "none";
-        //     }
+        //     assignModal.style.display = "block";
         // };
 
 
@@ -684,7 +896,7 @@
             }
         }
 
-        
+
     </script>
 
 </div>

@@ -944,6 +944,22 @@ table.dataTable thead th, table.dataTable tfoot th {
 .border-active {
     border: 2px solid #007bff;
 }
+/*label for assign case to go above selected text*/
+/*label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+#regionLabel {
+    font-size: 16px;
+    transition: font-size 0.2s ease-in-out;
+}
+
+    #regionLabel:focus {
+        font-size: 14px;
+        padding-bottom:5px;
+    }*/
 @media only screen and (max-width:1100px) {
     .modal-content {
             height: 33% !important;

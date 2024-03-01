@@ -193,7 +193,8 @@
                                 }
                                 @if (Model.status == "New")
                                 {
-                                    <a class="dropdown-item" href="#">
+                                    <!--Assign Case Button trigger modal -->
+                                    <a class="dropdown-item" class="dashboard-button" data-bs-toggle="modal" data-bs-target="#assignCaseModal" onclick="AssignCase(@item.RequestId)">
                                         <div class="action-item">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
                                                 <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z" />
@@ -203,7 +204,7 @@
                                         </div>
                                     </a>
                                     <!--Cancel Case Button trigger modal -->
-                                    <a class="dropdown-item" class="dashboard-button" data-bs-toggle="modal" data-bs-target="#cancelCaseModal">
+                                    <a class="dropdown-item" class="dashboard-button" data-bs-toggle="modal" data-bs-target="#cancelCaseModal" onclick="CancelCase(@item.RequestId)">
                                         <div class="action-item">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
                                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
@@ -215,7 +216,7 @@
                                 }
                                 @if (Model.status == "New")
                                 {
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" class="dashboard-button" data-bs-toggle="modal" data-bs-target="#blockCaseModal" onclick="BlockCase(@item.RequestId)">
                                         <div class="action-item">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban-mirrored" viewBox="0 0 16 16">
                                                 <path d="M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0" />

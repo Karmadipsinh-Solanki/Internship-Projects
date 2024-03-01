@@ -19,6 +19,8 @@ public class AdminDashboardTableView
     public List<Region> regions { get; set; } = new List<Region>();
     public string status { get; set; }
 
+    public List<CaseTag>? caseTags { get; set; }
+
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string PhoneNo { get; set; }
@@ -29,5 +31,6 @@ public class AdminDashboardTableView
     public int RequestId { get; set; }
     public string CancelDescription { get; set; }
     public string CaseTagId { get; set; }
+    //public List<Region>? regions { get; set; } = new List<Region>();
     public string BlockReason { get; set; }
 }

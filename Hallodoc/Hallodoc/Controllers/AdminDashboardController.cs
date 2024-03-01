@@ -19,6 +19,7 @@ using DocumentFormat.OpenXml.InkML;
 using DocumentFormat.OpenXml.Spreadsheet;
 //using System.Drawing;
 using System.Linq;
+using HalloDoc.ViewModels;
 //using System.Diagnostics;
 //using HalloDoc.Data;
 
@@ -44,6 +45,7 @@ namespace HalloDoc.Controllers
             var count_toclose = _context.Requests.Count(r => r.Status == 5);
             var count_unpaid = _context.Requests.Count(r => r.Status == 6);
 
+            var caseTag = _context.CaseTags.ToList();
             AdminDashboardTableView adminDashboardViewModel = new AdminDashboardTableView
             {
                 new_count = count_new,
@@ -56,6 +58,7 @@ namespace HalloDoc.Controllers
                 requests = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 1).ToList(),
                 regions = _context.Regions.ToList(),
                 status = "New",
+                caseTags = caseTag,
             };
 
             return View(adminDashboardViewModel);
@@ -642,14 +645,116 @@ namespace HalloDoc.Controllers
             }
             return RedirectToAction("ViewCase", new { requestId = requestId });
         }
-        
+
 
         public IActionResult ViewNotes(int id)
         {
-            return View();
+            var patientcancel = _context.RequestStatusLogs.FirstOrDefault(r => r.RequestId == id && r.Status == 7);
+            var admincancel = _context.RequestStatusLogs.FirstOrDefault(r => r.RequestId == id && r.Status == 6);
+            var transfernotes = _context.RequestStatusLogs.Where(r => r.RequestId == id && r.Status == 2).ToList();
+            var requestnotes = _context.RequestNotes.FirstOrDefault(r => r.RequestId == id);
+
+
+            //var adminid = _context.httpcontext.session.getint32("adminid");
+            //var adminid = httpcontext.session.getint32("adminid");
+            //var admin = _context.admins.firstordefault(a => a.adminid == adminid);
+
+            //adminnavbarviewmodel adminnavbarviewmodel = new adminnavbarviewmodel//
+            //{
+            //    name = string.concat(admin.firstname, " ", admin.lastname),
+            //    curr_active = "dashboard",
+            //};
+
+            ViewNotesViewModel viewnotesviewmodel = new ViewNotesViewModel
+            {
+                RequestId = id,
+                Admin_Note = requestnotes?.AdminNotes ?? "-",
+                Physician_Note = requestnotes?.PhysicianNotes ?? "-",
+                Admin_Cancellation_Note = admincancel?.Notes,
+                Cancellation_Note = patientcancel?.Notes,
+                Transfer_Notes = transfernotes,
+            };
+            return View(viewnotesviewmodel);
         }
 
-        public async Task<IActionResult> CancelCase(AdminDashboardTableView model)
+        //bool IAdmin.updateAdminNotes(ViewNotesViewModel viewNotesViewModel)
+        [HttpPost]
+        public IActionResult ViewNotes(ViewNotesViewModel viewNotesViewModel)
+        {
+            //int aspnetuserid = (int)_context.HttpContext.Session.GetInt32("AspNetUserId");
+            //int aspnetuserid = (int)_context.HttpContext.Session.GetInt32("AspNetUserId");//
+            
+                RequestNote requestNote = _context.RequestNotes.FirstOrDefault(r => r.RequestId == viewNotesViewModel.RequestId);
+                if (requestNote != null)
+                {
+                    requestNote.AdminNotes = viewNotesViewModel.Admin_Note;
+                    requestNote.ModifiedDate = DateTime.Now;
+                    _context.RequestNotes.Update(requestNote);
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    RequestNote newRequestNote = new RequestNote
+                    {
+                        RequestId = viewNotesViewModel.RequestId,
+                        AdminNotes = viewNotesViewModel.Admin_Note,
+                        CreatedDate = DateTime.Now,
+                        CreatedBy = 2,
+                    };
+
+                    _context.RequestNotes.Add(newRequestNote);
+                    _context.SaveChanges();
+                }
+            return RedirectToAction("ViewNotes", new { id = viewNotesViewModel.RequestId });
+
+        }
+        public IActionResult FetchTags()
+        {
+            // Replace with your actual logic to fetch regions
+            var regions = _context.CaseTags.Select(r => new { Id = r.CaseTagId, Name = r.Name }).ToList();
+            return Json(regions);
+        }
+        public IActionResult FetchRegions()
+        {
+            var regions = _context.Regions.Select(r => new { Id = r.RegionId, Name = r.Name }).ToList();
+            return Json(regions);
+        }
+        public IActionResult FetchPhysicians(int id)
+        {
+            var physicians = _context.Physicians.Where(r => r.RegionId == id).ToList();
+            return Json(physicians);
+        }
+
+        public async Task<IActionResult> AssignCase(AdminDashboardTableView model)
+        {
+            int requestId = model.RequestId;
+            if (requestId != null)
+            {
+                var requestToUpdate = _context.Requests.Include(u => u.Physician).Where(u => u.RequestId == requestId).FirstOrDefault();
+                var PhysicianName = _context.Physicians.FirstOrDefault(u => u.PhysicianId == model.PhysicianId).FirstName;
+                if (requestToUpdate != null)
+                {
+                    requestToUpdate.PhysicianId = model.PhysicianId;
+                    requestToUpdate.ModifiedDate = DateTime.Now;
+                    requestToUpdate.Status = 2;
+                    _context.Requests.Update(requestToUpdate);
+                    await _context.SaveChangesAsync();
+                }
+                RequestStatusLog requestStatusLog = new RequestStatusLog();
+                requestStatusLog.RequestId = requestId;
+                requestStatusLog.Status = 2;
+                requestStatusLog.Notes = "Admin transferred to Dr. " + PhysicianName + " on " + DateTime.Now.ToString("dd/MM/yyyy") + " at " + DateTime.Now.ToString("HH:mm:ss") + " : " + model.Description;
+                requestStatusLog.CreatedDate = DateTime.Now;
+                requestStatusLog.TransToPhysicianId = model.PhysicianId;
+                _context.RequestStatusLogs.Add(requestStatusLog);
+                await _context.SaveChangesAsync();
+                TempData["success"] = "Case assigned successfully!";
+            }
+            return RedirectToAction("AdminDashboard");
+        }
+
+        [HttpPost]
+        public IActionResult CancelCase(AdminDashboardTableView model)
         {
             int requestId = model.RequestId;
             if (requestId != null)
@@ -661,7 +766,7 @@ namespace HalloDoc.Controllers
                     requestToUpdate.Status = 6;
                     requestToUpdate.CaseTag = model.CaseTagId;
                     _context.Requests.Update(requestToUpdate);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
                 RequestStatusLog requestStatusLog = new RequestStatusLog();
                 requestStatusLog.RequestId = requestId;
@@ -669,10 +774,11 @@ namespace HalloDoc.Controllers
                 requestStatusLog.Notes = model.CancelDescription;
                 requestStatusLog.CreatedDate = DateTime.Now;
                 _context.RequestStatusLogs.Add(requestStatusLog);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
             return RedirectToAction("AdminDashboard");
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
             public IActionResult Error()
