@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HalloDoc.DataLayer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+693287fd62b6b7ebd21c34d764c7399b745a75bd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f17bf37876115e1c0fbba9b7682613d8e767169a")]
 [assembly: System.Reflection.AssemblyProductAttribute("HalloDoc.DataLayer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HalloDoc.DataLayer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

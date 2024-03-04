@@ -944,6 +944,16 @@ table.dataTable thead th, table.dataTable tfoot th {
 .border-active {
     border: 2px solid #007bff;
 }
+
+.custom-accordion .accordion-button:focus {
+    box-shadow: none;
+    border: none;
+}
+
+.custom-accordion .accordion-button:not(.collapsed) {
+    border-bottom: none;
+}
+
 /*label for assign case to go above selected text*/
 /*label {
     display: block;

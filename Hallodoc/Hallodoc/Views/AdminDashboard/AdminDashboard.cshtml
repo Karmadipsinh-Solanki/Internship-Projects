@@ -139,15 +139,16 @@
                         </div>
 
 
-                        <button class="dashboard-button" asp-action="">
+                        <a class="dashboard-button textdeconone" asp-controller="AdminDashboard" asp-action="CreateRequest">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white"
                                  class="bi bi-journal-medical dashboard-sub-div-icon" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
                                       d="M8 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L9 6l.549.317a.5.5 0 1 1-.5.866L8.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L7 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 8 4M5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
                                 <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
                                 <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
-                            </svg><span class="dashboard-button-text">Create Request</span>
-                        </button>
+                            </svg>
+                            <span class="dashboard-button-text">Create Request</span>
+                        </a>
 
                         <button class="dashboard-button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white"
@@ -305,7 +306,7 @@
                                         </div>
 
                                         <div class="form-floating mb-3">
-                                            <input type="text" asp-for="RequestId" style="display:none;" id="requestId" />
+                                            <input type="hidden" asp-for="RequestId" id="requestId" />
                                             <select class="custom-select text-secondary dropdownBorder" id="regionDropdown" style="width: 100%;height: 54px;padding:8px;">
                                                 <option value="0" disabled selected hidden><span>Narrow Search by Region</span></option>
                                                
@@ -339,6 +340,7 @@
                                     <h1 class="saveButtonText fs-5" id="blockCaseModalLabel">Confirm Block</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
+
                                 <form asp-action="BlockCase" asp-controller="AdminDashboard" method="post">
                                     <div class="modal-body">
                                         <div class="mb-3">
@@ -346,12 +348,13 @@
                                         </div>
                                         <div class="form-floating login-fields" style="width: 100%;margin-top: 20px;">
                                             <textarea type="text" placeholder="Username" class="form-control"
-                                                      style="height: 135px !important;" @* asp-for="BlockDescription" *@></textarea>
+                                                      style="height: 135px !important;" asp-for="BlockReason"></textarea>
                                             <label for="floatingInput">Reason for Block Request</label>
                                         </div>
                                     </div>
                                     <div class="modal-footer form-floating mb-3">
-                                        <button type="submit" class="saveButton"><span class="saveButtonText">Submit</span> </button>
+                                            <input type="hidden" asp-for="RequestId"  id="requestId4" />
+                                        <button type="submit" class="saveButton"><span class="saveButtonText">Confirm</span> </button>
                                         <button class="cancelButton" data-bs-dismiss="modal" onclick="cancel4()"><span class="cancelButtonText">Cancel</span></button>
                                     </div>
                                 </form>

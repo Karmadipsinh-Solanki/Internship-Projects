@@ -20,6 +20,8 @@ using DocumentFormat.OpenXml.Spreadsheet;
 //using System.Drawing;
 using System.Linq;
 using HalloDoc.ViewModels;
+using System.Net.Mail;
+using System.Net;
 //using System.Diagnostics;
 //using HalloDoc.Data;
 
@@ -64,7 +66,7 @@ namespace HalloDoc.Controllers
             return View(adminDashboardViewModel);
         }
 
-        public IActionResult New(string? search,int? region,string? requestor)
+        public IActionResult New(string? search, int? region, string? requestor)
         {
             var count_new = _context.Requests.Count(r => r.Status == 1);
             var count_pending = _context.Requests.Count(r => r.Status == 2);
@@ -413,6 +415,154 @@ namespace HalloDoc.Controllers
         //    data = _context.Requests.Include(r => r.RequestClient).Where(u => u.UserId == user_id).ToList();
         //    return data;
         //}
+        public IActionResult CreateRequest()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateRequest(CreateRequestViewModel model)
+        {
+            AspNetUser aspNetUser = new AspNetUser();
+            User user = new User();
+            Request request = new Request();
+            RequestClient requestClient = new RequestClient();
+            RequestWiseFile requestWiseFile = new RequestWiseFile();
+            RequestStatusLog requestStatusLog = new RequestStatusLog();
+
+            var region = _context.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
+            if (region == null)
+            {
+                ModelState.AddModelError("State", "Currently we are not serving in this region");
+                return View(model);
+            }
+            var blockedUser = _context.BlockRequests.FirstOrDefault(u => u.Email == model.Email);
+            if (blockedUser != null)
+            {
+                ModelState.AddModelError("Email", "This patient is blocked.");
+                return View(model);
+            }
+
+            var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
+            var id = _context.Users.SingleOrDefault(u => u.Email == model.Email);
+            bool userExists = true;
+            if (existingUser == null)
+            {
+                userExists = false;
+                aspNetUser.UserName = model.Email;
+                aspNetUser.Email = model.Email;
+                aspNetUser.PhoneNumber = model.PhoneNumber;
+                aspNetUser.CreatedDate = DateTime.Now;
+                _context.AspNetUsers.Add(aspNetUser);
+                await _context.SaveChangesAsync();
+
+                user.AspNetUserId = aspNetUser.Id;
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.Email = model.Email;
+                user.Mobile = model.PhoneNumber;
+                user.Street = model.Street;
+                user.City = model.City;
+                user.State = model.State;
+                user.ZipCode = model.ZipCode;
+                user.IntDate = model.DOB.Day;
+                user.StrMonth = model.DOB.Month.ToString();
+                user.IntYear = model.DOB.Year;
+                user.CreatedBy = aspNetUser.Id;
+                user.CreatedDate = DateTime.Now;
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
+                string senderEmail = "tatva.dotnet.karmadipsinhsolanki@outlook.com";
+                string senderPassword = "Karmadips@2311";
+
+                SmtpClient client = new SmtpClient("smtp.office365.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential(senderEmail, senderPassword),
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false
+                };
+                string email = model.Email;
+                var userFirstName = model.FirstName + " " + model.LastName;
+                var formatedDate = DateTime.Now.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+                string resetLink = $"https://localhost:44339/PatientRequest/CreatePassword?email={email}";
+                string message = $@"<html>
+                                <body>  
+                                <h1>Create password request</h1>  
+                                <h2>Hii {userFirstName},</h2>
+                                <p style=""margin-top:30px;"">We have received an account creation request on {formatedDate}. So,in order to create your account we need your password,so please click the below link to create password:</p>
+                                <p><a href=""{resetLink}"">Create Password</a></p> 
+                                <p>If you didn't request an account creation then please ignore this mail.</p>
+                                </body>
+                                </html>";
+                if (email != null)
+                {
+                    MailMessage mailMessage = new MailMessage
+                    {
+                        From = new MailAddress(senderEmail, "HalloDoc"),
+                        Subject = "Register Case",
+                        IsBodyHtml = true,
+                        Body = message,
+                    };
+                    mailMessage.To.Add(email);
+                    client.Send(mailMessage);
+                }
+            }
+
+            requestClient.FirstName = model.FirstName;
+            requestClient.LastName = model.LastName;
+            requestClient.PhoneNumber = model.PhoneNumber;
+            requestClient.Location = model.City;
+            requestClient.Address = model.Street;
+            requestClient.RegionId = 1;
+            if (model.Notes != null)
+            {
+                requestClient.Notes = model.Notes;
+            }
+            requestClient.Email = model.Email;
+            requestClient.IntDate = model.DOB.Day;
+            requestClient.StrMonth = model.DOB.Month.ToString();
+            requestClient.IntYear = model.DOB.Year;
+            requestClient.Street = model.Street;
+            requestClient.City = model.City;
+            requestClient.State = model.State;
+            requestClient.ZipCode = model.ZipCode;
+            _context.RequestClients.Add(requestClient);
+            await _context.SaveChangesAsync();
+
+            int requests = _context.Requests.Where(u => u.CreatedDate == DateTime.Now.Date).Count();
+            string ConfirmationNumber = string.Concat(region.Abbreviation, model.FirstName.Substring(0, 2).ToUpper(), model.LastName.Substring(0, 2).ToUpper(), requests.ToString("D" + 4));
+            request.RequestTypeId = 4;
+            if (!userExists)
+            {
+                request.UserId = user.UserId;
+            }
+            else
+            {
+                request.UserId = id.UserId;
+            }
+            request.FirstName = model.FirstName;
+            request.LastName = model.LastName;
+            request.Email = model.Email;
+            request.PhoneNumber = model.PhoneNumber;
+            request.Status = 1;
+            request.CreatedDate = DateTime.Now;
+            request.RequestClientId = requestClient.RequestClientId;
+            request.ConfirmationNumber = ConfirmationNumber;
+            _context.Requests.Add(request);
+            await _context.SaveChangesAsync();
+
+            requestStatusLog.RequestId = request.RequestId;
+            requestStatusLog.Status = 1;
+            requestStatusLog.Notes = model.Notes;
+            requestStatusLog.CreatedDate = DateTime.Now;
+            _context.RequestStatusLogs.Add(requestStatusLog);
+            await _context.SaveChangesAsync();
+            TempData["success"] = "Request created successfully!";
+            return RedirectToAction("AdminDashboard");
+        }
+
 
         public IActionResult DownloadExcel()
         {
@@ -521,7 +671,7 @@ namespace HalloDoc.Controllers
         //    };
         //    return PartialView("AdminDashboardTablePartialView", adminDashboardReqWiseViewModel);
         //}
-      
+
 
         public IActionResult ViewCase(int id)
         {
@@ -563,7 +713,7 @@ namespace HalloDoc.Controllers
             }
             viewCaseModel.Requestor = requestor;
             //var monthName = data.RequestClient.StrMonth;
-            
+
             // Assuming data.RequestClient.StrMonth is a string containing the full month name
 
             try
@@ -683,28 +833,28 @@ namespace HalloDoc.Controllers
         {
             //int aspnetuserid = (int)_context.HttpContext.Session.GetInt32("AspNetUserId");
             //int aspnetuserid = (int)_context.HttpContext.Session.GetInt32("AspNetUserId");//
-            
-                RequestNote requestNote = _context.RequestNotes.FirstOrDefault(r => r.RequestId == viewNotesViewModel.RequestId);
-                if (requestNote != null)
-                {
-                    requestNote.AdminNotes = viewNotesViewModel.Admin_Note;
-                    requestNote.ModifiedDate = DateTime.Now;
-                    _context.RequestNotes.Update(requestNote);
-                    _context.SaveChanges();
-                }
-                else
-                {
-                    RequestNote newRequestNote = new RequestNote
-                    {
-                        RequestId = viewNotesViewModel.RequestId,
-                        AdminNotes = viewNotesViewModel.Admin_Note,
-                        CreatedDate = DateTime.Now,
-                        CreatedBy = 2,
-                    };
 
-                    _context.RequestNotes.Add(newRequestNote);
-                    _context.SaveChanges();
-                }
+            RequestNote requestNote = _context.RequestNotes.FirstOrDefault(r => r.RequestId == viewNotesViewModel.RequestId);
+            if (requestNote != null)
+            {
+                requestNote.AdminNotes = viewNotesViewModel.Admin_Note;
+                requestNote.ModifiedDate = DateTime.Now;
+                _context.RequestNotes.Update(requestNote);
+                _context.SaveChanges();
+            }
+            else
+            {
+                RequestNote newRequestNote = new RequestNote
+                {
+                    RequestId = viewNotesViewModel.RequestId,
+                    AdminNotes = viewNotesViewModel.Admin_Note,
+                    CreatedDate = DateTime.Now,
+                    CreatedBy = 2,
+                };
+
+                _context.RequestNotes.Add(newRequestNote);
+                _context.SaveChanges();
+            }
             return RedirectToAction("ViewNotes", new { id = viewNotesViewModel.RequestId });
 
         }
@@ -778,12 +928,46 @@ namespace HalloDoc.Controllers
             }
             return RedirectToAction("AdminDashboard");
         }
+        [HttpPost]
+        public async Task<IActionResult> BlockCase(AdminDashboardTableView model)
+        {
+            int requestId = model.RequestId;
+            if (requestId != null)
+            {
+                var requestToUpdate = _context.Requests.Where(u => u.RequestId == requestId).FirstOrDefault();
 
+                if (requestToUpdate != null)
+                {
+                    requestToUpdate.Status = 11;
+                    requestToUpdate.ModifiedDate = DateTime.Now;
+                    _context.Requests.Update(requestToUpdate);
+                    await _context.SaveChangesAsync();
+                }
+                RequestStatusLog requestStatusLog = new RequestStatusLog();
+                requestStatusLog.RequestId = requestId;
+                requestStatusLog.Status = 11;
+                requestStatusLog.Notes = model.BlockReason;
+                requestStatusLog.CreatedDate = DateTime.Now;
+                _context.RequestStatusLogs.Add(requestStatusLog);
+                await _context.SaveChangesAsync();
+
+                BlockRequest blockRequest = new BlockRequest();
+                blockRequest.RequestId = (model.RequestId).ToString();
+                blockRequest.Reason = model.BlockReason;
+                blockRequest.Email = requestToUpdate.Email;
+                blockRequest.PhoneNumber = requestToUpdate.PhoneNumber;
+                blockRequest.CreatedDate = DateTime.Now;
+                _context.BlockRequests.Add(blockRequest);
+                await _context.SaveChangesAsync();
+                TempData["success"] = "Case blocked successfully!";
+            }
+            return RedirectToAction("AdminDashboard");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-            public IActionResult Error()
-            {
-                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-            }
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
     }
 }

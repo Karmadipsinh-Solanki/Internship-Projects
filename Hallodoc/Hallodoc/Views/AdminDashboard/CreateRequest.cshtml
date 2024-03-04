@@ -1,0 +1,179 @@
+﻿@using HalloDoc.DataLayer.ViewModels.AdminViewModels
+@model CreateRequestViewModel;
+@{
+    ViewData["Title"] = "Create Request";
+}
+@section Styles {
+    <link href="~/css/viewcase.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/AdminDashboardStyle.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/createRequest.css" rel="stylesheet" type="text/css" />
+}
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+<div>
+    <partial name="AdminDashboardHeader" />
+    <hr class="mb-0 mt-0 d-none d-md-block horizontal-line">
+    <partial name="AdminDashboardNavbar" />
+    <div class="maindiv container-fluid d-flex flex-column justify-content-center px-5" style="background-color:#f5f5f5;">
+        <div>
+            <div class="firstdiv d-flex justify-content-between align-items-center">
+                <h3>Submit Information</h3>
+                <div class="btn cancelButton mb-3 mt-3" style="background-color:transparent;">
+                    <a class="textdeconone" asp-controller="AdminDashboard" asp-action="AdminDashboard">
+                        <span class="cancelButtonText">&lt Back</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="content shadow p-3 mb-3" style="background-color:white;">
+            <form asp-action="CreateRequest" asp-controller="AdminDashboard" method="post">
+
+                <div class="h5 mb-3">Patient</div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="name" class="form-control" id="floatingInput1" placeholder="First Name" asp-for="FirstName">
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                            <label for="floatingInput">First Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="name" class="form-control" id="floatingInput2" placeholder="Last Name" asp-for="LastName">
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                            <label for="floatingInput2">Last Name</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="tel" class="form-control phone" id="phone" asp-for="PhoneNumber" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="email" placeholder="Email" class="form-control" id="floatingInput3" asp-for="Email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <label for="floatingInput3">Email</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-4">
+                            <input type="date" class="form-control" id="floatingInput3" asp-for="DOB">
+                            <label for="floatingInput3">Date of Birth</label>
+                            <span asp-validation-for="DOB" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <header class="h5 mb-3">Location</header>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="name" class="form-control" id="floatingInput6" placeholder="Street" asp-for="Street">
+                            <label for="floatingInput6">Street</label>
+                            <span asp-validation-for="Street" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="name" class="form-control" id="floatingInput7" placeholder="City" asp-for="City">
+                            <label for="floatingInput7">City</label>
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="name" class="form-control" id="floatingInput8" placeholder="State" asp-for="State">
+                            <label for="floatingInput8">State</label>
+                            <span asp-validation-for="State" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="name" class="form-control" id="floatingInput9" placeholder="Zip Code" asp-for="ZipCode">
+                            <label for="floatingInput9">Zip Code</label>
+                            <span asp-validation-for="ZipCode" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-4">
+                            <input type="name" class="form-control" id="floatingInput10"
+                                   placeholder="Room#/Suite(Optional)" asp-for="Room">
+                            <label for="floatingInput10">Room#/ Suite(Optional)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                    <div class="form-floating mb-3">
+                    <button type="submit" class="cancelButton form-floating mb-2 d-flex justify-content-center align-items-center textdeconone" id="cancel-btn" style="height:54px!important;">
+                    <span class="cancelButtonText">Verify</span>
+                    </button>
+                    <a class="map cancelButton textdeconone form-floating d-flex justify-content-center align-items-center" id="map-button" style="height:54px!important;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0bb6d0" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                    </svg>
+                    <span class="cancelButtonText">Map</span>
+                    </a>
+                    </div>
+                    </div>
+                    @* <div class="col-md-1">
+                        <div class="form-floating mb-3">
+                            <button type="submit" class="btn saveButton m-3" style="height:54px!important;" id="save-button">
+                                <a class="textdeconone" asp-controller="AdminDashboard" asp-action="ViewCase">
+                                    <span class="cancelButtonText">Verify</span>
+                                </a>
+                            </button>
+                            <a class="cancel-button " id="cancel-btn" style="height:54px!important;text-decoration:none;background-color:#d72d31;border:1px solid #d72d31;border-radius:5px; height: 40px;width: 80px;">
+                                <span class="saveButtonText">Cancel</span>
+                            </a>
+                            
+                        </div>
+                    </div> *@
+                </div>
+
+                <header class="h5 mb-3">Notes</header>
+
+                <div class="form-floating mb-3" style="width: 100%;margin-top: 20px;">
+                    <textarea type="text" placeholder="Username" class="form-control"
+                              style="height: 135px !important;" asp-for="AdminNotes"></textarea>
+                    <label for="username-input" class="labels">Admin Notes(Optional)</label>
+                </div>
+
+                <div class="d-flex justify-content-end align-items-center">
+                    <div>
+                        <button class="btn saveButton me-3 mb-3" style="width:110px!important;">
+                            <a class="textdeconone" asp-controller="AdminDashboard" asp-action="ViewNotes">
+                                <span class="saveButtonText">Save</span>
+                            </a>
+                        </button>
+                        <button class="btn cancelButton mb-3" style="width:110px!important;">
+                            <span class="cancelButtonText">Cancel</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        //for creating countrywise phone format
+        const phoneInputField = document.getElementsByClassName("phone");
+        for (let i = 0; i < phoneInputField.length; ++i) {
+            const phoneInput = window.intlTelInput(phoneInputField[i], {
+                utilsScript:
+                    "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+            });
+        }
+    </script>
+</div>
