@@ -22,6 +22,7 @@ using System.Linq;
 using HalloDoc.ViewModels;
 using System.Net.Mail;
 using System.Net;
+using System.Collections;
 //using System.Diagnostics;
 //using HalloDoc.Data;
 
@@ -42,10 +43,10 @@ namespace HalloDoc.Controllers
         {
             var count_new = _context.Requests.Count(r => r.Status == 1);
             var count_pending = _context.Requests.Count(r => r.Status == 2);
-            var count_active = _context.Requests.Count(r => r.Status == 3);
-            var count_conclude = _context.Requests.Count(r => r.Status == 4);
-            var count_toclose = _context.Requests.Count(r => r.Status == 5);
-            var count_unpaid = _context.Requests.Count(r => r.Status == 6);
+            var count_active = _context.Requests.Count(r => r.Status == 3 || r.Status == 4);
+            var count_conclude = _context.Requests.Count(r => r.Status == 5);
+            var count_toclose = _context.Requests.Count(r => r.Status == 6 || r.Status == 7 || r.Status == 8);
+            var count_unpaid = _context.Requests.Count(r => r.Status == 9);
 
             var caseTag = _context.CaseTags.ToList();
             AdminDashboardTableView adminDashboardViewModel = new AdminDashboardTableView
@@ -70,10 +71,10 @@ namespace HalloDoc.Controllers
         {
             var count_new = _context.Requests.Count(r => r.Status == 1);
             var count_pending = _context.Requests.Count(r => r.Status == 2);
-            var count_active = _context.Requests.Count(r => r.Status == 3);
-            var count_conclude = _context.Requests.Count(r => r.Status == 4);
-            var count_toclose = _context.Requests.Count(r => r.Status == 5);
-            var count_unpaid = _context.Requests.Count(r => r.Status == 6);
+            var count_active = _context.Requests.Count(r => r.Status == 3 || r.Status == 4);
+            var count_conclude = _context.Requests.Count(r => r.Status == 5);
+            var count_toclose = _context.Requests.Count(r => r.Status == 6 || r.Status == 7 || r.Status == 8);
+            var count_unpaid = _context.Requests.Count(r => r.Status == 9);
 
             IQueryable<Request> query = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 1);
             List<Region> regions = _context.Regions.ToList();
@@ -128,10 +129,10 @@ namespace HalloDoc.Controllers
         {
             var count_new = _context.Requests.Count(r => r.Status == 1);
             var count_pending = _context.Requests.Count(r => r.Status == 2);
-            var count_active = _context.Requests.Count(r => r.Status == 3);
-            var count_conclude = _context.Requests.Count(r => r.Status == 4);
-            var count_toclose = _context.Requests.Count(r => r.Status == 5);
-            var count_unpaid = _context.Requests.Count(r => r.Status == 6);
+            var count_active = _context.Requests.Count(r => r.Status == 3 || r.Status == 4);
+            var count_conclude = _context.Requests.Count(r => r.Status == 5);
+            var count_toclose = _context.Requests.Count(r => r.Status == 6 || r.Status == 7 || r.Status == 8);
+            var count_unpaid = _context.Requests.Count(r => r.Status == 9);
 
             IQueryable<Request> query = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 2);
             List<Region> regions = _context.Regions.ToList();
@@ -185,12 +186,12 @@ namespace HalloDoc.Controllers
         {
             var count_new = _context.Requests.Count(r => r.Status == 1);
             var count_pending = _context.Requests.Count(r => r.Status == 2);
-            var count_active = _context.Requests.Count(r => r.Status == 3);
-            var count_conclude = _context.Requests.Count(r => r.Status == 4);
-            var count_toclose = _context.Requests.Count(r => r.Status == 5);
-            var count_unpaid = _context.Requests.Count(r => r.Status == 6);
+            var count_active = _context.Requests.Count(r => r.Status == 3 || r.Status == 4);
+            var count_conclude = _context.Requests.Count(r => r.Status == 5);
+            var count_toclose = _context.Requests.Count(r => r.Status == 6 || r.Status == 7 || r.Status == 8);
+            var count_unpaid = _context.Requests.Count(r => r.Status == 9);
 
-            IQueryable<Request> query = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 3);
+            IQueryable<Request> query = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 3 || r.Status == 4);
             List<Region> regions = _context.Regions.ToList();
 
             if (search != null)
@@ -242,12 +243,12 @@ namespace HalloDoc.Controllers
         {
             var count_new = _context.Requests.Count(r => r.Status == 1);
             var count_pending = _context.Requests.Count(r => r.Status == 2);
-            var count_active = _context.Requests.Count(r => r.Status == 3);
-            var count_conclude = _context.Requests.Count(r => r.Status == 4);
-            var count_toclose = _context.Requests.Count(r => r.Status == 5);
-            var count_unpaid = _context.Requests.Count(r => r.Status == 6);
+            var count_active = _context.Requests.Count(r => r.Status == 3 || r.Status == 4);
+            var count_conclude = _context.Requests.Count(r => r.Status == 5);
+            var count_toclose = _context.Requests.Count(r => r.Status == 6 || r.Status == 7 || r.Status == 8);
+            var count_unpaid = _context.Requests.Count(r => r.Status == 9);
 
-            IQueryable<Request> query = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 4);
+            IQueryable<Request> query = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 5);
             List<Region> regions = _context.Regions.ToList();
 
             if (search != null)
@@ -299,12 +300,12 @@ namespace HalloDoc.Controllers
         {
             var count_new = _context.Requests.Count(r => r.Status == 1);
             var count_pending = _context.Requests.Count(r => r.Status == 2);
-            var count_active = _context.Requests.Count(r => r.Status == 3);
-            var count_conclude = _context.Requests.Count(r => r.Status == 4);
-            var count_toclose = _context.Requests.Count(r => r.Status == 5);
-            var count_unpaid = _context.Requests.Count(r => r.Status == 6);
+            var count_active = _context.Requests.Count(r => r.Status == 3 || r.Status == 4);
+            var count_conclude = _context.Requests.Count(r => r.Status == 5);
+            var count_toclose = _context.Requests.Count(r => r.Status == 6 || r.Status == 7 || r.Status == 8);
+            var count_unpaid = _context.Requests.Count(r => r.Status == 9);
 
-            IQueryable<Request> query = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 5);
+            IQueryable<Request> query = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 6 || r.Status == 7 || r.Status == 8);
             List<Region> regions = _context.Regions.ToList();
 
             if (search != null)
@@ -356,12 +357,12 @@ namespace HalloDoc.Controllers
         {
             var count_new = _context.Requests.Count(r => r.Status == 1);
             var count_pending = _context.Requests.Count(r => r.Status == 2);
-            var count_active = _context.Requests.Count(r => r.Status == 3);
-            var count_conclude = _context.Requests.Count(r => r.Status == 4);
-            var count_toclose = _context.Requests.Count(r => r.Status == 5);
-            var count_unpaid = _context.Requests.Count(r => r.Status == 6);
+            var count_active = _context.Requests.Count(r => r.Status == 3 || r.Status == 4);
+            var count_conclude = _context.Requests.Count(r => r.Status == 5);
+            var count_toclose = _context.Requests.Count(r => r.Status == 6 || r.Status == 7 || r.Status == 8);
+            var count_unpaid = _context.Requests.Count(r => r.Status == 9);
 
-            IQueryable<Request> query = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 6);
+            IQueryable<Request> query = _context.Requests.Include(r => r.RequestClient).Include(r => r.Physician).Include(r => r.RequestStatusLogs).Where(r => r.Status == 9);
             List<Region> regions = _context.Regions.ToList();
 
             if (search != null)
@@ -415,6 +416,76 @@ namespace HalloDoc.Controllers
         //    data = _context.Requests.Include(r => r.RequestClient).Where(u => u.UserId == user_id).ToList();
         //    return data;
         //}
+
+        [HttpPost]
+        public async Task<IActionResult> SendLink(AdminDashboardTableView model)
+        {
+            AspNetUser aspNetUser = new AspNetUser();
+            User user = new User();
+            Request request = new Request();
+            RequestClient requestClient = new RequestClient();
+            RequestWiseFile requestWiseFile = new RequestWiseFile();
+            RequestStatusLog requestStatusLog = new RequestStatusLog();
+
+            var blockedUser = _context.BlockRequests.FirstOrDefault(u => u.Email == model.Email);
+            if (blockedUser != null)
+            {
+                ModelState.AddModelError("Email", "This patient is blocked.");
+                return View(model);
+            }
+
+            var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
+            var id = _context.Users.SingleOrDefault(u => u.Email == model.Email);
+            bool userExists = true;
+            if (existingUser == null)
+            {
+                userExists = false;
+                aspNetUser.UserName = model.Email;
+                aspNetUser.Email = model.Email;
+                //aspNetUser.PhoneNumber = model.PhoneNumber;
+                aspNetUser.CreatedDate = DateTime.Now;
+                _context.AspNetUsers.Add(aspNetUser);
+                await _context.SaveChangesAsync();
+
+                string senderEmail = "tatva.dotnet.karmadipsinhsolanki@outlook.com";
+                string senderPassword = "Karmadips@2311";
+
+                SmtpClient client = new SmtpClient("smtp.office365.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential(senderEmail, senderPassword),
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false
+                };
+                string email = model.Email;
+                var userFirstName = model.FirstName + " " + model.LastName;
+                var formatedDate = DateTime.Now.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+                string resetLink = $"https://localhost:44339/PatientRequest/CreatePassword?email={email}";
+                string message = $@"<html>
+                                <body>  
+                                <h1>Create password request</h1>  
+                                <h2>Hii {userFirstName},</h2>
+                                <p style=""margin-top:30px;"">We have received an account creation request on {formatedDate}. So,in order to create your account we need your password,so please click the below link to create password:</p>
+                                <p><a href=""{resetLink}"">Create Password</a></p> 
+                                <p>If you didn't request an account creation then please ignore this mail.</p>
+                                </body>
+                                </html>";
+                if (email != null)
+                {
+                    MailMessage mailMessage = new MailMessage
+                    {
+                        From = new MailAddress(senderEmail, "HalloDoc"),
+                        Subject = "Register Case",
+                        IsBodyHtml = true,
+                        Body = message,
+                    };
+                    mailMessage.To.Add(email);
+                    client.Send(mailMessage);
+                }
+            }
+            return RedirectToAction("AdminDashboard");
+        }
         public IActionResult CreateRequest()
         {
             return View();
@@ -962,6 +1033,67 @@ namespace HalloDoc.Controllers
                 TempData["success"] = "Case blocked successfully!";
             }
             return RedirectToAction("AdminDashboard");
+        }
+
+        //view upload
+
+        //public async Task<IActionResult> deleteSingleFile(int id) 
+        //{
+        //    RequestWiseFile requestWiseFile = _context.RequestWiseFiles.FirstOrDefault(r => r.RequestWiseFileId == id);
+        //    requestWiseFile.IsDeleted = new BitArray(new[] { true });
+        //        _context.RequestWiseFiles.Update(requestWiseFile);
+        //        _context.SaveChanges();
+        //    return requestWiseFile.RequestId;
+        //}
+        public async Task<IActionResult> ViewUpload(int id)
+        {
+            //to save file in wwwroot,that is uploaded by patient
+
+            var user_id = HttpContext.Session.GetInt32("id");
+            var request = _context.Requests.Include(r => r.RequestClient).FirstOrDefault(u => u.RequestId == id);
+            //var request = _viewDoc.ListOfIncludeAdminPhysicianToReq(id);
+            var documents = _context.RequestWiseFiles.Include(u => u.Admin).Include(u => u.Physician).Where(u => u.RequestId == id && u.IsDeleted.Equals(new BitArray(new[] { false }))).ToList();
+            //var documents = _viewDoc.ListOfIncludeAdminPhysicianToReqwisefile(id);
+
+            var user = _context.Users.FirstOrDefault(u => u.UserId == request.UserId);
+            ViewUploadViewModel viewUploadViewModel = new ViewUploadViewModel()
+            {
+                patient_name = string.Concat(request.RequestClient.FirstName, ' ', request.RequestClient.LastName),
+                name = string.Concat(user.FirstName, ' ', user.LastName),
+                confirmation_number = request.ConfirmationNumber,
+                requestWiseFiles = documents,
+                //uploader_name = string.Concat(request.FirstName, ' ', request.LastName),
+                RequestId = id,
+                //partialViewModel = new partialViewModel() { patient_name = string.Concat(user.FirstName + ' ' + user.LastName) },
+            };
+            return View(viewUploadViewModel);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ViewUpload(ViewUploadViewModel model, int id)
+        {
+            if (model.File != null && model.File.Length > 0)
+            {
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\uploads", model.File.FileName);
+                using (var stream = System.IO.File.Create(filePath))
+                {
+                    await model.File.CopyToAsync(stream);
+                }
+                RequestWiseFile requestWiseFile = new RequestWiseFile();
+                requestWiseFile.RequestId = id;
+                //IformFile has a property that to store filepath u need to add .filename behind it to store path
+                //requestWiseFile.AdminId = 1;
+                requestWiseFile.FileName = model.File.FileName;
+                requestWiseFile.CreatedDate = DateTime.Now;
+                //ishan
+                _context.RequestWiseFiles.Add(requestWiseFile);
+                await _context.SaveChangesAsync();
+                //Ishan
+                return RedirectToAction("ViewUpload", new { id = id });
+            }
+            else
+            {
+                return RedirectToAction("ViewUpload", new { id = id });
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

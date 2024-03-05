@@ -4558,6 +4558,15 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
+      "Watcher.NET/0.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/net452/Ardi.Watcher.dll": {}
+        },
+        "runtime": {
+          "lib/net452/Ardi.Watcher.dll": {}
+        }
+      },
       "XLParser/1.5.2": {
         "type": "package",
         "dependencies": {
@@ -4578,7 +4587,8 @@
           "Microsoft.AspNetCore.Http": "2.2.2",
           "Microsoft.AspNetCore.Mvc": "2.2.0",
           "Microsoft.EntityFrameworkCore": "7.0.15",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.11"
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.11",
+          "Watcher.NET": "0.2.0"
         },
         "compile": {
           "bin/placeholder/HalloDoc.DataLayer.dll": {}
@@ -4591,7 +4601,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "HalloDoc.DataLayer": "1.0.0"
+          "HalloDoc.DataLayer": "1.0.0",
+          "Watcher.NET": "0.2.0"
         },
         "compile": {
           "bin/placeholder/HalloDoc.LogicLayer.dll": {}
@@ -12443,6 +12454,19 @@
         "system.xml.xdocument.nuspec"
       ]
     },
+    "Watcher.NET/0.2.0": {
+      "sha512": "yZgdyaBVEUA9FMCY76rZsFabHajjrYPhxdWWiZuoNBe+ENfYs0XZyo0GqTktS5AWymOC/blPpc/YeBCY2XVecg==",
+      "type": "package",
+      "path": "watcher.net/0.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/Ardi.Watcher.dll",
+        "lib/net452/Ardi.Watcher.dll",
+        "watcher.net.0.2.0.nupkg.sha512",
+        "watcher.net.nuspec"
+      ]
+    },
     "XLParser/1.5.2": {
       "sha512": "8tnUCmMbn6c/HGuHFyq1sulHym8YReTKDNXFFQk0U8nldNx6RGrwRvLh0+aQjEc7YoC3Q1ztH1npLt7dClKqjw==",
       "type": "package",
@@ -12476,7 +12500,8 @@
       "Microsoft.EntityFrameworkCore.Design >= 7.0.15",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.15",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 7.0.11",
-      "Npgsql.EntityFrameworkCore.PostgreSQL >= 7.0.11"
+      "Npgsql.EntityFrameworkCore.PostgreSQL >= 7.0.11",
+      "Watcher.NET >= 0.2.0"
     ]
   },
   "packageFolders": {
@@ -12548,6 +12573,10 @@
           "Npgsql.EntityFrameworkCore.PostgreSQL": {
             "target": "Package",
             "version": "[7.0.11, )"
+          },
+          "Watcher.NET": {
+            "target": "Package",
+            "version": "[0.2.0, )"
           }
         },
         "imports": [
@@ -12590,5 +12619,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Watcher.NET 0.2.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Watcher.NET",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    }
+  ]
 }

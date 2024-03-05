@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wm5vik5OWCdRExHYcoUdjc7TeA2komJ6yy8WaVVjC2PG67+/E42z4Kq2DhJBJv/iyo3jdilgWrO8q+Y7D7rX2A==",
+  "dgSpecHash": "8PypI7gi6O9LdJdjF3oJjIF7Nu8cqyuyls1Y0Ng4sO9MBTtHxfPTyqHBaC5X/gM1Xv3I9GRX9HXcfDny0xFS7A==",
   "success": true,
   "projectFilePath": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\Hallodoc.csproj",
   "expectedPackageFiles": [
@@ -269,11 +269,23 @@
     "C:\\Users\\pca161\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\pca161\\.nuget\\packages\\watcher.net\\0.2.0\\watcher.net.0.2.0.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\xlparser\\1.5.2\\xlparser.1.5.2.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.14\\microsoft.windowsdesktop.app.ref.7.0.14.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.14\\microsoft.netcore.app.ref.7.0.14.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.14\\microsoft.aspnetcore.app.ref.7.0.14.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.14\\microsoft.netcore.app.host.win-x64.7.0.14.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Watcher.NET 0.2.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Watcher.NET",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    }
+  ]
 }

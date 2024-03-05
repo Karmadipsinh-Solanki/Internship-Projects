@@ -97,13 +97,15 @@
                     <h4 class="patient-title">Patients <span id="status-text">(New)</span></h4>
                     <div style="display: flex;">
                         <!-- Button trigger modal -->
-                        <button type="button" class="dashboard-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white"
-                                 class="bi bi-send dashboard-sub-div-icon" viewBox="0 0 16 16">
-                                <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
-                            </svg>
-                            <span class="dashboard-button-text">Send Link</span>
-                        </button>
+                        <a class=" textdeconone" asp-controller="AdminDashboard" asp-action="SendLink">
+                            <button type="button" class="dashboard-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white"
+                                     class="bi bi-send dashboard-sub-div-icon" viewBox="0 0 16 16">
+                                    <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+                                </svg>
+                                <span class="dashboard-button-text">Send Link</span>
+                            </button>
+                        </a>
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
@@ -309,7 +311,7 @@
                                             <input type="hidden" asp-for="RequestId" id="requestId" />
                                             <select class="custom-select text-secondary dropdownBorder" id="regionDropdown" style="width: 100%;height: 54px;padding:8px;">
                                                 <option value="0" disabled selected hidden><span>Narrow Search by Region</span></option>
-                                               
+
                                             </select>
                                         </div>
                                         <div class="form-floating mb-3">
@@ -353,7 +355,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer form-floating mb-3">
-                                            <input type="hidden" asp-for="RequestId"  id="requestId4" />
+                                        <input type="hidden" asp-for="RequestId" id="requestId4" />
                                         <button type="submit" class="saveButton"><span class="saveButtonText">Confirm</span> </button>
                                         <button class="cancelButton" data-bs-dismiss="modal" onclick="cancel4()"><span class="cancelButtonText">Cancel</span></button>
                                     </div>
@@ -489,6 +491,10 @@
                 cancelModal.style.display = "none";
             }
         };
+
+        const BlockCase = (requestid) => {
+            document.getElementById("requestId4").value = requestid;
+        }
 
         //for assigncase action
         //here we have to use ajax, because a dropdown is dependant on another dropdown, as after selecting region, we get physians in particular region

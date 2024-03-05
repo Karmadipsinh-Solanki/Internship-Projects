@@ -21,19 +21,17 @@ namespace HalloDoc.LogicLayer.Patient_Repository.PatientDashboardRepository
         public Request? ListOfIncludeAdminPhysicianToReq(int requestId)
         {
             //return _db.Requests.Include(r => r.RequestClient).FirstOrDefault(u => u.RequestId == id);
-            using (_db)
-            {
+            
                 return _db.Requests.Include(r => r.RequestClient)
                                    .FirstOrDefault(u => u.RequestId == requestId);
-            }
+            
         }
         public List<RequestWiseFile>? ListOfIncludeAdminPhysicianToReqwisefile(int id)
         {
             //return _db.Requests.Include(r => r.RequestClient).FirstOrDefault(u => u.RequestId == id);
-            using (_db)
-            {
+            
                 return _db.RequestWiseFiles.Include(u => u.Admin).Include(u => u.Physician).Where(u => u.RequestId == id).ToList();
-            }
+           
         }
         public User UserIdFromUser(int user_id)
         {

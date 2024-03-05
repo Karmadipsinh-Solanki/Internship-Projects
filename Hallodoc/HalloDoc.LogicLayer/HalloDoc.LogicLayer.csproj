@@ -15,4 +15,8 @@
     <Folder Include="Admin_Repository\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Watcher.NET" Version="0.2.0" />
+  </ItemGroup>
+
 </Project>

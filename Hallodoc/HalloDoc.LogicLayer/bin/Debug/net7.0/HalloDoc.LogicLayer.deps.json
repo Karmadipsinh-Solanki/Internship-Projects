@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v7.0": {
       "HalloDoc.LogicLayer/1.0.0": {
         "dependencies": {
-          "HalloDoc.DataLayer": "1.0.0"
+          "HalloDoc.DataLayer": "1.0.0",
+          "Watcher.NET": "0.2.0"
         },
         "runtime": {
           "HalloDoc.LogicLayer.dll": {}
@@ -1757,12 +1758,21 @@
           "System.Xml.XPath": "4.3.0"
         }
       },
+      "Watcher.NET/0.2.0": {
+        "runtime": {
+          "lib/net452/Ardi.Watcher.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "HalloDoc.DataLayer/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Http": "2.2.2",
           "Microsoft.AspNetCore.Mvc": "2.2.0",
           "Microsoft.EntityFrameworkCore": "7.0.15",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.11"
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.11",
+          "Watcher.NET": "0.2.0"
         },
         "runtime": {
           "HalloDoc.DataLayer.dll": {}
@@ -2944,6 +2954,13 @@
       "sha512": "sha512-jw9oHHEIVW53mHY9PgrQa98Xo2IZ0ZjrpdOTmtvk+Rvg4tq7dydmxdNqUvJ5YwjDqhn75mBXWttWjiKhWP53LQ==",
       "path": "system.xml.xpath.xdocument/4.3.0",
       "hashPath": "system.xml.xpath.xdocument.4.3.0.nupkg.sha512"
+    },
+    "Watcher.NET/0.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-yZgdyaBVEUA9FMCY76rZsFabHajjrYPhxdWWiZuoNBe+ENfYs0XZyo0GqTktS5AWymOC/blPpc/YeBCY2XVecg==",
+      "path": "watcher.net/0.2.0",
+      "hashPath": "watcher.net.0.2.0.nupkg.sha512"
     },
     "HalloDoc.DataLayer/1.0.0": {
       "type": "project",

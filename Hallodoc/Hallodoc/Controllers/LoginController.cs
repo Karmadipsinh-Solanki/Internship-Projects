@@ -47,20 +47,23 @@ namespace Hallodoc.Controllers
                     //var result = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, model.PasswordHash);
                     //if (result == PasswordVerificationResult.Success)
                     //{
-                    //if (model.PasswordHash == user.PasswordHash)
-
-                    var user2 = _patientLogin.ValidateUsers(model);
-                    //User users = user2.ToList().First();
+                    if (model.PasswordHash == user.PasswordHash)
+                    {
+                        var user2 = _patientLogin.ValidateUsers(model);
+                        //User users = user2.ToList().First();
                         HttpContext.Session.SetInt32("id", user2.UserId);
                         HttpContext.Session.SetString("Name", user2.FirstName);
                         HttpContext.Session.SetString("IsLoggedIn", "true");
                         return RedirectToAction("patientDashboard", "PatientDashboard");
+                    }
+
+
                     //}
-                    //else
-                    //{
-                    //    ModelState.AddModelError("PasswordHash", "Incorrect Password");
-                    //}
-                    
+                    else
+                    {
+                        ModelState.AddModelError("PasswordHash", "Incorrect Password");
+                    }
+
                 }
                 else
                 {

@@ -119,8 +119,6 @@ namespace Hallodoc.Controllers
             else
             {
                 return RedirectToAction("viewDoc", new { id = id });
-
-
             }
         }
         public IActionResult meModal()

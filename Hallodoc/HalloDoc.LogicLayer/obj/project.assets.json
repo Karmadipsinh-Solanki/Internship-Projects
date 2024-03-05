@@ -2964,6 +2964,15 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
+      "Watcher.NET/0.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/net452/Ardi.Watcher.dll": {}
+        },
+        "runtime": {
+          "lib/net452/Ardi.Watcher.dll": {}
+        }
+      },
       "HalloDoc.DataLayer/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -2971,7 +2980,8 @@
           "Microsoft.AspNetCore.Http": "2.2.2",
           "Microsoft.AspNetCore.Mvc": "2.2.0",
           "Microsoft.EntityFrameworkCore": "7.0.15",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.11"
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.11",
+          "Watcher.NET": "0.2.0"
         },
         "compile": {
           "bin/placeholder/HalloDoc.DataLayer.dll": {}
@@ -8362,6 +8372,19 @@
         "system.xml.xpath.xdocument.nuspec"
       ]
     },
+    "Watcher.NET/0.2.0": {
+      "sha512": "yZgdyaBVEUA9FMCY76rZsFabHajjrYPhxdWWiZuoNBe+ENfYs0XZyo0GqTktS5AWymOC/blPpc/YeBCY2XVecg==",
+      "type": "package",
+      "path": "watcher.net/0.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/Ardi.Watcher.dll",
+        "lib/net452/Ardi.Watcher.dll",
+        "watcher.net.0.2.0.nupkg.sha512",
+        "watcher.net.nuspec"
+      ]
+    },
     "HalloDoc.DataLayer/1.0.0": {
       "type": "project",
       "path": "../HalloDoc.DataLayer/HalloDoc.DataLayer.csproj",
@@ -8370,7 +8393,8 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "HalloDoc.DataLayer >= 1.0.0"
+      "HalloDoc.DataLayer >= 1.0.0",
+      "Watcher.NET >= 0.2.0"
     ]
   },
   "packageFolders": {
@@ -8415,6 +8439,12 @@
     "frameworks": {
       "net7.0": {
         "targetAlias": "net7.0",
+        "dependencies": {
+          "Watcher.NET": {
+            "target": "Package",
+            "version": "[0.2.0, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",
@@ -8448,5 +8478,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Watcher.NET 0.2.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Watcher.NET",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    }
+  ]
 }

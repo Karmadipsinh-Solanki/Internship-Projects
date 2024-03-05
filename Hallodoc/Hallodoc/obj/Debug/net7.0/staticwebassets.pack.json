@@ -1053,6 +1053,10 @@
       "PackagePath": "staticwebassets\\uploads\\KD.txt"
     },
     {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (1).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (1).png"
+    },
+    {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (10).png",
       "PackagePath": "staticwebassets\\uploads\\Screenshot (10).png"
     },
@@ -1075,6 +1079,10 @@
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (17).png",
       "PackagePath": "staticwebassets\\uploads\\Screenshot (17).png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (19).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (19).png"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (2).png",
@@ -1111,6 +1119,18 @@
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Today's task.txt",
       "PackagePath": "staticwebassets\\uploads\\Today's task.txt"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\attenadance.png",
+      "PackagePath": "staticwebassets\\uploads\\attenadance.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\doc.png",
+      "PackagePath": "staticwebassets\\uploads\\doc.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\exportall.png",
+      "PackagePath": "staticwebassets\\uploads\\exportall.png"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\net-Whole-Plane-2024.pdf",

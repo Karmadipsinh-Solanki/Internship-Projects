@@ -477,3 +477,4 @@ C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\obj\Debug\net7.0\r
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\obj\Debug\net7.0\Hallodoc.pdb
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\obj\Debug\net7.0\Hallodoc.genruntimeconfig.cache
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\obj\Debug\net7.0\ref\Hallodoc.dll
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Ardi.Watcher.dll
