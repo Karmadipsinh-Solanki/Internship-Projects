@@ -9,26 +9,25 @@
 }
 @section Scripts {
     @{
-        <partial name="_ValidationScriptsPartial" />
+        <partial name="_ValidationScriptsPartial"/>
     }
 }
 <div>
-    <partial name="AdminDashboardHeader" />
+    <partial name="AdminDashboardHeader"/>
     <hr class="mb-0 mt-0 d-none d-md-block horizontal-line">
-    <partial name="AdminDashboardNavbar" />
+    <partial name="AdminDashboardNavbar"/>
     <div class="maindiv container-fluid d-flex flex-column justify-content-center px-5" style="background-color:#f5f5f5;">
-        <div>
             <div class="firstdiv d-flex justify-content-between align-items-center">
                 @if (Model.Status.Equals("Reserved"))
                 {
                     <h3>
-                        View Reservation<span id="status-text">(New)</span>
+                        View Reservation<span id="status-text" class="state">(New)</span>
                     </h3>
                 }
                 @if (Model.Status != "Reserved")
                 {
                     <h3>
-                        New Request<span id="status-text">(New)</span>
+                        New Request<span class="state">(New)</span>
                     </h3>
                 }
 
@@ -38,7 +37,6 @@
                     </a>
                 </div>
             </div>
-        </div>
         <div class="content shadow p-3 mb-3" style="background-color:white;">
             <form asp-action="ViewCase" asp-controller="AdminDashboard" method="post">
 
@@ -53,16 +51,16 @@
                 <label class="color" for="floatingInput">Patient Notes</label>
                 </div> *@
                 <div class="form-floating" style="width: 100%;margin-top: 20px;">
-                    <textarea type="text" placeholder="Username" class="form-control"
+                    <textarea type="text" placeholder="Username" class="form-control" id="username-input"
                               style="height: 135px !important;" asp-for="PatientNotes" readonly></textarea>
                     <label for="username-input" class="labels">Patient Notes</label>
                 </div>
-                <hr class="hrdashed" />
+                <hr class="hrdashed"/>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="name" class="form-control" id="floatingInput1" placeholder="First Name" asp-for="FirstName" readonly>
-                            <label for="floatingInput">First Name</label>
+                            <label for="floatingInput1">First Name</label>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -75,8 +73,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="floatingInput3" asp-for="DOB" readonly>
-                            <label for="floatingInput3">Date of Birth</label>
+                            <input type="date" class="form-control" id="dob" asp-for="DOB" readonly>
+                            <label for="dob">Date of Birth</label>
                             <span asp-validation-for="DOB" class="text-danger"></span>
                         </div>
                     </div>
@@ -101,8 +99,8 @@
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text" asp-for="RequestId" value="@Model.RequestId" style="display:none;" />
-                            <input type="email" placeholder="Email" class="form-control" id="floatingInput3" readonly asp-for="Email" />
-                            <label for="floatingInput3">Email</label>
+                            <input type="email" placeholder="Email" class="form-control" id="email" readonly asp-for="Email" />
+                            <label for="email">Email</label>
                         </div>
                     </div>
                     <div class="col-md-1">
@@ -118,11 +116,11 @@
                                 @* <button type="submit" class="edit-button" id="save-button" style="display:none;text-decoration:none;">
                             <span>Save</span>
                             </button> *@
-                                <button type="submit" class="btn saveButton m-3" style="display:none;height:54px!important;" id="save-button">
-                                    <a class="textdeconone" asp-controller="AdminDashboard" asp-action="ViewCase">
+                                <a class="textdeconone" asp-controller="AdminDashboard" asp-action="ViewCase">
+                                    <button type="submit" class="btn saveButton m-3" style="display:none;height:54px!important;" id="save-button">
                                         <span class="saveButtonText">Save</span>
-                                    </a>
-                                </button>
+                                    </button>
+                                </a>
                                 @* <a class="cancel-button" id="cancel-btn" style="display:none;text-decoration:none;">
                             <span>Cancel</span>
                             </a> *@
@@ -137,8 +135,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" placeholder="Region" class="form-control" id="floatingInput3" readonly asp-for="Region" />
-                            <label for="floatingInput3">Region</label>
+                            <input type="name" placeholder="Region" class="form-control" id="region" readonly asp-for="Region" />
+                            <label for="region">Region</label>
                         </div>
                     </div>
                     <div class="col-md-5">
@@ -162,8 +160,8 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" placeholder="Room" class="form-control" id="floatingInput3" readonly asp-for="Room" />
-                            <label for="floatingInput3">Room</label>
+                            <input type="name" placeholder="Room" class="form-control" id="room" readonly asp-for="Room" />
+                            <label for="room">Room</label>
                         </div>
                     </div>
                 </div>
@@ -171,26 +169,25 @@
                     <div>
                         @if (Model.Status != "Reserved")
                         {
-                            <button class="btn saveButton me-3 mb-3" style="width:110px!important;">
-                                <a class="textdeconone" asp-controller="AdminDashboard" asp-action="#">
+                            <a class="textdeconone" asp-controller="AdminDashboard" asp-action="#">
+                                <button class="btn saveButton me-3 mb-3" style="width:110px!important;">
                                     <span class="saveButtonText">Assign</span>
-                                </a>
-                            </button>
-                        }
-                        <button class="btn saveButton me-3 mb-3" style="width:110px!important;">
-                            <a class="textdeconone" asp-controller="AdminDashboard" asp-action="ViewNotes">
-                                <span class="saveButtonText">View Notes</span>
+                                </button>
                             </a>
-                        </button>
+                        }
+                        <a class="textdeconone" asp-controller="AdminDashboard" asp-action="ViewNotes">
+                            <button class="btn saveButton me-3 mb-3" style="width:110px!important;">
+                                <span class="saveButtonText">View Notes</span>
+                            </button>
+                        </a>
                         <button class="btn redCancelButton mb-3" style="width:110px!important;background-color:#d72d31;">
                             <span class="saveButtonText">Cancel</span>
                         </button>
                     </div>
                 </div>
             </form>
-
+            </div>
         </div>
-    </div>
 
     <script>
         // to print req type
@@ -207,7 +204,6 @@
         }
         // edit,save,cancel
         var classCount = document.getElementsByClassName('form-control');
-
         document.getElementById('edit-button').addEventListener('click', function () {
             console.log(document.getElementById('save-button'))
             document.getElementById('save-button').style.display = "flex";

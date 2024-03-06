@@ -437,15 +437,15 @@ namespace HalloDoc.Controllers
             var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
             var id = _context.Users.SingleOrDefault(u => u.Email == model.Email);
             bool userExists = true;
-            if (existingUser == null)
+            if (existingUser != null)
             {
-                userExists = false;
-                aspNetUser.UserName = model.Email;
-                aspNetUser.Email = model.Email;
-                //aspNetUser.PhoneNumber = model.PhoneNumber;
-                aspNetUser.CreatedDate = DateTime.Now;
-                _context.AspNetUsers.Add(aspNetUser);
-                await _context.SaveChangesAsync();
+                //userExists = false;
+                //aspNetUser.UserName = model.Email;
+                //aspNetUser.Email = model.Email;
+                //aspNetUser.PhoneNumber = model.PhoneNo;
+                //aspNetUser.CreatedDate = DateTime.Now;
+                //_context.AspNetUsers.Add(aspNetUser);
+                //await _context.SaveChangesAsync();
 
                 string senderEmail = "tatva.dotnet.karmadipsinhsolanki@outlook.com";
                 string senderPassword = "Karmadips@2311";
@@ -461,14 +461,14 @@ namespace HalloDoc.Controllers
                 string email = model.Email;
                 var userFirstName = model.FirstName + " " + model.LastName;
                 var formatedDate = DateTime.Now.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-                string resetLink = $"https://localhost:44339/PatientRequest/CreatePassword?email={email}";
+                string resetLink = $"https://localhost:44339/Login/submitrequest";
                 string message = $@"<html>
                                 <body>  
-                                <h1>Create password request</h1>  
+                                <h1>Create Request for patient</h1>  
                                 <h2>Hii {userFirstName},</h2>
-                                <p style=""margin-top:30px;"">We have received an account creation request on {formatedDate}. So,in order to create your account we need your password,so please click the below link to create password:</p>
-                                <p><a href=""{resetLink}"">Create Password</a></p> 
-                                <p>If you didn't request an account creation then please ignore this mail.</p>
+                                <p style=""margin-top:30px;"">We have sent you link to create request for patient. So, please click the below link to create request:</p>
+                                <p><a href=""{resetLink}"">Create Request</a></p> 
+                                <p>If you don't need request creation then please ignore this mail.</p>
                                 </body>
                                 </html>";
                 if (email != null)
@@ -1051,8 +1051,8 @@ namespace HalloDoc.Controllers
 
             var user_id = HttpContext.Session.GetInt32("id");
             var request = _context.Requests.Include(r => r.RequestClient).FirstOrDefault(u => u.RequestId == id);
-            //var request = _viewDoc.ListOfIncludeAdminPhysicianToReq(id);
-            var documents = _context.RequestWiseFiles.Include(u => u.Admin).Include(u => u.Physician).Where(u => u.RequestId == id && u.IsDeleted.Equals(new BitArray(new[] { false }))).ToList();
+            //var request = _viewDoc.ListOfIncludeAdminPhysicianToReq(id);&& u.IsDeleted.Equals(new BitArray(new[] { false }))
+            var documents = _context.RequestWiseFiles.Include(u => u.Admin).Include(u => u.Physician).Where(u => u.RequestId == id ).ToList();
             //var documents = _viewDoc.ListOfIncludeAdminPhysicianToReqwisefile(id);
 
             var user = _context.Users.FirstOrDefault(u => u.UserId == request.UserId);
