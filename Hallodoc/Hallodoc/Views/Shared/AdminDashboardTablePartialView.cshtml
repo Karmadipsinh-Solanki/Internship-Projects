@@ -168,7 +168,7 @@
                                 {
                                     {
                                         <a class="dropdown-item" asp-action="ViewUpload" asp-controller="AdminDashboard" asp-route-id="@item.RequestId">
-                                            <div class="action-item" >
+                                            <div class="action-item">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up" viewBox="0 0 16 16">
                                                     <path d="M8.5 11.5a.5.5 0 0 1-1 0V7.707L6.354 8.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 7.707z" />
                                                     <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
@@ -200,7 +200,7 @@
                                                 <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z" />
                                                 <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0" />
                                             </svg>
-                                            <span>Assign Case</span> 
+                                            <span>Assign Case</span>
                                         </div>
                                     </a>
                                     <!--Cancel Case Button trigger modal -->
@@ -280,9 +280,9 @@
                                         </div>
                                     </a>
                                 }
-                                @if (Model.status == "Conclude" || Model.status == "Active" || Model.status == "Active")
+                                @if (Model.status == "Conclude" || Model.status == "Active" || Model.status == "ToClose")
                                 {
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" asp-action="SendOrder" asp-controller="AdminDashboard" asp-route-id="@item.RequestId">
                                         <div class="action-item">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-check" viewBox="0 0 16 16">
                                                 <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z" />
@@ -294,18 +294,15 @@
                                 }
                                 @if (Model.status == "ToClose")
                                 {
-                                    @if (Model.status == "Conclude" || Model.status == "Active")
-                                    {
-                                        <a class="dropdown-item" href="#">
-                                            <div class="action-item">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
-                                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
-                                                </svg>
-                                                <span>Close Case</span>
-                                            </div>
-                                        </a>
-                                    }
+                                    <a class="dropdown-item" href="#">
+                                        <div class="action-item">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                                            </svg>
+                                            <span>Close Case</span>
+                                        </div>
+                                    </a>
                                 }
 
 
@@ -605,7 +602,7 @@
                             {
                                 <a class="col-md-3 col-sm-6 col-6 textdeconone" asp-action="ViewNotes" asp-controller="AdminDashboard">
                                     <div class="action-mob-btn">View Notes</div>
-                                    </a>
+                                </a>
                             }
                             @if (Model.status == "New")
                             {
@@ -613,7 +610,7 @@
                             }
                             @if (Model.status == "Pending" || Model.status == "Active" || Model.status == "Conclude" || Model.status == "ToClose" || Model.status == "Unpaid")
                             {
-                            <a class="col-md-3 col-sm-6 col-6 textdeconone" asp-action="ViewUploads" asp-controller="AdminDashboard" asp-route-id="@item.RequestId"><div class="action-mob-btn">View Uploads</div></a>
+                                <a class="col-md-3 col-sm-6 col-6 textdeconone" asp-action="ViewUploads" asp-controller="AdminDashboard" asp-route-id="@item.RequestId"><div class="action-mob-btn">View Uploads</div></a>
                             }
                             @if (Model.status == "Pending")
                             {

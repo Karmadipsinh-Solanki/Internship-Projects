@@ -1,17 +1,15 @@
-using Hallodoc.Data;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using Hallodoc;
 using HalloDoc.DataLayer.ViewModels;
-using HalloDoc.LogicLayer.Patient_Interface.LoginControllerInterface;
-using HalloDoc.LogicLayer.Patient_Interface.LoginInterface;
-using HalloDoc.LogicLayer.Patient_Interface.PatientDashboardInterface;
-using HalloDoc.LogicLayer.Patient_Interface.PatientRequest;
-using HalloDoc.LogicLayer.Patient_Repository.LoginRepository;
-using HalloDoc.LogicLayer.Patient_Repository.PatientDashboardRepository;
-using HalloDoc.LogicLayer.Patient_Repository.PatientRequest;
+using HalloDoc.LogicLayer.Interface;
+using HalloDoc.LogicLayer.Repository;
+using HalloDoc.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//to use session
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -19,6 +17,7 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+builder.Services.AddHttpContextAccessor();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -27,20 +26,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options=>options.UseNpgsql(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 //3tier
-builder.Services.AddScoped<IPatientLogin, PatientLogin>();
-builder.Services.AddScoped<IResetPasswordFromEmail, ResetPasswordFromEmail>();
-builder.Services.AddScoped<IForgotPwd, ForgotPwd>();
-builder.Services.AddScoped<IPatientDashboard, PatientDashboard>();
-builder.Services.AddScoped<IViewDoc, ViewDoc>();
-builder.Services.AddScoped<IMeModalSubmit, MeModalSubmit>();
-builder.Services.AddScoped<IMeModal, MeModal>();
-builder.Services.AddScoped<IRelativeModalSubmit, RelativeModalSubmit>();
-builder.Services.AddScoped<IProfile, Profile>();
-builder.Services.AddScoped<ICreatePatientRequest, CreatePatientRequest>();
-builder.Services.AddScoped<ICreateFamilyRequest, CreateFamilyRequest>();
-builder.Services.AddScoped<ICreateConciergeRequest, CreateConciergeRequest>();
-builder.Services.AddScoped<ICreateBusinessRequest, CreateBusinessRequest>();
-builder.Services.AddScoped<IPatientCheck, PatientCheck>();
+builder.Services.AddScoped<IPatient, Patient>();
+builder.Services.AddScoped<IAdmin, HalloDoc.LogicLayer.Repository.Admin>();
+builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<ILogin, Login>();
+builder.Services.AddScoped<ICreateReq, CreateReq>();
 //3tier
 
 var app = builder.Build();
@@ -63,6 +53,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=AdminDashboard}/{action=AdminDashboard}/{id?}");
+    pattern: "{controller=Login}/{action=Login}/{id?}");
 
 app.Run();

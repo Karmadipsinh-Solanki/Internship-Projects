@@ -67,5 +67,71 @@ namespace HalloDoc.DataLayer.ViewModels
         //[Required(ErrorMessage = "Relation name is required")]
         //public required string Relation { get; set; }
 
+        [Required(ErrorMessage = "Password is required")]
+        public string? Password { get; set; }
+        public bool isPassword { get; set; } = false;
+
+        //family
+        [Required(ErrorMessage = "First name is required")]
+        public string FFirstName { get; set; }
+
+        [Required(ErrorMessage = "Last name is required")]
+        public required string FLastName { get; set; }
+
+        [Required(ErrorMessage = "PhoneNumber is required")]
+        public required string FPhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Email is required")]
+        public required string FEmail { get; set; }
+
+        [Required(ErrorMessage = "Relation name is required")]
+        public required string Relation { get; set; }
+        
+        //concierge
+        [Required(ErrorMessage = "First name is required")]
+        public string? CFirstName { get; set; }
+
+        [Required(ErrorMessage = "Last name is required")]
+        public required string CLastName { get; set; }
+
+        [Required(ErrorMessage = "PhoneNumber is required")]
+        public required string CPhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Email is required")]
+        public required string CEmail { get; set; }
+
+        [Required(ErrorMessage = "Hotel/Property Name is required")]
+        public required string CHotel { get; set; }
+
+        [Required(ErrorMessage = "Street is required")]
+        public required string CStreet { get; set; }
+
+        [Required(ErrorMessage = "City is required")]
+        public required string CCity { get; set; }
+
+        [Required(ErrorMessage = "State is required")]
+        public required string CState { get; set; }
+
+        [Required(ErrorMessage = "ZipCode is required")]
+        public required string CZipCode { get; set; }
+
+        //business
+
+        [Required(ErrorMessage = "First name is required")]
+        public string BFirstName { get; set; }
+
+        [Required(ErrorMessage = "Last name is required")]
+        public required string BLastName { get; set; }
+
+        [Required(ErrorMessage = "PhoneNumber is required")]
+        public required string BPhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Email is required")]
+        public required string BEmail { get; set; }
+
+        [Required(ErrorMessage = "Hotel name is required")]
+        public required string BHotel { get; set; }
+
+        public required string casenumber { get; set; }
     }
 }

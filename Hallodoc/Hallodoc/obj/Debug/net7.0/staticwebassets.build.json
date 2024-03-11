@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "f25FV2kSKf2g0sJg5pRkaV/sZy5hMtb/3CyqQDk9WTE=",
+  "Hash": "J1ng/bKh4k0GGyzoAd23UuxL70n+9YIrP8tR9kvYAvQ=",
   "Source": "Hallodoc",
   "BasePath": "_content/Hallodoc",
   "Mode": "Default",
@@ -131,6 +131,25 @@
       "OriginalItemSpec": "wwwroot\\css\\forgotPassword.css"
     },
     {
+      "Identity": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\Login.css",
+      "SourceId": "Hallodoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\",
+      "BasePath": "_content/Hallodoc",
+      "RelativePath": "css/Login.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Login.css"
+    },
+    {
       "Identity": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\patientDashboard.css",
       "SourceId": "Hallodoc",
       "SourceType": "Discovered",
@@ -148,25 +167,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\patientDashboard.css"
-    },
-    {
-      "Identity": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\patientLogin.css",
-      "SourceId": "Hallodoc",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\",
-      "BasePath": "_content/Hallodoc",
-      "RelativePath": "css/patientLogin.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\patientLogin.css"
     },
     {
       "Identity": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\patientsite.css",

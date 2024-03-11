@@ -34,7 +34,7 @@ namespace HalloDoc.DataLayer.ViewModels
         public required string State { get; set; }
 
         [Required(ErrorMessage = "ZipCode is required")]
-        public required string ZipCode { get; set; }
+        public required string FZipCode { get; set; }
         public required string Room { get; set; }
         [Required(ErrorMessage = "Password is required")]
         public string? Password { get; set; }

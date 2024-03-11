@@ -1,7 +1,7 @@
 ﻿@using HalloDoc.DataLayer.ViewModels.AdminViewModels
-@model ViewCaseModel;
+@model OrderViewModel;
 @{
-    ViewData["Title"] = "View-Case";
+    ViewData["Title"] = "Send Order";
 }
 @section Styles {
     <link href="~/css/viewcase.css" rel="stylesheet" type="text/css" />
@@ -17,144 +17,57 @@
     <hr class="mb-0 mt-0 d-none d-md-block horizontal-line">
     <partial name="AdminDashboardNavbar" />
     <div class="maindiv container-fluid d-flex flex-column justify-content-center px-5" style="background-color:#f5f5f5;">
-        <div>
-            <div class="firstdiv d-flex justify-content-between align-items-center">
-                @if (Model.Status.Equals("Reserved"))
-                {
-                    <h3>
-                        View Reservation<span id="status-text">(New)</span>
-                    </h3>
-                }
-                @if (Model.Status != "Reserved")
-                {
-                    <h3>
-                        New Request<span id="status-text">(New)</span>
-                    </h3>
-                }
-
-                <div class="btn cancelButton mb-3 mt-3" style="background-color:transparent;">
-                    <a class="textdeconone" asp-controller="AdminDashboard" asp-action="AdminDashboard">
-                        <span class="cancelButtonText">&lt Back</span>
-                    </a>
-                </div>
+        dfdf
+        <div class="firstdiv d-flex justify-content-between align-items-center">
+            <h3>
+                Send Order
+            </h3>
+            <div class="btn cancelButton mb-3 mt-3" style="background-color:transparent;">
+                <a class="textdeconone" asp-controller="AdminDashboard" asp-action="AdminDashboard">
+                    <span class="cancelButtonText">&lt Back</span>
+                </a>
             </div>
         </div>
         <div class="content shadow p-3 mb-3" style="background-color:white;">
             <form asp-action="ViewCase" asp-controller="AdminDashboard" method="post">
-
-                <div class="h5 mb-3">Patient Information</div>
-                <div class="mb-3">
-                    <h6 style="color: gray;font-weight: 400;font-size: 15px;">Confirmation Number </h6>
-                    <span class="h4" style="color: #00ccff;font-size: 20px;font-weight: 500;"> (@Model.ConfirmationNo) </span>
-                </div>
-                @* <div class="form-floating mb-3 p-0">
-                <!-- <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"> -->
-                <textarea class="text-area form-control" id="exampleFormControlTextarea1" rows="6" asp-for="PatientNotes" readonly></textarea>
-                <label class="color" for="floatingInput">Patient Notes</label>
-                </div> *@
-                <div class="form-floating" style="width: 100%;margin-top: 20px;">
-                    <textarea type="text" placeholder="Username" class="form-control"
-                              style="height: 135px !important;" asp-for="PatientNotes" readonly></textarea>
-                    <label for="username-input" class="labels">Patient Notes</label>
-                </div>
-                <hr class="hrdashed" />
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput1" placeholder="First Name" asp-for="FirstName" readonly>
-                            <label for="floatingInput">First Name</label>
+                            <input type="hidden" asp-for="RequestId" id="requestId" />
+                            <select asp-for="Profession" class="custom-select text-secondary dropdownBorder form-control" id="Profession" style="width: 100%;height: 54px;padding:8px;">
+                                <option value="0" disabled selected hidden><span>Select Profession</span></option>
+                                @foreach (var item in Model.healthProfessionalTypes)
+                                {
+                                    <option value="@item.HealthProfessionalId"><span>@item.ProfessionName</span></option>
+                                }
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput2" placeholder="Last Name" asp-for="LastName" readonly>
-                            <label for="floatingInput2">Last Name</label>
+                            <select asp-for="BusinessInProfession" class="custom-select text-secondary dropdownBorder form-control" id="Business" style="width: 100%;height: 54px;padding:8px;">
+                                <option value="0" disabled selected hidden><span>Business</span></option>
+                                @foreach (var item in Model.healthProfessionalTypes)
+                                {
+                                    <option value="@item.HealthProfessionalId"><span>@item.ProfessionName</span></option>
+                                }
+                            </select>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="floatingInput3" asp-for="DOB" readonly>
-                            <label for="floatingInput3">Date of Birth</label>
-                            <span asp-validation-for="DOB" class="text-danger"></span>
+                            <input type="text" class="form-control" id="floatingInput3" placeholder="Business contact" asp-for="BusinessContact">
+                            <label for="floatingInput3">Business contact</label>
+                            <span asp-validation-for="BusinessContact" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="col-md-5">
-                        <div class="form-floating mb-3">
-                            <input type="tel" class="form-control" id="phone" readonly asp-for="PhoneNumber" />
-                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-1">
-                        <div style="border:1px solid #0bb6d0;height:58px;border-radius:5px;" class=" form-control d-flex justify-content-center align-items-center mb-3">
-                            <a id="call-button" style="text-decoration:none;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#0bb6d0" class="bi bi-telephone" viewBox="0 0 16 16">
-                                    <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-4">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text" asp-for="RequestId" value="@Model.RequestId" style="display:none;" />
-                            <input type="email" placeholder="Email" class="form-control" id="floatingInput3" readonly asp-for="Email" />
-                            <label for="floatingInput3">Email</label>
-                        </div>
-                    </div>
-                    <div class="col-md-1">
-                        <div class="form-floating mb-3">
-                            @if (Model.Status.Equals("Reserved"))
-                            {
-                                @* <a class="edit-button" id="edit-button">
-                            <span>Edit</span>
-                            </a> *@
-                                <a class="btn cancelButton textdeconone d-flex justify-content-center align-items-center" style="height:54px!important;" id="edit-button">
-                                    <span class="cancelButtonText">Edit</span>
-                                </a>
-                                @* <button type="submit" class="edit-button" id="save-button" style="display:none;text-decoration:none;">
-                            <span>Save</span>
-                            </button> *@
-                                <button type="submit" class="btn saveButton m-3" style="display:none;height:54px!important;" id="save-button">
-                                    <a class="textdeconone" asp-controller="AdminDashboard" asp-action="ViewCase">
-                                        <span class="saveButtonText">Save</span>
-                                    </a>
-                                </button>
-                                @* <a class="cancel-button" id="cancel-btn" style="display:none;text-decoration:none;">
-                            <span>Cancel</span>
-                            </a> *@
-                                <a class="cancel-button " id="cancel-btn" style="height:54px!important;text-decoration:none;background-color:#d72d31;border:1px solid #d72d31;border-radius:5px; height: 40px;width: 80px;display:none;">
-                                    <span class="saveButtonText">Cancel</span>
-                                </a>
-                            }
-                        </div>
-                    </div>
-                </div>
-                <header class="h5 mb-3">Location Information</header>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
-                            <input type="name" placeholder="Region" class="form-control" id="floatingInput3" readonly asp-for="Region" />
-                            <label for="floatingInput3">Region</label>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput5" readonly asp-for="BusinessAddress" />
-                            <label for="floatingInput5">BusinessAddress</label>
-                        </div>
-                    </div>
-                    <div class="col-md-1">
-                        <div style="border:1px solid #0bb6d0;height:58px;border-radius:5px;" class="map form-control d-flex justify-content-center align-items-center mb-3">
-                            <a id="map-button" style="text-decoration:none;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#0bb6d0" class="bi bi-geo-alt" viewBox="0 0 16 16">
-                                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
-                                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                                </svg>
-                            </a>
+                            <input type="email" placeholder="Email" class="form-control" id="floatingInput4" asp-for="Email" />
+                            <label for="floatingInput4">Email</label>
                         </div>
                     </div>
                 </div>
@@ -162,28 +75,44 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" placeholder="Room" class="form-control" id="floatingInput3" readonly asp-for="Room" />
-                            <label for="floatingInput3">Room</label>
+                            <input type="text" placeholder="Email" class="form-control" id="floatingInput4" asp-for="FaxNumber" />
+                            <label for="floatingInput4">Fax Number</label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-floating mb-3" style="width: 100%;margin-top: 20px;">
+                    <textarea type="text" placeholder="Username" class="form-control"
+                              style="height: 135px !important;" asp-for="Prescription"></textarea>
+                    <label for="username-input" class="">Prescription or Order Details</label>
+                </div>
+
+                <div class="row mb-5">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="hidden" asp-for="RequestId" id="requestId" />
+                            <select asp-for="NoOfRefill" class="custom-select text-secondary dropdownBorder form-control" id="regionDropdown" style="width: 100%;height: 54px;padding:8px;">
+                                <option value="0" disabled selected hidden><span>Number Of Refill</span></option>
+                                <option value="1">1</option>
+                                <option value="1">2</option>
+                                <option value="1">3</option>
+                                <option value="1">4</option>
+                            </select>
                         </div>
                     </div>
                 </div>
+
                 <div class="d-flex justify-content-end align-items-center">
                     <div>
-                        @if (Model.Status != "Reserved")
-                        {
-                            <button class="btn saveButton me-3 mb-3" style="width:110px!important;">
-                                <a class="textdeconone" asp-controller="AdminDashboard" asp-action="#">
-                                    <span class="saveButtonText">Assign</span>
-                                </a>
-                            </button>
-                        }
                         <button class="btn saveButton me-3 mb-3" style="width:110px!important;">
-                            <a class="textdeconone" asp-controller="AdminDashboard" asp-action="ViewNotes">
-                                <span class="saveButtonText">View Notes</span>
+                            <a class="textdeconone" asp-controller="AdminDashboard" asp-action="SendOrder">
+                                <span class="saveButtonText">Submit</span>
                             </a>
                         </button>
-                        <button class="btn redCancelButton mb-3" style="width:110px!important;background-color:#d72d31;">
-                            <span class="saveButtonText">Cancel</span>
+                        <button class="btn cancelButton mb-3">
+                            <a class="textdeconone" asp-controller="AdminDashboard" asp-action="AdminDashboard">
+                                <span class="cancelButtonText">Cancel</span>
+                            </a>
                         </button>
                     </div>
                 </div>
@@ -193,56 +122,53 @@
     </div>
 
     <script>
-        // to print req type
-        const changeStatus = (element) => {
-            const states = document.getElementsByClassName("state");
-            const current_state = element.classList[1];
-        }
-        let name = current_state.split("-").length == 1 ? current_state.split("-")[0] : current_state.split("-")[1];
-        let finalName = name.split("State")[0];
-        if (finalName == "toclose") {
-            document.getElementById("status-text").innerHTML = "(To Close)";
-        } else {
-            document.getElementById("status-text").innerHTML = `(${finalName.charAt(0).toUpperCase() + finalName.slice(1)})`;
-        }
-        // edit,save,cancel
-        var classCount = document.getElementsByClassName('form-control');
+        // beaause there are 2 drpdwns and 1 is dependent on other
+        $('#Profession').change(function () {
+            var selectedProfession = $(this).val();
 
-        document.getElementById('edit-button').addEventListener('click', function () {
-            console.log(document.getElementById('save-button'))
-            document.getElementById('save-button').style.display = "flex";
-            document.getElementById('cancel-btn').style.display = "flex";
-            document.getElementById('edit-button').style.display = "none";
-            for (var i = 1; i <= 5; i++) {
-                classCount[i].removeAttribute('readonly');
-            }
-        });
-        document.getElementById('cancel-btn').addEventListener('click', function () {
-            document.getElementById('edit-button').style.display = "flex";
-            document.getElementById('cancel-btn').style.display = "none";
-            document.getElementById('save-button').style.display = "none";
-            for (var i = 1; i < 5; i++) {
-                classCount[i].setAttribute('readonly', 'readonly');
-            }
-            location.reload();
-        });
-
-        //for creating countrywise phone format
-        // const phoneInputField = document.querySelector("#phone");
-        // const phoneInput = window.intlTelInput(phoneInputField, {
-        //     innerHeight: 1,
-        //     utilsScript:
-        //         "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-        // });
-
-        const phoneInputField = document.getElementsByClassName("phone");
-        for (let i = 0; i < phoneInputField.length; ++i) {
-            const phoneInput = window.intlTelInput(phoneInputField[i], {
-                utilsScript:
-                    "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+            $.ajax({
+                url: '/AdminDashboard/FetchBusiness',
+                type: 'GET',
+                data: { id: selectedProfession },
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response);
+                    $('#Business option:not(:first)').remove();
+                    $.each(response, function (index, business) {
+                        var option = $('<option></option>')
+                            .attr('value', business.vendorId)
+                            .text(business.vendorName);
+                        $('#Business').append(option);
+                    });
+                },
+                error: function () {
+                    alert('An error occurred.');
+                }
             });
-        }
+        });
+        $('#Business').change(function () {
+            var selectedBusiness = $(this).val();
+            var businessContact = document.getElementById('BusinessContact');
+            var email = document.getElementById('Email');
+            var faxNumber = document.getElementById('FaxNumber');
+            var vendorId = document.getElementById('vendorId');
 
-
+            $.ajax({
+                url: '/AdminDashboard/FetchBusinessDetail',
+                type: 'GET',
+                data: { id: selectedBusiness },
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response);
+                    businessContact.value = response.businessContact;
+                    email.value = response.email;
+                    faxNumber.value = response.faxNumber;
+                    vendorId.value = response.vendorId;
+                },
+                error: function () {
+                    alert('An error occurred.');
+                }
+            });
+        });
     </script>
 </div>

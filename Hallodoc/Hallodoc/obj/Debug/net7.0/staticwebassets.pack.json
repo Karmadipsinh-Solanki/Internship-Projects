@@ -741,6 +741,10 @@
       "PackagePath": "staticwebassets\\css\\AdminDashboardStyle.css"
     },
     {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\Login.css",
+      "PackagePath": "staticwebassets\\css\\Login.css"
+    },
+    {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\createPassword.css",
       "PackagePath": "staticwebassets\\css\\createPassword.css"
     },
@@ -755,10 +759,6 @@
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\patientDashboard.css",
       "PackagePath": "staticwebassets\\css\\patientDashboard.css"
-    },
-    {
-      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\patientLogin.css",
-      "PackagePath": "staticwebassets\\css\\patientLogin.css"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\patientsite.css",

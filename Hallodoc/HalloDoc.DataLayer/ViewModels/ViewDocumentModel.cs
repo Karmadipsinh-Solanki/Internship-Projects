@@ -1,4 +1,5 @@
-﻿using Hallodoc.Models.Models;
+﻿using Hallodoc;
+using Hallodoc.Models.Models;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;

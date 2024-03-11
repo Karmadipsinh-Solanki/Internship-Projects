@@ -590,7 +590,7 @@ td {
     padding-left: 15px;
     padding-right: 15px;
     margin-right: 10px;
-    ;
+    cursor:pointer;
 }
 
 .bi-reply-mirrored {
@@ -954,6 +954,14 @@ table.dataTable thead th, table.dataTable tfoot th {
     border-bottom: none;
 }
 
+.req-filter{
+    cursor:pointer;
+}
+.req-filter.filter-active {
+    border: 2px solid #e7e7e9;
+    border-radius: 5px;
+    padding: 5px;
+}
 /*label for assign case to go above selected text*/
 /*label {
     display: block;
