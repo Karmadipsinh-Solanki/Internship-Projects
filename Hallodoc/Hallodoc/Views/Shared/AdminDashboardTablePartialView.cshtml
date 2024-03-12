@@ -227,7 +227,8 @@
                                 }
                                 @if (Model.status == "Pending")
                                 {
-                                    <a class="dropdown-item" href="#">
+                                    <!--Transfer Case Button trigger modal -->
+                                    <a class="dropdown-item" class="dashboard-button" data-bs-toggle="modal" data-bs-target="#transferCaseModal" onclick="TransferCase(@item.RequestId)">
                                         <div class="action-item">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
                                                 <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z" />
@@ -239,8 +240,9 @@
                                 }
                                 @if (Model.status == "Pending" || Model.status == "ToClose")
                                 {
-                                    <a class="dropdown-item" href="#">
-                                        <div class="action-item">
+                                    <!--Clear Case Button trigger modal -->
+                                    <a class="dropdown-item" class="dashboard-button" data-bs-toggle="modal" data-bs-target="#clearCaseModal" onclick="ClearerCase(@item.RequestId)">
+                                        <div class="action-item">   
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
                                                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
                                             </svg>
@@ -294,7 +296,7 @@
                                 }
                                 @if (Model.status == "ToClose")
                                 {
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" asp-action="CloseCase" asp-controller="AdminDashboard" asp-route-id="@item.RequestId">
                                         <div class="action-item">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
                                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />

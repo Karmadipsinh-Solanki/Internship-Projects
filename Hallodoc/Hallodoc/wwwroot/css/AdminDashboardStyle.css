@@ -962,6 +962,19 @@ table.dataTable thead th, table.dataTable tfoot th {
     border-radius: 5px;
     padding: 5px;
 }
+
+.modalExclamation {
+    height:70px;
+    width:70px;
+    padding:5px;
+    border:2px solid #f7ad00;
+    border-radius:50%;
+}
+.subModalExclamation {
+    background-color:#f7ad00;
+    border:2px solid #f7ad00;
+    border-radius:50px;
+}
 /*label for assign case to go above selected text*/
 /*label {
     display: block;

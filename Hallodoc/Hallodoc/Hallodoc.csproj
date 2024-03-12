@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\AdminDashboard\CloseCase.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.102.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.15">
       <PrivateAssets>all</PrivateAssets>
@@ -28,6 +32,18 @@
   <ItemGroup>
     <ProjectReference Include="..\HalloDoc.DataLayer\HalloDoc.DataLayer.csproj" />
     <ProjectReference Include="..\HalloDoc.LogicLayer\HalloDoc.LogicLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\AdminDashboard\CloseCase.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\AdminDashboard\CloseCase.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\AdminDashboard\CloseCase.cshtml" />
   </ItemGroup>
 
 </Project>

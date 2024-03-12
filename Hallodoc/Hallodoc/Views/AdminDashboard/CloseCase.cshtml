@@ -1,0 +1,314 @@
+﻿@using HalloDoc.DataLayer.ViewModels.AdminViewModels
+@model ViewUploadViewModel;
+@{
+    ViewData["Title"] = "View Upload";
+}
+@section Styles {
+    <link href="~/css/viewDoc.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/AdminDashboardStyle.css" rel="stylesheet" type="text/css" />
+}
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+<partial name="AdminDashboardHeader" />
+<hr class="mb-0 mt-0 d-none d-md-block horizontal-line">
+<partial name="AdminDashboardNavbar" />
+<div class="maindiv container d-flex flex-column justify-content-center">
+    <div class="firstdiv d-flex justify-content-between align-items-center p-3">
+        <h3>Documents</h3>
+        <div class="btn btn-primary backbutton mb-3 mt-3">
+            <a class="textdeco" asp-controller="AdminDashboard" asp-action="AdminDashboard">
+                <span class="textback" style="color:#0dcaf0;">&lt Back</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="container shadow p-3">
+        <div class="h6 mb-3 text-secondary">Patient Name</div>
+        <div class="mb-3">
+            <h4 style="color: #00ccff;font-size: 20px;font-weight: 500;">@Model.patient_name <span style="color: gray;font-weight: 400;font-size: 15px;"> (@Model.confirmation_number) </span></h4>
+        </div>
+        <a class="cancelButton"><span class="cancelButtonText">Create Invoice Through Quickbooks</span> </a>
+        <form asp-route-id=@Model.RequestId asp-controller="AdminDashboard" asp-action="ViewUpload" method="post" enctype="multipart/form-data">
+            <div class="upload mb-3">
+                <input type="file" class="inputUpload" placeholder="Select File" asp-for=@Model.File>
+                <button class="uploadButton" type="submit" id="">
+                    <img src="~/SRS Screen Shorts/cloud-upload-icon.svg" style="color:#0dcaf0">
+                    <span class="textback" style="color:white;">Upload</span>
+                </button>
+            </div>
+        </form>
+
+        <div class="seconddiv mb-3">
+            <h5>Documents</h5>
+        </div>
+        <div class="d-block d-md-none">
+            @foreach (var item in Model.requestWiseFiles)
+            {
+                <hr />
+                <div class="d-flex align-items-center mb-3">
+                    <input class="checkboxes" type="checkbox" />
+                    <div class="file-icon ms-2 ">
+                        <span class="filename">@item.FileName</span>
+                    </div>
+                </div>
+                <div class="mb-3">@item.CreatedDate</div>
+                <div class="d-flex ">
+                    <a class="iconimg d-flex justify-content-center align-items-center" href="~/uploads/@item.FileName" download style="border: 1px solid #00ccff; padding:5px;margin-right:5px;border-radius:5px;text-decoration:none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0dcaf0" class="bi bi-cloud-download" viewBox="0 0 16 16">
+                            <path d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
+                            <path d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
+                        </svg>
+                    </a>
+                    <a class="iconimg d-flex justify-content-center align-items-center" href="~/uploads/@item.FileName" download style="border: 1px solid #00ccff; padding:5px;margin-right:5px;border-radius:5px;text-decoration:none">
+                        @* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0dcaf0" class="bi bi-trash" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                    </svg> *@
+                        <div class="d-flex align-items-center">
+                            <i class="material-icons">delete_forever</i>
+                            <span class="ml-2">All</span>
+                        </div>
+                    </a>
+                </div>
+
+            }
+            <hr />
+
+        </div>
+
+
+        <div class="d-none d-md-block">
+            <table class="table">
+                <thead>
+                    <tr class="table-light htable" style="background-color: #ededed !important;">
+                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 10%;"><input id="checkall" onclick="oncheck()" type="checkbox" /></th>
+                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 25%;">Documents</th>
+                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 25%;">Upload Date <span class="mx-1"><strong>&uarr;</strong></span></th>
+                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 15%;">Actions</span></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model.requestWiseFiles)
+                {
+                    <tr>
+                        <td class="bg-white"><input class="checkboxes" type="checkbox" /></td>
+                        <td class="bg-white">
+                            <div class="file-icon">
+                                <span class="filename">@item.FileName</span>
+                            </div>
+                        </td>
+                        <td class="bg-white">
+                            @item.CreatedDate
+                            @* .ToString("MMMM dd,yyyy") *@
+                        </td>
+                        <td class="bg-white">
+                            <div class="d-flex ">
+                                <a class="iconimg d-flex justify-content-center align-items-center" href="~/uploads/@item.FileName" download style="border: 1px solid #00ccff; padding:5px;margin-right:5px;border-radius:5px;text-decoration:none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0dcaf0" class="bi bi-cloud-download" viewBox="0 0 16 16">
+                                        <path d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
+                                        <path d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
+                                    </svg>
+                                </a>
+                                <a class="iconimg d-flex justify-content-center align-items-center" href="~/uploads/@item.FileName" download style="border: 1px solid #00ccff; padding:5px;margin-right:5px;border-radius:5px;text-decoration:none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0dcaf0" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+
+    <script>
+        function oncheck() {
+            var check = document.getElementById('checkall').checked;
+            if (check) {
+                var len = document.getElementsByClassName('checkboxes');
+                for (var i = 0; i < len.length; i++) {
+                    len[i].checked = true;
+                }
+            } else {
+                var len = document.getElementsByClassName('checkboxes');
+                for (var i = 0; i < len.length; i++) {
+                    len[i].checked = false;
+                }
+            }
+            console.log(check);
+        }
+        function downloadall() {
+            var classes = document.getElementsByClassName('checkboxes');
+
+            var count = 0;
+            for (var i = 0; i < classes.length; i++) {
+                if (classes[i].checked == true) {
+                    document.getElementsByClassName('link')[i].click();
+                } else {
+                    count++;
+                }
+            }
+            if (count == classes.length) {
+                alert('No checkboxes are ticked');
+            }
+
+        }
+        // var check = document.getElementById('checked').checked;
+        // var allcheckboxes = document.getElementsByClassName('checkboxes');
+        // if (check) {
+        //     for (var i = 0; i < allcheckboxes.length; i++) {
+        //         allcheckboxes[i].checked = true;
+        //     }
+        // } else {
+        //     for (var i = 0; i < allcheckboxes.length; i++) {
+        //         allcheckboxes[i].checked = false;
+        //     }
+        // }
+        // console.log('hello');
+        var trial = document.getElementsByClassName("appdata");
+        for (var i = 0; i < trial.length; i++) {
+            var element = trial[i];
+            var dataFromModel = (element.getAttribute("data-obj"));
+            var extension = dataFromModel.split(".")[dataFromModel.split(".").length - 1];
+            if (extension == 'png' || extension == 'jpg' || extension == 'jpeg') {
+                element.classList.add('hide');
+                document.getElementsByClassName('simpleimage')[i].classList.remove('hide');
+            } else if (extension == 'xlsx') {
+                element.classList.add('hide');
+                document.getElementsByClassName('excel')[i].classList.remove('hide');
+            }
+        }
+        document.getElementById('upload-button').addEventListener('click', hidebutton);
+        function hidebutton() {
+            document.getElementById('upload-button').style.display = "none";
+        }
+        //<i class="bi bi-file-earmark-pdf-fill" > </i>
+        //<i class="bi bi-file-earmark-spreadsheet-fill" > </i>
+        console.log('hii');
+
+        function openTab(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        document.getElementById("defaultOpen").click();
+
+        function choose_file() {
+            document.getElementById('file-input-button').addEventListener('change', getFileName);
+        }
+        const getFileName = (event) => {
+            const files = event.target.files;
+            const fileName = files[0].name;
+            //document.getElementById('upload-button').disabled = false;
+
+            document.getElementById('select-file-text').innerHTML = fileName;
+            document.getElementById('upload-button').style.display = "flex";
+            var uploadtext = document.getElementById('upload-text').innerHTML;
+            if (uploadtext === 'Choose File') {
+                document.getElementById('upload-text').innerHTML = "Change File";
+            }
+            document.getElementById('delete-icon').style.display = "block";
+
+        }
+        // var modal = document.getElementById("myModal");
+
+        // var btn = document.getElementById("submit-button");
+
+        // var span = document.getElementsByClassName("close")[0];
+        // var span2 = document.getElementById("close-icon");
+
+
+        // btn.onclick = function () {
+        //     modal.style.display = "flex";
+        // }
+        // span.onclick = function () {
+        //     modal.style.display = "none";
+        // }
+        // span2.onclick = function () {
+        //     modal.style.display = "none";
+        // }
+        // window.onclick = function (event) {
+        //     if (event.target == modal) {
+        //         modal.style.display = "none";
+        //     }
+        // }
+        // let sidebarOpen = false;
+        // function hamburger() {
+        //     if (!sidebarOpen) {
+        //         console.log('hi');
+        //         document.getElementById('sidebar').style.display = "flex";
+        //         document.getElementById('main-div').style.opacity = "0.5";
+        //         document.getElementById('main-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        //         document.getElementById("defaultOpen2").click();
+
+        //         // document.getElementById('main-sub-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        //         sidebarOpen = true;
+        //     } else {
+        //         console.log('hii');
+        //         document.getElementById('sidebar').style.display = "none";
+        //         document.getElementById('main-div').style.opacity = "1";
+        //         document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+
+        //         sidebarOpen = false;
+        //     }
+        // }
+
+        // document.getElementById("defaultOpen2").click();
+        // const phoneInputField = document.querySelector("#phone");
+        // const phoneInput = window.intlTelInput(phoneInputField, {
+        //     utilsScript:
+        //         "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        // });
+        // window.onload = function checkingTheme() {
+        //     try {
+        //         let themeCheck = localStorage.getItem('theme');
+        //         if (themeCheck == null || themeCheck == 'light') {
+        //             document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+        //             // document.getElementById('main-sub-div').style.backgroundColor = "white";
+        //             document.getElementById('body').style.backgroundColor = "#f5f5f5";
+        //             document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
+        //             document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+        //         } else {
+        //             document.getElementById('main-div').style.backgroundColor = "black";
+        //             // document.getElementById('main-sub-div').style.backgroundColor = "black";
+        //             document.getElementById('body').style.backgroundColor = "black";
+        //             document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
+        //             document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
+        //         }
+        //     } catch (error) {
+        //         console.log('no themes decided yet');
+        //     }
+        // }
+        // function changeTheme() {
+        //     let theme = localStorage.getItem('theme');
+        //     if (theme == null || theme == 'light') {
+        //         localStorage.setItem('theme', 'dark');
+        //         document.getElementById('main-div').style.backgroundColor = "black";
+        //         // document.getElementById('main-sub-div').style.backgroundColor = "black";
+        //         document.getElementById('body').style.backgroundColor = "black";
+        //         document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
+        //         document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
+        //     } else if (theme == 'dark') {
+        //         localStorage.setItem('theme', 'light');
+        //         document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+        //         // document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
+        //         document.getElementById('body').style.backgroundColor = "#f5f5f5";
+        //         document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
+        //         document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+        //     }
+        // }
+    </script>
+</div>

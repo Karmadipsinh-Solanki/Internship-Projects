@@ -565,6 +565,14 @@ namespace HalloDoc.LogicLayer.Repository
             _context.SaveChanges();
             return 2;
         }
+        HealthProfessional IAdmin.fetchBusinessDetail(int id)
+        {
+            return _context.HealthProfessionals.FirstOrDefault(r => r.VendorId == id);
+        }
+        List<HealthProfessional> IAdmin.fetchBusiness(int id)
+        {
+            return _context.HealthProfessionals.Where(r => r.Profession == id).ToList();
+        }
 
         List<Region> IAdmin.fetchRegions()
         {
@@ -650,7 +658,33 @@ namespace HalloDoc.LogicLayer.Repository
                     _context.SaveChanges();
                 }
                 RequestStatusLog requestStatusLog = new RequestStatusLog();
-                requestStatusLog.RequestId = requestId;
+                requestStatusLog.RequestId = (int)requestId;
+                requestStatusLog.Status = 10;
+                requestStatusLog.CreatedDate = DateTime.Now;
+                _context.RequestStatusLogs.Add(requestStatusLog);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        bool IAdmin.closeCase(AdminDashboardTableView model)
+        {
+            int requestId = model.RequestId;
+            if (requestId != null)
+            {
+                var requestToUpdate = _context.Requests.Where(u => u.RequestId == requestId).FirstOrDefault();
+
+                if (requestToUpdate != null)
+                {
+                    requestToUpdate.Status = 10;
+                    _context.Requests.Update(requestToUpdate);
+                    _context.SaveChanges();
+                }
+                RequestStatusLog requestStatusLog = new RequestStatusLog();
+                requestStatusLog.RequestId = (int)requestId;
                 requestStatusLog.Status = 10;
                 requestStatusLog.CreatedDate = DateTime.Now;
                 _context.RequestStatusLogs.Add(requestStatusLog);
@@ -691,6 +725,36 @@ namespace HalloDoc.LogicLayer.Repository
                 blockRequest.PhoneNumber = requestToUpdate.PhoneNumber;
                 blockRequest.CreatedDate = DateTime.Now;
                 _context.BlockRequests.Add(blockRequest);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        bool IAdmin.transferCase(AdminDashboardTableView model)
+        {
+            int requestId = model.RequestId;
+            if (requestId != null)
+            {
+                var requestToUpdate = _context.Requests.Include(u => u.Physician).Where(u => u.RequestId == requestId).FirstOrDefault();
+                var PhysicianName = _context.Physicians.FirstOrDefault(u => u.PhysicianId == model.PhysicianId).FirstName;
+                if (requestToUpdate != null)
+                {
+                    requestToUpdate.PhysicianId = model.PhysicianId;
+                    requestToUpdate.ModifiedDate = DateTime.Now;
+                    requestToUpdate.Status = 2;
+                    _context.Requests.Update(requestToUpdate);
+                    _context.SaveChanges();
+                }
+                RequestStatusLog requestStatusLog = new RequestStatusLog();
+                requestStatusLog.RequestId = requestId;
+                requestStatusLog.Status = 2;
+                requestStatusLog.Notes = "Admin transferred to Dr. " + PhysicianName + " on " + DateTime.Now.ToString("dd/MM/yyyy") + " at " + DateTime.Now.ToString("HH:mm:ss") + " : " + model.Description;
+                requestStatusLog.CreatedDate = DateTime.Now;
+                requestStatusLog.TransToPhysicianId = model.PhysicianId;
+                _context.RequestStatusLogs.Add(requestStatusLog);
                 _context.SaveChanges();
                 return true;
             }
@@ -746,9 +810,56 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
+         ViewUploadViewModel IAdmin.closeCase(int id)
+        {
+            //to save file in wwwroot,that is uploaded by patient
+            //token
+            var request = _context.Requests.Include(r => r.RequestClient).FirstOrDefault(u => u.RequestId == id);
+            var documents = _context.RequestWiseFiles.Include(u => u.Admin).Include(u => u.Physician).Where(u => u.RequestId == id).ToList();
+            var user = _context.Users.FirstOrDefault(u => u.UserId == request.UserId);
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            ViewUploadViewModel viewUploadViewModel = new ViewUploadViewModel();
+            //AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            //adminNavbarViewModel.AdminName = AdminName;
+            viewUploadViewModel.patient_name = string.Concat(request.RequestClient.FirstName, ' ', request.RequestClient.LastName);
+            viewUploadViewModel.name = string.Concat(user.FirstName, ' ', user.LastName);
+            viewUploadViewModel.confirmation_number = request.ConfirmationNumber;
+            viewUploadViewModel.requestWiseFiles = documents;
+            viewUploadViewModel.RequestId = id;
+            //viewUploadViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            return viewUploadViewModel;
+        }
+        bool IAdmin.closeCase(ViewUploadViewModel model)
+        {
+            if (model.File != null && model.File.Length > 0)
+            {
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\uploads", model.File.FileName);
+                using (var stream = System.IO.File.Create(filePath))
+                {
+                    model.File.CopyTo(stream);
+                }
+                RequestWiseFile requestWiseFile = new RequestWiseFile();
+                requestWiseFile.RequestId = (int)model.RequestId;
+                //IformFile has a property that to store filepath u need to add .filename behind it to store path
+                //requestWiseFile.AdminId = 1;
+                requestWiseFile.FileName = model.File.FileName;
+                requestWiseFile.CreatedDate = DateTime.Now;
+                _context.RequestWiseFiles.Add(requestWiseFile);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         OrderViewModel IAdmin.SendOrder(int id)
         {
             var healthProfessionalType = _context.HealthProfessionalTypes.ToList();
+            var healthProfessional = _context.HealthProfessionals.ToList();
             var request = _httpContextAccessor.HttpContext.Request;
             var token = request.Cookies["jwt"];
             CookieModel cookieModel = _jwtService.getDetails(token);
@@ -757,28 +868,9 @@ namespace HalloDoc.LogicLayer.Repository
             OrderViewModel orderViewModel = new OrderViewModel();
             orderViewModel.RequestId = id;
             orderViewModel.healthProfessionalTypes = healthProfessionalType;
+            orderViewModel.healthProfessionals = healthProfessional;
             return orderViewModel;
         }
-
-
-
-
-        //SendOrderModel IAdmin.sendOrder(int id)
-        //{
-        //    var healthProfessionalType = _context.HealthProfessionalTypes.ToList();
-        //    AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
-        //    var request = _httpContextAccessor.HttpContext.Request;
-        //    var token = request.Cookies["jwt"];
-        //    CookieModel cookieModel = _jwtService.getDetails(token);
-        //    string AdminName = cookieModel.name;
-        //    adminNavbarViewModel.AdminName = AdminName;
-        //    adminNavbarViewModel.Tab = 1;
-        //    SendOrderModel sendOrderModel = new SendOrderModel();
-        //    sendOrderModel.RequestId = id;
-        //    sendOrderModel.healthProfessionalTypes = healthProfessionalType;
-        //    sendOrderModel.adminNavbarViewModel = adminNavbarViewModel;
-        //    return sendOrderModel;
-        //}
         bool IAdmin.SendOrder(OrderViewModel model)
         {
             try
@@ -790,7 +882,7 @@ namespace HalloDoc.LogicLayer.Repository
                 OrderDetail orderDetail = new OrderDetail();
                 orderDetail.FaxNumber = model.FaxNumber;
                 orderDetail.VendorId = model.VendorId;
-                orderDetail.NoOfRefill = model.NoOfRefill;
+                orderDetail.NoOfRefill = (int)model.NoOfRefill;
                 orderDetail.Prescription = model.Prescription;
                 orderDetail.RequestId = model.RequestId;
                 orderDetail.CreatedDate = DateTime.Now;

@@ -17,7 +17,8 @@ namespace HalloDoc.DataLayer.ViewModels.AdminViewModels
         public string? Email { get; set; }
         public string? FaxNumber { get; set; }
         public string? Prescription { get; set; }
-        public string? NoOfRefill{ get; set; }
+        public int? NoOfRefill{ get; set; }
         public List<HealthProfessionalType>? healthProfessionalTypes { get; set; }
+        public List<HealthProfessional>? healthProfessionals { get; set; }
     }
 }

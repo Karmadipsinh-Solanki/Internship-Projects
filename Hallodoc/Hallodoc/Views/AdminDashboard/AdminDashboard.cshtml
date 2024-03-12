@@ -261,15 +261,6 @@
 
                                         <div class="form-floating mb-3">
                                             <input type="text" asp-for="RequestId" style="display:none;" id="requestId2" />
-                                            @* <select class="custom-select-3 text-secondary dropdownBorder" id="floatingInput" asp-for="CaseTagId" style="width: 100%;height: 40px;">
-                                            <option value="0" disabled selected hidden><span>Reasons for Cancellation:</span></option>
-                                            <option value="1">No Respone to call or text, left message</option>
-                                            <option value="2">Cost Issue</option>
-                                            <option value="3">Insurance Issue</option>
-                                            <option value="4">Out of Service Area</option>
-                                            <option value="5">Not appropriate for service</option>
-                                            <option value="6">Referral to Clinic or Hospital</option>
-                                            </select> *@
                                             <select class="custom-select-3 text-secondary dropdownBorder" asp-for="CaseTagId" style="width: 100%;height: 54px;padding:8px;">
                                                 <option value="0" style="color:gray !important;"><span style="color:gray;">Reason for Cancellation:</span></option>
                                                 @for (var i = 0; i < Model?.caseTags?.Count; ++i)
@@ -304,19 +295,27 @@
                                 <form asp-action="AssignCase" asp-controller="AdminDashboard" method="post">
                                     <div class="modal-body">
                                         <div class="mb-3">
-                                            <span class="text-secondary" style="font-size:14px"><strong>To assign this request, search and select another Physian.</strong></span>
+                                            <span class="text-secondary" style="font-size:14px"><strong>To assign this request, search and select another Physician.</strong></span>
                                         </div>
 
                                         <div class="form-floating mb-3">
                                             <input type="hidden" asp-for="RequestId" id="requestId" />
-                                            <select class="custom-select text-secondary dropdownBorder" id="regionDropdown" style="width: 100%;height: 54px;padding:8px;">
-                                                <option value="0" disabled selected hidden><span>Narrow Search by Region</span></option>
-
+                                            <select class="custom-select-6 text-secondary dropdownBorder" id="regionDropdown" style="width: 100%;height: 54px;padding:8px;">
+                                                <option value="0"><span>Narrow Search by Region</span></option> 
+                                                @* @foreach (var item in Model.regions)
+                                                {
+                                                    <option value="@item.RegionId"><span>@item.Name</span></option>
+                                                } *@
                                             </select>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <select class="custom-select-3 text-secondary dropdownBorder" id="physicianDropdown" style="width: 100%;height: 54px;padding:8px;">
-                                                <option value="0" disabled selected hidden><span>Select Physician</</span></option>
+                                            <input type="hidden" asp-for="PhysicianId" id="physicianId" />
+                                            <select asp-for="physician" class="custom-select-7 text-secondary dropdownBorder" id="physicianDropdown" style="width: 100%;height: 54px;padding:8px;">
+                                                <option value="0" disabled selected hidden><span>Select Physician</span></option>
+                                             @*    @foreach (var item in Model.physicians)
+                                                {
+                                                    <option value="@item.PhysicianId">@(item.FirstName + " " + item.LastName)</option>
+                                                } *@
                                             </select>
                                         </div>
                                         <div class="form-floating login-fields" style="width: 100%;margin-top: 20px;">
@@ -363,93 +362,162 @@
                             </div>
                         </div>
                     </div>
+
+                    <!--Transfer Case Modal -->
+                    <div class="modal fade " id="transferCaseModal" tabindex="-1" aria-labelledby="transferCaseModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="saveButtonText fs-5" id="transferCaseModalLabel">Transfer Request</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form asp-action="TransferCase" asp-controller="AdminDashboard" method="post">
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <span class="text-secondary" style="font-size:14px"><strong>To transfer this request, search and select another Physician.</strong></span>
+                                        </div>
+
+                                        <div class="form-floating mb-3">
+                                            <input type="hidden" asp-for="RequestId" id="requestId" />
+                                            <select class="custom-select-4 text-secondary dropdownBorder" id="regionDropdown2" style="width: 100%;height: 54px;padding:8px;">
+                                                <option value="0" disabled selected hidden><span>Narrow Search by Region</span></option>
+
+                                            </select>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <select class="custom-select-5 text-secondary dropdownBorder" id="physicianDropdown2" style="width: 100%;height: 54px;padding:8px;">
+                                                <option value="0" disabled selected hidden><span>Select Physician</</span></option>
+                                            </select>
+                                        </div>
+                                        <div class="form-floating login-fields" style="width: 100%;margin-top: 20px;">
+                                            <textarea type="text" placeholder="Description" class="form-control"
+                                                      style="height: 135px !important;" asp-for="Description"></textarea>
+                                            <label for="floatingInput">Description</label>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer form-floating mb-3">
+                                        <button type="submit" class="saveButton"><span class="saveButtonText">Submit</span> </button>
+                                        <button class="cancelButton" data-bs-dismiss="modal" onclick="cancel4()"><span class="cancelButtonText">Cancel</span></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Clear Case Modal -->
+                    <div class="modal fade " id="clearCaseModal" tabindex="-1" aria-labelledby="clearCaseModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content" style="border-radius:10px">
+                                <div class="modal-body p-5">
+                                    <div class="d-flex justify-content-center align-items-center flex-column">
+                                        <div class="d-flex justify-content-between align-items-center mb-4">
+                                            <div class="modalExclamation d-flex justify-content-center align-items-center">
+                                                <div class="subModalExclamation d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="white" class="bi bi-exclamation-lg" viewBox="0 0 16 16">
+                                                        <path d="M7.005 3.1a1 1 0 1 1 1.99 0l-.388 6.35a.61.61 0 0 1-1.214 0zM7 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <h4>Confirmation for clear case</h4>
+                                        </div>
+                                        <div class="mb-5">
+                                            <span class="text-secondary" style="font-size:14px;">Are you sure you want to clear this request?Once clear this request then you are not able to see this request.</span>
+                                        </div>
+                                        <form asp-action="ClearCase" asp-controller="AdminDashboard" method="post">
+                                            <div class="modal-footer form-floating mb-3">
+                                                <input type="hidden" asp-for="RequestId" id="requestId9" />
+                                                <button type="submit" class="saveButton"><span class="saveButtonText">Clear</span> </button>
+                                                <button class="cancelButton" data-bs-dismiss="modal" onclick="cancel4()"><span class="cancelButtonText">Cancel</span></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="main-sub-div-2" class="tabcontent" style="display: none;">
+                    <!-- <span onclick="this.parentElement.style.display='none'" class="topright">&times</span> -->
+                    <!-- <h3>Paris</h3> -->
+                    <p>
+                        Tab 2: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                        has been the industry's standard dummy text ever since the 1500s, when an unknown printer
+                        took a galley of type and scrambled it to make a type specimen book.
+                    </p>
                 </div>
             </div>
-            @* // *@
-            @* <div id="myModal4" class="modal2">
-            <!-- Modal content -->
-            <div class="modal-content2">
-            <div class="modal-header2">
-            <span class="modal-header-2">Confirm Cancellation</span>
-            <span class="close-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-x-lg" viewBox="0 0 16 16">
-            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
-            </svg>
-            </span>
-            </div>
-            <div class="modal-2-sub-div-2">
-            <form asp-action="CancelCase" asp-controller="Admin" method="post">
-
-            <span>Patient Name: xshh nuhx</span>
-            <div style="margin-top:15px;">
-            <input type="text" asp-for="RequestId" style="display:none;" id="requestId2" />
-            <select class="custom-select-3" asp-for="CaseTagId">
-            <option value="0" style="color:gray !important;"><span style="color:gray;">Reason for Cancellation:</span></option>
-            </select>
-            </div>
-            <div class="login-fields" style="margin-bottom:20px;">
-            <textarea type="text" placeholder="Provide Additional Notes" class="form-control" style="height:120px;margin-top:15px;" asp-for="CancelDescription"></textarea>
-            </div>
-            <div style="display: flex; margin-top: 15px; justify-content: flex-end">
-            <button type="submit" class="modal-send-btn">Submit</button>
-            <a onclick="cancel4()" class="modal-cancel-btn">
-            Cancel
-            </a>
-            </div>
-            </form>
-
-            </div>
-            </div>
-            </div> *@
-            @* // *@
-            <div id="main-sub-div-2" class="tabcontent" style="display: none;">
-                <!-- <span onclick="this.parentElement.style.display='none'" class="topright">&times</span> -->
-                <!-- <h3>Paris</h3> -->
-                <p>
-                    Tab 2: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                    has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                    took a galley of type and scrambled it to make a type specimen book.
-                </p>
-            </div>
         </div>
-    </div>
-    <script>
-
-        /*categories-div border around text*/
-        // function changeRequestor(element) {
-        //     // Remove the border-active class from all req-filters
-        //     var reqFilters = document.getElementsByClassName('req-filter');
-        //     for (var i = 0; i < reqFilters.length; i++) {
-        //     //     reqFilters[i].classList.remove('border-active');
-        //         element.classList.add('border-active');
-        //     }
-
-        //     // Add the border-active class to the clicked req-filter
-        //     element.classList.add('border-active');
-
-        //     // Your existing code for handling the click event
-        // }
-
-        //for cancelcase action
-        $(document).ready(function () {
-            $.ajax({
-                url: '/AdminDashboard/FetchTags',
-                type: 'GET',
-                dataType: 'json',
-                success: function (response) {
-                    $('.custom-select-3 option:not(:first)').remove();
-                    $.each(response, function (index, tags) {
-                        var option = $('<option></option>')
-                            .attr('value', tags.id)
-                            .text(tags.name);
-                        $('.custom-select-3').append(option);
+        <script>
+            
+            $(document).ready(function () {
+                $.ajax({
+                    url: '/AdminDashboard/FetchRegions',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log(response);
+                        $('.custom-select-6 option:not(:first)').remove();
+                        $.each(response, function (index, region) {
+                            var option = $('<option></option>')
+                                .attr('value', region.regionId)
+                                .text(region.name);
+                            $('.custom-select-6').append(option);
+                        });
+                    },
+                    error: function () {
+                        alert('An error occurred.');
+                    }
+                });
+                window.onpopstate = function () {
+                    $.ajax({
+                        url: '/AdminDashboard/FetchRegions',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (response) {
+                            console.log(response);
+                            $('.custom-select-6 option:not(:first)').remove();
+                            $.each(response, function (index, region) {
+                                var option = $('<option></option>')
+                                    .attr('value', region.regionId)
+                                    .text(region.name);
+                                $('.custom-select-6').append(option);
+                            });
+                        },
+                        error: function () {
+                            alert('An error occurred.');
+                        }
                     });
-                },
-                error: function () {
-                    alert('An error occurred.');
-                }
+                };
             });
-            window.onpopstate = function () {
+
+            $('#regionDropdown').change(function () {
+                var selectedRegion3 = $(this).val();
+                console.log(selectedRegion3);
+                $.ajax({
+                    url: '/AdminDashboard/FetchPhysicians',
+                    type: 'GET',
+                    data: { id: selectedRegion3 },
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log(response);
+                        $('#physicianDropdown option:not(:first)').remove();
+                        $.each(response, function (index, physician) {
+                            console.log(physician);
+                            var option = $('<option></option>')
+                                .attr('value', physician.physicianId)
+                                .text(physician.firstName + " " + physician.lastName);
+                            $('#physicianDropdown').append(option);
+                        });
+                    },
+                    error: function () {
+                        alert('An error occurred.');
+                    }
+                });
+            });
+            //for cancelcase action
+            $(document).ready(function () {
                 $.ajax({
                     url: '/AdminDashboard/FetchTags',
                     type: 'GET',
@@ -467,58 +535,71 @@
                         alert('An error occurred.');
                     }
                 });
+                window.onpopstate = function () {
+                    $.ajax({
+                        url: '/AdminDashboard/FetchTags',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (response) {
+                            $('.custom-select-3 option:not(:first)').remove();
+                            $.each(response, function (index, tags) {
+                                var option = $('<option></option>')
+                                    .attr('value', tags.id)
+                                    .text(tags.name);
+                                $('.custom-select-3').append(option);
+                            });
+                        },
+                        error: function () {
+                            alert('An error occurred.');
+                        }
+                    });
+                };
+            });
+
+
+            var cancelModal = document.getElementById("cancelCaseModal");
+
+            // var span4 = document.getElementsByClassName("close-btn")[3];
+            function CancelCase(requestId) {
+                console.log(requestId);
+                document.getElementById("requestId2").value = requestId;
+                cancelModal.style.display = "block";
             };
-        });
 
-
-        var cancelModal = document.getElementById("cancelCaseModal");
-
-        // var span4 = document.getElementsByClassName("close-btn")[3];
-        function CancelCase(requestId) {
-            console.log(requestId);
-            document.getElementById("requestId2").value = requestId;
-            cancelModal.style.display = "block";
-        };
-
-        // span4.onclick = function () {
-        //     cancelModal.style.display = "none";
-        // };
-        function cancel4() {
-            cancelModal.style.display = "none";
-        }
-        window.onclick = function (event) {
-            if (event.target == cancelModal) {
+            // span4.onclick = function () {
+            //     cancelModal.style.display = "none";
+            // };
+            function cancel4() {
                 cancelModal.style.display = "none";
             }
-        };
-
-        const BlockCase = (requestid) => {
-            document.getElementById("requestId4").value = requestid;
-        }
-
-        //for assigncase action
-        //here we have to use ajax, because a dropdown is dependant on another dropdown, as after selecting region, we get physians in particular region
-        //and we need to load page to get data dynamically from database, to avoid loading, we use ajax
-        $(document).ready(function () {
-            $.ajax({
-                url: '/AdminDashboard/FetchRegions',
-                type: 'GET',
-                dataType: 'json',
-                success: function (response) {
-                    console.log(response);
-                    $('.custom-select option:not(:first)').remove();
-                    $.each(response, function (index, region) {
-                        var option = $('<option></option>')
-                            .attr('value', region.id)
-                            .text(region.name);
-                        $('.custom-select').append(option);
-                    });
-                },
-                error: function () {
-                    alert('An error occurred.');
+            window.onclick = function (event) {
+                if (event.target == cancelModal) {
+                    cancelModal.style.display = "none";
                 }
-            });
-            window.onpopstate = function () {
+            };
+
+            const BlockCase = (requestid) => {
+                document.getElementById("requestId4").value = requestid;
+            }
+
+            //for assigncase action
+            //here we have to use ajax, because a dropdown is dependant on another dropdown, as after selecting region, we get physians in particular region
+            
+            //and we need to load page to get data dynamically from database, to avoid loading, we use ajax
+
+            // var modal3 = document.getElementById("myModal3");
+            //var dtySupport = document.getElementById("dty-support");
+            // var span3 = document.getElementsByClassName("close-btn")[2];
+            function AssignCase(requestId) {
+                console.log(requestId);
+                document.getElementById("requestId").value = requestId;
+                modal3.style.display = "block";
+            }
+
+            // for transfer case action
+            // here we have to use ajax, because a dropdown is dependant on another dropdown, as after selecting region, we get physians in particular region
+            // and we need to load page to get data dynamically from database, to avoid loading, we use ajax
+            $(document).ready(function () {
                 $.ajax({
                     url: '/AdminDashboard/FetchRegions',
                     type: 'GET',
@@ -537,186 +618,92 @@
                         alert('An error occurred.');
                     }
                 });
-            };
-        });
-
-        $('#regionDropdown').change(function () {
-            var selectedRegion = $(this).val();
-
-            $.ajax({
-                url: '/AdminDashboard/FetchPhysicians',
-                type: 'GET',
-                data: { id: selectedRegion },
-                dataType: 'json',
-                success: function (response) {
-                    console.log(response);
-                    $('#physicianDropdown option:not(:first)').remove();
-                    $.each(response, function (index, physician) {
-                        var option = $('<option></option>')
-                            .attr('value', physician.physicianId)
-                            .text(physician.firstName + " " + physician.lastName);
-                        $('#physicianDropdown').append(option);
+                window.onpopstate = function () {
+                    $.ajax({
+                        url: '/AdminDashboard/FetchRegions',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (response) {
+                            console.log(response);
+                            $('.custom-select option:not(:first)').remove();
+                            $.each(response, function (index, region) {
+                                var option = $('<option></option>')
+                                    .attr('value', region.id)
+                                    .text(region.name);
+                                $('.custom-select').append(option);
+                            });
+                        },
+                        error: function () {
+                            alert('An error occurred.');
+                        }
                     });
-                },
-                error: function () {
-                    alert('An error occurred.');
-                }
+                };
             });
-        });
 
-        // var modal3 = document.getElementById("myModal3");
-        //var dtySupport = document.getElementById("dty-support");
-        // var span3 = document.getElementsByClassName("close-btn")[2];
-        function AssignCase(requestId) {
-            console.log(requestId);
-            document.getElementById("requestId").value = requestId;
-            modal3.style.display = "block";
-        };
-        // span3.onclick = function () {
-        //     modal3.style.display = "none";
-        // };
-        // function cancel3() {
-        //     modal3.style.display = "none";
-        // }
-        // window.onclick = function (event) {
-        //     if (event.target == modal3) {
-        //         modal3.style.display = "none";
-        //     }
-        // };
-        //
-        // $(document).ready(function () {
-        //     $.ajax({
-        //         url: '/AdminDashboard/FetchTags',
-        //         type: 'GET',
-        //         dataType: 'json',
-        //         success: function (response) {
-        //             $('.custom-select-3 option:not(:first)').remove();
-        //             $.each(response, function (index, tags) {
-        //                 var option = $('<option></option>')
-        //                     .attr('value', tags.id)
-        //                     .text(tags.name);
-        //                 $('.custom-select-3').append(option);
-        //             });
-        //         },
-        //         error: function () {
-        //             alert('An error occurred.');
-        //         }
-        //     });
-        //     window.onpopstate = function () {
-        //         $.ajax({
-        //             url: '/AdminDashboard/FetchTags',
-        //             type: 'GET',
-        //             dataType: 'json',
-        //             success: function (response) {
-        //                 $('.custom-select-3 option:not(:first)').remove();
-        //                 $.each(response, function (index, tags) {
-        //                     var option = $('<option></option>')
-        //                         .attr('value', tags.id)
-        //                         .text(tags.name);
-        //                     $('.custom-select-3').append(option);
-        //                 });
-        //             },
-        //             error: function () {
-        //                 alert('An error occurred.');
-        //             }
-        //         });
-        //     };
-        // });
+            $('#regionDropdown2').change(function () {
+                var selectedRegion = $(this).val();
 
+                $.ajax({
+                    url: '/AdminDashboard/FetchPhysicians',
+                    type: 'GET',
+                    data: { id: selectedRegion },
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log(response);
+                        $('#physicianDropdown2 option:not(:first)').remove();
+                        $.each(response, function (index, physician) {
+                            var option = $('<option></option>')
+                                .attr('value', physician.physicianId)
+                                .text(physician.firstName + " " + physician.lastName);
+                            $('#physicianDropdown2').append(option);
+                        });
+                    },
+                    error: function () {
+                        alert('An error occurred.');
+                    }
+                });
+            });
 
-        // var assignModal = document.getElementById("assignCaseModal");
+            //data table initiate
+            $(document).ready(function () {
+                $("#dtBasicExample").DataTable();
+            });
+            let sidebarOpen = false;
+            function hamburger() {
+                if (!sidebarOpen) {
+                    document.getElementById('sidebar').style.display = "flex";
+                    document.getElementById('main-div').style.opacity = "0.5";
+                    document.getElementById('main-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+                    // document.getElementById("defaultOpen2").click();
+                    sidebarOpen = true;
+                } else {
+                    console.log('hii');
+                    document.getElementById('sidebar').style.display = "none";
+                    document.getElementById('main-div').style.opacity = "1";
+                    document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+                    sidebarOpen = false;
+                }
+            }
 
-        // // var span4 = document.getElementsByClassName("close-btn")[3];
-        // function AssignCase(requestId) {
-        //     console.log(requestId);
-        //     document.getElementById("requestId2").value = requestId;
-        //     assignModal.style.display = "block";
-        // };
-
-
-        //data table initiate
-        $(document).ready(function () {
-            $("#dtBasicExample").DataTable();
-        });
-        let sidebarOpen = false;
-        function hamburger() {
-            if (!sidebarOpen) {
-                document.getElementById('sidebar').style.display = "flex";
-                document.getElementById('main-div').style.opacity = "0.5";
-                document.getElementById('main-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
-                // document.getElementById("defaultOpen2").click();
-                sidebarOpen = true;
-            } else {
-                console.log('hii');
+            function openTab(evt, cityName) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(cityName).style.display = "block";
+                evt.currentTarget.className += " active";
                 document.getElementById('sidebar').style.display = "none";
                 document.getElementById('main-div').style.opacity = "1";
                 document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
                 sidebarOpen = false;
             }
-        }
-
-        function openTab(evt, cityName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(cityName).style.display = "block";
-            evt.currentTarget.className += " active";
-            document.getElementById('sidebar').style.display = "none";
-            document.getElementById('main-div').style.opacity = "1";
-            document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
-            sidebarOpen = false;
-        }
-        $.ajax({
-            url: `/AdminDashboard/New`,
-            type: 'POST',
-            dataType: 'html',
-            // Pass your data here
-            success: function (response) {
-                $("#AdminDashboardPartialView").html(response)
-            },
-            error: function () {
-                alert('An error occurred.');
-            }
-        });
-        document.getElementById("defaultOpen").click();
-
-        //for changing status and focus on status
-        const changeStatus = (element) => {
-            const states = document.getElementsByClassName("state");
-            const current_state = element.classList[1];
-            for (let i = 0; i < states.length; ++i) {
-                if (states[i].classList.length == 3 && states[i].classList[1] == current_state) {
-                    break;
-                }
-                else if (states[i].classList[1] == current_state) {
-                    states[i].classList.add(`${states[i].classList[1]}-active`);
-                    document.getElementById(`${states[i].classList[1]}-active`).classList.remove('hide');
-                    document.getElementById(`${states[i].classList[1]}`).classList.add('hide');
-                    document.getElementById(`${states[i].classList[1]}-img`).classList.remove('hidden');
-                }
-                else if (states[i].classList.length == 3) {
-                    states[i].classList.remove(`${states[i].classList[1]}-active`);
-                    document.getElementById(`${states[i].classList[1]}-active`).classList.add('hide');
-                    document.getElementById(`${states[i].classList[1]}`).classList.remove('hide');
-                    document.getElementById(`${states[i].classList[1]}-img`).classList.add('hidden');
-                }
-            }
-
-            let name = current_state.split("-").length == 1 ? current_state.split("-")[0] : current_state.split("-")[1];
-            let finalName = name.split("State")[0];
-            if (finalName == "toclose") {
-                document.getElementById("status-text").innerHTML = "(To Close)";
-            } else {
-                document.getElementById("status-text").innerHTML = `(${finalName.charAt(0).toUpperCase() + finalName.slice(1)})`;
-            }
             $.ajax({
-                url: `/AdminDashboard/${finalName.charAt(0).toUpperCase() + finalName.slice(1)}`,
+                url: `/AdminDashboard/New`,
                 type: 'POST',
                 dataType: 'html',
                 // Pass your data here
@@ -727,68 +714,111 @@
                     alert('An error occurred.');
                 }
             });
-        }
+            document.getElementById("defaultOpen").click();
 
-        // filter by search
+            //for changing status and focus on status
+            const changeStatus = (element) => {
+                const states = document.getElementsByClassName("state");
+                const current_state = element.classList[1];
+                for (let i = 0; i < states.length; ++i) {
+                    if (states[i].classList.length == 3 && states[i].classList[1] == current_state) {
+                        break;
+                    }
+                    else if (states[i].classList[1] == current_state) {
+                        states[i].classList.add(`${states[i].classList[1]}-active`);
+                        document.getElementById(`${states[i].classList[1]}-active`).classList.remove('hide');
+                        document.getElementById(`${states[i].classList[1]}`).classList.add('hide');
+                        document.getElementById(`${states[i].classList[1]}-img`).classList.remove('hidden');
+                    }
+                    else if (states[i].classList.length == 3) {
+                        states[i].classList.remove(`${states[i].classList[1]}-active`);
+                        document.getElementById(`${states[i].classList[1]}-active`).classList.add('hide');
+                        document.getElementById(`${states[i].classList[1]}`).classList.remove('hide');
+                        document.getElementById(`${states[i].classList[1]}-img`).classList.add('hidden');
+                    }
+                }
 
-        const searchFilter = (search) => {
-            const states = document.getElementsByClassName("req-filter")
-            console.log(states)
-            for (let i = 0; i < states.length; ++i) {
-                console.log("Hello in for")
-                if (states[i].classList.length == 3) {
-                    console.log("Hello in if")
-                    $.ajax({
-                        url: `/AdminDashboard/${document.getElementById("status-text").innerHTML.substring(1, document.getElementById("status-text").innerHTML.length - 1)}`,
-                        type: 'POST',
-                        dataType: 'html',
-                        data: { search: search.value, region: document.getElementById("region").value, requestor: states[i].classList[1] },
-                        // Pass your data here
-                        success: function (response) {
-                            $("#AdminDashboardPartialView").html(response)
-                        },
-                        error: function () {
-                            alert('An error occurred.');
-                        }
-                    });
+                let name = current_state.split("-").length == 1 ? current_state.split("-")[0] : current_state.split("-")[1];
+                let finalName = name.split("State")[0];
+                if (finalName == "toclose") {
+                    document.getElementById("status-text").innerHTML = "(To Close)";
+                } else {
+                    document.getElementById("status-text").innerHTML = `(${finalName.charAt(0).toUpperCase() + finalName.slice(1)})`;
                 }
-            }
-        }
-
-        function oncheck() {
-            var check = document.getElementById('checkall').checked;
-            if (check) {
-                var len = document.getElementsByClassName('checkboxes');
-                for (var i = 0; i < len.length; i++) {
-                    len[i].checked = true;
-                }
-            } else {
-                var len = document.getElementsByClassName('checkboxes');
-                for (var i = 0; i < len.length; i++) {
-                    len[i].checked = false;
-                }
-            }
-            console.log(check);
-        }
-
-        // filter based on all patient .....
-
-        const changeRequestor = (element) => {
-            const states = document.getElementsByClassName("req-filter")
-            const current_state = element.classList[1]
-
-            for (let i = 0; i < states.length; ++i) {
-                if (states[i].classList.length == 3 && states[i].classList[1] == current_state) {
-                    break;
-                }
-                else if (states[i].classList[1] == current_state) {
-                    states[i].classList.add(`filter-active`)
-                }
-                else if (states[i].classList.length == 3) {
-                    states[i].classList.remove(`filter-active`)
-                }
+                $.ajax({
+                    url: `/AdminDashboard/${finalName.charAt(0).toUpperCase() + finalName.slice(1)}`,
+                    type: 'POST',
+                    dataType: 'html',
+                    // Pass your data here
+                    success: function (response) {
+                        $("#AdminDashboardPartialView").html(response)
+                    },
+                    error: function () {
+                        alert('An error occurred.');
+                    }
+                });
             }
 
+            // filter by search
+
+            const searchFilter = (search) => {
+                const states = document.getElementsByClassName("req-filter")
+                console.log(states)
+                for (let i = 0; i < states.length; ++i) {
+                    console.log("Hello in for")
+                    if (states[i].classList.length == 3) {
+                        console.log("Hello in if")
+                        $.ajax({
+                            url: `/AdminDashboard/${document.getElementById("status-text").innerHTML.substring(1, document.getElementById("status-text").innerHTML.length - 1)}`,
+                            type: 'POST',
+                            dataType: 'html',
+                            data: { search: search.value, region: document.getElementById("region").value, requestor: states[i].classList[1] },
+                            // Pass your data here
+                            success: function (response) {
+                                $("#AdminDashboardPartialView").html(response)
+                            },
+                            error: function () {
+                                alert('An error occurred.');
+                            }
+                        });
+                    }
+                }
+            }
+
+            function oncheck() {
+                var check = document.getElementById('checkall').checked;
+                if (check) {
+                    var len = document.getElementsByClassName('checkboxes');
+                    for (var i = 0; i < len.length; i++) {
+                        len[i].checked = true;
+                    }
+                } else {
+                    var len = document.getElementsByClassName('checkboxes');
+                    for (var i = 0; i < len.length; i++) {
+                        len[i].checked = false;
+                    }
+                }
+                console.log(check);
+            }
+
+            // filter based on all patient .....
+
+            const changeRequestor = (element) => {
+                const states = document.getElementsByClassName("req-filter")
+                const current_state = element.classList[1]
+
+                for (let i = 0; i < states.length; ++i) {
+                    if (states[i].classList.length == 3 && states[i].classList[1] == current_state) {
+                        break;
+                    }
+                    else if (states[i].classList[1] == current_state) {
+                        states[i].classList.add(`filter-active`)
+                    }
+                    else if (states[i].classList.length == 3) {
+                        states[i].classList.remove(`filter-active`)
+                    }
+                }
+            }
             //add border when clicked
             for (var i = 0; i < states.length; i++) {
                 states[i].classList.remove('filter-active');
@@ -796,9 +826,11 @@
             // Add the active class to the clicked element
             element.classList.add('filter-active');
 
-
+            
+            //?????
             // document.getElementById("partial-container").style.display = "none";
             // document.getElementsByClassName("loader-container")[0].style.display = "flex";
+            consol.log('hii')
             console.log(`/AdminDashboard/${document.getElementById("status-text").innerHTML.substring(1, document.getElementById("status-text").innerHTML.length - 1)}`)
             $.ajax({
                 url: `/AdminDashboard/${document.getElementById("status-text").innerHTML.substring(1, document.getElementById("status-text").innerHTML.length - 1)}`,
@@ -815,106 +847,105 @@
                     alert('An error occurred.');
                 }
             });
+            //?????
 
-        }
-
-        //for creating countrywise phone format
-        const phoneInputField = document.querySelector("#phone");
-        const phoneInput = window.intlTelInput(phoneInputField, {
-            innerHeight: 1,
-            utilsScript:
-                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-        });
-
+            //for creating countrywise phone format
+            const phoneInputField = document.querySelector("#phone");
+            const phoneInput = window.intlTelInput(phoneInputField, {
+                innerHeight: 1,
+                utilsScript:
+                    "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+            });
 
 
 
-        // toggleDropdown
-        // function toggleDropdown() {
-        //     var x = document.getElementById("myDIV");
-        //     if (x.style.display === "none") {
-        //         x.style.display = "block";
-        //     } else {
-        //         x.style.display = "none";
-        //     }
-        // }
 
-        // let isdropdownactive = false;
+            // toggleDropdown
+            // function toggleDropdown() {
+            //     var x = document.getElementById("myDIV");
+            //     if (x.style.display === "none") {
+            //         x.style.display = "block";
+            //     } else {
+            //         x.style.display = "none";
+            //     }
+            // }
 
-        // function toggledropdown() {
-        //     const dropdown = document.queryselector('.dropdown');
-        //     isdropdownactive = !isdropdownactive;
-        //     dropdown.classlist.toggle('active');
-        // }
-        // document.addeventlistener('click', (event) => {
-        //     const dropdown = document.queryselector('.dropdown');
-        //     if (isdropdownactive && !dropdown.contains(event.target)) {
-        //         isdropdownactive = false;
-        //         dropdown.classlist.remove('active');
-        //     }
-        // });
-        // $(document).ready(function () {
-        //     $("#dtbasicexample").datatable();
-        // });
+            // let isdropdownactive = false;
 
-        function toggleDropdown(event) {
-            var dropdownContent = event.target.nextElementSibling;
-            var requestId = dropdownContent.getAttribute("data-request-id");
+            // function toggledropdown() {
+            //     const dropdown = document.queryselector('.dropdown');
+            //     isdropdownactive = !isdropdownactive;
+            //     dropdown.classlist.toggle('active');
+            // }
+            // document.addeventlistener('click', (event) => {
+            //     const dropdown = document.queryselector('.dropdown');
+            //     if (isdropdownactive && !dropdown.contains(event.target)) {
+            //         isdropdownactive = false;
+            //         dropdown.classlist.remove('active');
+            //     }
+            // });
+            // $(document).ready(function () {
+            //     $("#dtbasicexample").datatable();
+            // });
 
-            // Hide all dropdowns
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            for (var i = 0; i < dropdowns.length; i++) {
-                if (dropdowns[i].getAttribute("data-request-id") != requestId) {
-                    dropdowns[i].classList.add("hidden");
+            function toggleDropdown(event) {
+                var dropdownContent = event.target.nextElementSibling;
+                var requestId = dropdownContent.getAttribute("data-request-id");
+
+                // Hide all dropdowns
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    if (dropdowns[i].getAttribute("data-request-id") != requestId) {
+                        dropdowns[i].classList.add("hidden");
+                    }
+                }
+
+                // Toggle the visibility of the current dropdown
+                dropdownContent.classList.toggle("hidden");
+            }
+            //endtoggledropdown
+
+
+            window.onload = function checkingTheme() {
+                try {
+                    let themeCheck = localStorage.getItem('theme');
+                    if (themeCheck == null || themeCheck == 'light') {
+                        document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+                        // document.getElementById('main-sub-div').style.backgroundColor = "white";
+                        document.getElementById('body').style.backgroundColor = "#f5f5f5";
+                        document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
+                        document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+                    } else {
+                        document.getElementById('main-div').style.backgroundColor = "black";
+                        // document.getElementById('main-sub-div').style.backgroundColor = "black";
+                        document.getElementById('body').style.backgroundColor = "black";
+                        document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
+                        document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
+                    }
+                } catch (error) {
+                    console.log('no themes decided yet');
                 }
             }
-
-            // Toggle the visibility of the current dropdown
-            dropdownContent.classList.toggle("hidden");
-        }
-        //endtoggledropdown
-
-
-        window.onload = function checkingTheme() {
-            try {
-                let themeCheck = localStorage.getItem('theme');
-                if (themeCheck == null || themeCheck == 'light') {
-                    document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
-                    // document.getElementById('main-sub-div').style.backgroundColor = "white";
-                    document.getElementById('body').style.backgroundColor = "#f5f5f5";
-                    document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
-                    document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
-                } else {
+            function changeTheme() {
+                let theme = localStorage.getItem('theme');
+                if (theme == null || theme == 'light') {
+                    localStorage.setItem('theme', 'dark');
                     document.getElementById('main-div').style.backgroundColor = "black";
                     // document.getElementById('main-sub-div').style.backgroundColor = "black";
                     document.getElementById('body').style.backgroundColor = "black";
                     document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
                     document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
+                } else if (theme == 'dark') {
+                    localStorage.setItem('theme', 'light');
+                    document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+                    // document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
+                    document.getElementById('body').style.backgroundColor = "#f5f5f5";
+                    document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
+                    document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
                 }
-            } catch (error) {
-                console.log('no themes decided yet');
             }
-        }
-        function changeTheme() {
-            let theme = localStorage.getItem('theme');
-            if (theme == null || theme == 'light') {
-                localStorage.setItem('theme', 'dark');
-                document.getElementById('main-div').style.backgroundColor = "black";
-                // document.getElementById('main-sub-div').style.backgroundColor = "black";
-                document.getElementById('body').style.backgroundColor = "black";
-                document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
-                document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
-            } else if (theme == 'dark') {
-                localStorage.setItem('theme', 'light');
-                document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
-                // document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
-                document.getElementById('body').style.backgroundColor = "#f5f5f5";
-                document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
-                document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
-            }
-        }
 
 
-    </script>
+        </script>
 
-</div>
+    </div>

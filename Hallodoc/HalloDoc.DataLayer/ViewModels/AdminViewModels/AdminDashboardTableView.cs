@@ -18,6 +18,9 @@ public class AdminDashboardTableView
     public List<Request> requests { get; set; } = new List<Request>();
     public IQueryable<Request> query_requests { get; set; }
     public List<Region> regions { get; set; } = new List<Region>();
+    public string? region { get; set; }
+    public List<Physician> physicians { get; set; } = new List<Physician>();
+    public string? physician{ get; set; }
     public string status { get; set; }
 
     public List<CaseTag>? caseTags { get; set; }
@@ -32,6 +35,5 @@ public class AdminDashboardTableView
     public int RequestId { get; set; }
     public string CancelDescription { get; set; }
     public string CaseTagId { get; set; }
-    //public List<Region>? regions { get; set; } = new List<Region>();
     public string BlockReason { get; set; }
 }

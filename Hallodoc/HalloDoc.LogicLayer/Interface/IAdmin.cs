@@ -23,16 +23,21 @@ namespace HalloDoc.LogicLayer.Interface
         public bool viewNotes(ViewNotesViewModel model);
         public ViewUploadViewModel viewUpload(int id);
         public bool viewUpload(ViewUploadViewModel model);
+        public ViewUploadViewModel closeCase(int id);
+        public bool closeCase(ViewUploadViewModel model);
         public bool SendOrder(OrderViewModel model);
         public OrderViewModel SendOrder(int id);
         //public bool SendOrder(OrderViewModel model);
         public List<Region> fetchRegions();
         public List<Physician> fetchPhysicians(int id);
         public List<CaseTag> fetchTags();
-        public List<HealthProfessional> fetchBusinessDetail();
+        public List<HealthProfessional> fetchBusiness(int id);
+        public HealthProfessional fetchBusinessDetail(int id);
         public bool assignCase(AdminDashboardTableView model);
+        public bool transferCase(AdminDashboardTableView model);
         public bool cancelCase(AdminDashboardTableView model);
         public bool clearCase(AdminDashboardTableView model);
+        public bool closeCase(AdminDashboardTableView model);
         public bool blockCase(AdminDashboardTableView model);
     }
 }

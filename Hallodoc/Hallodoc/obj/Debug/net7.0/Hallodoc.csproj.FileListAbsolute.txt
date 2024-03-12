@@ -486,3 +486,4 @@ C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\M
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\pca161\Desktop\Internship-Projects\Hallodoc\Hallodoc\obj\Debug\net7.0\Hallodoc.MvcApplicationPartsAssemblyInfo.cs

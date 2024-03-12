@@ -225,9 +225,15 @@ namespace HalloDoc.Controllers
             return RedirectToAction("ViewNotes", new { id = viewNotesViewModel.RequestId });
 
         }
-        HealthProfessional IAdmin.fetchBusinessDetail(int id)
+        
+        public IActionResult fetchBusiness(int id)
         {
-            return _context.HealthProfessionals.FirstOrDefault(r => r.VendorId == id);
+            List<HealthProfessional> business = _admin.fetchBusiness(id);
+            return Json(business);
+        }public IActionResult fetchBusinessDetail(int id)
+        {
+            HealthProfessional business = _admin.fetchBusinessDetail(id);
+            return Json(business);
         }
         public IActionResult FetchTags()
         {
@@ -242,6 +248,7 @@ namespace HalloDoc.Controllers
             List<Hallodoc.Region> regions = _admin.fetchRegions();
             return Json(regions);
         }
+
         public IActionResult FetchPhysicians(int id)
         {
             //var physicians = _context.Physicians.Where(r => r.RegionId == id).ToList();
@@ -249,6 +256,7 @@ namespace HalloDoc.Controllers
             return Json(physicians);
         }
 
+        [HttpPost]
         public IActionResult AssignCase(AdminDashboardTableView model)
         {
             bool check = _admin.assignCase(model);
@@ -262,6 +270,7 @@ namespace HalloDoc.Controllers
             }
             return RedirectToAction("AdminDashboard");
         }
+        [HttpPost]
         public IActionResult CancelCase(AdminDashboardTableView model)
         {
             bool check = _admin.cancelCase(model);
@@ -275,7 +284,22 @@ namespace HalloDoc.Controllers
             }
             return RedirectToAction("AdminDashboard");
         }
+        [HttpPost]
         public IActionResult ClearCase(AdminDashboardTableView model)
+        {
+            bool check = _admin.clearCase(model);
+            if (check)
+            {
+                TempData["success"] = "Case cleared successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Case not cleared!";
+            }
+            return RedirectToAction("AdminDashboard");
+        }
+        [HttpPost]
+        public IActionResult CloseCase(AdminDashboardTableView model)
         {
             bool check = _admin.clearCase(model);
             if (check)
@@ -332,11 +356,6 @@ namespace HalloDoc.Controllers
             ViewUploadViewModel viewUploadViewModel = _admin.viewUpload(id);
             return View(viewUploadViewModel);
         }
-        public IActionResult SendOrder(int id)
-        {
-            OrderViewModel orderViewModel = _admin.SendOrder(id);
-            return View(orderViewModel);
-        }
         [HttpPost]
         public IActionResult viewUpload(ViewUploadViewModel model, int id)
         {
@@ -348,6 +367,45 @@ namespace HalloDoc.Controllers
             else
             {
                 TempData["error"] = "Document is not Uploaded!";
+            }
+            return RedirectToAction("viewUpload");
+        }
+        public IActionResult SendOrder(int id)
+        {
+            OrderViewModel orderViewModel = _admin.SendOrder(id);
+            return View(orderViewModel);
+        }
+        [HttpPost]
+        public IActionResult SendOrder(OrderViewModel model)
+        {
+            bool check = _admin.SendOrder(model);
+            if (check)
+            {
+                TempData["success"] = "Order sent successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,Order not sent!";
+            }
+            return RedirectToAction("AdminDashboard");
+        }
+
+        public IActionResult closeCase(int id)
+        {
+            ViewUploadViewModel viewUploadViewModel = _admin.closeCase(id);
+            return View(viewUploadViewModel);
+        }
+        [HttpPost]
+        public IActionResult closeCase(ViewUploadViewModel model, int id)
+        {
+            bool check = _admin.closeCase(model);
+            if (check)
+            {
+                TempData["success"] = "Case closed successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Case is not closed yet!";
             }
             return RedirectToAction("viewUpload");
         }
