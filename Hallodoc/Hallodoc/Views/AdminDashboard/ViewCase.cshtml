@@ -18,19 +18,27 @@
     <partial name="AdminDashboardNavbar"/>
     <div class="maindiv container-fluid d-flex flex-column justify-content-center px-5" style="background-color:#f5f5f5;">
             <div class="firstdiv d-flex justify-content-between align-items-center">
+                <form asp-action="viewcase" asp-controller="AdminDashboard" method="post">
+                <input type="hidden" asp-for="RequestId" id="requestId" />
                 @if (Model.Status.Equals("Reserved"))
                 {
                     <h3>
-                        View Reservation<span id="status-text" class="state">(New)</span>
+                        View Reservation
+                        <span class="WhosRequest" id="status-text">
+                            @(Model.Requestor)
+                        </span>
                     </h3>
                 }
                 @if (Model.Status != "Reserved")
                 {
                     <h3>
-                        New Request<span class="state">(New)</span>
+                        New Request
+                        <span class="WhosRequest" id="status-text">
+                            @(Model.Requestor)
+                        </span>
                     </h3>
                 }
-
+                </form>
                 <div class="btn cancelButton mb-3 mt-3" style="background-color:transparent;">
                     <a class="textdeconone" asp-controller="AdminDashboard" asp-action="AdminDashboard">
                         <span class="cancelButtonText">&lt Back</span>

@@ -271,6 +271,21 @@ namespace HalloDoc.Controllers
             return RedirectToAction("AdminDashboard");
         }
         [HttpPost]
+        public IActionResult TransferCase(AdminDashboardTableView model)
+        {
+            bool check = _admin.transferCase(model);
+            if (check)
+            {
+                TempData["success"] = "Case transferred successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Case is not transferred!";
+            }
+            return RedirectToAction("AdminDashboard");
+        }
+
+        [HttpPost]
         public IActionResult CancelCase(AdminDashboardTableView model)
         {
             bool check = _admin.cancelCase(model);
@@ -323,20 +338,6 @@ namespace HalloDoc.Controllers
             else
             {
                 TempData["error"] = "Case is not blocked!";
-            }
-            return RedirectToAction("AdminDashboard");
-        }
-
-        public IActionResult TransferCase(AdminDashboardTableView model)
-        {
-            bool check = _admin.assignCase(model);
-            if (check)
-            {
-                TempData["success"] = "Case transferred successfully!";
-            }
-            else
-            {
-                TempData["error"] = "Case is not transferred!";
             }
             return RedirectToAction("AdminDashboard");
         }
@@ -409,6 +410,21 @@ namespace HalloDoc.Controllers
             }
             return RedirectToAction("viewUpload");
         }
+        [HttpPost]
+        public IActionResult SendAgreement(AdminDashboardTableView model,int id)
+        {
+            bool check = _admin.sendAgreement(model,id);
+            if (check)
+            {
+                TempData["success"] = "Case closed successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Case is not closed yet!";
+            }
+            return RedirectToAction("viewUpload");
+        }
+        public IActionResult ReviewAgreement() { return View(); }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

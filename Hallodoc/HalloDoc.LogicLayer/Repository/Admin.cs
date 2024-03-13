@@ -40,7 +40,7 @@ namespace HalloDoc.LogicLayer.Repository
 
         //}
 
-        AdminDashboardTableView IAdmin.adminDashboard(string status,string? search, int? region, string? requestor)
+        AdminDashboardTableView IAdmin.adminDashboard(string status, string? search, int? region, string? requestor)
         {
 
             Expression<Func<Request, bool>> exp;
@@ -151,7 +151,7 @@ namespace HalloDoc.LogicLayer.Repository
                 _context.SaveChanges();
             }
             return true;
-           
+
         }
         ViewNotesViewModel IAdmin.viewNotes(int id)
         {
@@ -182,6 +182,7 @@ namespace HalloDoc.LogicLayer.Repository
             };
             return viewnotesviewmodel;
         }
+        //current
         ViewCaseModel IAdmin.viewCase(int id)
         {
             ViewCaseModel viewCaseModel = new ViewCaseModel();
@@ -201,6 +202,7 @@ namespace HalloDoc.LogicLayer.Repository
             viewCaseModel.FirstName = data.RequestClient.FirstName;
             viewCaseModel.LastName = data.RequestClient.LastName;
             viewCaseModel.RequestId = data.RequestId;
+            viewCaseModel.RequestTypeId = data.RequestTypeId;
             viewCaseModel.Region = data.RequestClient.State;
             int requestId = data.RequestTypeId;
             var requestor = "";
@@ -225,54 +227,108 @@ namespace HalloDoc.LogicLayer.Repository
 
             // Assuming data.RequestClient.StrMonth is a string containing the full month name
 
-       var month1 = data.RequestClient.StrMonth;
-                string monthName;
-                switch (month1)
-                {
-                    case "1":
-                        monthName = "January";
-                        break;
-                    case "2":
-                        monthName = "February";
-                        break;
-                    case "3":
-                        monthName = "March";
-                        break;
-                    case "4":
-                        monthName = "April";
-                        break;
-                    case "5":
-                        monthName = "May";
-                        break;
-                    case "6":
-                        monthName = "June";
-                        break;
-                    case "7":
-                        monthName = "July";
-                        break;
-                    case "8":
-                        monthName = "August";
-                        break;
-                    case "9":
-                        monthName = "September";
-                        break;
-                    case "10":
-                        monthName = "October";
-                        break;
-                    case "11":
-                        monthName = "November";
-                        break;
-                    case "12":
-                        monthName = "December";
-                        break;
-                    default:
-                        monthName = "Invalid month";
-                        break;
-                }
-                int month = DateTime.ParseExact(monthName, "MMMM", new CultureInfo("en-US")).Month;
+            //var month1 = data.RequestClient.StrMonth;
+            //string monthName;
+            //switch (month1)
+            //{
+            //    case "1":
+            //        monthName = "January";
+            //        break;
+            //    case "2":
+            //        monthName = "February";
+            //        break;
+            //    case "3":
+            //        monthName = "March";
+            //        break;
+            //    case "4":
+            //        monthName = "April";
+            //        break;
+            //    case "5":
+            //        monthName = "May";
+            //        break;
+            //    case "6":
+            //        monthName = "June";
+            //        break;
+            //    case "7":
+            //        monthName = "July";
+            //        break;
+            //    case "8":
+            //        monthName = "August";
+            //        break;
+            //    case "9":
+            //        monthName = "September";
+            //        break;
+            //    case "10":
+            //        monthName = "October";
+            //        break;
+            //    case "11":
+            //        monthName = "November";
+            //        break;
+            //    case "12":
+            //        monthName = "December";
+            //        break;
+            //    default:
+            //        monthName = "Invalid month";
+            //        break;
+            //}
+            //int month = DateTime.ParseExact(monthName, "MMMM", new CultureInfo("en-US")).Month;
+            //viewCaseModel.DOB = new DateTime((int)data.RequestClient.IntYear, month, (int)data.RequestClient.IntDate);
+
+
+            int month;
+            switch (data.RequestClient.StrMonth)
+            {
+                case "1":
+                    month = 1;
+                    break;
+                case "2":
+                    month = 2;
+                    break;
+                case "3":
+                    month = 3;
+                    break;
+                case "4":
+                    month = 4;
+                    break;
+                case "5":
+                    month = 5;
+                    break;
+                case "6":
+                    month = 6;
+                    break;
+                case "7":
+                    month = 7;
+                    break;
+                case "8":
+                    month = 8;
+                    break;
+                case "9":
+                    month = 9;
+                    break;
+                case "10":
+                    month = 10;
+                    break;
+                case "11":
+                    month = 11;
+                    break;
+                case "12":
+                    month = 12;
+                    break;
+                default:
+                    month = 0;
+                    break;
+            }
+
+            if (month == 0)
+            {
+                // Handle invalid month value here
+            }
+            else
+            {
                 viewCaseModel.DOB = new DateTime((int)data.RequestClient.IntYear, month, (int)data.RequestClient.IntDate);
-          return viewCaseModel;
-            
+            }
+            return viewCaseModel;
+
         }
         bool IAdmin.viewCase(ViewCaseModel model)
         {
@@ -364,7 +420,7 @@ namespace HalloDoc.LogicLayer.Repository
             workbook.SaveAs(memoryStream);
             memoryStream.Seek(0, SeekOrigin.Begin);
             return memoryStream;
-        }   
+        }
         bool IAdmin.sendLink(AdminDashboardTableView model)
         {
             var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
@@ -505,7 +561,7 @@ namespace HalloDoc.LogicLayer.Repository
                     MailMessage mailMessage = new MailMessage
                     {
                         From = new MailAddress(senderEmail, "HalloDoc"),
-                        Subject = "Register Case",
+                        Subject = "Create password request",
                         IsBodyHtml = true,
                         Body = message,
                     };
@@ -587,6 +643,36 @@ namespace HalloDoc.LogicLayer.Repository
             return _context.CaseTags.ToList();
         }
         bool IAdmin.assignCase(AdminDashboardTableView model)
+        {
+            int requestId = model.RequestId;
+            if (requestId != null)
+            {
+                var requestToUpdate = _context.Requests.Include(u => u.Physician).Where(u => u.RequestId == requestId).FirstOrDefault();
+                var PhysicianName = _context.Physicians.FirstOrDefault(u => u.PhysicianId == model.PhysicianId).FirstName;
+                if (requestToUpdate != null)
+                {
+                    requestToUpdate.PhysicianId = model.PhysicianId;
+                    requestToUpdate.ModifiedDate = DateTime.Now;
+                    requestToUpdate.Status = 2;
+                    _context.Requests.Update(requestToUpdate);
+                    _context.SaveChanges();
+                }
+                RequestStatusLog requestStatusLog = new RequestStatusLog();
+                requestStatusLog.RequestId = requestId;
+                requestStatusLog.Status = 2;
+                requestStatusLog.Notes = "Admin transferred to Dr. " + PhysicianName + " on " + DateTime.Now.ToString("dd/MM/yyyy") + " at " + DateTime.Now.ToString("HH:mm:ss") + " : " + model.Description;
+                requestStatusLog.CreatedDate = DateTime.Now;
+                requestStatusLog.TransToPhysicianId = model.PhysicianId;
+                _context.RequestStatusLogs.Add(requestStatusLog);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        bool IAdmin.transferCase(AdminDashboardTableView model)
         {
             int requestId = model.RequestId;
             if (requestId != null)
@@ -733,36 +819,74 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
-        bool IAdmin.transferCase(AdminDashboardTableView model)
-        {
-            int requestId = model.RequestId;
-            if (requestId != null)
-            {
-                var requestToUpdate = _context.Requests.Include(u => u.Physician).Where(u => u.RequestId == requestId).FirstOrDefault();
-                var PhysicianName = _context.Physicians.FirstOrDefault(u => u.PhysicianId == model.PhysicianId).FirstName;
-                if (requestToUpdate != null)
-                {
-                    requestToUpdate.PhysicianId = model.PhysicianId;
-                    requestToUpdate.ModifiedDate = DateTime.Now;
-                    requestToUpdate.Status = 2;
-                    _context.Requests.Update(requestToUpdate);
-                    _context.SaveChanges();
-                }
-                RequestStatusLog requestStatusLog = new RequestStatusLog();
-                requestStatusLog.RequestId = requestId;
-                requestStatusLog.Status = 2;
-                requestStatusLog.Notes = "Admin transferred to Dr. " + PhysicianName + " on " + DateTime.Now.ToString("dd/MM/yyyy") + " at " + DateTime.Now.ToString("HH:mm:ss") + " : " + model.Description;
-                requestStatusLog.CreatedDate = DateTime.Now;
-                requestStatusLog.TransToPhysicianId = model.PhysicianId;
-                _context.RequestStatusLogs.Add(requestStatusLog);
-                _context.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //bool IAdmin.sendAgreement(AdminDashboardTableView model)
+        //{
+
+        //}
+
+        //bool IAdmin.sendLink(AdminDashboardTableView model)
+        //{
+        //    var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
+        //    var id = _context.Users.SingleOrDefault(u => u.Email == model.Email);
+        //    bool userExists = true;
+        //    if (existingUser != null)
+        //    {
+        //        //userExists = false;
+        //        //aspNetUser.UserName = model.Email;
+        //        //aspNetUser.Email = model.Email;
+        //        //aspNetUser.PhoneNumber = model.PhoneNo;
+        //        //aspNetUser.CreatedDate = DateTime.Now;
+        //        //_context.AspNetUsers.Add(aspNetUser);
+        //        //await _context.SaveChangesAsync();
+
+        //        string senderEmail = "tatva.dotnet.karmadipsinhsolanki@outlook.com";
+        //        string senderPassword = "Karmadips@2311";
+
+        //        SmtpClient client = new SmtpClient("smtp.office365.com")
+        //        {
+        //            Port = 587,
+        //            Credentials = new NetworkCredential(senderEmail, senderPassword),
+        //            EnableSsl = true,
+        //            DeliveryMethod = SmtpDeliveryMethod.Network,
+        //            UseDefaultCredentials = false
+        //        };
+        //        string email = model.Email;
+        //        var userFirstName = model.FirstName + " " + model.LastName;
+        //        var formatedDate = DateTime.Now.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+        //        string resetLink = $"https://localhost:44339/Login/submitrequest";
+        //        string message = $@"<html>
+        //                        <body>  
+        //                        <h1>Create Request for patient</h1>  
+        //                        <h2>Hii {userFirstName},</h2>
+        //                        <p style=""margin-top:30px;"">We have sent you link to create request for patient. So, please click the below link to create request:</p>
+        //                        <p><a href=""{resetLink}"">Create Request</a></p> 
+        //                        <p>If you don't need request creation then please ignore this mail.</p>
+        //                        </body>
+        //                        </html>";
+        //        if (email != null)
+        //        {
+        //            MailMessage mailMessage = new MailMessage
+        //            {
+        //                From = new MailAddress(senderEmail, "HalloDoc"),
+        //                Subject = "Register Case",
+        //                IsBodyHtml = true,
+        //                Body = message,
+        //            };
+        //            mailMessage.To.Add(email);
+        //            client.Send(mailMessage);
+        //            return true;
+        //        }
+        //        else
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
+
         ViewUploadViewModel IAdmin.viewUpload(int id)
         {
             //to save file in wwwroot,that is uploaded by patient
@@ -810,7 +934,7 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
-         ViewUploadViewModel IAdmin.closeCase(int id)
+        ViewUploadViewModel IAdmin.closeCase(int id)
         {
             //to save file in wwwroot,that is uploaded by patient
             //token
@@ -894,6 +1018,87 @@ namespace HalloDoc.LogicLayer.Repository
                 return true;
             }
             catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        //current
+        bool IAdmin.sendAgreement(AdminDashboardTableView model,int id)
+        {
+            AdminDashboardTableView adminDashboardTableView = new AdminDashboardTableView();
+            var data = _context.Requests.Include(u => u.RequestClient).FirstOrDefault(u => u.RequestId == id);
+
+            adminDashboardTableView.RequestTypeId = data.RequestTypeId;
+            int requestTypeId = data.RequestTypeId;
+            var requestor = "";
+            if (requestTypeId == 1)
+            {
+                requestor = "Patient";
+            }
+            else if (requestTypeId == 2)
+            {
+                requestor = "Family/Friend";
+            }
+            else if (requestTypeId == 3)
+            {
+                requestor = "Conceirge";
+            }
+            else
+            {
+                requestor = "Business";
+            }
+            adminDashboardTableView.Requestor = requestor;
+
+
+
+
+            var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
+            //var id = _context.Users.SingleOrDefault(u => u.Email == model.Email);
+            bool userExists = true;
+            if (existingUser != null)
+            {
+                string senderEmail = "tatva.dotnet.karmadipsinhsolanki@outlook.com";
+                string senderPassword = "Karmadips@2311";
+
+                SmtpClient client = new SmtpClient("smtp.office365.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential(senderEmail, senderPassword),
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false
+                };
+                string email = model.Email;
+                var userFirstName = model.FirstName + " " + model.LastName;
+                var formatedDate = DateTime.Now.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+                string resetLink = $"https://localhost:44339/AdminDashboard/ReveiwAgreement";
+                string message = $@"<html>
+                                <body>  
+                                <h1>Review Agreement</h1>  
+                                <h2>Hii {userFirstName},</h2>
+                                <p style=""margin-top:30px;"">We have sent you link to review the agreement. So, please click the below link to read agreement:</p>
+                                <p><a href=""{resetLink}"">Review Agreement here</a></p> 
+                                </body>
+                                </html>";
+                if (email != null)
+                {
+                    MailMessage mailMessage = new MailMessage
+                    {
+                        From = new MailAddress(senderEmail, "HalloDoc"),
+                        Subject = "Review Agreement",
+                        IsBodyHtml = true,
+                        Body = message,
+                    };
+                    mailMessage.To.Add(email);
+                    client.Send(mailMessage);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
             {
                 return false;
             }

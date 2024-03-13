@@ -39,5 +39,6 @@ namespace HalloDoc.LogicLayer.Interface
         public bool clearCase(AdminDashboardTableView model);
         public bool closeCase(AdminDashboardTableView model);
         public bool blockCase(AdminDashboardTableView model);
+        public bool sendAgreement(AdminDashboardTableView model, int id);
     }
 }

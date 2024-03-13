@@ -20,7 +20,7 @@ public class AdminDashboardTableView
     public List<Region> regions { get; set; } = new List<Region>();
     public string? region { get; set; }
     public List<Physician> physicians { get; set; } = new List<Physician>();
-    public string? physician{ get; set; }
+    public string? physician { get; set; }
     public string status { get; set; }
 
     public List<CaseTag>? caseTags { get; set; }
@@ -36,4 +36,6 @@ public class AdminDashboardTableView
     public string CancelDescription { get; set; }
     public string CaseTagId { get; set; }
     public string BlockReason { get; set; }
+    public string Requestor { get; set; }//for sendagreement
+    public int RequestTypeId { get; set; }//for sendagreement
 }
