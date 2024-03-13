@@ -4,6 +4,7 @@
 }
 @section Styles {
     <link href="~/css/Login.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/createPassword.css" rel="stylesheet" type="text/css" />
 }
 @section Scripts {
     @{
@@ -17,7 +18,7 @@
 
 <div class="parent-div">
     <div class="container d-flex justify-content-between flex-column align-items-center ">
-        <button onclick="changeTheme()" class="darkmode" style=" position: absolute;right:20px;top:20px;background-color: white;">
+        <button onclick="changeTheme()" class="change-theme" style=" position: absolute;right:20px;top:20px;background-color: white;border:none;">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                  class="bi bi-moon night-mode-icon" viewBox="0 0 16 16">
                 <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286" />
@@ -47,32 +48,37 @@
                 <header class="h1 mb-5">Login To Your Account</header>
             </div>
             <form asp-controller="Login" asp-action="Login" method="post">
-            <div class="email form-floating mb-3">
+                <div class="email form-floating mb-3">
                     <input type="email" class="form-control" id="email" placeholder="name@example.com" asp-for="Email">
-                <label for="floatingInput">Email address</label>
-                <img src="~/SRS Screen Shorts/profile.png" class="profile">
-            </div>
+                    <label for="floatingInput">Email address</label>
+                    <img src="~/SRS Screen Shorts/profile.png" class="profile">
+                </div>
                 <span asp-validation-for="Email" class="text-danger"></span>
-            <div class="password form-floating mb-3">
+                <div class="password form-floating mb-3">
                     <input type="password" class="form-control" id="password" placeholder="Password" asp-for="PasswordHash">
-                <label for="floatingPassword">Password</label>
-                <div class="eye">
-                    @* <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" fill="currentColor" class="bi bi-eye"
-                         viewBox="0 0 16 16">
-                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
-                        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
-                    </svg> *@
-                    <svg onclick="onpress()" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                             fill="currentColor" class="bi bi-eye person-icon hide-eye" viewBox="0 0 16 16">
+                    <label for="floatingPassword">Password</label>
+                    <div class="form-floating login-fields">
+                        <svg onclick="onpress()" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             fill="currentColor" class="bi bi-eye person-icon hide-eye" viewBox="0 0 16 16" style="top: -36px;right: 15px;">
                             <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
                             <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
-                    </svg>
+                        </svg>
+
+                        <svg onclick="onpress()" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             fill="currentColor" class="bi bi-eye-slash  person-icon" viewBox="0 0 16 16" style="top: -36px;right: 15px;">
+                            <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z" />
+                            <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829" />
+                            <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z" />
+                        </svg>
+                    </div>
                 </div>
-            </div>
+
+
+
                 <span asp-validation-for="PasswordHash" class="text-danger"></span>
-            <div class="d-flex justify-content-center align-items-center ">
-                  <button class="btn" type="submit"><span>Log In</span></button>
-             </div>
+                <div class="d-flex justify-content-center align-items-center ">
+                    <button class="btn" type="submit"><span>Log In</span></button>
+                </div>
             </form>
             <a asp-controller="Login" asp-action="ForgotPassword" style="text-decoration:none;text-align:center;" class="mb-5 mt-2">
                 <span style="color:#0dcaf0;">Forgot Password?</span>
@@ -86,13 +92,13 @@
                 let themeCheck = localStorage.getItem('theme');
                 if (themeCheck == null || themeCheck == 'light') {
                     document.getElementById('parent-div').style.backgroundColor = "#f5f5f5";
-                    document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
+                    // document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
                     document.getElementById('body').style.backgroundColor = "#f5f5f5";
                     document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
                     document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
                 } else {
-                    document.getElementById('main-div').style.backgroundColor = "black";
-                    document.getElementById('main-sub-div').style.backgroundColor = "black";
+                    document.getElementById('parent-div').style.backgroundColor = "black";
+                    // document.getElementById('main-sub-div').style.backgroundColor = "black";
                     document.getElementById('body').style.backgroundColor = "black";
                     document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
                     document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
@@ -105,18 +111,47 @@
             let theme = localStorage.getItem('theme');
             if (theme == null || theme == 'light') {
                 localStorage.setItem('theme', 'dark');
-                document.getElementById('main-div').style.backgroundColor = "black";
-                document.getElementById('main-sub-div').style.backgroundColor = "black";
+                document.getElementById('parent-div').style.backgroundColor = "black";
+                // document.getElementById('main-sub-div').style.backgroundColor = "black";
                 document.getElementById('body').style.backgroundColor = "black";
                 document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
                 document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
             } else if (theme == 'dark') {
                 localStorage.setItem('theme', 'light');
-                document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
-                document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
+                document.getElementById('parent-div').style.backgroundColor = "#f5f5f5";
+                // document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
                 document.getElementById('body').style.backgroundColor = "#f5f5f5";
                 document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
                 document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+            }
+        }
+
+        //eye in password
+        let eye = false;
+        function onpress() {
+            if (!eye) {
+                document.getElementsByClassName('person-icon')[1].classList.add('hide-eye');
+                document.getElementsByClassName('person-icon')[0].classList.remove('hide-eye');
+                document.getElementById('password').type = "text";
+                eye = true;
+            } else {
+                document.getElementsByClassName('person-icon')[1].classList.remove('hide-eye');
+                document.getElementsByClassName('person-icon')[0].classList.add('hide-eye');
+                document.getElementById('password').type = "password";
+                eye = false;
+            }
+        }
+        function onpresss() {
+            if (!eye) {
+                document.getElementsByClassName('person-icon')[3].classList.add('hide-eye');
+                document.getElementsByClassName('person-icon')[2].classList.remove('hide-eye');
+                document.getElementById('retype_password').type = "text";
+                eye = true;
+            } else {
+                document.getElementsByClassName('person-icon')[3].classList.remove('hide-eye');
+                document.getElementsByClassName('person-icon')[2].classList.add('hide-eye');
+                document.getElementById('retype_password').type = "password";
+                eye = false;
             }
         }
     </script>
