@@ -982,6 +982,25 @@ table.dataTable thead th, table.dataTable tfoot th {
     border:2px solid #f7ad00;
     border-radius:50px;
 }
+
+/*toast*/
+.toast-success {
+    background-color: #51A351 !important;
+    margin-top: 72px !important;
+}
+
+.toast-error {
+    background-color: #BD362F !important;
+}
+
+.toast-info {
+    background-color: #2F96B4 !important;
+}
+
+.toast-warning {
+    background-color: #F89406 !important;
+}
+
 /*label for assign case to go above selected text*/
 /*label {
     display: block;
