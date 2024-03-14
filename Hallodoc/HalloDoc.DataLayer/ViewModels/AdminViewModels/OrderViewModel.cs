@@ -1,4 +1,5 @@
 ﻿using Hallodoc;
+using HalloDoc.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace HalloDoc.DataLayer.ViewModels.AdminViewModels
 {
     public class OrderViewModel
     {
+        public AdminNavbarViewModel? adminNavbarViewModel { get; set; }
         public int RequestId { get; set; }
         public int VendorId { get; set; }
         public string? Profession { get; set; }

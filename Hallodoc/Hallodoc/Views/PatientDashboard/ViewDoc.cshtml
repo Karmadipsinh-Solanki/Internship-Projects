@@ -8,9 +8,10 @@
 }
 @section Scripts {
     @{
-                            <partial name="_ValidationScriptsPartial" />
+        <partial name="_ValidationScriptsPartial" />
     }
 }
+<partial name="Toast" />
 <partial name="header" model="@Model.partialViewModel" />
 <hr class="mb-0 mt-0 d-none d-md-block horizontal-line">
 <partial name="navbar" />
@@ -34,29 +35,29 @@
         <div class="mb-3">
             <span class="text-secondary">Check here for any files that you or the doctors of your subsequents requestors have attached for you to review.</span>
         </div>
-            <form asp-route-id=@Model.RequestId asp-controller="PatientDashboard" asp-action="viewDoc" method="post" enctype="multipart/form-data">
-        <div class="upload mb-3">
-            <input type="file" class="inputUpload" placeholder="Select File" asp-for=@Model.File>
-            <button class="uploadButton" type="submit" id="choose-file-button">
-                <img src="~/SRS Screen Shorts/cloud-upload-icon.svg" style="color:#0dcaf0">
-                <span class="textback" style="color:white;">Upload</span>
-            </button>
-        </div>
-            </form>
+        <form asp-route-id=@Model.RequestId asp-controller="PatientDashboard" asp-action="viewDoc" method="post" enctype="multipart/form-data">
+            <div class="upload mb-3">
+                <input type="file" class="inputUpload" placeholder="Select File" asp-for=@Model.File>
+                <button class="uploadButton" type="submit" id="choose-file-button">
+                    <img src="~/SRS Screen Shorts/cloud-upload-icon.svg" style="color:#0dcaf0">
+                    <span class="textback" style="color:white;">Upload</span>
+                </button>
+            </div>
+        </form>
 
         <div class="seconddiv d-flex justify-content-between align-items-center mb-3">
             <h5>Documents</h5>
-                <div class="back-navigation-link-2 textdeco d-flex justify-content-center align-items-center" onclick="downloadall()" style="border:1px solid #0bb6d0;border-radius:5px;height:45px;width:150px;color:#0bb6d0;">
-                        <div class="back-navigation">
-                        <span class="textback">Download All</span>
-                        </div>
-                    </div>
+            <div class="back-navigation-link-2 textdeco d-flex justify-content-center align-items-center" onclick="downloadall()" style="border:1px solid #0bb6d0;border-radius:5px;height:45px;width:150px;color:#0bb6d0;">
+                <div class="back-navigation">
+                    <span class="textback">Download All</span>
+                </div>
+            </div>
         </div>
         <div class="d-none d-md-block">
             <table class="table">
                 <thead>
-                    <tr class="table-light htable"  style="background-color: #ededed !important;">
-                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 10%;"><input id="checkall" onclick="oncheck()"  type="checkbox" /></th>
+                    <tr class="table-light htable" style="background-color: #ededed !important;">
+                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 10%;"><input id="checkall" onclick="oncheck()" type="checkbox" /></th>
                         <th></th>
                         <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 25%;">Uploader</th>
                         <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 25%;">Upload Date <span class="mx-1"><strong>&uarr;</strong></span></th>
@@ -65,15 +66,15 @@
                 </thead>
                 @foreach (var item in Model.requestWiseFiles)
                 {
-                <tr>
-                    <td><input class="checkboxes" type="checkbox" /></td>
-                    <td>
-           
+                    <tr>
+                        <td><input class="checkboxes" type="checkbox" /></td>
+                        <td>
+
                             <div class="file-icon">
                                 <span class="filename">@item.FileName</span>
                             </div>
-                    </td>
-                    <td>
+                        </td>
+                        <td>
                             @if (item.PhysicianId != null)
                             {
                                 <span>@item.Physician.FirstName + " " + @item.Physician.LastName</span>
@@ -86,21 +87,21 @@
                             {
                                 <span>@Model.uploader_name</span>
                             }
-                    </td>
-                    <td>
-                    @item.CreatedDate
-                    @* .ToString("MMMM dd,yyyy") *@
-                    </td>
-                    <td>
-                        <a class="link" href="~/uploads/@item.FileName" download style="border: 1px solid #00ccff; padding:5px;border-radius:5px;text-decoration:none">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0dcaf0" class="bi bi-cloud-download" viewBox="0 0 16 16">
-                                <path d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
-                                <path d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
-                            </svg>
-                        </a>
-                    </td>
-                </tr>
-                    }
+                        </td>
+                        <td>
+                            @item.CreatedDate
+                            @* .ToString("MMMM dd,yyyy") *@
+                        </td>
+                        <td>
+                            <a class="link" href="~/uploads/@item.FileName" download style="border: 1px solid #00ccff; padding:5px;border-radius:5px;text-decoration:none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0dcaf0" class="bi bi-cloud-download" viewBox="0 0 16 16">
+                                    <path d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
+                                    <path d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
+                                </svg>
+                            </a>
+                        </td>
+                    </tr>
+                }
             </table>
         </div>
     </div>
@@ -149,7 +150,7 @@
         //         allcheckboxes[i].checked = false;
         //     }
         // }
-            // console.log('hello');
+        // console.log('hello');
         var trial = document.getElementsByClassName("appdata");
         for (var i = 0; i < trial.length; i++) {
             var element = trial[i];

@@ -222,3 +222,8 @@
 .hide-icon {
     display: none;
 }
+.relativePhone{
+    position:absolute!important;
+    top:18px!important;
+    right:20px!important;
+}

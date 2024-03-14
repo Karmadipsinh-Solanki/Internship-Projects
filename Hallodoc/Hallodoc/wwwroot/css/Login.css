@@ -7,7 +7,8 @@
 }
 
 .container {
-    width: 432px;
+    /*width: 432px;*/
+    width:100%;
     height: 100%;
 }
 
@@ -68,6 +69,7 @@
 
 .back {
     color: #00aee3;
+    margin-left:20%;
 }
 
 .nightmode {
@@ -77,4 +79,22 @@
     padding: 5px;
     height: 45px;
     width: 50px;
+}
+.email {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+.password {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+@media (max-width: 430px) {
+    .email{
+        margin-left:0;
+        margin-right:0;
+    }
+    .password{
+        margin-left:0;
+        margin-right:0;
+    }
 }

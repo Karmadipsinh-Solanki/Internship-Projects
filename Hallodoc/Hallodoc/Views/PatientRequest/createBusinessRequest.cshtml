@@ -11,6 +11,7 @@
         <partial name="_ValidationScriptsPartial" />
     }
 }
+<partial name="Toast" />
 <div onload="myFunction()">
     <!-- Modal -->
     <div id="myModal" class="modal">
@@ -27,7 +28,7 @@
                 <p style="text-align: center;    padding-left: 33px;
             padding-right: 33px;">
                     While submitting the request, you must provide the correct contact
-                    Information for the 
+                    Information for the
                     patient or the responsibly party.Failure to provide the contact email and phone number will
                     delay service or be declined.
                 </p>
@@ -40,7 +41,7 @@
     </div>
     <div class="container">
         <div class="backbutton mb-3 mt-3">
-            <a asp-controller ="Login" asp-action="submitrequest">
+            <a asp-controller="Login" asp-action="submitrequest">
                 <button type="button" class="btn btn-outline-pri">&lt Back</button>
             </a>
         </div>

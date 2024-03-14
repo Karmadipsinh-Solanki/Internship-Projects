@@ -7,7 +7,8 @@
     <link href="~/css/AdminDashboardStyle.css" rel="stylesheet" type="text/css" />
 }
 <div id="body">
-    <partial name="AdminDashboardHeader" />
+    <partial name="Toast" />
+    <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" />
     <partial name="AdminDashboardNavbar" />
     <div class="container" id="main-sub-div">
         <div class="d-flex justify-content-between align-items-center" style="display: flex;padding-left: 20px;padding-right: 20px;align-items: center;margin-bottom:10px;" *@>

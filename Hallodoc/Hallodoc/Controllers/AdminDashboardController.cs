@@ -314,20 +314,6 @@ namespace HalloDoc.Controllers
             return RedirectToAction("AdminDashboard");
         }
         [HttpPost]
-        public IActionResult CloseCase(AdminDashboardTableView model)
-        {
-            bool check = _admin.clearCase(model);
-            if (check)
-            {
-                TempData["success"] = "Case cleared successfully!";
-            }
-            else
-            {
-                TempData["error"] = "Case not cleared!";
-            }
-            return RedirectToAction("AdminDashboard");
-        }
-        [HttpPost]
         public IActionResult BlockCase(AdminDashboardTableView model)
         {
             bool check = _admin.blockCase(model);
@@ -391,13 +377,14 @@ namespace HalloDoc.Controllers
             return RedirectToAction("AdminDashboard");
         }
 
-        public IActionResult closeCase(int id)
+        public IActionResult CloseCase(int id)
         {
             ViewUploadViewModel viewUploadViewModel = _admin.closeCase(id);
             return View(viewUploadViewModel);
         }
+
         [HttpPost]
-        public IActionResult closeCase(ViewUploadViewModel model, int id)
+        public IActionResult CloseCase(ViewUploadViewModel model)
         {
             bool check = _admin.closeCase(model);
             if (check)
@@ -408,7 +395,7 @@ namespace HalloDoc.Controllers
             {
                 TempData["error"] = "Case is not closed yet!";
             }
-            return RedirectToAction("viewUpload");
+            return RedirectToAction("CloseCase");
         }
         [HttpPost]
         public IActionResult SendAgreement(AdminDashboardTableView model,int id)
@@ -416,15 +403,21 @@ namespace HalloDoc.Controllers
             bool check = _admin.sendAgreement(model,id);
             if (check)
             {
-                TempData["success"] = "Case closed successfully!";
+                TempData["success"] = "Agreement sent successfully!";
             }
             else
             {
-                TempData["error"] = "Case is not closed yet!";
+                TempData["error"] = " is not closed yet!";
             }
             return RedirectToAction("viewUpload");
         }
         public IActionResult ReviewAgreement() { return View(); }
+        public IActionResult AdminProfile(int id)
+        {
+            //ViewUploadViewModel viewUploadViewModel = _admin.closeCase(id);
+            //return View(viewUploadViewModel);
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

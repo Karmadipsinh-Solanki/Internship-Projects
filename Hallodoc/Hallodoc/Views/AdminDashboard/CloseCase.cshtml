@@ -1,7 +1,7 @@
 ﻿@using HalloDoc.DataLayer.ViewModels.AdminViewModels
 @model ViewUploadViewModel;
 @{
-    ViewData["Title"] = "View Upload";
+    ViewData["Title"] = "Close Case";
 }
 @section Styles {
     <link href="~/css/viewDoc.css" rel="stylesheet" type="text/css" />
@@ -12,12 +12,13 @@
         <partial name="_ValidationScriptsPartial" />
     }
 }
-<partial name="AdminDashboardHeader" />
+<partial name="Toast" />
+<partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" />
 <hr class="mb-0 mt-0 d-none d-md-block horizontal-line">
 <partial name="AdminDashboardNavbar" />
 <div class="maindiv container d-flex flex-column justify-content-center">
     <div class="firstdiv d-flex justify-content-between align-items-center p-3">
-        <h3>Documents</h3>
+        <h3>Close Case</h3>
         <div class="btn btn-primary backbutton mb-3 mt-3">
             <a class="textdeco" asp-controller="AdminDashboard" asp-action="AdminDashboard">
                 <span class="textback" style="color:#0dcaf0;">&lt Back</span>
@@ -26,21 +27,20 @@
     </div>
 
     <div class="container shadow p-3">
-        <div class="h6 mb-3 text-secondary">Patient Name</div>
-        <div class="mb-3">
-            <h4 style="color: #00ccff;font-size: 20px;font-weight: 500;">@Model.patient_name <span style="color: gray;font-weight: 400;font-size: 15px;"> (@Model.confirmation_number) </span></h4>
-        </div>
-        <a class="cancelButton"><span class="cancelButtonText">Create Invoice Through Quickbooks</span> </a>
-        <form asp-route-id=@Model.RequestId asp-controller="AdminDashboard" asp-action="ViewUpload" method="post" enctype="multipart/form-data">
-            <div class="upload mb-3">
-                <input type="file" class="inputUpload" placeholder="Select File" asp-for=@Model.File>
-                <button class="uploadButton" type="submit" id="">
-                    <img src="~/SRS Screen Shorts/cloud-upload-icon.svg" style="color:#0dcaf0">
-                    <span class="textback" style="color:white;">Upload</span>
-                </button>
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <div class="h6 mb-3 text-secondary">Patient Name</div>
+                <div class="mb-3">
+                    <h4 style="color: #00ccff;font-size: 20px;font-weight: 500;">@Model.patient_name <span style="color: gray;font-weight: 400;font-size: 15px;"> (@Model.confirmation_number) </span></h4>
+                </div>
             </div>
-        </form>
-
+            <div class="btn btn-primary backbutton mb-3 mt-3 d-none d-md-block">
+                <span class="textback" style="color:#0dcaf0;">Create Invoice Through Quickbooks</span>
+            </div>
+        </div>
+        <div class="btn btn-primary backbutton mb-3 mt-3 d-block d-md-none">
+            <span class="textback" style="color:#0dcaf0;">Create Invoice Through Quickbooks</span>
+        </div>
         <div class="seconddiv mb-3">
             <h5>Documents</h5>
         </div>
@@ -74,8 +74,8 @@
                     </a>
                 </div>
 
+                <hr />
             }
-            <hr />
 
         </div>
 
@@ -84,8 +84,7 @@
             <table class="table">
                 <thead>
                     <tr class="table-light htable" style="background-color: #ededed !important;">
-                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 10%;"><input id="checkall" onclick="oncheck()" type="checkbox" /></th>
-                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 25%;">Documents</th>
+                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 25%;"></th>
                         <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 25%;">Upload Date <span class="mx-1"><strong>&uarr;</strong></span></th>
                         <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 15%;">Actions</span></th>
                     </tr>
@@ -93,7 +92,6 @@
                 @foreach (var item in Model.requestWiseFiles)
                 {
                     <tr>
-                        <td class="bg-white"><input class="checkboxes" type="checkbox" /></td>
                         <td class="bg-white">
                             <div class="file-icon">
                                 <span class="filename">@item.FileName</span>
@@ -120,11 +118,86 @@
                             </div>
                         </td>
                     </tr>
+                    <hr />
                 }
             </table>
+
+
+        </div>
+        <header class="h5 mb-3 ">Patient Information</header>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-floating mb-3">
+                    <input type="name" class="form-control" id="floatingInput1" placeholder="First Name" asp-for="FirstName" readonly>
+                    <label for="floatingInput1">First Name</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-floating mb-3">
+                    <input type="name" class="form-control" id="floatingInput2" placeholder="Last Name" asp-for="LastName" readonly>
+                    <label for="floatingInput2">Last Name</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control" id="dob" asp-for="DOB" readonly>
+                    <label for="dob">Date of Birth</label>
+                    <span asp-validation-for="DOB" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-8 col-sm-9">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="PhoneNumber" placeholder="PhoneNumber" readonly asp-for="PhoneNumber" />
+                            <label for="PhoneNumber">Phone Number</label>
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-phone-vibrate relativePhone" viewBox="0 0 16 16">
+                                <path d="M10 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM6 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z" />
+                                <path d="M8 12a1 1 0 1 0 0-2 1 1 0 0 0 0 2M1.599 4.058a.5.5 0 0 1 .208.676A7 7 0 0 0 1 8c0 1.18.292 2.292.807 3.266a.5.5 0 0 1-.884.468A8 8 0 0 1 0 8c0-1.347.334-2.619.923-3.734a.5.5 0 0 1 .676-.208m12.802 0a.5.5 0 0 1 .676.208A8 8 0 0 1 16 8a8 8 0 0 1-.923 3.734.5.5 0 0 1-.884-.468A7 7 0 0 0 15 8c0-1.18-.292-2.292-.807-3.266a.5.5 0 0 1 .208-.676M3.057 5.534a.5.5 0 0 1 .284.648A5 5 0 0 0 3 8c0 .642.12 1.255.34 1.818a.5.5 0 1 1-.93.364A6 6 0 0 1 2 8c0-.769.145-1.505.41-2.182a.5.5 0 0 1 .647-.284m9.886 0a.5.5 0 0 1 .648.284C13.855 6.495 14 7.231 14 8s-.145 1.505-.41 2.182a.5.5 0 0 1-.93-.364C12.88 9.255 13 8.642 13 8s-.12-1.255-.34-1.818a.5.5 0 0 1 .283-.648" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="col-4 col-sm-3">
+                        <div class=" form-control d-flex justify-content-center align-items-center" style="border:1px solid #0bb6d0;height:58px;border-radius:5px;">
+                            <a id="call-button" style="text-decoration:none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#0bb6d0" class="bi bi-telephone" viewBox="0 0 16 16">
+                                    <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="form-floating mb-3">
+                    <input type="text" asp-for="RequestId" value="@Model.RequestId" style="display:none;" />
+                    <input type="email" placeholder="Email" class="form-control" id="email" readonly asp-for="Email" />
+                    <label for="email">Email</label>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end align-items-center">
+            <div>
+                <div class="btn btn-primary btn-lg mb-3 me-3" style="background-color:#0dcaf0;border:1px solid #0dcaf0;">
+                    <span class="textback" style="color:white;">Edit</span>
+                </div><div class="btn btn-primary btn-lg backbutton mb-3 ">
+                    <span class="textback" style="color:#0dcaf0;">Close Case</span>
+                </div>
+                @* <a class="btn saveButton textdeconone d-flex justify-content-center align-items-center me-3 mb-3" style="height:54px!important;" id="edit-button">
+                <span class="saveButtonText">Edit</span>
+                </a>
+                <a class="btn cancelButton textdeconone d-flex justify-content-center align-items-center mb-3" style="height:54px!important;" id="edit-button">
+                <span class="cancelButtonText">Close Case</span>
+                </a> *@
+            </div>
         </div>
     </div>
-
 
     <script>
         function oncheck() {

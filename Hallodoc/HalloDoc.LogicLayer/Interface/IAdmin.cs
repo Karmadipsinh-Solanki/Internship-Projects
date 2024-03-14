@@ -25,8 +25,8 @@ namespace HalloDoc.LogicLayer.Interface
         public bool viewUpload(ViewUploadViewModel model);
         public ViewUploadViewModel closeCase(int id);
         public bool closeCase(ViewUploadViewModel model);
-        public bool SendOrder(OrderViewModel model);
         public OrderViewModel SendOrder(int id);
+        public bool SendOrder(OrderViewModel model);
         //public bool SendOrder(OrderViewModel model);
         public List<Region> fetchRegions();
         public List<Physician> fetchPhysicians(int id);
@@ -37,7 +37,6 @@ namespace HalloDoc.LogicLayer.Interface
         public bool transferCase(AdminDashboardTableView model);
         public bool cancelCase(AdminDashboardTableView model);
         public bool clearCase(AdminDashboardTableView model);
-        public bool closeCase(AdminDashboardTableView model);
         public bool blockCase(AdminDashboardTableView model);
         public bool sendAgreement(AdminDashboardTableView model, int id);
     }

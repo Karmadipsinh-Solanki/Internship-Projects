@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace HalloDoc.Models;
 public class AdminDashboardTableView
 {
+    public AdminNavbarViewModel? adminNavbarViewModel { get; set; }
     public int new_count { get; set; }
     public int pending_count { get; set; }
     public int active_count { get; set; }
