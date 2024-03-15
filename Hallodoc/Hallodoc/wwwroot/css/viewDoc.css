@@ -227,3 +227,58 @@
     top:18px!important;
     right:20px!important;
 }
+/*edit,save,cancel*/
+#submit-button-2, #submit-button-4 {
+    text-decoration: none;
+    border:1px solid #0dcaf0;
+    background-color: #0dcaf0;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: white;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#edit-div {
+    display: flex;
+    justify-content: end;
+    color: white;
+    background-color: #00ccff;
+    border: 1px solid #0dcaf0;
+    border-radius:6px;
+}
+#submit-button-3 {
+    text-decoration: none;
+    background-color: white;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: #00ccff;
+    font-weight: 500;
+    border-radius: 6px;
+}
+#close-case-button {
+    border: 1px solid #0dcaf0;
+    border-radius: 6px;
+    color: white;
+    padding:5px;
+    text-decoration:none;
+}
+.hide {
+    display: none;
+}
+.form-button {
+    height: 50px;
+    display: flex;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    / background-color: red;
+    / justify-content: end;
+    / position: absolute;
+    / / right: 20px;
+    / align-items: center;
+    / border-radius: 10px;
+    /
+}

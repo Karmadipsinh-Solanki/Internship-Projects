@@ -380,7 +380,8 @@ namespace HalloDoc.Controllers
         public IActionResult CloseCase(int id)
         {
             ViewUploadViewModel viewUploadViewModel = _admin.closeCase(id);
-            return View(viewUploadViewModel);
+            //return View(viewUploadViewModel);
+            return RedirectToAction("CloseCase", new { id = viewUploadViewModel.RequestId });
         }
 
         [HttpPost]
@@ -412,11 +413,10 @@ namespace HalloDoc.Controllers
             return RedirectToAction("viewUpload");
         }
         public IActionResult ReviewAgreement() { return View(); }
-        public IActionResult AdminProfile(int id)
+        public IActionResult AdminProfile()
         {
-            //ViewUploadViewModel viewUploadViewModel = _admin.closeCase(id);
-            //return View(viewUploadViewModel);
-            return View();
+            AdminProfileViewModel adminProfileViewModel = _admin.adminProfile();
+            return View(adminProfileViewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

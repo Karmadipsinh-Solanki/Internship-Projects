@@ -910,7 +910,7 @@ namespace HalloDoc.LogicLayer.Repository
             viewUploadViewModel.requestWiseFiles = documents;
             //viewUploadViewModel.uploader_name = string.Concat(request.FirstName, ' ', request.LastName);
             viewUploadViewModel.RequestId = id;
-            //viewUploadViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            viewUploadViewModel.adminNavbarViewModel = adminNavbarViewModel;
             return viewUploadViewModel;
         }
         bool IAdmin.viewUpload(ViewUploadViewModel model)
@@ -948,6 +948,7 @@ namespace HalloDoc.LogicLayer.Repository
             var token = request2.Cookies["jwt"];
             CookieModel cookieModel = _jwtService.getDetails(token);
             string AdminName = cookieModel.name;
+
             AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
             adminNavbarViewModel.AdminName = AdminName;
             adminNavbarViewModel.Tab = 1;
@@ -957,6 +958,7 @@ namespace HalloDoc.LogicLayer.Repository
             viewUploadViewModel.PhoneNumber = data.RequestClient.PhoneNumber;
             viewUploadViewModel.FirstName = data.RequestClient.FirstName;
             viewUploadViewModel.LastName = data.RequestClient.LastName;
+            viewUploadViewModel.adminNavbarViewModel = adminNavbarViewModel;
 
             int month;
             switch (data.RequestClient.StrMonth)
@@ -1027,6 +1029,8 @@ namespace HalloDoc.LogicLayer.Repository
                 if (requestToUpdate != null)
                 {
                     requestToUpdate.Status = 9;
+                    requestToUpdate.PhoneNumber = model.PhoneNumber;
+                    requestToUpdate.Email = model.Email;
                     _context.Requests.Update(requestToUpdate);
                     _context.SaveChanges();
                 }
@@ -1107,6 +1111,7 @@ namespace HalloDoc.LogicLayer.Repository
             orderViewModel.RequestId = id;
             orderViewModel.healthProfessionalTypes = healthProfessionalType;
             orderViewModel.healthProfessionals = healthProfessional;
+            orderViewModel.adminNavbarViewModel = adminNavbarViewModel;
             return orderViewModel;
         }
         bool IAdmin.SendOrder(OrderViewModel model)
@@ -1216,6 +1221,127 @@ namespace HalloDoc.LogicLayer.Repository
             {
                 return false;
             }
+        }
+        bool IAdmin.saveAdministratorDetail(AdminProfileViewModel model)
+        {
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            int aspNetUserId = cookieModel.aspId;
+
+            if (aspNetUserId != null)
+            {
+                Hallodoc.Admin admin = _context.Admins.FirstOrDefault(u => u.AspNetUserId == aspNetUserId);
+                admin.FirstName = model.FirstName;
+                admin.LastName = model.LastName;
+                admin.Email = model.Email;
+                admin.Mobile = model.PhoneNumber1;
+                _context.Admins.Update(admin);
+                _context.SaveChanges();
+
+                foreach (var adminRegion in _context.AdminRegions.Where(ar => ar.AdminId == admin.AdminId))
+                {
+                    _context.AdminRegions.Remove(adminRegion);
+                }
+                _context.SaveChanges();
+
+                string selectedRegionString = model.SelectedRegion;
+
+                if (!string.IsNullOrEmpty(selectedRegionString))
+                {
+                    string[] regionIds = selectedRegionString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    foreach (var regionIdString in regionIds)
+                    {
+                        int regionId = int.Parse(regionIdString);
+                        AdminRegion adminRegion = new AdminRegion();
+                        adminRegion.RegionId = regionId;
+                        adminRegion.AdminId = admin.AdminId;
+                        _context.AdminRegions.Add(adminRegion);
+                    }
+                }
+
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        bool IAdmin.saveBillingInformation(AdminProfileViewModel model)
+        {
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            int aspNetUserId = cookieModel.aspId;
+            if (aspNetUserId != null)
+            {
+                Hallodoc.Admin admin = _context.Admins.FirstOrDefault(u => u.AspNetUserId == aspNetUserId);
+                admin.Address1 = model.Address1;
+                admin.Address2 = model.Address2;
+                admin.City = model.city;
+                admin.RegionId = model.StateId;
+                admin.Zip = model.zip;
+                admin.AltPhone = model.PhoneNumber2;
+                _context.Admins.Update(admin);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        AdminProfileViewModel IAdmin.adminProfile()
+        {
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            int aspNetUserId = cookieModel.aspId;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = cookieModel.name;
+            adminNavbarViewModel.Tab = 3;
+            var AdminDetails = _context.Admins.FirstOrDefault(u => u.AspNetUserId == aspNetUserId);
+            var AspAdminDetail = _context.AspNetUsers.FirstOrDefault(u => u.Id == aspNetUserId);
+            //var region = _context.Regions.ToList();
+            //var regions = _context.AdminRegions.Include(u => u.Region).Where(u => u.AdminId == AdminDetails.AdminId).Select(ar => ar.RegionId).ToList();
+            //List<Region> regionName = (from regionNames in _context.Regions where regions.Contains(regionNames.RegionId) select new Region
+            //{
+            //    RegionId = regionNames.RegionId,
+            //    Name = regionNames.Name,
+            //    Abbreviation = regionNames.Abbreviation
+            //}).ToList();
+
+            var allRegions = _context.Regions.ToList();
+
+            List<AdminSelectedRegions> selectedRegions = allRegions.Select(r => new AdminSelectedRegions
+            {
+                IsSelected = _context.AdminRegions.Any(ar => ar.AdminId == AdminDetails.AdminId && ar.RegionId == r.RegionId),
+                Name = r.Name,
+                RegionId = r.RegionId
+            })
+            .ToList();
+
+            AdminProfileViewModel adminProfileViewModel = new AdminProfileViewModel()
+            {
+                FirstName = AdminDetails.FirstName,
+                LastName = AdminDetails.LastName,
+                UserName = AspAdminDetail.UserName,
+                Email = AdminDetails.Email,
+                PhoneNumber1 = AdminDetails.Mobile,
+                PhoneNumber2 = AdminDetails.AltPhone,
+                Address1 = AdminDetails.Address1,
+                Address2 = AdminDetails.Address2,
+                city = AdminDetails.City,
+                StateId = (int)AdminDetails.RegionId,
+                State = selectedRegions,
+                zip = AdminDetails.Zip,
+                regions = allRegions,
+                adminNavbarViewModel = adminNavbarViewModel,
+                CreatedDate = AspAdminDetail.CreatedDate,
+            };
+            return adminProfileViewModel;
         }
     }
 }

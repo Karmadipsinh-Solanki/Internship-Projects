@@ -116,6 +116,13 @@
     width: 100%;
     margin: auto;
 }
+.main-profile-div {
+    padding: 0 10%;
+    background-color: #f9f9f9;
+}
+.contentProfile{
+    background-color:white;
+}
 
 #choose-file-button {
     padding-top: 0%;

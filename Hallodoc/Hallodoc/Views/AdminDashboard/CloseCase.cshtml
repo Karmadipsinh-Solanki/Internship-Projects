@@ -125,81 +125,121 @@
 
         </div>
         <header class="h5 mb-3 ">Patient Information</header>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-floating mb-3">
-                    <input type="name" class="form-control" id="floatingInput1" placeholder="First Name" asp-for="FirstName" readonly>
-                    <label for="floatingInput1">First Name</label>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-floating mb-3">
-                    <input type="name" class="form-control" id="floatingInput2" placeholder="Last Name" asp-for="LastName" readonly>
-                    <label for="floatingInput2">Last Name</label>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-floating mb-3">
-                    <input type="date" class="form-control" id="dob" asp-for="DOB" readonly>
-                    <label for="dob">Date of Birth</label>
-                    <span asp-validation-for="DOB" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-8 col-sm-9">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="PhoneNumber" placeholder="PhoneNumber" readonly asp-for="PhoneNumber" />
-                            <label for="PhoneNumber">Phone Number</label>
-                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-phone-vibrate relativePhone" viewBox="0 0 16 16">
-                                <path d="M10 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM6 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z" />
-                                <path d="M8 12a1 1 0 1 0 0-2 1 1 0 0 0 0 2M1.599 4.058a.5.5 0 0 1 .208.676A7 7 0 0 0 1 8c0 1.18.292 2.292.807 3.266a.5.5 0 0 1-.884.468A8 8 0 0 1 0 8c0-1.347.334-2.619.923-3.734a.5.5 0 0 1 .676-.208m12.802 0a.5.5 0 0 1 .676.208A8 8 0 0 1 16 8a8 8 0 0 1-.923 3.734.5.5 0 0 1-.884-.468A7 7 0 0 0 15 8c0-1.18-.292-2.292-.807-3.266a.5.5 0 0 1 .208-.676M3.057 5.534a.5.5 0 0 1 .284.648A5 5 0 0 0 3 8c0 .642.12 1.255.34 1.818a.5.5 0 1 1-.93.364A6 6 0 0 1 2 8c0-.769.145-1.505.41-2.182a.5.5 0 0 1 .647-.284m9.886 0a.5.5 0 0 1 .648.284C13.855 6.495 14 7.231 14 8s-.145 1.505-.41 2.182a.5.5 0 0 1-.93-.364C12.88 9.255 13 8.642 13 8s-.12-1.255-.34-1.818a.5.5 0 0 1 .283-.648" />
-                            </svg>
-                        </div>
+        <form asp-controller="AdminDashboard" asp-action="CloseCase" enctype="multipart/form-data" method="post" class="h-100  ps-3 pt-3 pe-3 g-3">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="name" class="form-control" id="floatingInput1" placeholder="First Name" asp-for="FirstName" disabled>
+                        <label for="floatingInput1">First Name</label>
                     </div>
-                    <div class="col-4 col-sm-3">
-                        <div class=" form-control d-flex justify-content-center align-items-center" style="border:1px solid #0bb6d0;height:58px;border-radius:5px;">
-                            <a id="call-button" style="text-decoration:none;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#0bb6d0" class="bi bi-telephone" viewBox="0 0 16 16">
-                                    <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="name" class="form-control" id="floatingInput2" placeholder="Last Name" asp-for="LastName" disabled>
+                        <label for="floatingInput2">Last Name</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="dob" asp-for="DOB" disabled>
+                        <label for="dob">Date of Birth</label>
+                        <span asp-validation-for="DOB" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-8 col-sm-9">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="PhoneNumber" placeholder="PhoneNumber" disabled asp-for="PhoneNumber" />
+                                <label for="PhoneNumber">Phone Number</label>
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-phone-vibrate relativePhone" viewBox="0 0 16 16">
+                                    <path d="M10 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM6 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z" />
+                                    <path d="M8 12a1 1 0 1 0 0-2 1 1 0 0 0 0 2M1.599 4.058a.5.5 0 0 1 .208.676A7 7 0 0 0 1 8c0 1.18.292 2.292.807 3.266a.5.5 0 0 1-.884.468A8 8 0 0 1 0 8c0-1.347.334-2.619.923-3.734a.5.5 0 0 1 .676-.208m12.802 0a.5.5 0 0 1 .676.208A8 8 0 0 1 16 8a8 8 0 0 1-.923 3.734.5.5 0 0 1-.884-.468A7 7 0 0 0 15 8c0-1.18-.292-2.292-.807-3.266a.5.5 0 0 1 .208-.676M3.057 5.534a.5.5 0 0 1 .284.648A5 5 0 0 0 3 8c0 .642.12 1.255.34 1.818a.5.5 0 1 1-.93.364A6 6 0 0 1 2 8c0-.769.145-1.505.41-2.182a.5.5 0 0 1 .647-.284m9.886 0a.5.5 0 0 1 .648.284C13.855 6.495 14 7.231 14 8s-.145 1.505-.41 2.182a.5.5 0 0 1-.93-.364C12.88 9.255 13 8.642 13 8s-.12-1.255-.34-1.818a.5.5 0 0 1 .283-.648" />
                                 </svg>
-                            </a>
+                            </div>
+                        </div>
+                        <div class="col-4 col-sm-3">
+                            <div class=" d-flex justify-content-center align-items-center" style="border:1px solid #0bb6d0;height:58px;border-radius:5px;">
+                                <a id="call-button" style="text-decoration:none;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#0bb6d0" class="bi bi-telephone" viewBox="0 0 16 16">
+                                        <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row mb-4">
-            <div class="col-md-6">
-                <div class="form-floating mb-3">
-                    <input type="text" asp-for="RequestId" value="@Model.RequestId" style="display:none;" />
-                    <input type="email" placeholder="Email" class="form-control" id="email" readonly asp-for="Email" />
-                    <label for="email">Email</label>
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="text" asp-for="RequestId" value="@Model.RequestId" style="display:none;" />
+                        <input type="email" placeholder="Email" class="form-control" id="email" disabled asp-for="Email" />
+                        <label for="email">Email</label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="d-flex justify-content-end align-items-center">
-            <div>
-                <div class="btn btn-primary btn-lg mb-3 me-3" style="background-color:#0dcaf0;border:1px solid #0dcaf0;">
-                    <span class="textback" style="color:white;">Edit</span>
-                </div><div class="btn btn-primary btn-lg backbutton mb-3 ">
-                    <span class="textback" style="color:#0dcaf0;">Close Case</span>
+            <div class="d-flex justify-content-end align-items-center">
+
+
+                <div class="form-button mb-3 me-3 " id="edit-div" style="background-color:#0dcaf0;border:1px solid #0dcaf0;color:white; margin-right:17px;">
+                    <a id="submit-button-2">Edit</a>
+                    <a asp-action="CloseCaseBtn" asp-controller="AdminDashboard" asp-route-requestId="@Model.RequestId" id="close-case-button">Close Case</a>
                 </div>
-                @* <a class="btn saveButton textdeconone d-flex justify-content-center align-items-center me-3 mb-3" style="height:54px!important;" id="edit-button">
-                <span class="saveButtonText">Edit</span>
+                <div id="submit-div" class="hide">
+                    <button type="submit" id="submit-button-4" style="border:none;margin-right:25px!important;">Save</button>
+                    <a id="submit-button-3" class="backbutton">Cancel</a>
+                </div>
+
+
+                @* <div id="edit-button" class="btn btn-primary btn-lg mb-3 me-3 " style="background-color:#0dcaf0;border:1px solid #0dcaf0;">
+                <a class="btn  textdeconone d-flex justify-content-center align-items-center" style="height:54px!important;" id="edit-button">
+                <span class="textback" style="color:white;">Edit</span>
                 </a>
-                <a class="btn cancelButton textdeconone d-flex justify-content-center align-items-center mb-3" style="height:54px!important;" id="edit-button">
-                <span class="cancelButtonText">Close Case</span>
-                </a> *@
+                </div>
+                <button id="save-button" type="submit" class="btn btn-primary btn-lg mb-3 me-3" style="background-color:#0dcaf0;border:1px solid #0dcaf0;">
+                <a class="btn  textdeconone d-flex justify-content-center align-items-center" style="height:54px!important;" id="edit-button">
+                <span class="textback" style="color:white;">Save</span>
+                </a>
+                </button>
+                <div id="cancel-button" class="btn btn-primary btn-lg backbutton mb-3 ">
+                <span class="textback" style="color:#0dcaf0;">Close Case</span>
+                </div> *@
             </div>
-        </div>
+        </form>
     </div>
 
     <script>
+        // edit,save,cancel
+        document.getElementById('submit-button-2').onclick = function () {
+            document.getElementById('edit-div').style.display = "none";
+            document.getElementById('submit-div').style.display = "flex";
+            var classes = document.getElementsByClassName('form-control');
+            for (var i = 3; i < 5; i++) {
+                classes[i].removeAttribute('disabled');
+            }
+            var classes = document.getElementsByClassName('hide');
+            classes[0].removeAttribute('hide');
+
+        }
+
+        document.getElementById('submit-button-3').onclick = function () {
+            document.getElementById('edit-div').style.display = "flex";
+            document.getElementById('submit-div').style.display = "none";
+            var classes = document.getElementsByClassName('form-control');
+            for (var i = 3; i < 5; i++) {
+                classes[i].setAttribute('disabled', 'disabled');
+            }
+            var classes = document.getElementsByClassName('hide');
+            classes[0].setAttribute('hide');
+            location.reload();
+        }
+
+
         function oncheck() {
             var check = document.getElementById('checkall').checked;
             if (check) {

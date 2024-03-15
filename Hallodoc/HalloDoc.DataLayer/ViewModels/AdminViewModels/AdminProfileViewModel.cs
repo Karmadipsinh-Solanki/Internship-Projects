@@ -20,9 +20,17 @@ namespace HalloDoc.DataLayer.ViewModels.AdminViewModels
         public string? LastName { get; set; }
         public string? Email { get; set; }
         public string? ConfirmEmail { get; set; }
-        public string? PhoneNumber { get; set; }
+        public string? PhoneNumber1 { get; set; }
+        public string? PhoneNumber2 { get; set; }
         public string? Address1 { get; set; }
         public string? Address2 { get; set; }
-        
+        public string? city { get; set; }
+        public string? state { get; set; }
+        public int? StateId{ get; set; }
+        public string? zip { get; set; }
+        public List<Region>? regions { get; set; } = new List<Region>();
+        public DateTime? CreatedDate { get; set; }
+        public string SelectedRegion { get; set; }
+        public List<AdminSelectedRegions> State { get; set; }
     }
 }
