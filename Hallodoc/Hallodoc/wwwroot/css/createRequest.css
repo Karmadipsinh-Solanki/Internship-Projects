@@ -28,7 +28,7 @@
     height: 100vh;
 }
 
-.modal {
+/*.modal {
     display: none;
     position: fixed;
     z-index: 1;
@@ -50,7 +50,7 @@
     width: 28%;
     height: 45%;
     align-items: center;
-}
+}*/
 
 .form-control {
     height: 54px !important;
@@ -202,13 +202,13 @@
     }
 
     /*map in menu,someoneelse and profile page */
-.modal {
+/*.modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 1;*/
     /*/ padding-top: 100px;
     / left: 0;*/
-    top: 0;
+    /*top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
@@ -225,7 +225,7 @@
     width: 50%;
     height: 50%;
     margin-top: 200px;
-}
+}*/
 
 .close {
     color: white;
@@ -273,9 +273,9 @@
         flex-basis: 35%;
     }
 
-    .modal-dialog {
+    /*.modal-dialog {
         margin: 26px !important;
-    }
+    }*/
     .map{
         height:44px!important;
     }
@@ -290,7 +290,7 @@
         flex-basis: 50%;
     }
 
-    .modal-dialog {
+    /*.modal-dialog {
         margin: 26px !important;
-    }
+    }*/
 }

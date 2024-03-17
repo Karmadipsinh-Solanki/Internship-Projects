@@ -4,7 +4,8 @@
     ViewData["Title"] = "Family/Friend-Request";
 }
 @section Styles {
-    <link href="~/css/createRequest.css" rel="stylesheet" type="text/css" />
+    @* <link href="~/css/createRequest.css" rel="stylesheet" type="text/css" /> *@
+    <link href="~/css/AdminDashboardStyle.css" rel="stylesheet" type="text/css" />
 }
 @section Scripts {
     @{
@@ -14,247 +15,293 @@
 <div>
     <partial name="Toast" />
     <!-- Modal -->
-    <div id="myModal" class="modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="exclamation">
-
-                    <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="#F5AE00"
-                         class="bi bi-exclamation-circle-fill warning-icon" viewBox="0 0 16 16">
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2" />
-                    </svg>
+    <div class="modal fade " id="myModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius:10px">
+                <div class="modal-body p-5">
+                    <div class="d-flex justify-content-center align-items-center flex-column">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div class="modalExclamation d-flex justify-content-center align-items-center">
+                                <div class="subModalExclamation d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="white" class="bi bi-exclamation-lg" viewBox="0 0 16 16">
+                                        <path d="M7.005 3.1a1 1 0 1 1 1.99 0l-.388 6.35a.61.61 0 0 1-1.214 0zM7 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <h4>Information</h4>
+                        </div>
+                        <div class="mb-5" style=";text-align:center;">
+                            <span class="text-secondary" style="font-size:14px;">
+                                While submitting the request, you must provide the correct contact
+                                Information for the
+                                patient or the responsibly party.Failure to provide the contact email and phone number will
+                                delay service or be declined.hahahaha
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <h5 style="text-align: center;">Information</h5>
-                <p style="text-align: center;    padding-left: 33px;
-                padding-right: 33px;">
-                    While submitting the request, you must provide the correct contact
-                    Information for the
-                    patient or the responsibly party.Failure to provide the contact email and phone number will
-                    delay service or be declined.
-                </p>
-                <button type="button" class="btn btn-primary mb-4 mt-3">
-                    <span class="close">Ok</span>
-                </button>
+                <div class="modal-footer form-floating mb-3" style="display: flex;justify-content: center;">
+                    <button class="saveButton" data-bs-dismiss="modal" onclick="cancel4()"><span class="saveButtonText">Ok</span></button>
+                </div>
             </div>
         </div>
-
     </div>
 
+
+
+
+
+
+
+    @* <div id="myModal" class="modal">
+    <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="exclamation">
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="#F5AE00"
+    class="bi bi-exclamation-circle-fill warning-icon" viewBox="0 0 16 16">
+    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2" />
+    </svg>
     </div>
-    <div class="container">
-        <div class="backbutton mb-3 mt-3">
+    <h5 style="text-align: center;">Information</h5>
+    <p style="text-align: center;    padding-left: 33px;
+    padding-right: 33px;">
+    While submitting the request, you must provide the correct contact
+    Information for the
+    patient or the responsibly party.Failure to provide the contact email and phone number will
+    delay service or be declined.
+    </p>
+    <button type="button" class="btn btn-primary mb-4 mt-3">
+    <span class="close">Ok</span>
+    </button>
+    </div>
+    </div>
+
+    </div> *@
+
+</div>
+<div class="container">
+    <div class="backbutton mb-3 mt-3">
         <a asp-controller="Login" asp-action="submitrequest">
-                <button type="button" class="btn btn-outline-pri">&lt Back</button>
-            </a>
-        </div>
-        <div class="content shadow ">
+            <button type="button" class="btn btn-outline-pri">&lt Back</button>
+        </a>
+    </div>
+    <div class="content shadow ">
         <form asp-controller="PatientRequest" asp-action="createFamilyRequest" class="h-100  ps-3 pt-3 pe-3 g-3">
-                <header class="h5">Family/Friend Information</header>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
+            <header class="h5">Family/Friend Information</header>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
                         <input type="name" class="form-control" id="floatingInput1" placeholder="Your First Name" asp-for="FFirstName">
-                            <label for="floatingInput1">Your First Name</label>
-                        </div>
+                        <label for="floatingInput1">Your First Name</label>
+                    </div>
                     <span asp-validation-for="FFirstName" class="text-danger"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
                         <input type="name" class="form-control" id="floatingInput2" placeholder="Your Last Name" asp-for="FLastName">
-                            <label for="floatingInput2">Your Last Name</label>
-                        </div>
+                        <label for="floatingInput2">Your Last Name</label>
+                    </div>
                     <span asp-validation-for="FLastName" class="text-danger"></span>
-                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
-                            <input type="tel" class="form-control phone" id="floatingInput3" asp-for="FPhoneNumber">
-                        </div>
-                        <span asp-validation-for="FPhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="tel" class="form-control phone" id="floatingInput3" asp-for="FPhoneNumber" style="height:58px;">
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control uremail" id="inputEmail4" placeholder="Your Email" asp-for="FEmail">
-                            <label for="floatingInput4">Your Email</label>
-                        </div>
-                        <span asp-validation-for="FEmail" class="text-danger"></span>
-                    </div>
+                    <span asp-validation-for="FPhoneNumber" class="text-danger"></span>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput4"
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control uremail" id="inputEmail4" placeholder="Your Email" asp-for="FEmail">
+                        <label for="floatingInput4">Your Email</label>
+                    </div>
+                    <span asp-validation-for="FEmail" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="name" class="form-control" id="floatingInput4"
                                placeholder="Relation" asp-for="Relation">
-                            <label for="floatingInput4">Relation with Patient</label>
-                        </div>
-                        <span asp-validation-for="Relation" class="text-danger"></span>
-                    
+                        <label for="floatingInput4">Relation with Patient</label>
                     </div>
+                    <span asp-validation-for="Relation" class="text-danger"></span>
+
                 </div>
-                <header class="h5">Patient Information</header>
-                <div class="form-floating mb-3">
-                    <!-- <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"> -->
-                <textarea class="text-area form-control" id="exampleFormControlTextarea1" rows="7" asp-for="Symptoms"></textarea>
+            </div>
+            <header class="h5">Patient Information</header>
+            <div class="form-floating mb-3">
+                <!-- <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"> -->
+                <textarea class="text-area form-control" id="exampleFormControlTextarea1" placeholder="Enter Brief Details Of Symptoms(Optional)" rows="7" asp-for="Symptoms"></textarea>
                 <label class="color" for="exampleFormControlTextarea1">Enter Brief Details Of Symptoms(Optional)</label>
                 <span asp-validation-for="Symptoms" class="text-danger"></span>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
                         <input type="name" class="form-control" id="floatingInput5" placeholder="First Name" asp-for="Symptoms">
-                            <label class="floatingInput5">First Name</label>
-                        </div>
+                        <label class="floatingInput5">First Name</label>
+                    </div>
                     <span asp-validation-for="Symptoms" class="text-danger"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
                         <input type="name" class="form-control" id="floatingInput6" placeholder="Last Name" asp-for="LastName">
-                            <label for="floatingInput6">Last Name</label>
-                        </div>
+                        <label for="floatingInput6">Last Name</label>
+                    </div>
                     <span asp-validation-for="LastName" class="text-danger"></span>
-                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
                         <input type="date" class="form-control" id="floatingInput7" asp-for="DOB">
-                            <label for="floatingInput7">Date of Birth</label>
-                        </div>
-                    <span asp-validation-for="DOB" class="text-danger"></span>
+                        <label for="floatingInput7">Date of Birth</label>
                     </div>
+                    <span asp-validation-for="DOB" class="text-danger"></span>
                 </div>
-                <header class="h5">Patient Contact Information</header>
-                <div class="row">
-                    <div class="col-md-6 ">
-                        <div class="form-floating mb-3">
+            </div>
+            <header class="h5">Patient Contact Information</header>
+            <div class="row">
+                <div class="col-md-6 ">
+                    <div class="form-floating mb-3">
                         <input type="email" class="form-control" id="inputEmail2" placeholder="Email" asp-for="Email">
                         <label for="inputEmail2">Email</label>
-                        </div>
+                    </div>
                     <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
-                        <input type="tel" class="form-control phone" id="floatingInput8" placeholder="(201)555-0123" asp-for="PhoneNumber">
-                        </div>
-                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                    </div>
-                    
                 </div>
-                <header class="h5">Patient Location</header>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
-                        <input type="name" class="form-control" id="floatingInput9" placeholder="Street" asp-for="Street">
-                            <label for="floatingInput9">Street</label>
-                        </div>
-                    <span asp-validation-for="Street" class="text-danger"></span>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="tel" class="form-control phone" id="floatingInput8" placeholder="(201)555-0123" asp-for="PhoneNumber" style="height:58px;">
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+            </div>
+            <header class="h5">Patient Location</header>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="name" class="form-control" id="floatingInput9" placeholder="Street" asp-for="Street">
+                        <label for="floatingInput9">Street</label>
+                    </div>
+                    <span asp-validation-for="Street" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
                         <input type="name" class="form-control" id="floatingInput10" placeholder="City" asp-for="City">
                         <label for="floatingInput10">City</label>
-                        </div>
+                    </div>
                     <span asp-validation-for="City" class="text-danger"></span>
-                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
                         <input type="name" class="form-control" id="floatingInput11" placeholder="State" asp-for="State">
-                            <label for="floatingInput11">State</label>
-                        </div>
+                        <label for="floatingInput11">State</label>
+                    </div>
                     <span asp-validation-for="State" class="text-danger"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
                         <input type="number" class="form-control" id="floatingInput12" placeholder="Zip Code" asp-for="FZipCode">
-                            <label for="floatingInput12">Zip Code</label>
-                        </div>
+                        <label for="floatingInput12">Zip Code</label>
+                    </div>
                     <span asp-validation-for="FZipCode" class="text-danger"></span>
-                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput13"
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="name" class="form-control" id="floatingInput13"
                                placeholder="Room#/Suite(Optional)" asp-for="Room">
-                            <label for="floatingInput13">Room#/ Suite (Optional)</label>
-                        </div>
+                        <label for="floatingInput13">Room#/ Suite (Optional)</label>
                     </div>
                 </div>
-                <header class="h5">Upload Photo or Document(Optional)</header>
-                <div class="upload mb-3 ">
+            </div>
+            <header class="h5">Upload Photo or Document(Optional)</header>
+            <div class="upload mb-3 ">
                 <input type="file" class="inputUpload" placeholder="Select File" asp-for="File">
-                    <button class="uploadButton" type="button" onclick="choose_file()" id="choose-file-button">
-                        <img src="~/SRS Screen Shorts/cloud-upload-icon.svg">
-                        <span class="button">Upload</span>
-                    </button>
+                <button class="uploadButton" type="button" onclick="choose_file()" @* id="choose-file-button" *@>
+                    <img src="~/SRS Screen Shorts/cloud-upload-icon.svg">
+                    <span class="button">Upload</span>
+                </button>
 
-                    <!-- <button onclick="choose_file()" id="choose-file-button">
-                        <span id="select-file-text">Select File</span>
-                        <div id="choose-file-button-sub-div">
-                            <div id="choose-file-button-sub-sub-div">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white"
-                                    class="bi bi-cloud-upload" viewBox="0 0 16 16" id="upload-icon">
-                                    <path fill-rule="evenodd"
-                                        d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
-                                    <path fill-rule="evenodd"
-                                        d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708z" />
-                                </svg>
-                                <span id="upload-text">Upload</span>
-                            </div>
-                            <input type="file" id="file-input-button" name="file" />
+                <!-- <button onclick="choose_file()" id="choose-file-button">
+                    <span id="select-file-text">Select File</span>
+                    <div id="choose-file-button-sub-div">
+                        <div id="choose-file-button-sub-sub-div">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white"
+                                class="bi bi-cloud-upload" viewBox="0 0 16 16" id="upload-icon">
+                                <path fill-rule="evenodd"
+                                    d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
+                                <path fill-rule="evenodd"
+                                    d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708z" />
+                            </svg>
+                            <span id="upload-text">Upload</span>
                         </div>
-                    </button> -->
+                        <input type="file" id="file-input-button" name="file" />
+                    </div>
+                </button> -->
 
-                </div>
-                <div class="submit pb-3">
-                    <button type="submit" class="btn btn-outline-pri" id="submit-button">
-                        Submit
-                    </button>&nbsp&nbsp&nbsp
-                    <button type="button" class="btn btn-outline-pri">Cancel</button>
+            </div>
+            <div class="d-flex justify-content-end align-items-center pb-3">
+                <button type="submit" class="saveButton me-2" @* id="submit-button" *@>
+                    <span class="saveButtonText">Submit</span>
+                </button>
+                <button type="button" class="cancelButton">
+                    <span class="cancelButtonText">Cancel</span>
+                </button>
 
-                </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
-    <footer class="footer mt-3 ">
-        <span class="h5">Terms Of Conditions</span>
-        <span>|</span>
-        <span class="h5">Privacy Policy</span>
-    </footer>
+</div>
+<footer class="footer mt-3 ">
+    <span class="h5">Terms Of Conditions</span>
+    <span>|</span>
+    <span class="h5">Privacy Policy</span>
+</footer>
 
-    <script>
-        //for showing modal
-        var modal = document.getElementById("myModal");
+<script>
+    //for showing modal
+    $(document).ready(function () {
+        $('#myModal').modal('show');
+    });
 
-        var btn = document.getElementById("submit-button");
+    // var modal = document.getElementById("myModal");
 
-        var span = document.getElementsByClassName("close")[0];
+    // var btn = document.getElementById("submit-button");
 
-        btn.onclick = function () {
-            modal.style.display = "flex";
-        }
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-        //for creating countrywise phone format
-        const phoneInputField = document.getElementsByClassName("phone");
-        for (let i = 0; i < phoneInputField.length; ++i) {
-            const phoneInput = window.intlTelInput(phoneInputField[i], {
-                utilsScript:
-                    "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
-            });
-        }
+    // var span = document.getElementsByClassName("close")[0];
+
+    // btn.onclick = function () {
+    //     modal.style.display = "flex";
+    // }
+    // span.onclick = function () {
+    //     modal.style.display = "none";
+    // }
+    // window.onclick = function (event) {
+    //     if (event.target == modal) {
+    //         modal.style.display = "none";
+    //     }
+    // }
+    //for creating countrywise phone format
+    const phoneInputField = document.getElementsByClassName("phone");
+    for (let i = 0; i < phoneInputField.length; ++i) {
+        const phoneInput = window.intlTelInput(phoneInputField[i], {
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+        });
+    }
 
 
 
 
-    </script>
+</script>
 </div>
