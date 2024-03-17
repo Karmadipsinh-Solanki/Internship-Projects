@@ -1008,6 +1008,54 @@ table.dataTable thead th, table.dataTable tfoot th {
     background-color: #F89406 !important;
 }
 
+/*submit request*/
+.upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    --bs-btn-active-bg: #00576f !important;
+    --bs-btn-active-border-color: #0686a3 !important;
+}
+
+.inputUpload {
+    border: none;
+    border-radius: 5px;
+    flex-basis: 85%;
+    background-color: #f0f0f0;
+    padding: 10px;
+    height: 50px;
+    /* width: 100%; */
+}
+
+.uploadButton {
+    border: none!important;
+    border-radius: 5px!important;
+    flex-basis: 15%!important;
+    /*background-color: #0dcaf0;*/
+    background-color: #0dcaf0!important;
+    padding: 10px!important;
+    /*border-radius: 5px;*/
+    height: 50px!important;
+    /*border: 1px solid #0dcaf0;*/
+}
+
+.button {
+    color: white;
+}
+
+.submit {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.footer {
+    background-color: rgb(38, 38, 38);
+    color: white;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    bottom: 0;
+}
 /*label for assign case to go above selected text*/
 /*label {
     display: block;

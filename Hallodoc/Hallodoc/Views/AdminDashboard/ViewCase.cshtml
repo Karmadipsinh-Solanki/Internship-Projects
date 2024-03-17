@@ -9,17 +9,17 @@
 }
 @section Scripts {
     @{
-        <partial name="_ValidationScriptsPartial"/>
+        <partial name="_ValidationScriptsPartial" />
     }
 }
 <div>
     <partial name="Toast" />
     <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" />
     <hr class="mb-0 mt-0 d-none d-md-block horizontal-line">
-    <partial name="AdminDashboardNavbar"/>
+    <partial name="AdminDashboardNavbar" />
     <div class="maindiv container-fluid d-flex flex-column justify-content-center px-5" style="background-color:#f5f5f5;">
-            <div class="firstdiv d-flex justify-content-between align-items-center">
-                <form asp-action="viewcase" asp-controller="AdminDashboard" method="post">
+        <div class="firstdiv d-flex justify-content-between align-items-center">
+            <form asp-action="viewcase" asp-controller="AdminDashboard" method="post">
                 <input type="hidden" asp-for="RequestId" id="requestId" />
                 @if (Model.Status.Equals("Reserved"))
                 {
@@ -39,13 +39,13 @@
                         </span>
                     </h3>
                 }
-                </form>
-                <div class="btn cancelButton mb-3 mt-3" style="background-color:transparent;">
-                    <a class="textdeconone" asp-controller="AdminDashboard" asp-action="AdminDashboard">
-                        <span class="cancelButtonText">&lt Back</span>
-                    </a>
-                </div>
+            </form>
+            <div class="btn cancelButton mb-3 mt-3" style="background-color:transparent;">
+                <a class="textdeconone" asp-controller="AdminDashboard" asp-action="AdminDashboard">
+                    <span class="cancelButtonText">&lt Back</span>
+                </a>
             </div>
+        </div>
         <div class="content shadow p-3 mb-3" style="background-color:white;">
             <form asp-action="ViewCase" asp-controller="AdminDashboard" method="post">
 
@@ -56,25 +56,25 @@
                 </div>
                 @* <div class="form-floating mb-3 p-0">
                 <!-- <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"> -->
-                <textarea class="text-area form-control" id="exampleFormControlTextarea1" rows="6" asp-for="PatientNotes" readonly></textarea>
+                <textarea class="text-area form-control" id="exampleFormControlTextarea1" rows="6" asp-for="PatientNotes" disabled></textarea>
                 <label class="color" for="floatingInput">Patient Notes</label>
                 </div> *@
                 <div class="form-floating" style="width: 100%;margin-top: 20px;">
                     <textarea type="text" placeholder="Username" class="form-control" id="username-input"
-                              style="height: 135px !important;" asp-for="PatientNotes" readonly></textarea>
+                              style="height: 135px !important;" asp-for="PatientNotes" disabled></textarea>
                     <label for="username-input" class="labels">Patient Notes</label>
                 </div>
-                <hr class="hrdashed"/>
+                <hr class="hrdashed" />
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput1" placeholder="First Name" asp-for="FirstName" readonly>
+                            <input type="name" class="form-control" id="floatingInput1" placeholder="First Name" asp-for="FirstName" disabled>
                             <label for="floatingInput1">First Name</label>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput2" placeholder="Last Name" asp-for="LastName" readonly>
+                            <input type="name" class="form-control" id="floatingInput2" placeholder="Last Name" asp-for="LastName" disabled>
                             <label for="floatingInput2">Last Name</label>
                         </div>
                     </div>
@@ -82,14 +82,14 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="dob" asp-for="DOB" readonly>
+                            <input type="date" class="form-control" id="dob" asp-for="DOB" disabled>
                             <label for="dob">Date of Birth</label>
                             <span asp-validation-for="DOB" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-5">
                         <div class="form-floating mb-3">
-                            <input type="tel" class="form-control" id="phone" readonly asp-for="PhoneNumber" />
+                            <input type="tel" class="form-control" id="phone" disabled asp-for="PhoneNumber" />
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text" asp-for="RequestId" value="@Model.RequestId" style="display:none;" />
-                            <input type="email" placeholder="Email" class="form-control" id="email" readonly asp-for="Email" />
+                            <input type="email" placeholder="Email" class="form-control" id="email" disabled asp-for="Email" />
                             <label for="email">Email</label>
                         </div>
                     </div>
@@ -116,26 +116,15 @@
                         <div class="form-floating mb-3">
                             @if (Model.Status.Equals("Reserved"))
                             {
-                                @* <a class="edit-button" id="edit-button">
-                            <span>Edit</span>
-                            </a> *@
-                                <a class="btn cancelButton textdeconone d-flex justify-content-center align-items-center" style="height:54px!important;" id="edit-button">
-                                    <span class="cancelButtonText">Edit</span>
-                                </a>
-                                @* <button type="submit" class="edit-button" id="save-button" style="display:none;text-decoration:none;">
-                            <span>Save</span>
-                            </button> *@
-                                <a class="textdeconone" asp-controller="AdminDashboard" asp-action="ViewCase">
-                                    <button type="submit" class="btn saveButton m-3" style="display:none;height:54px!important;" id="save-button">
-                                        <span class="saveButtonText">Save</span>
+                                <div class="form-button mb-3 me-3 " id="edit-div" style="width:58px;background-color:#0dcaf0;border:1px solid #0dcaf0;color:white; margin-right:17px;border: 1px solid #0dcaf0;border-radius: 5px;padding: 14px;">
+                                    <a id="submit-button-2">Edit</a>
+                                </div>
+                                <div id="submit-div" class="hide">
+                                    <button type="submit" id="submit-button-4" style="border:none;border: 1px solid aqua;border-radius: 5px;background-color: aqua;">
+                                        Save
                                     </button>
-                                </a>
-                                @* <a class="cancel-button" id="cancel-btn" style="display:none;text-decoration:none;">
-                            <span>Cancel</span>
-                            </a> *@
-                                <a class="cancel-button " id="cancel-btn" style="height:54px!important;text-decoration:none;background-color:#d72d31;border:1px solid #d72d31;border-radius:5px; height: 40px;width: 80px;display:none;">
-                                    <span class="saveButtonText">Cancel</span>
-                                </a>
+                                    <a id="submit-button-3" class="backbutton textdeconone" style="border: 1px solid #0dcaf0;border-radius: 5px;color: #0dcaf0;padding: 14px;">Cancel</a>
+                                </div>
                             }
                         </div>
                     </div>
@@ -144,13 +133,13 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" placeholder="Region" class="form-control" id="region" readonly asp-for="Region" />
+                            <input type="name" placeholder="Region" class="form-control" id="region" disabled asp-for="Region" />
                             <label for="region">Region</label>
                         </div>
                     </div>
                     <div class="col-md-5">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput5" readonly asp-for="BusinessAddress" />
+                            <input type="name" class="form-control" id="floatingInput5" disabled asp-for="BusinessAddress" />
                             <label for="floatingInput5">BusinessAddress</label>
                         </div>
                     </div>
@@ -169,7 +158,7 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" placeholder="Room" class="form-control" id="room" readonly asp-for="Room" />
+                            <input type="name" placeholder="Room" class="form-control" id="room" disabled asp-for="Room" />
                             <label for="room">Room</label>
                         </div>
                     </div>
@@ -184,21 +173,47 @@
                                 </button>
                             </a>
                         }
-                        <a class="textdeconone" asp-controller="AdminDashboard" asp-action="ViewNotes">
-                            <button class="btn saveButton me-3 mb-3" style="width:110px!important;">
-                                <span class="saveButtonText">View Notes</span>
+                        <div class="">
+                            <a class="textdeconone" asp-controller="AdminDashboard" asp-action="ViewNotes">
+                                <button class="btn saveButton me-3 mb-3" style="width:110px!important;">
+                                    <span class="saveButtonText">View Notes</span>
+                                </button>
+                            </a>
+                            <button class="btn redCancelButton mb-3" style="width:110px!important;background-color:#d72d31;">
+                                <span class="saveButtonText">Cancel</span>
                             </button>
-                        </a>
-                        <button class="btn redCancelButton mb-3" style="width:110px!important;background-color:#d72d31;">
-                            <span class="saveButtonText">Cancel</span>
-                        </button>
+                        </div>
                     </div>
                 </div>
             </form>
-            </div>
         </div>
+    </div>
 
     <script>
+        // edit,save,cancel
+        document.getElementById('submit-button-2').onclick = function () {
+            document.getElementById('edit-div').style.display = "none";
+            document.getElementById('submit-div').style.display = "flex";
+            var classes = document.getElementsByClassName('form-control');
+            for (var i = 3; i < 5; i++) {
+                classes[i].removeAttribute('disabled');
+            }
+            var classes = document.getElementsByClassName('hide');
+            classes[0].removeAttribute('hide');
+
+        }
+
+        document.getElementById('submit-button-3').onclick = function () {
+            document.getElementById('edit-div').style.display = "flex";
+            document.getElementById('submit-div').style.display = "none";
+            var classes = document.getElementsByClassName('form-control');
+            for (var i = 3; i < 5; i++) {
+                classes[i].setAttribute('disabled', 'disabled');
+            }
+            var classes = document.getElementsByClassName('hide');
+            classes[0].setAttribute('hide');
+            location.reload();
+        }
         // to print req type
         const changeStatus = (element) => {
             const states = document.getElementsByClassName("state");
@@ -211,26 +226,7 @@
         } else {
             document.getElementById("status-text").innerHTML = `(${finalName.charAt(0).toUpperCase() + finalName.slice(1)})`;
         }
-        // edit,save,cancel
-        var classCount = document.getElementsByClassName('form-control');
-        document.getElementById('edit-button').addEventListener('click', function () {
-            console.log(document.getElementById('save-button'))
-            document.getElementById('save-button').style.display = "flex";
-            document.getElementById('cancel-btn').style.display = "flex";
-            document.getElementById('edit-button').style.display = "none";
-            for (var i = 1; i <= 5; i++) {
-                classCount[i].removeAttribute('readonly');
-            }
-        });
-        document.getElementById('cancel-btn').addEventListener('click', function () {
-            document.getElementById('edit-button').style.display = "flex";
-            document.getElementById('cancel-btn').style.display = "none";
-            document.getElementById('save-button').style.display = "none";
-            for (var i = 1; i < 5; i++) {
-                classCount[i].setAttribute('readonly', 'readonly');
-            }
-            location.reload();
-        });
+        
 
         //for creating countrywise phone format
         // const phoneInputField = document.querySelector("#phone");
