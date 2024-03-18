@@ -27,6 +27,7 @@ using HalloDoc.LogicLayer.Interface;
 using HalloDoc.LogicLayer.Repository;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace HalloDoc.Controllers
 {
@@ -112,7 +113,8 @@ namespace HalloDoc.Controllers
         }
         public IActionResult CreateRequest()
         {
-            return View();
+            CreateRequestViewModel createRequestViewModel = _admin.createRequest();
+            return View(createRequestViewModel);
         }
 
         [HttpPost]
@@ -398,6 +400,25 @@ namespace HalloDoc.Controllers
             }
             return RedirectToAction("CloseCase");
         }
+        public IActionResult Encounter(int id)
+        {
+            EncounterViewModel encounterViewModel = _admin.encounter(id);
+            return View(encounterViewModel);
+        }
+        [HttpPost]
+        public IActionResult Encounter(EncounterViewModel model)
+        {
+            bool check = _admin.encounter(model);
+            if (check)
+            {
+                TempData["success"] = "Form editted successfully";
+            }
+            else
+            {
+                TempData["error"] = "Error,form could not be editted";
+            }
+            return RedirectToAction("Encounter", new { requestId = model.RequestId });
+        }
         [HttpPost]
         public IActionResult SendAgreement(AdminDashboardTableView model,int id)
         {
@@ -413,12 +434,57 @@ namespace HalloDoc.Controllers
             return RedirectToAction("viewUpload");
         }
         public IActionResult ReviewAgreement() { return View(); }
+
+        public IActionResult FetchAdminRegions()
+        {
+            List<Hallodoc.Region> regions = _admin.fetchAdminRegions();
+            return Json(new { response = regions });
+        }
+        public IActionResult SaveAdministratorDetail(AdminProfileViewModel model)
+        {
+            bool check = _admin.saveAdministratorDetail(model);
+            if (check)
+            {
+                TempData["success"] = "Administrator information updated successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,Administrator Information not updated!";
+            }
+            return RedirectToAction("AdminProfile");
+        }
+        [HttpPost]
+        public IActionResult SaveBillingInformation(AdminProfileViewModel model)
+        {
+            bool check = _admin.saveBillingInformation(model);
+            if (check)
+            {
+                TempData["success"] = "Mailing & Billing Information updated successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,Mailing & Billing Information not updated!";
+            }
+            return RedirectToAction("AdminProfile");
+        }
+        public IActionResult ResetPassword(AdminProfileViewModel model)
+        {
+            bool check = _admin.resetPassword(model);
+            if (check)
+            {
+                TempData["success"] = "Password updated successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,password not updated!";
+            }
+            return RedirectToAction("AdminProfile");
+        }
         public IActionResult AdminProfile()
         {
             AdminProfileViewModel adminProfileViewModel = _admin.adminProfile();
             return View(adminProfileViewModel);
         }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

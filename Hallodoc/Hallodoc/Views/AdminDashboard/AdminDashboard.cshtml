@@ -212,13 +212,13 @@
                                     Family/Friend
                                 </span>
                             </a>
-                            <a class="req-filter Business " onclick="changeRequestor(this)">
+                            <a class="req-filter Business" onclick="changeRequestor(this)">
                                 <div class="categories-div-sub-sub" style="background-color: #e16479"></div>
                                 <span style="color:gray" class="categories-div-sub-text">
                                     Business
                                 </span>
                             </a>
-                            <a class="req-filter Concierge " onclick="changeRequestor(this)">
+                            <a class="req-filter Concierge" onclick="changeRequestor(this)">
                                 <div class="categories-div-sub-sub" style="background-color: #047dc2;"></div>
                                 <span style="color:gray" class="categories-div-sub-text">
                                     Concierge
@@ -735,17 +735,18 @@
         });
         let sidebarOpen = false;
         function hamburger() {
+            console.log('in hamburger')
             if (!sidebarOpen) {
                 document.getElementById('sidebar').style.display = "flex";
-                document.getElementById('main-div').style.opacity = "0.5";
-                document.getElementById('main-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+                document.getElementById('main-sub-div').style.opacity = "0.5";
+                document.getElementById('main-sub-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
                 // document.getElementById("defaultOpen2").click();
                 sidebarOpen = true;
             } else {
                 console.log('hii');
                 document.getElementById('sidebar').style.display = "none";
-                document.getElementById('main-div').style.opacity = "1";
-                document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+                document.getElementById('main-sub-div').style.opacity = "1";
+                document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
                 sidebarOpen = false;
             }
         }
@@ -880,47 +881,47 @@
         const changeRequestor = (element) => {
             const states = document.getElementsByClassName("req-filter")
             const current_state = element.classList[1]
-
             for (let i = 0; i < states.length; ++i) {
                 if (states[i].classList.length == 3 && states[i].classList[1] == current_state) {
+                    console.log('Hi')
                     break;
                 }
                 else if (states[i].classList[1] == current_state) {
-                    states[i].classList.add(`filter-active`)
+                    states[i].classList.add('filter-active')
                 }
                 else if (states[i].classList.length == 3) {
-                    states[i].classList.remove(`filter-active`)
+                    states[i].classList.remove('filter-active')
                 }
             }
-        }
-        //add border when clicked
-        for (var i = 0; i < states.length; i++) {
-            states[i].classList.remove('filter-active');
-        }
-        // Add the active class to the clicked element
-        element.classList.add('filter-active');
-
-
-        //?????
-        // document.getElementById("partial-container").style.display = "none";
-        // document.getElementsByClassName("loader-container")[0].style.display = "flex";
-        consol.log('hii')
-        console.log(`/AdminDashboard/${document.getElementById("status-text").innerHTML.substring(1, document.getElementById("status-text").innerHTML.length - 1)}`)
-        $.ajax({
-            url: `/AdminDashboard/${document.getElementById("status-text").innerHTML.substring(1, document.getElementById("status-text").innerHTML.length - 1)}`,
-            type: 'POST',
-            dataType: 'html',
-            data: { requestor: current_state, search: document.getElementById("search").value, region: document.getElementById("region").value },
-            // Pass your data here
-            success: function (response) {
-                // document.getElementsByClassName("loader-container")[0].style.display = "none";
-                // document.getElementById("partial-container").style.display = "block";
-                $("#AdminDashboardPartialView").html(response)
-            },
-            error: function () {
-                alert('An error occurred.');
+            //add border when clicked
+            for (var i = 0; i < states.length; i++) {
+                states[i].classList.remove('filter-active');
             }
-        });
+            // Add the active class to the clicked element
+            element.classList.add('filter-active');
+
+
+            //?????
+            // document.getElementById("partial-container").style.display = "none";
+            // document.getElementsByClassName("loader-container")[0].style.display = "flex";
+            console.log(`/AdminDashboard/${document.getElementById("status-text").innerHTML.substring(1, document.getElementById("status-text").innerHTML.length - 1)}`)
+            $.ajax({
+                url: `/AdminDashboard/${document.getElementById("status-text").innerHTML.substring(1, document.getElementById("status-text").innerHTML.length - 1)}`,
+                type: 'POST',
+                dataType: 'html',
+                data: { requestor: current_state, search: document.getElementById("search").value, region: document.getElementById("region").value },
+                // Pass your data here
+                success: function (response) {
+                    // document.getElementsByClassName("loader-container")[0].style.display = "none";
+                    // document.getElementById("partial-container").style.display = "block";
+                    $("#AdminDashboardPartialView").html(response)
+                },
+                error: function () {
+                    alert('An error occurred.');
+                }
+            });
+        }
+        
         //?????
 
         //for creating countrywise phone format

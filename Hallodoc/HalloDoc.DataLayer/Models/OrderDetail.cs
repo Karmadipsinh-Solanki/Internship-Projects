@@ -26,7 +26,7 @@ public partial class OrderDetail
 
     public string? Prescription { get; set; }
 
-    public int NoOfRefill { get; set; }
+    public int? NoOfRefill { get; set; }
 
     [Column(TypeName = "timestamp without time zone")]
     public DateTime? CreatedDate { get; set; }

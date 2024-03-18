@@ -130,7 +130,7 @@ namespace HalloDoc.LogicLayer.Repository
                 regions = regions,
                 status = status,
                 adminNavbarViewModel = adminNavbarViewModel
-        };
+            };
             return adminDashboardViewModel;
         }
         [HttpPost]
@@ -648,6 +648,19 @@ namespace HalloDoc.LogicLayer.Repository
             _context.SaveChanges();
             return 2;
         }
+        CreateRequestViewModel IAdmin.createRequest()
+        {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            CreateRequestViewModel createRequestViewModel = new CreateRequestViewModel();
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 1;
+            createRequestViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            return createRequestViewModel;
+        }
         HealthProfessional IAdmin.fetchBusinessDetail(int id)
         {
             return _context.HealthProfessionals.FirstOrDefault(r => r.VendorId == id);
@@ -888,7 +901,7 @@ namespace HalloDoc.LogicLayer.Repository
         //        return false;
         //    }
         //}
-
+        ////
         ViewUploadViewModel IAdmin.viewUpload(int id)
         {
             //to save file in wwwroot,that is uploaded by patient
@@ -1222,6 +1235,201 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
+        string monthNameFunc(string month1)
+        {
+            string monthName;
+            switch (month1)
+            {
+                case "1":
+                    monthName = "January";
+                    break;
+                case "2":
+                    monthName = "February";
+                    break;
+                case "3":
+                    monthName = "March";
+                    break;
+                case "4":
+                    monthName = "April";
+                    break;
+                case "5":
+                    monthName = "May";
+                    break;
+                case "6":
+                    monthName = "June";
+                    break;
+                case "7":
+                    monthName = "July";
+                    break;
+                case "8":
+                    monthName = "August";
+                    break;
+                case "9":
+                    monthName = "September";
+                    break;
+                case "10":
+                    monthName = "October";
+                    break;
+                case "11":
+                    monthName = "November";
+                    break;
+                case "12":
+                    monthName = "December";
+                    break;
+                default:
+                    monthName = "Invalid month";
+                    break;
+            }
+            return monthName;
+        }
+        EncounterViewModel IAdmin.encounter(int id)
+        {
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 1;
+            var details = _context.EncounterForms.FirstOrDefault(r => r.RequestId == id);
+            var clientDetails = _context.Requests.Include(u => u.RequestClient).FirstOrDefault(r => r.RequestId == id);
+            var month1 = clientDetails?.RequestClient?.StrMonth;
+
+            string monthName = monthNameFunc(month1);
+            int month = DateTime.ParseExact(monthName, "MMMM", new CultureInfo("en-US")).Month;
+
+            EncounterViewModel encounterForm = new EncounterViewModel()
+            {
+                FirstName = clientDetails?.RequestClient?.FirstName,
+                LastName = clientDetails?.RequestClient?.LastName,
+                Location = clientDetails?.RequestClient?.Address,
+                PhoneNumber = clientDetails?.RequestClient?.PhoneNumber,
+                Email = clientDetails?.RequestClient?.Email,
+                DOB = new DateTime((int)clientDetails.RequestClient.IntYear, month, (int)clientDetails.RequestClient.IntDate),
+                Date = details?.Date ?? DateTime.Now,
+                HistoryOfPresentIllness = details?.HistoryIllness,
+                MedicalHistory = details?.MedicalHistory,
+                Medications = details?.Medications,
+                Allergies = details?.Allergies,
+                temp = details?.Temp,
+                HR = details?.Hr,
+                RR = details?.Rr,
+                BPSystolic = details?.BpS,
+                BPDiastolic = details?.BpD,
+                O2 = details?.O2,
+                Pain = details?.Pain,
+                Heent = details?.Heent,
+                Chest = details?.Chest,
+                CV = details?.Cv,
+                ABD = details?.Abd,
+                Extr = details?.Extr,
+                Skin = details?.Skin,
+                Neuro = details?.Neuro,
+                Other = details?.Other,
+                Diagnosis = details?.Diagnosis,
+                TreatmentPlan = details?.TreatmentPlan,
+                MedicationsDispensed = details?.MedicationDispensed,
+                adminNavbarViewModel = adminNavbarViewModel,
+                Procedures = details?.Procedures,
+                Followup = details?.FollowUp,
+                RequestId = id,
+            };
+            return encounterForm;
+        }
+        bool IAdmin.encounter(EncounterViewModel model)
+        {
+            if (model.RequestId != null)
+            {
+                var details = _context.EncounterForms.FirstOrDefault(r => r.RequestId == model.RequestId);
+                if (details == null)
+                {
+                    EncounterForm encounterForm = new EncounterForm();
+                    encounterForm.RequestId = (int)model.RequestId;
+                    encounterForm.Date = model?.Date ?? DateTime.Now;
+                    encounterForm.HistoryIllness = model?.HistoryOfPresentIllness;
+                    encounterForm.MedicalHistory = model?.MedicalHistory;
+                    encounterForm.Medications = model?.Medications;
+                    encounterForm.Allergies = model?.Allergies;
+                    encounterForm.Temp = model?.temp;
+                    encounterForm.Hr = model?.HR;
+                    encounterForm.Rr = model?.RR;
+                    encounterForm.BpS = model?.BPSystolic;
+                    encounterForm.BpD = model?.BPDiastolic;
+                    encounterForm.O2 = model?.O2;
+                    encounterForm.Pain = model?.Pain;
+                    encounterForm.Heent = model?.Heent;
+                    encounterForm.Chest = model?.Chest;
+                    encounterForm.Abd = model?.ABD;
+                    encounterForm.Extr = model?.Extr;
+                    encounterForm.Skin = model?.Skin;
+                    encounterForm.Neuro = model?.Neuro;
+                    encounterForm.Other = model?.Other;
+                    encounterForm.Cv = model?.CV;
+                    encounterForm.Diagnosis = model?.Diagnosis;
+                    encounterForm.TreatmentPlan = model?.TreatmentPlan;
+                    encounterForm.MedicationDispensed = model?.MedicationsDispensed;
+                    encounterForm.Procedures = model?.Procedures;
+                    encounterForm.FollowUp = model?.Followup;
+                    _context.EncounterForms.Add(encounterForm);
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    var detail = _context.EncounterForms.FirstOrDefault(r => r.RequestId == model.RequestId);
+                    detail.Date = model?.Date ?? DateTime.Now;
+                    detail.HistoryIllness = model?.HistoryOfPresentIllness;
+                    detail.MedicalHistory = model?.MedicalHistory;
+                    detail.Medications = model?.Medications;
+                    detail.Allergies = model?.Allergies;
+                    detail.Temp = model?.temp;
+                    detail.Hr = model?.HR;
+                    detail.Rr = model?.RR;
+                    detail.BpS = model?.BPSystolic;
+                    detail.BpD = model?.BPDiastolic;
+                    detail.O2 = model?.O2;
+                    detail.Pain = model?.Pain;
+                    detail.Heent = model?.Heent;
+                    detail.Chest = model?.Chest;
+                    detail.Abd = model?.ABD;
+                    detail.Extr = model?.Extr;
+                    detail.Skin = model?.Skin;
+                    detail.Neuro = model?.Neuro;
+                    detail.Other = model?.Other;
+                    detail.Cv = model?.CV;
+                    detail.Diagnosis = model?.Diagnosis;
+                    detail.TreatmentPlan = model?.TreatmentPlan;
+                    detail.MedicationDispensed = model?.MedicationsDispensed;
+                    detail.Procedures = model?.Procedures;
+                    detail.FollowUp = model?.Followup;
+                    _context.EncounterForms.Update(detail);
+                    _context.SaveChanges();
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        //adminprofile page
+        List<Region> IAdmin.fetchAdminRegions()
+        {
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            int aspNetUserId = cookieModel.aspId;
+            var AdminDetails = _context.Admins.FirstOrDefault(u => u.AspNetUserId == aspNetUserId);
+            var regions = _context.AdminRegions.Include(u => u.Region).Where(u => u.AdminId == AdminDetails.AdminId).Select(ar => ar.RegionId).ToList();
+            List<Region> regionName = (from regionNames in _context.Regions
+                                       where regions.Contains(regionNames.RegionId)
+                                       select new Region
+                                       {
+                                           RegionId = regionNames.RegionId,
+                                           Name = regionNames.Name,
+                                           Abbreviation = regionNames.Abbreviation
+                                       }).ToList();
+            return regionName;
+        }
         bool IAdmin.saveAdministratorDetail(AdminProfileViewModel model)
         {
             var request = _httpContextAccessor.HttpContext.Request;
@@ -1293,6 +1501,25 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
+        bool IAdmin.resetPassword(AdminProfileViewModel model)
+        {
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            int aspNetUserId = cookieModel.aspId;
+            if (aspNetUserId != null)
+            {
+                AspNetUser aspNetUser = _context.AspNetUsers.FirstOrDefault(u => u.Id == aspNetUserId);
+                aspNetUser.PasswordHash = model.Password;
+                _context.AspNetUsers.Update(aspNetUser);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         AdminProfileViewModel IAdmin.adminProfile()
         {
             var request = _httpContextAccessor.HttpContext.Request;
@@ -1312,6 +1539,9 @@ namespace HalloDoc.LogicLayer.Repository
             //    Name = regionNames.Name,
             //    Abbreviation = regionNames.Abbreviation
             //}).ToList();
+            //var data = _context.Admins.Include(u => u.AspNetUsers).FirstOrDefault(u => u.AdminId == id);
+            AdminProfileViewModel adminProfileViewModel = new AdminProfileViewModel();
+            
 
             var allRegions = _context.Regions.ToList();
 
@@ -1323,24 +1553,24 @@ namespace HalloDoc.LogicLayer.Repository
             })
             .ToList();
 
-            AdminProfileViewModel adminProfileViewModel = new AdminProfileViewModel()
-            {
-                FirstName = AdminDetails.FirstName,
-                LastName = AdminDetails.LastName,
-                UserName = AspAdminDetail.UserName,
-                Email = AdminDetails.Email,
-                PhoneNumber1 = AdminDetails.Mobile,
-                PhoneNumber2 = AdminDetails.AltPhone,
-                Address1 = AdminDetails.Address1,
-                Address2 = AdminDetails.Address2,
-                city = AdminDetails.City,
-                StateId = (int)AdminDetails.RegionId,
-                State = selectedRegions,
-                zip = AdminDetails.Zip,
-                regions = allRegions,
-                adminNavbarViewModel = adminNavbarViewModel,
-                CreatedDate = AspAdminDetail.CreatedDate,
-            };
+            //adminProfileViewModel.Password = data?.AspNetUsers.PasswordHash;
+            //adminProfileViewModel.Status = data?.Status;
+            //adminProfileViewModel.role = data?.Role;
+            adminProfileViewModel.FirstName = AdminDetails.FirstName;
+            adminProfileViewModel.LastName = AdminDetails.LastName;
+            adminProfileViewModel.UserName = AspAdminDetail.UserName;
+            adminProfileViewModel.Email = AdminDetails.Email;
+            adminProfileViewModel.PhoneNumber1 = AdminDetails.Mobile;
+            adminProfileViewModel.PhoneNumber2 = AdminDetails.AltPhone;
+            adminProfileViewModel.Address1 = AdminDetails.Address1;
+            adminProfileViewModel.Address2 = AdminDetails.Address2;
+            adminProfileViewModel.city = AdminDetails.City;
+            adminProfileViewModel.StateId = (int)AdminDetails.RegionId;
+            adminProfileViewModel.State = selectedRegions;
+            adminProfileViewModel.zip = AdminDetails.Zip;
+            adminProfileViewModel.regions = allRegions;
+            adminProfileViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            adminProfileViewModel.CreatedDate = AspAdminDetail.CreatedDate;
             return adminProfileViewModel;
         }
     }

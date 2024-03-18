@@ -264,16 +264,7 @@
                                 }
                                 @if (Model.status == "Conclude" || Model.status == "ToClose" || Model.status == "Active")
                                 {
-                                    <a class="dropdown-item" href="#">
-                                        <div class="action-item">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
-                                                <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5" />
-                                                <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" />
-                                            </svg>
-                                            <span>Doctor's Note</span>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" asp-action="Encounter" asp-controller="AdminDashboard" asp-route-id="@item.RequestId">
                                         <div class="action-item">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
                                                 <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1z" />
@@ -429,7 +420,7 @@
 @* accordian *@
 <div class="d-block d-md-none ">
     <div class="accordion d-sm-block d-md-none" id="accordionExample">
-        <div class="accordion-item">
+        
 
 
 
@@ -440,6 +431,7 @@
 
             @foreach (var item in Model.requests)
             {
+            <div class="accordion-item">
                 <h2 class="accordion-header" style="background-color: #ebfafd;">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         <div style="font-size:13px;padding:6px;">
@@ -646,6 +638,7 @@
                     </div>
                 </div>
                 <hr />
+            </div>
             }
 
 
@@ -659,7 +652,7 @@
 
 
 
-        </div>
+        
     </div>
 </div>
 

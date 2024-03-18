@@ -15,6 +15,7 @@ namespace HalloDoc.LogicLayer.Interface
     {
         public AdminDashboardTableView adminDashboard(string status,string? search, int? region, string? requestor);
         public int createRequest(CreateRequestViewModel model);
+        public CreateRequestViewModel createRequest();
         public bool sendLink(AdminDashboardTableView model);
         public MemoryStream downloadExcel();
         public ViewCaseModel viewCase(int id);
@@ -41,7 +42,11 @@ namespace HalloDoc.LogicLayer.Interface
         public bool sendAgreement(AdminDashboardTableView model, int id);
         public bool saveAdministratorDetail(AdminProfileViewModel model);
         public bool saveBillingInformation(AdminProfileViewModel model);
+        public bool resetPassword(AdminProfileViewModel model);
         public AdminProfileViewModel adminProfile();
-        
+        public List<Region> fetchAdminRegions();
+        public bool encounter(EncounterViewModel model);
+        public EncounterViewModel encounter(int id);
+
     }
 }

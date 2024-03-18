@@ -42,7 +42,7 @@ namespace HalloDoc.LogicLayer.Repository
             DashboardViewModel dashboardViewModel = new DashboardViewModel();
             dashboardViewModel.requests = data;
             dashboardViewModel.name = string.Concat(curr_user.FirstName, ' ', curr_user.LastName);
-            dashboardViewModel.partialViewModel = new partialViewModel() { patient_name = string.Concat(curr_user.FirstName + ' ' + curr_user.LastName) };
+            dashboardViewModel.partialViewModel = new partialViewModel() { patient_name = string.Concat(curr_user.FirstName + ' ' + curr_user.LastName) };  
             
             return dashboardViewModel;
         }

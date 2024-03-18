@@ -36,6 +36,8 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<EmailLog> EmailLogs { get; set; }
 
+    public virtual DbSet<EncounterForm> EncounterForms { get; set; }
+
     public virtual DbSet<HealthProfessional> HealthProfessionals { get; set; }
 
     public virtual DbSet<HealthProfessionalType> HealthProfessionalTypes { get; set; }
@@ -87,7 +89,6 @@ public partial class ApplicationDbContext : DbContext
     public virtual DbSet<Smslog> Smslogs { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
-
     public virtual DbSet<TableContent> TableContents { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -180,6 +181,17 @@ public partial class ApplicationDbContext : DbContext
         modelBuilder.Entity<EmailLog>(entity =>
         {
             entity.HasKey(e => e.EmailLogId).HasName("EmailLog_pkey");
+        });
+
+        modelBuilder.Entity<EncounterForm>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("EncounterForm_pkey");
+
+            entity.Property(e => e.IsFinalized).HasDefaultValueSql("'0'::\"bit\"");
+
+            entity.HasOne(d => d.Request).WithMany(p => p.EncounterForms)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_encounter_request");
         });
 
         modelBuilder.Entity<HealthProfessional>(entity =>
@@ -437,6 +449,7 @@ public partial class ApplicationDbContext : DbContext
         modelBuilder.Entity<TableContent>().HasNoKey();
 
         OnModelCreatingPartial(modelBuilder);
+
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

@@ -25,16 +25,16 @@
                 <div>
                     <div class="d-flex justify-content-between align-items-center p-3">
                         <h3>User Profile</h3>
-                        <div class="d-flex justify-content-center align-items-center mb-3 mt-3" style="background-color:white;width: 90px;height: 45px;border:1px solid #0dcaf0;border-radius:5px;">
+                        <div class="d-flex justify-content-center align-items-center mb-3 mt-3" style="background-color:transparent;width: 90px;height: 45px;border:1px solid #0dcaf0;border-radius:5px;">
                             <a class="textdeco" asp-controller="AdminDashboard" asp-action="AdminDashboard" style="text-decoration:none;">
                                 <span class="textback" style="color:#0dcaf0;">&lt Back</span>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="content shadow contentProfile">
-                    <form asp-controller="PatientDashboard" asp-action="profile" enctype="multipart/form-data" method="post" class="h-100  ps-3 pt-3 pe-3 g-3">
-                        <header class="h4">Account Information</header>
+                <div class="content shadow contentProfile h-100  ps-3 pt-3 pe-3 g-3">
+                    <form asp-controller="AdminDashboard" asp-action="ResetPassword" enctype="multipart/form-data" method="post" class="">
+                        <header class="h4 mb-3">Account Information</header>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
@@ -45,7 +45,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="name" class="form-control" id="floatingInput2" placeholder="Password" asp-for="Password" disabled>
+                                    <input type="name" class="form-control" id="floatingInput2" placeholder="Password" asp-for="Password">
                                     <label for="floatingInput2">Password</label>
                                     <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
@@ -68,11 +68,13 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end align-items-center">
-                            <div id="submit-div2">
-                                <a id="submit-button-5" class="backbutton textdeconone" style="padding:10px 5px;border:1px solid #0dcaf0;color:#0dcaf0;border-radius:6px;">Reset Password</a>
+                            <div id="submit-div3">
+                                <button type="submit" class="backbutton" style="padding:10px 5px;border:1px solid #0dcaf0;color:#0dcaf0;border-radius:6px;background-color:white;">Reset Password</button>
                             </div>
                         </div>
-                        <header class="h4 mb-4">Administrator Information</header>
+                    </form>
+                    <header class="h4 mb-4">Administrator Information</header>
+                    <form asp-controller="AdminDashboard" asp-action="SaveAdministratorDetail" enctype="multipart/form-data" method="post" class="">
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
@@ -120,7 +122,7 @@
                                     {
 
                                         <div style="display: flex;align-items: center;">
-                                            <input type="checkbox" data-region-id="@item.RegionId" class="checkboxes" checked="@item.IsSelected" value="@item.RegionId" id="@item.Name">
+                                            <input type="checkbox" data-region-id="@item.RegionId" class="checkboxes" checked="@item.IsSelected" value="@item.RegionId" id="@item.Name" disabled>
                                             <label class="container">@item.Name</label>
                                         </div>
                                     }
@@ -136,8 +138,9 @@
                                 <a id="submit-button-3" class="backbutton textdeconone" style="padding:10px 5px;border:1px solid #0dcaf0;color:#0dcaf0;border-radius:6px;">Cancel</a>
                             </div>
                         </div>
-
-                        <header class="h4 mb-4">Mailing and Billing Information</header>
+                    </form>
+                    <header class="h4 mb-4">Mailing and Billing Information</header>
+                    <form asp-controller="AdminDashboard" asp-action="SaveBillingInformation" enctype="multipart/form-data" method="post" class="">
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
@@ -261,7 +264,7 @@
             document.getElementById('edit-div').style.display = "none";
             document.getElementById('submit-div').style.display = "flex";
             var classes = document.getElementsByClassName('form-control');
-            for (var i = 2; i < 7; i++) {
+            for (var i = 4; i < 9; i++) {
                 classes[i].removeAttribute('disabled');
             }
             var checkboxes = document.getElementsByClassName('checkboxes');
@@ -276,7 +279,7 @@
             document.getElementById('edit-div').style.display = "flex";
             document.getElementById('submit-div').style.display = "none";
             var classes = document.getElementsByClassName('form-control');
-            for (var i = 2; i < 7; i++) {
+            for (var i = 4; i < 9; i++) {
                 classes[i].setAttribute('disabled', 'disabled');
             }
             var checkboxes = document.getElementsByClassName('checkboxes');
@@ -289,7 +292,7 @@
             document.getElementById('edit-div2').style.display = "none";
             document.getElementById('submit-div2').style.display = "flex";
             var classes = document.getElementsByClassName('form-control');
-            for (var i = 7; i < classes.length; i++) {
+            for (var i = 9; i < classes.length; i++) {
                 classes[i].removeAttribute('disabled');
             }
             document.getElementById('select-region').removeAttribute('disabled');
@@ -299,12 +302,14 @@
             document.getElementById('edit-div2').style.display = "flex";
             document.getElementById('submit-div2').style.display = "none";
             var classes = document.getElementsByClassName('form-control');
-            for (var i = 7; i < classes.length; i++) {
+            for (var i = 9; i < classes.length; i++) {
                 classes[i].setAttribute('disabled', 'disabled');
             }
             document.getElementById('select-region').setAttribute('disabled', 'disabled');
             location.reload();
         }
+
+        //dark theme
         window.onload = function checkingTheme() {
             try {
                 let themeCheck = localStorage.getItem('theme');

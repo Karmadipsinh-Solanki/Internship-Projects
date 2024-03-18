@@ -1,0 +1,422 @@
+﻿@using HalloDoc.DataLayer.ViewModels.AdminViewModels;
+@model EncounterViewModel;
+@using static HalloDoc.EnumStatus;
+@{
+    ViewData["Title"] = "Encounter Form";
+}
+@section Styles {
+    <link href="~/css/AdminDashboardStyle.css" rel="stylesheet" type="text/css" />
+}
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+
+<div id="body">
+    <partial name="Toast" />
+    <div style="display: flex;flex-direction: row;">
+
+        <div id="main-div" style="width: 100%;">
+            <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel"/>
+            <partial name="AdminDashboardNavbar"/>
+
+            <div id="main-sub-div" class="tabcontent main-profile-div">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center p-3">
+                        <h3>Encounter Form</h3>
+                        <div class="d-flex justify-content-center align-items-center mb-3 mt-3" style="background-color:transparent;width: 90px;height: 45px;border:1px solid #0dcaf0;border-radius:5px;">
+                            <a class="textdeco" asp-controller="AdminDashboard" asp-action="AdminDashboard" style="text-decoration:none;">
+                                <span class="textback" style="color:#0dcaf0;">&lt Back</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="content shadow contentProfile">
+                    <form asp-controller="AdminDashboard" asp-action="Encounter" enctype="multipart/form-data" method="post" class="h-100  ps-3 pt-3 pe-3 g-3">
+                        <input style="display:none;" asp-for="@Model.RequestId" />
+                        <header class="h1 mb-3 d-flex justify-content-center" style="color:#01bce9"><strong>Medical Report-Confidential</strong></header>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control custom-input" id="FirstName" placeholder="First Name" asp-for="FirstName">
+                                    <label for="FirstName">First Name</label>
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control custom-input" id="LastName" placeholder="Last Name" asp-for="LastName">
+                                    <label for="LastName">Last Name</label>
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control custom-input" id="Location" placeholder="Location" asp-for="Location">
+                                    <label for="Location">Location</label>
+                                    <span asp-validation-for="Location" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="date" class="form-control custom-input" id="DOB" placeholder="Date Of Birth" asp-for="DOB">
+                                    <label for="DOB">Date Of Birth</label>
+                                    <span asp-validation-for="DOB" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="Date" class="form-control custom-input" id="Date" placeholder="Date" asp-for="Date">
+                                    <label for="Date">Date<label>
+                                    <span asp-validation-for="Date" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="tel" class="form-control custom-input" id="phone" placeholder="User Name" asp-for="PhoneNumber">
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control custom-input" id="Email" placeholder="Email" asp-for="Email">
+                                    <label for="Email">Email</label>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <textarea type="text" class="form-control custom-input"
+                                              style="height: 72px !important;resize:none;" id="HistoryOfIllness" placeholder="History Of Present Illness Or Injury" asp-for="HistoryOfPresentIllness"></textarea>
+                                    <label for="HistoryOfPresentIllness" class="labels">History of Present Illness Or Injury</label>
+                                    <span asp-validation-for="HistoryOfPresentIllness" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <textarea type="text" class="form-control custom-input"
+                                              style="height: 72px !important;resize:none;" id="MedicalHistory" placeholder="Medical History" asp-for="MedicalHistory"></textarea>
+                                    <label for="MedicalHistory">Medical History</label>
+                                    <span asp-validation-for="MedicalHistory" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <textarea type="text" class="form-control custom-input"
+                                              style="height: 72px !important;resize:none;" id="Medications" placeholder="Medications" asp-for="Medications"></textarea>
+                                    <label for="Medications">Medications<label>
+                                    <span asp-validation-for="Medications" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <textarea type="text" class="form-control custom-input"
+                                              style="height: 72px !important;resize:none;" id="Allergies" placeholder="Allergies" asp-for="Allergies"></textarea>
+                                    <label for="Allergies">Allergies</label>
+                                    <span asp-validation-for="Allergies" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control custom-input" id="temp" placeholder="Temp" asp-for="temp">
+                                    <label for="temp">Temp<label>
+                                    <span asp-validation-for="temp" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control custom-input" id="HR" placeholder="HR" asp-for="HR">
+                                    <label for="HR">HR</label>
+                                    <span asp-validation-for="HR" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control custom-input" id="RR" placeholder="RR" asp-for="RR">
+                                    <label for="RR">RR</label>
+                                    <span asp-validation-for="RR" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-2">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control custom-input" id="BPSystolic" placeholder="BP (Systolic)" asp-for="BPSystolic">
+                                    <label for="BPSystolic">BP (Systolic)<label>
+                                    <span asp-validation-for="BPSystolic" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control custom-input" id="BPDiastolic" placeholder="BP (Diastolic)" asp-for="BPDiastolic">
+                                    <label for="BPDiastolic">BP (Diastolic)<label>
+                                    <span asp-validation-for="BPDiastolic" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control custom-input" id="O2" placeholder="O2" asp-for="O2">
+                                    <label for="O2">O2</label>
+                                    <span asp-validation-for="O2" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control custom-input" id="Pain" placeholder="Pain" asp-for="Pain">
+                                    <label for="Pain">Pain</label>
+                                    <span asp-validation-for="Pain" class=" text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <textarea type="text" class="form-control custom-input"
+                                              style="height: 72px !important;resize:none;" id="Heent" placeholder="Heent" asp-for="Heent"></textarea>
+                                    <label for="Heent">Heent<label>
+                                    <span asp-validation-for="Heent" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <textarea type="text" class="form-control custom-input"
+                                              style="height: 72px !important;resize:none;" id="CV" placeholder="CV" asp-for="CV"></textarea>
+                                    <label for="CV">CV</label>
+                                    <span asp-validation-for="CV" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <textarea type="text" class="form-control custom-input"
+                                              style="height: 72px !important;resize:none;" id="Chest" placeholder="Chest" asp-for="Chest"></textarea>
+                                    <label for="Chest">Chest<label>
+                                    <span asp-validation-for="Chest" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <textarea type="text" class="form-control custom-input"
+                                              style="height: 72px !important;resize:none;" id="ABD" placeholder="ABD" asp-for="ABD"></textarea>
+                                    <label for="ABD">ABD</label>
+                                    <span asp-validation-for="ABD" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <textarea type="text" class="form-control custom-input"
+                                              style="height: 72px !important;resize:none;" id="Extr" placeholder="Extr" asp-for="Extr"></textarea>
+                                    <label for="Extr">Extr<label>
+                                    <span asp-validation-for="Extr" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <textarea type="text" class="form-control custom-input"
+                                              style="height: 72px !important;resize:none;" id="Skin" placeholder="Skin" asp-for="Skin"></textarea>
+                                    <label for="Skin">Skin</label>
+                                    <span asp-validation-for="Skin" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <textarea type="text" class="form-control custom-input"
+                                              style="height: 72px !important;resize:none;" id="Neuro" placeholder="Neuro" asp-for="Neuro"></textarea>
+                                    <label for="Neuro">Neuro<label>
+                                    <span asp-validation-for="Neuro" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <textarea type="text" class="form-control custom-input"
+                                              style="height: 72px !important;resize:none;" id="Other" placeholder="Other" asp-for="Other"></textarea>
+                                    <label for="Other">Other</label>
+                                    <span asp-validation-for="Other" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <textarea type="text" class="form-control custom-input"
+                                              style="height: 72px !important;resize:none;" id="Diagnosis" placeholder="Diagnosis" asp-for="Diagnosis"></textarea>
+                                    <label for="Diagnosis">Diagnosis<label>
+                                    <span asp-validation-for="Diagnosis" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <textarea type="text" class="form-control custom-input"
+                                              style="height: 72px !important;resize:none;" id="TreatmentPlan" placeholder="TreatmentPlan" asp-for="TreatmentPlan"></textarea>
+                                    <label for="TreatmentPlan">Treatment Plan</label>
+                                    <span asp-validation-for="TreatmentPlan" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <textarea type="text" class="form-control custom-input"
+                                              style="height: 72px !important;resize:none;" id="MedicationsDispensed" placeholder="Medications Dispensed" asp-for="MedicationsDispensed"></textarea>
+                                    <label for="MedicationsDispensed">Medications Dispensed<label>
+                                    <span asp-validation-for="MedicationsDispensed" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <textarea type="text" class="form-control custom-input"
+                                              style="height: 72px !important;resize:none;" id="Procedures" placeholder="Procedures" asp-for="Procedures"></textarea>
+                                    <label for="Procedures">Procedures</label>
+                                    <span asp-validation-for="Procedures" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md">
+                                <div class="form-floating mb-3">
+                                    <textarea type="text" class="form-control custom-input"
+                                              style="height: 72px !important;resize:none;" id="Followup" placeholder="Followup" asp-for="Followup"></textarea>
+                                    <label for="Followup">Followup</label>
+                                    <span asp-validation-for="Followup" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-end align-items-center mb-3">
+                            @* <div class="saveButton form-button mb-4 me-3 " id="edit-div2" style="padding: 7px 27px;background-color:#0dcaf0;border:1px solid #0dcaf0;color:white; margin-right:17px;">
+                                <a id="submit-button-4" class="textdeconone saveButtonText">Save Changes</a>
+                            </div> *@
+                            <div class="me-3 mb-3" style="padding:10px 5px;border:1px solid #0dcaf0;color:white;border-radius:6px;background-color:#0dcaf0;">
+                                <button id="submit-button-4" type="submit" class="backbutton textdeconone saveButtonText">Save Changes</button>
+                            </div>
+                            @* <div style="background-color:#9c27b0;width:80px;height:40px;">
+                                <a id="submit-button" class="textdeconone saveButtonText"><span class="saveButtonText">Finalize</span></a>
+                            </div> *@
+                            <div class="mb-3" style="padding:10px 5px;border:1px solid #0dcaf0;color:#0dcaf0;border-radius:6px;">
+                                <a id="submit-button-5" class="backbutton textdeconone cancelButtonText">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        //for creating countrywise phone format
+        const phoneInputField = document.querySelector("#phone");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            innerHeight: 1,
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+        
+        //edit,save,cancel
+        document.getElementById('submit-button-2').onclick = function () {
+            document.getElementById('edit-div').style.display = "none";
+            document.getElementById('submit-div').style.display = "flex";
+            var classes = document.getElementsByClassName('form-control');
+            for (var i = 4; i < 9; i++) {
+                classes[i].removeAttribute('disabled');
+            }
+            var checkboxes = document.getElementsByClassName('checkboxes');
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].removeAttribute('disabled');
+            }
+        }
+        //document.getElementById('select-region').addEventListener('change',function(){
+        //    document.getElementById('option').style.display = "none";
+        //});
+        document.getElementById('submit-button-3').onclick = function () {
+            document.getElementById('edit-div').style.display = "flex";
+            document.getElementById('submit-div').style.display = "none";
+            var classes = document.getElementsByClassName('form-control');
+            for (var i = 4; i < 9; i++) {
+                classes[i].setAttribute('disabled', 'disabled');
+            }
+            var checkboxes = document.getElementsByClassName('checkboxes');
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].setAttribute('disabled', 'disabled');
+            }
+            location.reload();
+        }
+        document.getElementById('submit-button-4').onclick = function () {
+            document.getElementById('edit-div2').style.display = "none";
+            document.getElementById('submit-div2').style.display = "flex";
+            var classes = document.getElementsByClassName('form-control');
+            for (var i = 9; i < classes.length; i++) {
+                classes[i].removeAttribute('disabled');
+            }
+            document.getElementById('select-region').removeAttribute('disabled');
+
+        }
+        document.getElementById('submit-button-5').onclick = function () {
+            document.getElementById('edit-div2').style.display = "flex";
+            document.getElementById('submit-div2').style.display = "none";
+            var classes = document.getElementsByClassName('form-control');
+            for (var i = 9; i < classes.length; i++) {
+                classes[i].setAttribute('disabled', 'disabled');
+            }
+            document.getElementById('select-region').setAttribute('disabled', 'disabled');
+            location.reload();
+        }
+
+        //dark theme
+        window.onload = function checkingTheme() {
+            try {
+                let themeCheck = localStorage.getItem('theme');
+                if (themeCheck == null || themeCheck == 'light') {
+                    document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+                    document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
+                    document.getElementById('body').style.backgroundColor = "#f5f5f5";
+                    document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
+                    document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+                } else {
+                    document.getElementById('main-div').style.backgroundColor = "black";
+                    document.getElementById('main-sub-div').style.backgroundColor = "black";
+                    document.getElementById('body').style.backgroundColor = "black";
+                    document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
+                    document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
+                }
+            } catch (error) {
+                console.log('no themes decided yet');
+            }
+        }
+        function changeTheme() {
+            let theme = localStorage.getItem('theme');
+            if (theme == null || theme == 'light') {
+                localStorage.setItem('theme', 'dark');
+                document.getElementById('main-div').style.backgroundColor = "black";
+                document.getElementById('main-sub-div').style.backgroundColor = "black";
+                document.getElementById('body').style.backgroundColor = "black";
+                document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
+                document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
+            } else if (theme == 'dark') {
+                localStorage.setItem('theme', 'light');
+                document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+                document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
+                document.getElementById('body').style.backgroundColor = "#f5f5f5";
+                document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
+                document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+            }
+        }
+    </script>
+</div>
