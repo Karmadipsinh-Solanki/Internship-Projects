@@ -959,10 +959,10 @@ table.dataTable thead th, table.dataTable tfoot th {
     border: 2px solid #007bff;
 }
 
-.custom-accordion .accordion-button:focus {
+/*.custom-accordion .accordion-button:focus {
     box-shadow: none;
     border: none;
-}
+}*/
 
 .custom-accordion .accordion-button:not(.collapsed) {
     border-bottom: none;

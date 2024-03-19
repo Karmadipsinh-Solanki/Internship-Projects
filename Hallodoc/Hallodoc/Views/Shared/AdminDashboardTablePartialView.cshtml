@@ -242,7 +242,7 @@
                                 {
                                     <!--Clear Case Button trigger modal -->
                                     <a class="dropdown-item" class="dashboard-button" data-bs-toggle="modal" data-bs-target="#clearCaseModal" onclick="ClearCase(@item.RequestId)">
-                                        <div class="action-item">   
+                                        <div class="action-item">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
                                                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
                                             </svg>
@@ -419,8 +419,6 @@
 
 @* accordian *@
 <div class="d-block d-md-none ">
-    <div class="accordion d-sm-block d-md-none" id="accordionExample">
-        
 
 
 
@@ -429,17 +427,20 @@
 
 
 
-            @foreach (var item in Model.requests)
-            {
+
+
+    @for (var i = 0; i < Model.requests.Count; ++i)
+    {
+        <div class="accordion d-sm-block d-md-none" id="accordionExample">
             <div class="accordion-item">
                 <h2 class="accordion-header" style="background-color: #ebfafd;">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@(i)" aria-expanded="true" aria-controls="collapse@(i)">
                         <div style="font-size:13px;padding:6px;">
                             <div class="d-flex justify-content-between align-items-center mb-3"
-                                 style="width:240px;">
+                                 style="width:230px;">
                                 <div class="d-flex justify-content-between flex-column " style="height: 60px;">
-                                    <span mb-3>@(string.Concat(item.RequestClient.FirstName, ',', item.RequestClient.LastName))</span>
-                                    <div><span>@(item.RequestClient.Address == null ? string.Concat(item.RequestClient.Address, ',', item.RequestClient.Street, ',', item.RequestClient.City, ',', item.RequestClient.State, ',', item.RequestClient.ZipCode) : string.Concat(item.RequestClient.Street, ',', item.RequestClient.City, ',', item.RequestClient.State, ',', item.RequestClient.ZipCode))</span></div>
+                                    <span mb-3>@(string.Concat(Model.requests[i].RequestClient.FirstName, ',', Model.requests[i].RequestClient.LastName))</span>
+                                    <div><span>@(Model.requests[i].RequestClient.Address == null ? string.Concat(Model.requests[i].RequestClient.Address, ',', Model.requests[i].RequestClient.Street, ',', Model.requests[i].RequestClient.City, ',', Model.requests[i].RequestClient.State, ',', Model.requests[i].RequestClient.ZipCode) : string.Concat(Model.requests[i].RequestClient.Street, ',', Model.requests[i].RequestClient.City, ',', Model.requests[i].RequestClient.State, ',', Model.requests[i].RequestClient.ZipCode))</span></div>
                                 </div>
                                 <div>
                                     <div class="d-flex justify-content-end align-items-center ">
@@ -464,13 +465,13 @@
                                             <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0" />
                                         </svg>
                                     </span>
-                                    Wait Time:<strong class="ms-1">@item.CreatedDate.ToString("MMMM dd,yyyy")</strong>
+                                    Wait Time:<strong class="ms-1">@Model.requests[i].CreatedDate.ToString("MMMM dd,yyyy")</strong>
                                 </div>
                             }
                         </div>
                     </button>
                 </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div id="collapse@(i)" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                     <div class="accordion-body" style="background-color: #dae8eb;">
                         <div class="hrbody">
                             <hr>
@@ -487,7 +488,7 @@
                                     </svg>
                                 </div>
                                 <span>Date Of Birth:</span>
-                                <span class="ms-1">@(DateTime.Parse($"{item.RequestClient.IntYear}-{item.RequestClient.StrMonth}-{item.RequestClient.IntDate}").ToString("MMMM dd,yyyy"))(12)</span>
+                                <span class="ms-1">@(DateTime.Parse($"{Model.requests[i].RequestClient.IntYear}-{Model.requests[i].RequestClient.StrMonth}-{Model.requests[i].RequestClient.IntDate}").ToString("MMMM dd,yyyy"))(12)</span>
                             </div>
                         }
                         <div class="mb-3 flexclass">
@@ -498,7 +499,7 @@
                             </div>
                             <span>Email:</span>
                             <span>
-                                @item.Email
+                                @Model.requests[i].Email
                             </span>
                         </div>
                         @if (Model.status != "ToClose")
@@ -511,7 +512,7 @@
                                 </div>
                                 <span>Patient:</span>
                                 <span>
-                                    @item.PhoneNumber
+                                    @Model.requests[i].PhoneNumber
                                 </span>
                             </div>
                         }
@@ -528,12 +529,12 @@
                                 <div>
                                     <span>Transfer:</span>
                                     <span>
-                                        Admin transferred to Dr. @* @item.PhoneNumber *@
+                                        Admin transferred to Dr. @* @Model.requests[i].PhoneNumber *@
                                     </span>
                                     <div class="mb-3">
                                         <span>Notes:</span>
                                         <span>
-                                            on @* @item.Date*@ at @* @item.Time*@ :test
+                                            on @* @Model.requests[i].Date*@ at @* @Model.requests[i].Time*@ :test
                                         </span>
                                     </div>
                                 </div>
@@ -549,7 +550,7 @@
                                         <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
                                     </svg>
                                 </div>
-                                <span>Date Of Service:</span><span class="ms-1">@(item.CreatedDate.ToString("MMMM dd,yyyy"))</span>
+                                <span>Date Of Service:</span><span class="ms-1">@(Model.requests[i].CreatedDate.ToString("MMMM dd,yyyy"))</span>
                             </div>
                         }
                         @if (Model.status != "New")
@@ -560,7 +561,7 @@
                                         <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
                                     </svg>
                                 </div>
-                                <span>Physian:</span><span class="ms-1">Dr. @* @item.Date*@</span>
+                                <span>Physian:</span><span class="ms-1">Dr. @* @Model.requests[i].Date*@</span>
                             </div>
                         }
                         @if (Model.status == "New" || Model.status == "Pending" || Model.status == "Active")
@@ -572,7 +573,7 @@
                                         <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm10.798 11c-.453-1.27-1.76-3-4.798-3-3.037 0-4.345 1.73-4.798 3H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1z" />
                                     </svg>
                                 </div>
-                                <span>Requestor:</span><span class="ms-1">@* @item.Date*@</span>
+                                <span>Requestor:</span><span class="ms-1">@* @Model.requests[i].Date*@</span>
                             </div>
                         }
                         @if (Model.status == "ToClose")
@@ -583,7 +584,7 @@
                                         <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m7.5-6.923c-.67.204-1.335.82-1.887 1.855A8 8 0 0 0 5.145 4H7.5zM4.09 4a9.3 9.3 0 0 1 .64-1.539 7 7 0 0 1 .597-.933A7.03 7.03 0 0 0 2.255 4zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a7 7 0 0 0-.656 2.5zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5zM8.5 5v2.5h2.99a12.5 12.5 0 0 0-.337-2.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5zM5.145 12q.208.58.468 1.068c.552 1.035 1.218 1.65 1.887 1.855V12zm.182 2.472a7 7 0 0 1-.597-.933A9.3 9.3 0 0 1 4.09 12H2.255a7 7 0 0 0 3.072 2.472M3.82 11a13.7 13.7 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5zm6.853 3.472A7 7 0 0 0 13.745 12H11.91a9.3 9.3 0 0 1-.64 1.539 7 7 0 0 1-.597.933M8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855q.26-.487.468-1.068zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.7 13.7 0 0 1-.312 2.5m2.802-3.5a7 7 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7 7 0 0 0-3.072-2.472c.218.284.418.598.597.933M10.855 4a8 8 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4z" />
                                     </svg>
                                 </div>
-                                <span>Region:</span><span class="ms-1">@item.RequestClient.State</span>
+                                <span>Region:</span><span class="ms-1">@Model.requests[i].RequestClient.State</span>
                             </div>
                         }
                         <div class="row">
@@ -604,7 +605,7 @@
                             }
                             @if (Model.status == "Pending" || Model.status == "Active" || Model.status == "Conclude" || Model.status == "ToClose" || Model.status == "Unpaid")
                             {
-                                <a class="col-md-3 col-sm-6 col-6 textdeconone" asp-action="ViewUploads" asp-controller="AdminDashboard" asp-route-id="@item.RequestId"><div class="action-mob-btn">View Uploads</div></a>
+                                <a class="col-md-3 col-sm-6 col-6 textdeconone" asp-action="ViewUploads" asp-controller="AdminDashboard" asp-route-id="@Model.requests[i].RequestId"><div class="action-mob-btn">View Uploads</div></a>
                             }
                             @if (Model.status == "Pending")
                             {
@@ -639,7 +640,8 @@
                 </div>
                 <hr />
             </div>
-            }
+        </div>
+    }
 
 
 
@@ -652,8 +654,8 @@
 
 
 
-        
-    </div>
+
+
 </div>
 
 @* <script>
