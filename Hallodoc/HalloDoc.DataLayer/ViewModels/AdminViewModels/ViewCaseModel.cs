@@ -43,6 +43,8 @@ namespace HalloDoc.DataLayer.ViewModels.AdminViewModels
         public string Requestor { get; set; }
         public string? Admin_notes { get; set; }
         public List<Region>? regions { get; set; } = new List<Region>();
+        public int PhysicianId { get; set; }
+        public string Description { get; set; }
     }
 }
 

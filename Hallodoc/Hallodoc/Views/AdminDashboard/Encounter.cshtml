@@ -57,7 +57,7 @@
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control custom-input" id="Location" placeholder="Location" asp-for="Location">
                                     <label for="Location">Location</label>
-                                    <span asp-validation-for="Location" class="text-danger"></span>
+                                    @* <span asp-validation-for="Location" class="text-danger"></span> *@
                                 </div>
                             </div>
                         </div>
@@ -304,14 +304,16 @@
                             @* <div class="saveButton form-button mb-4 me-3 " id="edit-div2" style="padding: 7px 27px;background-color:#0dcaf0;border:1px solid #0dcaf0;color:white; margin-right:17px;">
                                 <a id="submit-button-4" class="textdeconone saveButtonText">Save Changes</a>
                             </div> *@
-                            <div class="me-3 mb-3" style="padding:10px 5px;border:1px solid #0dcaf0;color:white;border-radius:6px;background-color:#0dcaf0;">
-                                <button id="submit-button-4" type="submit" class="backbutton textdeconone saveButtonText">Save Changes</button>
-                            </div>
+                            @* <div class="me-3 mb-3" style="padding:10px 5px;border:1px solid #0dcaf0;color:white;border-radius:6px;background-color:#0dcaf0;"> *@
+                                <button id="submit-button-4" type="submit" class="backbutton textdeconone saveButtonText me-3 mb-3" 
+                                style="padding:10px 5px;border:1px solid #0dcaf0;color:white;border-radius:6px;background-color:#0dcaf0;">Save Changes</button>
+                            @* </div> *@
+
                             @* <div style="background-color:#9c27b0;width:80px;height:40px;">
                                 <a id="submit-button" class="textdeconone saveButtonText"><span class="saveButtonText">Finalize</span></a>
                             </div> *@
                             <div class="mb-3" style="padding:10px 5px;border:1px solid #0dcaf0;color:#0dcaf0;border-radius:6px;">
-                                <a id="submit-button-5" class="backbutton textdeconone cancelButtonText">Cancel</a>
+                                <a id="submit-button-5" class="backbutton textdeconone cancelButtonText" asp-action="AdminDashboard" asp-controller="AdminDashboard">Cancel</a>
                             </div>
                         </div>
                     </form>

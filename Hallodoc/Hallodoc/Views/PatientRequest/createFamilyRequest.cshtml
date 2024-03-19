@@ -83,10 +83,10 @@
 
 </div>
 <div class="container">
-    <div class="backbutton mb-3 mt-3">
-        <a asp-controller="Login" asp-action="submitrequest">
-            <button type="button" class="btn btn-outline-pri">&lt Back</button>
-        </a>
+    <div class="backbutton mb-3 mt-3 d-flex justify-content-end align-items-center">
+        <div class="btn btn-outline-pri cancelButton">
+            <a asp-controller="Login" asp-action="submitrequest" class="textdeconone"><span class="cancelButtonText">&lt Back</span></a>
+        </div>
     </div>
     <div class="content shadow ">
         <form asp-controller="PatientRequest" asp-action="createFamilyRequest" class="h-100  ps-3 pt-3 pe-3 g-3">
@@ -227,9 +227,9 @@
             <header class="h5">Upload Photo or Document(Optional)</header>
             <div class="upload mb-3 ">
                 <input type="file" class="inputUpload" placeholder="Select File" asp-for="File">
-                <button class="uploadButton" type="button" onclick="choose_file()" @* id="choose-file-button" *@>
+                <button class="uploadButton d-flex justify-content-center align-items-center" type="button" onclick="choose_file()" @* id="choose-file-button" *@>
                     <img src="~/SRS Screen Shorts/cloud-upload-icon.svg">
-                    <span class="button">Upload</span>
+                    <span class="button d-none d-md-block">Upload</span>
                 </button>
 
                 <!-- <button onclick="choose_file()" id="choose-file-button">

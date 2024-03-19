@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput1"  placeholder="First Name" asp-for="FirstName" readonly>
+                            <input type="name" class="form-control" id="floatingInput1" placeholder="First Name" asp-for="FirstName" readonly>
                             <label class="floatingInput1">First Name</label>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="floatingInput3"  asp-for="DOB">
+                            <input type="date" class="form-control" id="floatingInput3" asp-for="DOB">
                             <label for="floatingInput3">Date of Birth</label>
                         </div>
                     </div>
@@ -58,14 +58,13 @@
                 <div class="row">
                     <div class="col-md-6 ">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="inputEmail4"  placeholder="Email" asp-for="Email" readonly>
+                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email" asp-for="Email" readonly>
                             <label for="inputEmail4">Email</label>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="floatingInput4" placeholder="(201)555-0123" asp-for="PhoneNumber" readonly>
-                            <label for="floatingInput4">Phone Number</label>
+                            <input type="tel" class="form-control phone" id="phone" asp-for="PhoneNumber" readonly/>
                         </div>
                     </div>
                 </div>
@@ -73,28 +72,32 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="street" placeholder="Street"  asp-for="Street" >
-                            <label for="floatingInput5">Street</label>
+                            <input type="name" class="form-control" id="street" placeholder="Street" asp-for="Street">
+                            <label for="street">Street</label>
+                            <span asp-validation-for="Street" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="city"  placeholder="City" asp-for="City" >
-                            <label for="floatingInput6">City</label>
+                            <input type="name" class="form-control" id="city" placeholder="City" asp-for="City">
+                            <label for="city">City</label>
+                            <span asp-validation-for="City" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="state"  placeholder="State" asp-for="State">
-                            <label for="floatingInput7">State</label>
+                            <input type="name" class="form-control" id="state" placeholder="State" asp-for="State">
+                            <label for="state">State</label>
+                            <span asp-validation-for="State" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="zipcode" placeholder="Zip Code" asp-for="ZipCode" >
+                            <input type="name" zipcode="form-control" id="zipcode" placeholder="Zip Code" asp-for="ZipCode">
                             <label for="floatingInput8">Zip Code</label>
+                            <span asp-validation-for="ZipCode" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -107,31 +110,31 @@
                         </div>
                     </div>
 
-                    <div class="col-md-1" >
+                    <div class="col-md-1">
                         <div style="border:1px solid #0bb6d0;height:58px;width:110px;border-radius:5px;" class="map form-control d-flex justify-content-center align-items-center">
                             <a id="map-button" style="text-decoration:none;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0bb6d0" class="bi bi-geo-alt" viewBox="0 0 16 16">
-                                <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
-                                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                            </svg>
-                            <span style="color:#0bb6d0">Map</span>
-                        </a>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0bb6d0" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                </svg>
+                                <span style="color:#0bb6d0">Map</span>
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div id="map">
-                <div id="myModal" class="modal">
-                    <div class="modal-content">
-                        <h5 style="text-align: center;">Your Location</h5>
-                        <div class="gmap_canvas" style="height:100%;width:100%">
-                            <iframe id="gmap_canvas" style="height:95%;width:100%;border-radius:15px;" src="" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
-                            </iframe>
+                    <div id="myModal" class="modal">
+                        <div class="modal-content">
+                            <h5 style="text-align: center;">Your Location</h5>
+                            <div class="gmap_canvas" style="height:100%;width:100%">
+                                <iframe id="gmap_canvas" style="height:95%;width:100%;border-radius:15px;" src="" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+                                </iframe>
+                            </div>
+                            <span class="close mb-3">Ok</span>
                         </div>
-                        <span class="close">Ok</span>
                     </div>
                 </div>
-                </div>
-                
+
                 <header class="h5">Upload Photo or Document(Optional)</header>
                 <div class="upload mb-3 ">
                     <input type="file" class="inputUpload" placeholder="Select File" asp-for="File">
@@ -157,7 +160,7 @@
     </footer>
 
     <script>
-      
+
 
         var btn = document.getElementById("submit-button");
 

@@ -345,20 +345,20 @@ namespace HalloDoc.Controllers
             ViewUploadViewModel viewUploadViewModel = _admin.viewUpload(id);
             return View(viewUploadViewModel);
         }
-        [HttpPost]
-        public IActionResult viewUpload(ViewUploadViewModel model, int id)
-        {
-            bool check = _admin.viewUpload(model);
-            if (check)
-            {
-                TempData["success"] = "Document Uploaded successfully!";
-            }
-            else
-            {
-                TempData["error"] = "Document is not Uploaded!";
-            }
-            return RedirectToAction("viewUpload");
-        }
+        //[HttpPost]
+        //public IActionResult viewUpload(ViewUploadViewModel model, int id)
+        //{
+        //    bool check = _admin.viewUpload(model);
+        //    if (check)
+        //    {
+        //        TempData["success"] = "Document Uploaded successfully!";
+        //    }
+        //    else
+        //    {
+        //        TempData["error"] = "Document is not Uploaded!";
+        //    }
+        //    return RedirectToAction("viewUpload");
+        //}
         public IActionResult SendOrder(int id)
         {
             OrderViewModel orderViewModel = _admin.SendOrder(id);

@@ -23,7 +23,7 @@ namespace HalloDoc.LogicLayer.Interface
         public ViewNotesViewModel viewNotes(int id);
         public bool viewNotes(ViewNotesViewModel model);
         public ViewUploadViewModel viewUpload(int id);
-        public bool viewUpload(ViewUploadViewModel model);
+        //public bool viewUpload(ViewUploadViewModel model);
         public bool closeCase(ViewUploadViewModel model);
         public ViewUploadViewModel closeCase(int id);
         public OrderViewModel SendOrder(int id);

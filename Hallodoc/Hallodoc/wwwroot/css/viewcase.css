@@ -310,12 +310,37 @@
     width: 80px;
 }
 
-.WhosRequest{
-    margin-left:5px;
-    height:20px;
-    width:60px;
-    border:1px solid green;
-    border-radius:10px;
+.PatientRequest {
+    margin-left: 5px;
+    height: 20px;
+    width: 60px;
+    background-color: #60bc60;
+    border: 1px solid #60bc60;
+    border-radius: 10px;
+}
+.BusinessRequest {
+    margin-left: 5px;
+    height: 20px;
+    width: 60px;
+    background-color: #e36478;
+    border: 1px solid #e36478;
+    border-radius: 10px;
+}
+.ConciergeRequest {
+    margin-left: 5px;
+    height: 20px;
+    width: 60px;
+    background-color: #007fc7;
+    border: 1px solid #007fc7;
+    border-radius: 10px;
+}
+.FamilyRequest {
+    margin-left: 5px;
+    height: 20px;
+    width: 60px;
+    background-color: #ee9125;
+    border: 1px solid #ee9125;
+    border-radius: 10px;
 }
 @media only screen and (max-width:770px) {
     .inputUpload {

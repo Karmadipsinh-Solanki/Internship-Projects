@@ -21,6 +21,7 @@ using DocumentFormat.OpenXml.Office2010.Excel;
 using System.Linq.Expressions;
 using System.Net.NetworkInformation;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.Metrics;
 
 namespace HalloDoc.LogicLayer.Repository
 {
@@ -125,6 +126,7 @@ namespace HalloDoc.LogicLayer.Repository
                 active_count = count_active,
                 conclude_count = count_conclude,
                 toclose_count = count_toclose,
+                unpaid_count = count_unpaid,
                 query_requests = query,
                 requests = query.ToList(),
                 regions = regions,
@@ -243,7 +245,7 @@ namespace HalloDoc.LogicLayer.Repository
             }
             else if (requestId == 3)
             {
-                requestor = "Conceirge";
+                requestor = "Concierge";
             }
             else
             {
@@ -926,30 +928,30 @@ namespace HalloDoc.LogicLayer.Repository
             viewUploadViewModel.adminNavbarViewModel = adminNavbarViewModel;
             return viewUploadViewModel;
         }
-        bool IAdmin.viewUpload(ViewUploadViewModel model)
-        {
-            if (model.File != null && model.File.Length > 0)
-            {
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\uploads", model.File.FileName);
-                using (var stream = System.IO.File.Create(filePath))
-                {
-                    model.File.CopyTo(stream);
-                }
-                RequestWiseFile requestWiseFile = new RequestWiseFile();
-                requestWiseFile.RequestId = (int)model.RequestId;
-                //IformFile has a property that to store filepath u need to add .filename behind it to store path
-                //requestWiseFile.AdminId = 1;
-                requestWiseFile.FileName = model.File.FileName;
-                requestWiseFile.CreatedDate = DateTime.Now;
-                _context.RequestWiseFiles.Add(requestWiseFile);
-                _context.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //bool IAdmin.viewUpload(ViewUploadViewModel model)
+        //{
+        //    if (model.File != null && model.File.Length > 0)
+        //    {
+        //        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\uploads", model.File.FileName);
+        //        using (var stream = System.IO.File.Create(filePath))
+        //        {
+        //            model.File.CopyTo(stream);
+        //        }
+        //        RequestWiseFile requestWiseFile = new RequestWiseFile();
+        //        requestWiseFile.RequestId = (int)model?.RequestId;
+        //        //IformFile has a property that to store filepath u need to add .filename behind it to store path
+        //        //requestWiseFile.AdminId = 1;
+        //        requestWiseFile.FileName = model.File.FileName;
+        //        requestWiseFile.CreatedDate = DateTime.Now;
+        //        _context.RequestWiseFiles.Add(requestWiseFile);
+        //        _context.SaveChanges();
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
         ViewUploadViewModel IAdmin.closeCase(int id)/////
         {
             //to save file in wwwroot,that is uploaded by patient

@@ -115,33 +115,54 @@
                             <label for="floatingInput10">Room#/ Suite(Optional)</label>
                         </div>
                     </div>
-                    <div class="col-md-1">
-                        <div class="form-floating mb-3">
-                            <button type="submit" class="cancelButton form-floating mb-2 d-flex justify-content-center align-items-center textdeconone" id="cancel-btn" style="height:54px!important;">
-                                <span class="cancelButtonText">Verify</span>
+                    <div class="col-md-4">
+                        <div class="map-verify-btn">
+
+                            <button type="submit" class="back-navigation-link" style="position:relative;padding-right:5px !important;background-color:white;height:54px!important;width: 76px;display: flex;justify-content: center;">
+                                <div class="back-navigation">
+                                    <span class="btn-text">Verify</span>
+                                </div>
                             </button>
-                            <a class="map cancelButton textdeconone form-floating d-flex justify-content-center align-items-center" id="map-button" style="height:54px!important;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0bb6d0" class="bi bi-geo-alt" viewBox="0 0 16 16">
-                                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
-                                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                                </svg>
-                                <span class="cancelButtonText">Map</span>
+                            <a id="map-button" class="back-navigation-link" style="position:relative;margin-left:10px;padding-right:10px;height:54px!important;width:84px;">
+                                <div class="back-navigation">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-geo-alt back-icon" viewBox="0 0 16 16">
+                                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                    </svg>
+                                    <span class="btn-text">Map</span>
+                                </div>
                             </a>
                         </div>
+                        @* <div class="form-floating mb-3 d-flex align-items-center">
+                        <div>
+                        <button type="submit" class="cancelButton form-floating mb-2 d-flex justify-content-center align-items-center textdeconone me-3" id="cancel-btn" style="height:54px!important;">
+                        <span class="cancelButtonText">Verify</span>
+                        </button>
+                        </div>
+                        <div>
+                        <a class="map cancelButton textdeconone form-floating d-flex justify-content-center align-items-center" id="map-button" style="height:54px!important;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0bb6d0" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                        </svg>
+                        <span class="cancelButtonText">Map</span>
+                        </a>
+                        </div>
+                        </div> *@
                     </div>
-                    @* <div class="col-md-1">
-                    <div class="form-floating mb-3">
-                    <button type="submit" class="btn saveButton m-3" style="height:54px!important;" id="save-button">
-                    <a class="textdeconone" asp-controller="AdminDashboard" asp-action="ViewCase">
-                    <span class="cancelButtonText">Verify</span>
-                    </a>
-                    </button>
-                    <a class="cancel-button " id="cancel-btn" style="height:54px!important;text-decoration:none;background-color:#d72d31;border:1px solid #d72d31;border-radius:5px; height: 40px;width: 80px;">
-                    <span class="saveButtonText">Cancel</span>
-                    </a>
+                </div>
 
+                <div id="map">
+                    <div id="myModal" class="modal">
+                        <div class="modal-content">
+                            <h5 style="text-align: center;">Your Location</h5>
+                            <div class="gmap_canvas" style="height:100%;width:100%">
+                                <iframe id="gmap_canvas" style="height:95%;width:100%;border-radius:15px;" src="" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+                                </iframe>
+                            </div>
+                            <span class="close mb-3">Ok</span>
+                        </div>
                     </div>
-                    </div> *@
                 </div>
 
                 <header class="h5 mb-3">Notes</header>
@@ -154,12 +175,12 @@
 
                 <div class="d-flex justify-content-end align-items-center">
                     <div>
-                        <button type="submit" class="btn saveButton me-3 mb-3" style="width:110px!important;">
+                        <button type="submit" class="btn saveButton me-2 mb-3" style="width:85px!important;">
                             <a class="textdeconone" asp-controller="AdminDashboard" asp-action="ViewNotes">
                                 <span class="saveButtonText">Save</span>
                             </a>
                         </button>
-                        <button class="btn cancelButton mb-3" style="width:110px!important;">
+                        <button class="btn cancelButton mb-3" style="width:100px!important;">
                             <span class="cancelButtonText">Cancel</span>
                         </button>
                     </div>
@@ -175,6 +196,32 @@
                 utilsScript:
                     "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
             });
+        }
+        //map
+        var modal = document.getElementById("myModal");
+
+        var btn = document.getElementById("map-button");
+        var spany = document.getElementsByClassName("close")[0];
+        var map;
+        btn.onclick = function () {
+
+            var Street = document.getElementById('street').value;
+            var City = document.getElementById('city').value;
+            var State = document.getElementById('state').value;
+            var ZipCode = document.getElementById('zipcode').value;
+            var address = Street + City + State + ZipCode;
+            var address1 = `https://maps.google.com/maps?q= + ${Street} + ${City} + ${State} + ${ZipCode} + &t=&z=13&ie=UTF8&iwloc=&output=embed`;
+            console.log(address1);
+            document.getElementById('gmap_canvas').src = address1;
+            modal.style.display = "block";
+        }
+        spany.onclick = function () {
+            modal.style.display = "none";
+        }
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
         }
     </script>
 </div>

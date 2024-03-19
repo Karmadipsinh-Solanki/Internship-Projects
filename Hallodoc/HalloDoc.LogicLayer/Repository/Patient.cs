@@ -134,7 +134,7 @@ namespace HalloDoc.LogicLayer.Repository
             requestClient.PhoneNumber = model.PhoneNumber;
             requestClient.Location = model.City;
             requestClient.Address = model.Street;
-            requestClient.RegionId = 1;
+            requestClient.RegionId = region.RegionId;
             if (model.Symptoms != null)
             {
                 requestClient.Notes = model.Symptoms;
@@ -253,7 +253,7 @@ namespace HalloDoc.LogicLayer.Repository
             requestClient.PhoneNumber = model.PhoneNumber;
             requestClient.Location = model.City;
             requestClient.Address = model.Street;
-            requestClient.RegionId = 1;
+            requestClient.RegionId = region.RegionId;
             if (model.Symptoms != null)
             {
                 requestClient.Notes = model.Symptoms;
@@ -402,7 +402,7 @@ namespace HalloDoc.LogicLayer.Repository
             requestClient.PhoneNumber = model.PhoneNumber;
             requestClient.Location = model.City;
             requestClient.Address = model.Street;
-            requestClient.RegionId = 1;
+            requestClient.RegionId = region.RegionId;
             //if (model.Symptoms != null)
             //{
             //    requestClient.Notes = model.Symptoms;

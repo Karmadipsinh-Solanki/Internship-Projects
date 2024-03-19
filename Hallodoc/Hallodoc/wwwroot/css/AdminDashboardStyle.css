@@ -642,8 +642,9 @@ table.dataTable thead th, table.dataTable tfoot th {
     font-size: 16px !important;
 }
 
-#status-text {
-    color: #203F9A;
+.WhosRequest {
+    /*color: #203F9A;*/
+    color: white;
     font-size: 18px;
     margin-left: 3px;
 }
@@ -1067,6 +1068,8 @@ table.dataTable thead th, table.dataTable tfoot th {
     height: 40px;
     margin-bottom: 20px;
 }
+
+
 /*encounter form*/
 /*.custom-input {
     box-shadow: none !important;*/ /* remove Bootstrap shadow */
@@ -1376,6 +1379,24 @@ table.dataTable thead th, table.dataTable tfoot th {
         .categories-div-sub {
             margin-top: 10px;
             text-decoration: none;
+        }
+        .hraccordian{
+            margin:0;
+        }
+        .hrbody{
+            position:relative;
+        }
+        .viewcase {
+            position: absolute;
+            top: -17px;
+            right: -2px;
+            border: 1px solid #4e67ad;
+            border-radius: 20px;
+            background-color:#e4e8f3;
+            padding: 5px;
+        }
+        ..accordion-body hr {
+            margin: 0rem 0 !important;
         }
     }
 

@@ -23,21 +23,102 @@
                 <input type="hidden" asp-for="RequestId" id="requestId" />
                 @if (Model.Status.Equals("Reserved"))
                 {
-                    <h3>
-                        View Reservation
-                        <span class="WhosRequest" id="status-text">
-                            @(Model.Requestor)
-                        </span>
-                    </h3>
+                    @if (Model.Requestor == "Patient")
+                    {
+                        <h3>
+                            View Reservation
+                            <span class="WhosRequest PatientRequest">
+                                @(Model.Requestor)
+                            </span>
+                        </h3>
+                    }
+                    else if (Model.Requestor == "Business")
+                    {
+                        <h3 class="d-flex">
+                            View Reservation
+                            <div style="width:200px;">
+                                <span class="WhosRequest BusinessRequest">
+                                    @(Model.Requestor)
+                                </span>
+                            </div>
+                        </h3>
+                    }
+                    else if (Model.Requestor == "Family")
+                    {
+                        <h3 class="d-flex">
+                            View Reservation
+                            <div style="width:200px;">
+                                <span class="WhosRequest FamilyRequest">
+                                    @(Model.Requestor)
+                                </span>
+                            </div>
+                        </h3>
+                    }
+                    else if (Model.Requestor == "Concierge")
+                    {
+                        <h3 class="d-flex">
+                            View Reservation
+                            <div style="width:200px;">
+                                <span class="WhosRequest ConciergeRequest">
+                                    @(Model.Requestor)
+                                </span>
+                            </div>
+                        </h3>
+                    }
                 }
+                @* <h3 class="d-flex" >
+                View Reservation
+                <div style="width:200px;">
+                <span class="WhosRequest" id="status-text">
+                @(Model.Requestor)
+                </span>
+                </div>
+                </h3> *@
                 @if (Model.Status != "Reserved")
                 {
-                    <h3>
-                        New Request
-                        <span class="WhosRequest" id="status-text">
-                            @(Model.Requestor)
-                        </span>
-                    </h3>
+                    @if (Model.Requestor == "Patient")
+                    {
+                        <h3>
+                            New Request
+                            <span class="WhosRequest PatientRequest">
+                                @(Model.Requestor)
+                            </span>
+                        </h3>
+                    }
+                    else if (Model.Requestor == "Family/Friend")
+                    {
+                        <h3 class="d-flex">
+                            New Request
+                            <div style="width:200px;">
+                                <span class="WhosRequest FamilyRequest">
+                                    @(Model.Requestor)
+                                </span>
+                            </div>
+                        </h3>
+                    }
+                    else if (Model.Requestor == "Business")
+                    {
+                        <h3 class="d-flex">
+                            New Request
+                            <div style="width:200px;">
+                                <span class="WhosRequest BusinessRequest">
+                                    @(Model.Requestor)
+                                </span>
+                            </div>
+                        </h3>
+                    }
+
+                    else if (Model.Requestor == "Concierge")
+                    {
+                        <h3 class="d-flex">
+                            New Request
+                            <div style="width:200px;">
+                                <span class="WhosRequest ConciergeRequest">
+                                    @(Model.Requestor)
+                                </span>
+                            </div>
+                        </h3>
+                    }
                 }
             </form>
             <div class="btn cancelButton mb-3 mt-3" style="background-color:transparent;">
@@ -48,6 +129,55 @@
         </div>
         <div class="content shadow p-3 mb-3" style="background-color:white;">
             <form asp-action="ViewCase" asp-controller="AdminDashboard" method="post">
+                <!--Assign Case Modal -->
+                <div class="modal fade " id="assignCaseModal" tabindex="-1" aria-labelledby="assignCaseModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="saveButtonText fs-5" id="assignCaseModalLabel">Assign Request</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form asp-action="AssignCase" asp-controller="AdminDashboard" method="post">
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <span class="text-secondary" style="font-size:14px"><strong>To assign this request, search and select another Physician.</strong></span>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input type="hidden" asp-for="RequestId" id="requestId" />
+                                        <select class="custom-select-6 text-secondary dropdownBorder" id="regionDropdown" style="width: 100%;height: 54px;padding:8px;">
+                                            <option value="0" selected hidden><span>Narrow Search by Region</span></option>
+                                            @* @foreach (var item in Model.regions)
+                                            {
+                                            <option value="@item.RegionId"><span>@item.Name</span></option>
+                                            } *@
+                                        </select>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        @*  <input type="" asp-for="PhysicianId" id="physicianId" style="display:none;"/> *@
+                                        <select asp-for="PhysicianId" class="custom-select-7 text-secondary dropdownBorder" id="physicianDropdown" style="width: 100%;height: 54px;padding:8px;" onchange="test(this)">
+                                            <option value="0" disabled selected hidden><span>Select Physician</span></option>
+                                            @*    @foreach (var item in Model.physicians)
+                                            {
+                                            <option value="@item.PhysicianId">@(item.FirstName + " " + item.LastName)</option>
+                                            } *@
+                                        </select>
+                                    </div>
+                                    <div class="form-floating login-fields" style="width: 100%;margin-top: 20px;">
+                                        <textarea type="text" placeholder="Description" class="form-control"
+                                                  style="height: 135px !important;" asp-for="Description"></textarea>
+                                        <label for="floatingInput">Description</label>
+                                    </div>
+                                </div>
+                                <div class="modal-footer form-floating mb-3">
+                                    <button type="submit" class="saveButton"><span class="saveButtonText">Submit</span> </button>
+                                    <button class="cancelButton" data-bs-dismiss="modal" onclick="cancel4()"><span class="cancelButtonText">Cancel</span></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="h5 mb-3">Patient Information</div>
                 <div class="mb-3">
@@ -112,7 +242,7 @@
                             <label for="email">Email</label>
                         </div>
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-4">
                         <div class="form-floating mb-3">
                             @if (Model.Status.Equals("Reserved"))
                             {
@@ -120,8 +250,8 @@
                                     <a id="submit-button-2">Edit</a>
                                 </div>
                                 <div id="submit-div" class="hide">
-                                    <button type="submit" id="submit-button-4" style="border:none;border: 1px solid aqua;border-radius: 5px;background-color: aqua;">
-                                        Save
+                                    <button class="me-3 saveButton" type="submit" id="submit-button-4" style="height:54px;width:75px">
+                                        <span class="saveButtonText">Save</span>
                                     </button>
                                     <a id="submit-button-3" class="backbutton textdeconone" style="border: 1px solid #0dcaf0;border-radius: 5px;color: #0dcaf0;padding: 14px;">Cancel</a>
                                 </div>
@@ -163,26 +293,48 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex justify-content-end align-items-center">
-                    <div>
+                <div class="d-none d-md-block">
+                    <div class="d-flex justify-content-end align-items-center  " style="display:flex!important;">
                         @if (Model.Status != "Reserved")
                         {
-                            <a class="textdeconone" asp-controller="AdminDashboard" asp-action="#">
-                                <button class="btn saveButton me-3 mb-3" style="width:110px!important;">
+                            <div class="btn saveButton me-3 mb-3" style="width:110px!important;">
+                                <a class="textdeconone dropdown-item dashboard-button" data-bs-toggle="modal" data-bs-target="#assignCaseModal" onclick="AssignCase(@item.RequestId)">
                                     <span class="saveButtonText">Assign</span>
-                                </button>
-                            </a>
+                                </a>
+                            </div>
                         }
-                        <div class="">
-                            <a class="textdeconone" asp-controller="AdminDashboard" asp-action="ViewNotes">
-                                <button class="btn saveButton me-3 mb-3" style="width:110px!important;">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <div class="btn saveButton me-3 mb-3 d-flex justify-content-center align-items-center" style="width:110px!important;">
+                                <a class="textdeconone" asp-controller="AdminDashboard" asp-action="ViewNotes">
                                     <span class="saveButtonText">View Notes</span>
-                                </button>
-                            </a>
-                            <button class="btn redCancelButton mb-3" style="width:110px!important;background-color:#d72d31;">
+                                </a>
+                            </div>
+                            <a asp-action="AdminDashboard" asp-controller="AdminDashboard" class="btn redCancelButton mb-3 d-flex justify-content-center align-items-center" style="width:110px!important;background-color:#d72d31;">
                                 <span class="saveButtonText">Cancel</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class=" d-block d-md-none">
+                    @if (Model.Status != "Reserved")
+                    {
+                        <div>
+                            <button class="btn saveButton me-3 mb-3" style="width:110px!important;">
+                                <a class="textdeconone dropdown-item dashboard-button" data-bs-toggle="modal" data-bs-target="#assignCaseModal" onclick="AssignCase(@item.RequestId)">
+                                    <span class="saveButtonText">Assign</span>
+                                </a>
                             </button>
                         </div>
+                    }
+                    <div class="d-flex align-items-center">
+                        <div class="btn saveButton me-3 mb-3 d-flex justify-content-center align-items-center" style="width:110px!important;">
+                            <a class="textdeconone" asp-controller="AdminDashboard" asp-action="ViewNotes">
+                                <span class="saveButtonText">View Notes</span>
+                            </a>
+                        </div>
+                        <a asp-action="AdminDashboard" asp-controller="AdminDashboard" class="btn redCancelButton mb-3 d-flex justify-content-center align-items-center" style="width:110px!important;background-color:#d72d31;">
+                            <span class="saveButtonText">Cancel</span>
+                        </a>
                     </div>
                 </div>
             </form>
@@ -190,6 +342,13 @@
     </div>
 
     <script>
+        //for creating countrywise phone format
+        const phoneInputField = document.querySelector("#phone");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            innerHeight: 1,
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
         // edit,save,cancel
         document.getElementById('submit-button-2').onclick = function () {
             document.getElementById('edit-div').style.display = "none";
@@ -226,23 +385,78 @@
         } else {
             document.getElementById("status-text").innerHTML = `(${finalName.charAt(0).toUpperCase() + finalName.slice(1)})`;
         }
-        
 
-        //for creating countrywise phone format
-        // const phoneInputField = document.querySelector("#phone");
-        // const phoneInput = window.intlTelInput(phoneInputField, {
-        //     innerHeight: 1,
-        //     utilsScript:
-        //         "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-        // });
-
-        const phoneInputField = document.getElementsByClassName("phone");
-        for (let i = 0; i < phoneInputField.length; ++i) {
-            const phoneInput = window.intlTelInput(phoneInputField[i], {
-                utilsScript:
-                    "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+        //assigncase//for assigncase action
+        //here we have to use ajax, because a dropdown is dependant on another dropdown, as after selecting region, we get physians in particular region
+        //and we need to load page to get data dynamically from database, to avoid loading, we use ajax
+        $(document).ready(function () {
+            $.ajax({
+                url: '/AdminDashboard/FetchRegions',
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response);
+                    $('.custom-select-6 option:not(:first)').remove();
+                    $.each(response, function (index, region) {
+                        var option = $('<option></option>')
+                            .attr('value', region.regionId)
+                            .text(region.name);
+                        $('.custom-select-6').append(option);
+                    });
+                },
+                error: function () {
+                    alert('An error occurred.');
+                }
             });
-        }
+            window.onpopstate = function () {
+                $.ajax({
+                    url: '/AdminDashboard/FetchRegions',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log(response);
+                        $('.custom-select-6 option:not(:first)').remove();
+                        $.each(response, function (index, region) //this region and
+                        {
+                            var option = $('<option></option>')
+                                .attr('value', region.regionId)//this region must be same
+                                .text(region.name);
+                            $('.custom-select-6').append(option);
+                        });
+                    },
+                    error: function () {
+                        alert('An error occurred.');
+                    }
+                });
+            };
+        });
+
+        $('#regionDropdown').change(function () {
+            var selectedRegion3 = $(this).val();
+            console.log(selectedRegion3);
+            $.ajax({
+                url: '/AdminDashboard/FetchPhysicians',
+                type: 'GET',
+                data: { id: selectedRegion3 },
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response);
+                    $('#physicianDropdown option:not(:first)').remove();
+                    $.each(response, function (index, physician) {
+                        console.log(physician);
+                        var option = $('<option></option>')
+                            .attr('value', physician.physicianId)
+                            .text(physician.firstName + " " + physician.lastName);
+                        $('#physicianDropdown').append(option);
+                    });
+                },
+                error: function () {
+                    alert('An error occurred.');
+                }
+            });
+        });
+
+
 
 
     </script>
