@@ -138,52 +138,59 @@ namespace HalloDoc.LogicLayer.Repository
             return adminDashboardViewModel;
         }
         [HttpPost]
-        ViewNotesViewModel IAdmin.viewNotes(ViewNotesViewModel model)
+        bool IAdmin.viewNotes(ViewNotesViewModel model)
         {
             //int aspnetuserid = (int)_context.HttpContext.Session.GetInt32("AspNetUserId");
             //int aspnetuserid = (int)_context.HttpContext.Session.GetInt32("AspNetUserId");//
 
-            RequestNote requestNote = _context.RequestNotes.FirstOrDefault(r => r.RequestId == model.RequestId);
-            if (requestNote != null)
+            try
             {
-                requestNote.AdminNotes = model.Admin_Note;
-                requestNote.ModifiedDate = DateTime.Now;
-                _context.RequestNotes.Update(requestNote);
-                _context.SaveChanges();
-            }
-            else
-            {
-                RequestNote newRequestNote = new RequestNote
+                RequestNote requestNote = _context.RequestNotes.FirstOrDefault(r => r.RequestId == model.RequestId);
+                if (requestNote != null)
                 {
-                    RequestId = model.RequestId,
-                    AdminNotes = model.Admin_Note,
-                    CreatedDate = DateTime.Now,
-                    CreatedBy = 2,
-                };
-                _context.RequestNotes.Add(newRequestNote);
-                _context.SaveChanges();
+                    requestNote.AdminNotes = model.Admin_Note;
+                    requestNote.ModifiedDate = DateTime.Now;
+                    _context.RequestNotes.Update(requestNote);
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    RequestNote newRequestNote = new RequestNote
+                    {
+                        RequestId = model.RequestId,
+                        AdminNotes = model.Admin_Note,
+                        CreatedDate = DateTime.Now,
+                        CreatedBy = 2,
+                    };
+                    _context.RequestNotes.Add(newRequestNote);
+                    _context.SaveChanges();
+                }
+
+
+                //var request2 = _httpContextAccessor.HttpContext.Request;
+                //var token = request2.Cookies["jwt"];
+                //CookieModel cookieModel = _jwtService.getDetails(token);
+                //string AdminName = cookieModel.name;
+                //AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+                //adminNavbarViewModel.AdminName = AdminName;
+                //adminNavbarViewModel.Tab = 1;
+                //int id = model.RequestId;
+                //var PatientCancellationNotes = _context.RequestStatusLogs.FirstOrDefault(u => u.RequestId == id && u.Status == 7);
+                //var AdminCancellationNotes = _context.RequestStatusLogs.FirstOrDefault(u => u.RequestId == id && u.Status == 6);
+                //List<RequestStatusLog> requestStatusLogs = _context.RequestStatusLogs.Where(u => u.RequestId == id && u.Status == 2).ToList();
+                //var Note = _context.RequestNotes.FirstOrDefault(u => u.RequestId == id);
+                //model.adminNavbarViewModel = adminNavbarViewModel;
+                //model.PatientCancellationNotes = PatientCancellationNotes?.Notes;
+                //model.Admin_Cancellation_Note = AdminCancellationNotes?.Notes;
+                //model.Admin_Note = Note.AdminNotes ?? "-";
+                //model.Physician_Note = Note?.PhysicianNotes ?? "-";
+                //model.Transfer_Notes = requestStatusLogs;
+                return true;
             }
-
-
-            var request2 = _httpContextAccessor.HttpContext.Request;
-            var token = request2.Cookies["jwt"];
-            CookieModel cookieModel = _jwtService.getDetails(token);
-            string AdminName = cookieModel.name;
-            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
-            adminNavbarViewModel.AdminName = AdminName;
-            adminNavbarViewModel.Tab = 1;
-            int id = model.RequestId;
-            var PatientCancellationNotes = _context.RequestStatusLogs.FirstOrDefault(u => u.RequestId == id && u.Status == 7);
-            var AdminCancellationNotes = _context.RequestStatusLogs.FirstOrDefault(u => u.RequestId == id && u.Status == 6);
-            List<RequestStatusLog> requestStatusLogs = _context.RequestStatusLogs.Where(u => u.RequestId == id && u.Status == 2).ToList();
-            var Note = _context.RequestNotes.FirstOrDefault(u => u.RequestId == id);
-            model.adminNavbarViewModel = adminNavbarViewModel;
-            model.PatientCancellationNotes = PatientCancellationNotes?.Notes;
-            model.Admin_Cancellation_Note = AdminCancellationNotes?.Notes;
-            model.Admin_Note = Note.AdminNotes ?? "-";
-            model.Physician_Note = Note?.PhysicianNotes ?? "-";
-            model.Transfer_Notes = requestStatusLogs;
-            return model;
+            catch(Exception ex)
+            {
+                return false;
+            }
 
         }
         ViewNotesViewModel IAdmin.viewNotes(int id)

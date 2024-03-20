@@ -33,13 +33,13 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput1" placeholder="First Name" asp-for="FirstName">
+                            <input type="name" class="form-control" id="floatingInput1" placeholder="First Name" asp-for="FirstName" disabled>
                             <label for="floatingInput1">First Name</label>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput2" placeholder="Last Name" asp-for="LastName">
+                            <input type="name" class="form-control" id="floatingInput2" placeholder="Last Name" asp-for="LastName" disabled>
                             <label for="floatingInput2">Last Name</label>
                             <span asp-validation-for="LastName" class="text-danger"></span>
                         </div>
@@ -48,7 +48,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="floatingInput3" asp-for="DOB">
+                            <input type="date" class="form-control" id="floatingInput3" asp-for="DOB" disabled>
                             <label for="floatingInput3">Date of Birth</label>
                             <span asp-validation-for="DOB" class="text-danger"></span>
                         </div>
@@ -58,7 +58,8 @@
                 <div class="row">
                     <div class="col-md-2">
                         <div class="form-floating mb-3">
-                            <select class="form-select" id="floatingSelect" >@* asp-for="Type" *@
+                            <select class="form-select form-control" id="floatingSelect" disabled>
+                                @* asp-for="Type" *@
                                 <option value="">Mobile</option>
                                 <option value="Email">Email</option>
                                 <option value="SMS">SMS</option>
@@ -69,48 +70,30 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-floating mb-3">
-                            <input type="tel" class="phone form-control" id="floatingInput5" placeholder="(201)555-0123" asp-for="PhoneNumber" >
+                            <input type="tel" class="phone form-control" id="floatingInput5" placeholder="(201)555-0123" asp-for="PhoneNumber" disabled>
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6 ">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email" asp-for="Email">
+                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email" asp-for="Email" disabled>
                             <label for="floatingInput4">Email</label>
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                     </div>
-
-                    <div class="hidden" id="pass">
-                        <div class="col-md-6">
-                            <div class="password form-floating mb-3">
-                                <input type="password" class="form-control" id="floatingpassword1" placeholder="Password" asp-for="PasswordHash">
-                                <label for="floatingPassword1">Password</label>
-                                @* <div class="eye">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" fill="currentColor" class="bi bi-eye"
-                                viewBox="0 0 16 16">
-                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
-                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
-                                </svg>
-                                </div> *@
-                            </div>
-                            <span asp-validation-for="PasswordHash" class="text-danger"></span>
-                        </div>
-                    </div>
-
                 </div>
                 <header class="h5">Location Information</header>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput6" placeholder="Street" asp-for="Street">
+                            <input type="name" class="form-control" id="floatingInput6" placeholder="Street" asp-for="Street" disabled>
                             <label for="floatingInput6">Street</label>
                             <span asp-validation-for="Street" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput7" placeholder="City" asp-for="City">
+                            <input type="name" class="form-control" id="floatingInput7" placeholder="City" asp-for="City" disabled>
                             <label for="floatingInput7">City</label>
                             <span asp-validation-for="City" class="text-danger"></span>
                         </div>
@@ -119,14 +102,14 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput8" placeholder="State" asp-for="State">
+                            <input type="name" class="form-control" id="floatingInput8" placeholder="State" asp-for="State" disabled>
                             <label for="floatingInput8">State</label>
                             <span asp-validation-for="State" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-5">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput9" placeholder="Zip Code" asp-for="ZipCode">
+                            <input type="name" class="form-control" id="floatingInput9" placeholder="Zip Code" asp-for="ZipCode" disabled>
                             <label for="floatingInput9">Zip Code</label>
                             <span asp-validation-for="ZipCode" class="text-danger"></span>
                         </div>
@@ -143,10 +126,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="submit pb-3">
-                    <button type="submit" class="" id="submit-button" style="border:1px solid #0bb6d0;border-radius:5px;background-color:#0bb6d0;height:45px;width:90px;color:white;">
-                    <span>Edit</span>
-                    </button>
+                <div class="d-flex justify-content-end align-items-center">
+                    @* <input asp-for="RequestId" class="hide" /> *@
+                    <div class="form-button" id="edit-div9">
+                        <a class="d-flex justify-content-center align-items-center textdeconone" id="submit-button-2" style="margin-right:12px;color:white;border:1px solid #0dcaf0;border-radius:5px;background-color:#0dcaf0;">Edit</a>
+                    </div>
+                    <div id="submit-div" class="hide">
+                        <button type="submit" id="submit-button-4"
+                                style="border:none; margin-right:12px;background-color:#0dcaf0;border-radius:5px;color:white;" class="d-flex justify-content-center align-items-center mb-3 mt-2">
+                            Save
+                        </button>
+                        <a class="textdeconone" id="submit-button-3" style="border:1px solid #0dcaf0;border-radius:5px;cursor:pointer;color:#0dcaf0;">Cancel</a>
+                    </div>
                 </div>
             </form>
         </div>
@@ -158,6 +149,51 @@
     </footer>
 
     <script>
+        // edit,save,cancel
+        document.getElementById('submit-button-2').onclick = function () {
+            document.getElementById('edit-div9').style.display = "none";
+            document.getElementById('submit-div').style.display = "flex";
+            var classes = document.getElementsByClassName('form-control');
+            for (var i = 0; i < 5; i++) {
+                classes[i].removeAttribute('disabled');
+            }
+            for (var i = 6; i < classes.length; i++) {
+                classes[i].removeAttribute('disabled');
+            }
+            var classes = document.getElementsByClassName('hide');
+            classes[0].removeAttribute('hide');
+
+        }
+        //cancel
+        document.getElementById('submit-button-3').onclick = function () {
+            document.getElementById('edit-div9').style.display = "flex";
+            document.getElementById('submit-div').style.display = "none";
+            var classes = document.getElementsByClassName('form-control');
+            for (var i = 0; i < 5; i++) {
+                classes[i].setAttribute('disabled', 'disabled');
+            }
+            for (var i = 6; i < classes.length; i++) {
+                classes[i].setAttribute('disabled', 'disabled');
+            }
+            var classes = document.getElementsByClassName('hide');
+            classes[0].setAttribute('hide');
+            location.reload();
+        }
+        //save
+        document.getElementById('submit-button-4').onclick = function () {
+            document.getElementById('edit-div9').style.display = "flex";
+            document.getElementById('submit-div').style.display = "none";
+            var classes = document.getElementsByClassName('form-control');
+            for (var i = 0; i < 5; i++) {
+                classes[i].setAttribute('disabled', 'disabled');
+            }
+            for (var i = 6; i < classes.length; i++) {
+                classes[i].setAttribute('disabled', 'disabled');
+            }
+            var classes = document.getElementsByClassName('hide');
+            classes[0].setAttribute('hide');
+            location.reload();
+        }
         //for creating countrywise phone format
         const phoneInputField = document.getElementsByClassName("phone");
         for (let i = 0; i < phoneInputField.length; ++i) {
