@@ -1,0 +1,32 @@
+﻿@* @using HalloDoc.DataLayer.ViewModels.AdminViewModels
+@model ViewCaseModel; *@
+@{
+    ViewData["Title"] = "Review Agreement";
+}
+@section Styles {
+    <link href="~/css/agreement.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/AdminDashboardStyle.css" rel="stylesheet" type="text/css" />
+}
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial"/>
+    }
+}
+<partial name="Toast" />
+<div class="Container-fluid d-flex justify-content-center align-items-center flex-column" style="padding-left:30%;padding-right:30%;padding-top:10%">
+    <div class="mb-5">
+        <h5>
+            To provide best medical service, we cannot determine the cost right away. If you agree to our service, so we will provide care and follow-up 
+            until all care is completed. So with this points, if you like us to provide care to you click on "Agree" and we'll get started immediately, 
+            if you do not agree simply click "Cancel".
+        </h5>
+    </div>
+    <div>
+        <div class="d-flex justify-content-between align-items-center">
+            <button type="submit" style="border: 1px solid #6cb233;border-radius: 5px;background-color: #6cb233;margin-right: 65px;height: 40px;width: 80px;">
+                <span class="saveButtonText">I Agree</span>
+            </button>
+            <button class="cancelButtonRed" data-bs-dismiss="modal" onclick="cancel4()"><span class="saveButtonText">Cancel</span></button>
+        </div>
+    </div>
+</div>

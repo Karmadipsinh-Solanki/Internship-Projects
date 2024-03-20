@@ -129,56 +129,6 @@
         </div>
         <div class="content shadow p-3 mb-3" style="background-color:white;">
             <form asp-action="ViewCase" asp-controller="AdminDashboard" method="post">
-                <!--Assign Case Modal -->
-                <div class="modal fade " id="assignCaseModal" tabindex="-1" aria-labelledby="assignCaseModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="saveButtonText fs-5" id="assignCaseModalLabel">Assign Request</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <form asp-action="AssignCase" asp-controller="AdminDashboard" method="post">
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <span class="text-secondary" style="font-size:14px"><strong>To assign this request, search and select another Physician.</strong></span>
-                                    </div>
-
-                                    <div class="form-floating mb-3">
-                                        <input type="hidden" asp-for="RequestId" id="requestId" />
-                                        <select class="custom-select-6 text-secondary dropdownBorder" id="regionDropdown" style="width: 100%;height: 54px;padding:8px;">
-                                            <option value="0" selected hidden><span>Narrow Search by Region</span></option>
-                                            @* @foreach (var item in Model.regions)
-                                            {
-                                            <option value="@item.RegionId"><span>@item.Name</span></option>
-                                            } *@
-                                        </select>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        @*  <input type="" asp-for="PhysicianId" id="physicianId" style="display:none;"/> *@
-                                        <select asp-for="PhysicianId" class="custom-select-7 text-secondary dropdownBorder" id="physicianDropdown" style="width: 100%;height: 54px;padding:8px;" onchange="test(this)">
-                                            <option value="0" disabled selected hidden><span>Select Physician</span></option>
-                                            @*    @foreach (var item in Model.physicians)
-                                            {
-                                            <option value="@item.PhysicianId">@(item.FirstName + " " + item.LastName)</option>
-                                            } *@
-                                        </select>
-                                    </div>
-                                    <div class="form-floating login-fields" style="width: 100%;margin-top: 20px;">
-                                        <textarea type="text" placeholder="Description" class="form-control"
-                                                  style="height: 135px !important;" asp-for="Description"></textarea>
-                                        <label for="floatingInput">Description</label>
-                                    </div>
-                                </div>
-                                <div class="modal-footer form-floating mb-3">
-                                    <button type="submit" class="saveButton"><span class="saveButtonText">Submit</span> </button>
-                                    <button class="cancelButton" data-bs-dismiss="modal" onclick="cancel4()"><span class="cancelButtonText">Cancel</span></button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-
                 <div class="h5 mb-3">Patient Information</div>
                 <div class="mb-3">
                     <h6 style="color: gray;font-weight: 400;font-size: 15px;">Confirmation Number </h6>
@@ -298,7 +248,7 @@
                         @if (Model.Status != "Reserved")
                         {
                             <div class="btn saveButton me-3 mb-3" style="width:110px!important;">
-                                <a class="textdeconone dropdown-item dashboard-button" data-bs-toggle="modal" data-bs-target="#assignCaseModal" onclick="AssignCase(@item.RequestId)">
+                                <a class="textdeconone " data-bs-toggle="modal" data-bs-target="#assignCaseModal" onclick="AssignCase(@Model.RequestId)">
                                     <span class="saveButtonText">Assign</span>
                                 </a>
                             </div>
@@ -320,7 +270,7 @@
                     {
                         <div>
                             <button class="btn saveButton me-3 mb-3" style="width:110px!important;">
-                                <a class="textdeconone dropdown-item dashboard-button" data-bs-toggle="modal" data-bs-target="#assignCaseModal" onclick="AssignCase(@item.RequestId)">
+                                <a class="textdeconone dropdown-item dashboard-button" data-bs-toggle="modal" data-bs-target="#assignCaseModal" onclick="AssignCase(@Model.RequestId)">
                                     <span class="saveButtonText">Assign</span>
                                 </a>
                             </button>
@@ -335,6 +285,54 @@
                         <a asp-action="AdminDashboard" asp-controller="AdminDashboard" class="btn redCancelButton mb-3 d-flex justify-content-center align-items-center" style="width:110px!important;background-color:#d72d31;">
                             <span class="saveButtonText">Cancel</span>
                         </a>
+                    </div>
+                </div>
+                <!--Assign Case Modal -->
+                <div class="modal fade" id="assignCaseModal" tabindex="-1" aria-labelledby="assignCaseModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content p-0" style="width:100%;">
+                            <div class="modal-header" style="width:100%;">
+                                <h1 class="saveButtonText fs-5" id="assignCaseModalLabel">Assign Request</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form asp-action="AssignCase" asp-controller="AdminDashboard" method="post">
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <span class="text-secondary" style="font-size:14px"><strong>To assign this request, search and select another Physician.</strong></span>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input type="hidden" asp-for="RequestId" id="requestId" />
+                                        <select class="custom-select-6 text-secondary dropdownBorder" id="regionDropdown" style="width: 100%;height: 54px;padding:8px;">
+                                            <option value="0" selected hidden><span>Narrow Search by Region</span></option>
+                                            @* @foreach (var item in Model.regions)
+                                            {
+                                            <option value="@item.RegionId"><span>@item.Name</span></option>
+                                            } *@
+                                        </select>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        @*  <input type="" asp-for="PhysicianId" id="physicianId" style="display:none;"/> *@
+                                        <select asp-for="PhysicianId" class="custom-select-7 text-secondary dropdownBorder" id="physicianDropdown" style="width: 100%;height: 54px;padding:8px;" onchange="test(this)">
+                                            <option value="0" disabled selected hidden><span>Select Physician</span></option>
+                                            @*    @foreach (var item in Model.physicians)
+                                            {
+                                            <option value="@item.PhysicianId">@(item.FirstName + " " + item.LastName)</option>
+                                            } *@
+                                        </select>
+                                    </div>
+                                    <div class="form-floating login-fields" style="width: 100%;margin-top: 20px;">
+                                        <textarea type="text" placeholder="Description" class="form-control"
+                                                  style="height: 135px !important;" asp-for="Description"></textarea>
+                                        <label for="floatingInput">Description</label>
+                                    </div>
+                                </div>
+                                <div class="modal-footer form-floating mb-3">
+                                    <button type="submit" class="saveButton"><span class="saveButtonText">Submit</span> </button>
+                                    <button class="cancelButton" data-bs-dismiss="modal" onclick="cancel4()"><span class="cancelButtonText">Cancel</span></button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </form>

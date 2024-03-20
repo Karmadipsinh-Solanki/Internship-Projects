@@ -15,16 +15,18 @@ namespace HalloDoc.LogicLayer.Interface
     {
         public AdminDashboardTableView adminDashboard(string status,string? search, int? region, string? requestor);
         public int createRequest(CreateRequestViewModel model);
+        public bool verifyState(CreateRequestViewModel model);
         public CreateRequestViewModel createRequest();
         public bool sendLink(AdminDashboardTableView model);
         public MemoryStream downloadExcel();
         public ViewCaseModel viewCase(int id);
         public bool viewCase(ViewCaseModel model);
         public ViewNotesViewModel viewNotes(int id);
-        public bool viewNotes(ViewNotesViewModel model);
+        public ViewNotesViewModel viewNotes(ViewNotesViewModel model);
         public ViewUploadViewModel viewUpload(int id);
-        //public bool viewUpload(ViewUploadViewModel model);
-        public bool closeCase(ViewUploadViewModel model);
+        public bool viewUpload(ViewUploadViewModel model);
+        public bool closeCaseBtn(int requestId);
+        public bool closeCaseSaveBtn(ViewUploadViewModel model);
         public ViewUploadViewModel closeCase(int id);
         public OrderViewModel SendOrder(int id);
         public bool SendOrder(OrderViewModel model);
@@ -39,7 +41,7 @@ namespace HalloDoc.LogicLayer.Interface
         public bool cancelCase(AdminDashboardTableView model);
         public bool clearCase(AdminDashboardTableView model);
         public bool blockCase(AdminDashboardTableView model);
-        public bool sendAgreement(AdminDashboardTableView model, int id);
+        public bool sendAgreement(AdminDashboardTableView model);
         public bool saveAdministratorDetail(AdminProfileViewModel model);
         public bool saveBillingInformation(AdminProfileViewModel model);
         public bool resetPassword(AdminProfileViewModel model);

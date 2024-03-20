@@ -116,7 +116,6 @@ namespace HalloDoc.Controllers
             CreateRequestViewModel createRequestViewModel = _admin.createRequest();
             return View(createRequestViewModel);
         }
-
         [HttpPost]
         public IActionResult CreateRequest(CreateRequestViewModel model)
         {
@@ -136,6 +135,20 @@ namespace HalloDoc.Controllers
                 TempData["success"] = "Request created successfully!";
                 return RedirectToAction("AdminDashboard");
             }
+        }
+        [HttpPost]
+        public IActionResult VerifyState(CreateRequestViewModel model)
+        {
+            bool check = _admin.verifyState(model);
+            if (check)
+            {
+                TempData["success"] = "We are serving in this region!";
+            }
+            else
+            {
+                TempData["error"] = "Currently, We are not serving in this region!";
+            }
+            return RedirectToAction("CreateRequest");
         }
 
 
@@ -223,9 +236,13 @@ namespace HalloDoc.Controllers
         [HttpPost]
         public IActionResult ViewNotes(ViewNotesViewModel viewNotesViewModel)
         {
-
+            int requestId = viewNotesViewModel.RequestId;
+            var check = _admin.viewCase(viewNotesViewModel);
+            if (check)
+            {
+                TempData["success"] = "Admin Notes Updated!";
+            }
             return RedirectToAction("ViewNotes", new { id = viewNotesViewModel.RequestId });
-
         }
         
         public IActionResult fetchBusiness(int id)
@@ -345,20 +362,20 @@ namespace HalloDoc.Controllers
             ViewUploadViewModel viewUploadViewModel = _admin.viewUpload(id);
             return View(viewUploadViewModel);
         }
-        //[HttpPost]
-        //public IActionResult viewUpload(ViewUploadViewModel model, int id)
-        //{
-        //    bool check = _admin.viewUpload(model);
-        //    if (check)
-        //    {
-        //        TempData["success"] = "Document Uploaded successfully!";
-        //    }
-        //    else
-        //    {
-        //        TempData["error"] = "Document is not Uploaded!";
-        //    }
-        //    return RedirectToAction("viewUpload");
-        //}
+        [HttpPost]
+        public IActionResult viewUpload(ViewUploadViewModel model, int id)
+        {
+            bool check = _admin.viewUpload(model);
+            if (check)
+            {
+                TempData["success"] = "Document Uploaded successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Document is not Uploaded!";
+            }
+            return RedirectToAction("viewUpload");
+        }
         public IActionResult SendOrder(int id)
         {
             OrderViewModel orderViewModel = _admin.SendOrder(id);
@@ -383,22 +400,36 @@ namespace HalloDoc.Controllers
         {
             ViewUploadViewModel viewUploadViewModel = _admin.closeCase(id);
             //return View(viewUploadViewModel);
-            return RedirectToAction("CloseCase", new { id = viewUploadViewModel.RequestId });
+            //return RedirectToAction("CloseCase", new { id = viewUploadViewModel.RequestId });
+            return View(viewUploadViewModel);
         }
-
         [HttpPost]
-        public IActionResult CloseCase(ViewUploadViewModel model)
+        public IActionResult CloseCaseBtn(int requestId)
         {
-            bool check = _admin.closeCase(model);
+
+            bool check = _admin.closeCaseBtn(requestId);
             if (check)
             {
                 TempData["success"] = "Case closed successfully!";
             }
             else
             {
-                TempData["error"] = "Case is not closed yet!";
+                TempData["error"] = "Error,case not closed!";
             }
-            return RedirectToAction("CloseCase");
+            return RedirectToAction("AdminDashboard");
+        }
+        public IActionResult CloseCaseSaveBtn(ViewUploadViewModel model)
+        {
+            bool check = _admin.closeCaseSaveBtn(model);
+            if (check)
+            {
+                TempData["success"] = "Patient Information updated successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,Patient Information not updated!";
+            }
+            return RedirectToAction("CloseCase", new { requestId = model.RequestId });
         }
         public IActionResult Encounter(int id)
         {
@@ -420,20 +451,19 @@ namespace HalloDoc.Controllers
             return RedirectToAction("Encounter", new { requestId = model.RequestId });
         }
         [HttpPost]
-        public IActionResult SendAgreement(AdminDashboardTableView model,int id)
+        public IActionResult SendAgreement(AdminDashboardTableView model)
         {
-            bool check = _admin.sendAgreement(model,id);
+            bool check = _admin.sendAgreement(model);
             if (check)
             {
                 TempData["success"] = "Agreement sent successfully!";
             }
             else
             {
-                TempData["error"] = " is not closed yet!";
+                TempData["error"] = "Agreement is not sent!";
             }
-            return RedirectToAction("viewUpload");
+            return RedirectToAction("AdminDashboard");
         }
-        public IActionResult ReviewAgreement() { return View(); }
 
         public IActionResult FetchAdminRegions()
         {

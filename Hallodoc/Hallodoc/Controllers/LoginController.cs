@@ -169,6 +169,7 @@ namespace Hallodoc.Controllers
         {
             return View();
         }
+        public IActionResult ReviewAgreement() { return View(); }
 
     }
 

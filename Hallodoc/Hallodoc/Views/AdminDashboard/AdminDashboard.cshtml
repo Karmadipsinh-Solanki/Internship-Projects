@@ -452,7 +452,6 @@
                                 <form asp-action="SendAgreement" asp-controller="AdminDashboard" method="post">
                                     <div class="modal-body">
                                         <div class="mb-3">
-                                            <input type="hidden" asp-for="RequestId" id="requestId" />
                                             @* <span class="WhosRequest" id="status-text">
 
                                             @if (Model.requestTypeId == 1)
@@ -490,7 +489,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer form-floating mb-3">
-                                        <input type="hidden" asp-for="RequestId" id="requestId4" />
+                                        <input type="hidden" asp-for="RequestId" id="requestId11" />
                                         <button type="submit" class="saveButton"><span class="saveButtonText">Send</span> </button>
                                         <button class="cancelButton" data-bs-dismiss="modal" onclick="cancel4()"><span class="cancelButtonText">Cancel</span></button>
                                     </div>
@@ -644,8 +643,13 @@
             }
         };
 
+        //blockcase reqid
         const BlockCase = (requestid) => {
             document.getElementById("requestId4").value = requestid;
+        }
+        //send agreement reqid
+        const SendAgreement = (requestid) => {
+            document.getElementById("requestId11").value = requestid;
         }
 
 

@@ -184,39 +184,32 @@
                 </div>
             </div>
             <div class="d-flex justify-content-end align-items-center">
-
-
-                <div class="form-button mb-3 me-3 " id="edit-div" style="background-color:#0dcaf0;border:1px solid #0dcaf0;color:white; margin-right:17px;">
-                    <a id="submit-button-2">Edit</a>
-                    <a asp-action="CloseCaseBtn" asp-controller="AdminDashboard" asp-route-requestId="@Model.RequestId" id="close-case-button">Close Case</a>
+                <input asp-for="RequestId" class="hide" />
+                <div class="form-button" id="edit-div9">
+                    <a class="d-flex justify-content-center align-items-center" id="submit-button-2" style="margin-right:12px;">Edit</a>
+                    <button type="submit" class="d-flex justify-content-center align-items-center" id="close-case-button" style="color: #0dcaf0!important;background-color:white;">Close Case</button>
                 </div>
                 <div id="submit-div" class="hide">
-                    <button type="submit" id="submit-button-4" style="border:none;margin-right:25px!important;">Save</button>
-                    <a id="submit-button-3" class="backbutton">Cancel</a>
+                    <a asp-action="CloseCaseSaveBtn" asp-controller="AdminDashboard" asp-route-requestId="@Model.RequestId" id="submit-button-4"
+                       style="border:none; margin-right:12px;" class="d-flex justify-content-center align-items-center">
+                        Save</a>
+                    <a id="submit-button-3" style="border:1px solid #0dcaf0;border-radius:5px;cursor:pointer;">Cancel</a>
                 </div>
-
-
-                @* <div id="edit-button" class="btn btn-primary btn-lg mb-3 me-3 " style="background-color:#0dcaf0;border:1px solid #0dcaf0;">
-                <a class="btn  textdeconone d-flex justify-content-center align-items-center" style="height:54px!important;" id="edit-button">
-                <span class="textback" style="color:white;">Edit</span>
-                </a>
-                </div>
-                <button id="save-button" type="submit" class="btn btn-primary btn-lg mb-3 me-3" style="background-color:#0dcaf0;border:1px solid #0dcaf0;">
-                <a class="btn  textdeconone d-flex justify-content-center align-items-center" style="height:54px!important;" id="edit-button">
-                <span class="textback" style="color:white;">Save</span>
-                </a>
-                </button>
-                <div id="cancel-button" class="btn btn-primary btn-lg backbutton mb-3 ">
-                <span class="textback" style="color:#0dcaf0;">Close Case</span>
-                </div> *@
             </div>
         </form>
     </div>
 
     <script>
+        //there are 2 submit so putting click event listner on close case to submit form
+        document.getElementById("close-case-button").addEventListener("click", function (event) {
+            event.preventDefault(); // prevent the button from submitting the form the default way
+
+            // submit the form programmatically
+            document.getElementById("myForm").submit();
+        });
         // edit,save,cancel
         document.getElementById('submit-button-2').onclick = function () {
-            document.getElementById('edit-div').style.display = "none";
+            document.getElementById('edit-div9').style.display = "none";
             document.getElementById('submit-div').style.display = "flex";
             var classes = document.getElementsByClassName('form-control');
             for (var i = 3; i < 5; i++) {
@@ -226,9 +219,21 @@
             classes[0].removeAttribute('hide');
 
         }
-
+        //cancel
         document.getElementById('submit-button-3').onclick = function () {
-            document.getElementById('edit-div').style.display = "flex";
+            document.getElementById('edit-div9').style.display = "flex";
+            document.getElementById('submit-div').style.display = "none";
+            var classes = document.getElementsByClassName('form-control');
+            for (var i = 3; i < 5; i++) {
+                classes[i].setAttribute('disabled', 'disabled');
+            }
+            var classes = document.getElementsByClassName('hide');
+            classes[0].setAttribute('hide');
+            location.reload();
+        }
+        //save
+        document.getElementById('submit-button-4').onclick = function () {
+            document.getElementById('edit-div9').style.display = "flex";
             document.getElementById('submit-div').style.display = "none";
             var classes = document.getElementsByClassName('form-control');
             for (var i = 3; i < 5; i++) {

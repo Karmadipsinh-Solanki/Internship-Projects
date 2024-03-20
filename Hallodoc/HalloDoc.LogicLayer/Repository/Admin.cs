@@ -22,6 +22,8 @@ using System.Linq.Expressions;
 using System.Net.NetworkInformation;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Metrics;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.ExtendedProperties;
 
 namespace HalloDoc.LogicLayer.Repository
 {
@@ -136,7 +138,7 @@ namespace HalloDoc.LogicLayer.Repository
             return adminDashboardViewModel;
         }
         [HttpPost]
-        bool IAdmin.viewNotes(ViewNotesViewModel model)
+        ViewNotesViewModel IAdmin.viewNotes(ViewNotesViewModel model)
         {
             //int aspnetuserid = (int)_context.HttpContext.Session.GetInt32("AspNetUserId");
             //int aspnetuserid = (int)_context.HttpContext.Session.GetInt32("AspNetUserId");//
@@ -158,11 +160,30 @@ namespace HalloDoc.LogicLayer.Repository
                     CreatedDate = DateTime.Now,
                     CreatedBy = 2,
                 };
-
                 _context.RequestNotes.Add(newRequestNote);
                 _context.SaveChanges();
             }
-            return true;
+
+
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 1;
+            int id = model.RequestId;
+            var PatientCancellationNotes = _context.RequestStatusLogs.FirstOrDefault(u => u.RequestId == id && u.Status == 7);
+            var AdminCancellationNotes = _context.RequestStatusLogs.FirstOrDefault(u => u.RequestId == id && u.Status == 6);
+            List<RequestStatusLog> requestStatusLogs = _context.RequestStatusLogs.Where(u => u.RequestId == id && u.Status == 2).ToList();
+            var Note = _context.RequestNotes.FirstOrDefault(u => u.RequestId == id);
+            model.adminNavbarViewModel = adminNavbarViewModel;
+            model.PatientCancellationNotes = PatientCancellationNotes?.Notes;
+            model.Admin_Cancellation_Note = AdminCancellationNotes?.Notes;
+            model.Admin_Note = Note.AdminNotes ?? "-";
+            model.Physician_Note = Note?.PhysicianNotes ?? "-";
+            model.Transfer_Notes = requestStatusLogs;
+            return model;
 
         }
         ViewNotesViewModel IAdmin.viewNotes(int id)
@@ -179,16 +200,6 @@ namespace HalloDoc.LogicLayer.Repository
             AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
             adminNavbarViewModel.AdminName = AdminName;
             adminNavbarViewModel.Tab = 1;
-
-            //var adminid = _context.httpcontext.session.getint32("adminid");
-            //var adminid = httpcontext.session.getint32("adminid");
-            //var admin = _context.admins.firstordefault(a => a.adminid == adminid);
-
-            //adminnavbarviewmodel adminnavbarviewmodel = new adminnavbarviewmodel//
-            //{
-            //    name = string.concat(admin.firstname, " ", admin.lastname),
-            //    curr_active = "dashboard",
-            //};
 
             ViewNotesViewModel viewnotesviewmodel = new ViewNotesViewModel
             {
@@ -513,7 +524,7 @@ namespace HalloDoc.LogicLayer.Repository
             }
         }
         int IAdmin.createRequest(CreateRequestViewModel model)
-        {
+         {
             AspNetUser aspNetUser = new AspNetUser();
             User user = new User();
             Request request = new Request();
@@ -521,7 +532,7 @@ namespace HalloDoc.LogicLayer.Repository
             RequestWiseFile requestWiseFile = new RequestWiseFile();
             RequestStatusLog requestStatusLog = new RequestStatusLog();
 
-            var region = _context.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
+            var region = _context.Regions.FirstOrDefault(u => u.Name.Trim().ToLower().Replace(" ", "") == model.State.Trim().ToLower().Replace(" ", ""));
             if (region == null)
             {
                 return 0;
@@ -604,10 +615,10 @@ namespace HalloDoc.LogicLayer.Repository
             requestClient.PhoneNumber = model.PhoneNumber;
             requestClient.Location = model.City;
             requestClient.Address = model.Street;
-            requestClient.RegionId = 1;
-            if (model.Notes != null)
+            requestClient.RegionId = region.RegionId;
+            if (model.AdminNotes != null)
             {
-                requestClient.Notes = model.Notes;
+                requestClient.Notes = model.AdminNotes;
             }
             requestClient.Email = model.Email;
             requestClient.IntDate = model.DOB.Day;
@@ -644,11 +655,24 @@ namespace HalloDoc.LogicLayer.Repository
 
             requestStatusLog.RequestId = request.RequestId;
             requestStatusLog.Status = 1;
-            requestStatusLog.Notes = model.Notes;
+            requestStatusLog.Notes = model.AdminNotes;
             requestStatusLog.CreatedDate = DateTime.Now;
             _context.RequestStatusLogs.Add(requestStatusLog);
             _context.SaveChanges();
             return 2;
+        }
+        bool IAdmin.verifyState(CreateRequestViewModel model)
+        {
+            var details = _context.Requests.FirstOrDefault(i => i.RequestId == model.RequestId);
+            Region region = _context.Regions.FirstOrDefault(u => u.Name.Trim().ToLower().Replace(" ", "") == model.State.Trim().ToLower().Replace(" ", ""));
+            if (region != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         CreateRequestViewModel IAdmin.createRequest()
         {
@@ -836,74 +860,6 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
-        //bool IAdmin.sendAgreement(AdminDashboardTableView model)
-        //{
-
-        //}
-
-        //bool IAdmin.sendLink(AdminDashboardTableView model)
-        //{
-        //    var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
-        //    var id = _context.Users.SingleOrDefault(u => u.Email == model.Email);
-        //    bool userExists = true;
-        //    if (existingUser != null)
-        //    {
-        //        //userExists = false;
-        //        //aspNetUser.UserName = model.Email;
-        //        //aspNetUser.Email = model.Email;
-        //        //aspNetUser.PhoneNumber = model.PhoneNo;
-        //        //aspNetUser.CreatedDate = DateTime.Now;
-        //        //_context.AspNetUsers.Add(aspNetUser);
-        //        //await _context.SaveChangesAsync();
-
-        //        string senderEmail = "tatva.dotnet.karmadipsinhsolanki@outlook.com";
-        //        string senderPassword = "Karmadips@2311";
-
-        //        SmtpClient client = new SmtpClient("smtp.office365.com")
-        //        {
-        //            Port = 587,
-        //            Credentials = new NetworkCredential(senderEmail, senderPassword),
-        //            EnableSsl = true,
-        //            DeliveryMethod = SmtpDeliveryMethod.Network,
-        //            UseDefaultCredentials = false
-        //        };
-        //        string email = model.Email;
-        //        var userFirstName = model.FirstName + " " + model.LastName;
-        //        var formatedDate = DateTime.Now.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-        //        string resetLink = $"https://localhost:44339/Login/submitrequest";
-        //        string message = $@"<html>
-        //                        <body>  
-        //                        <h1>Create Request for patient</h1>  
-        //                        <h2>Hii {userFirstName},</h2>
-        //                        <p style=""margin-top:30px;"">We have sent you link to create request for patient. So, please click the below link to create request:</p>
-        //                        <p><a href=""{resetLink}"">Create Request</a></p> 
-        //                        <p>If you don't need request creation then please ignore this mail.</p>
-        //                        </body>
-        //                        </html>";
-        //        if (email != null)
-        //        {
-        //            MailMessage mailMessage = new MailMessage
-        //            {
-        //                From = new MailAddress(senderEmail, "HalloDoc"),
-        //                Subject = "Register Case",
-        //                IsBodyHtml = true,
-        //                Body = message,
-        //            };
-        //            mailMessage.To.Add(email);
-        //            client.Send(mailMessage);
-        //            return true;
-        //        }
-        //        else
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-        ////
         ViewUploadViewModel IAdmin.viewUpload(int id)
         {
             //to save file in wwwroot,that is uploaded by patient
@@ -920,7 +876,7 @@ namespace HalloDoc.LogicLayer.Repository
             adminNavbarViewModel.Tab = 1;
             ViewUploadViewModel viewUploadViewModel = new ViewUploadViewModel();
             viewUploadViewModel.patient_name = string.Concat(request.RequestClient.FirstName, ' ', request.RequestClient.LastName);
-            viewUploadViewModel.name = string.Concat(user.FirstName, ' ', user.LastName);
+            //viewUploadViewModel.name = string.Concat(user.FirstName, ' ', user.LastName);        uncomment
             viewUploadViewModel.confirmation_number = request.ConfirmationNumber;
             viewUploadViewModel.requestWiseFiles = documents;
             //viewUploadViewModel.uploader_name = string.Concat(request.FirstName, ' ', request.LastName);
@@ -928,150 +884,23 @@ namespace HalloDoc.LogicLayer.Repository
             viewUploadViewModel.adminNavbarViewModel = adminNavbarViewModel;
             return viewUploadViewModel;
         }
-        //bool IAdmin.viewUpload(ViewUploadViewModel model)
-        //{
-        //    if (model.File != null && model.File.Length > 0)
-        //    {
-        //        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\uploads", model.File.FileName);
-        //        using (var stream = System.IO.File.Create(filePath))
-        //        {
-        //            model.File.CopyTo(stream);
-        //        }
-        //        RequestWiseFile requestWiseFile = new RequestWiseFile();
-        //        requestWiseFile.RequestId = (int)model?.RequestId;
-        //        //IformFile has a property that to store filepath u need to add .filename behind it to store path
-        //        //requestWiseFile.AdminId = 1;
-        //        requestWiseFile.FileName = model.File.FileName;
-        //        requestWiseFile.CreatedDate = DateTime.Now;
-        //        _context.RequestWiseFiles.Add(requestWiseFile);
-        //        _context.SaveChanges();
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-        ViewUploadViewModel IAdmin.closeCase(int id)/////
+        bool IAdmin.viewUpload(ViewUploadViewModel model)
         {
-            //to save file in wwwroot,that is uploaded by patient
-            //token
-            var request = _context.Requests.Include(r => r.RequestClient).FirstOrDefault(u => u.RequestId == id);
-            var documents = _context.RequestWiseFiles.Include(u => u.Admin).Include(u => u.Physician).Where(u => u.RequestId == id).ToList();
-            var user = _context.Users.FirstOrDefault(u => u.UserId == request.UserId);
-            var request2 = _httpContextAccessor.HttpContext.Request;
-            var token = request2.Cookies["jwt"];
-            CookieModel cookieModel = _jwtService.getDetails(token);
-            string AdminName = cookieModel.name;
-
-            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
-            adminNavbarViewModel.AdminName = AdminName;
-            adminNavbarViewModel.Tab = 1;
-            ViewUploadViewModel viewUploadViewModel = new ViewUploadViewModel();
-            var data = _context.Requests.Include(u => u.RequestClient).FirstOrDefault(u => u.RequestId == id);
-            viewUploadViewModel.Email = data?.RequestClient?.Email;
-            viewUploadViewModel.PhoneNumber = data.RequestClient.PhoneNumber;
-            viewUploadViewModel.FirstName = data.RequestClient.FirstName;
-            viewUploadViewModel.LastName = data.RequestClient.LastName;
-            viewUploadViewModel.adminNavbarViewModel = adminNavbarViewModel;
-
-            int month;
-            switch (data.RequestClient.StrMonth)
+            if (model.File != null && model.File.Length > 0)
             {
-                case "1":
-                    month = 1;
-                    break;
-                case "2":
-                    month = 2;
-                    break;
-                case "3":
-                    month = 3;
-                    break;
-                case "4":
-                    month = 4;
-                    break;
-                case "5":
-                    month = 5;
-                    break;
-                case "6":
-                    month = 6;
-                    break;
-                case "7":
-                    month = 7;
-                    break;
-                case "8":
-                    month = 8;
-                    break;
-                case "9":
-                    month = 9;
-                    break;
-                case "10":
-                    month = 10;
-                    break;
-                case "11":
-                    month = 11;
-                    break;
-                case "12":
-                    month = 12;
-                    break;
-                default:
-                    month = 0;
-                    break;
-            }
-
-            if (month == 0)
-            {
-                // Handle invalid month value here
-            }
-            else
-            {
-                viewUploadViewModel.DOB = new DateTime((int)data.RequestClient.IntYear, month, (int)data.RequestClient.IntDate);
-            }
-            viewUploadViewModel.patient_name = string.Concat(request.RequestClient.FirstName, ' ', request.RequestClient.LastName);
-            viewUploadViewModel.name = string.Concat(user?.FirstName, ' ', user?.LastName);
-            viewUploadViewModel.confirmation_number = request.ConfirmationNumber;
-            viewUploadViewModel.requestWiseFiles = documents;
-            viewUploadViewModel.RequestId = id;
-            return viewUploadViewModel;
-        }
-        bool IAdmin.closeCase(ViewUploadViewModel model)
-        {
-            int requestId = (int)model.RequestId;
-            if (requestId != null)
-            {
-                var requestToUpdate = _context.Requests.Where(u => u.RequestId == requestId).FirstOrDefault();
-
-                if (requestToUpdate != null)
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\uploads", model.File.FileName);
+                using (var stream = System.IO.File.Create(filePath))
                 {
-                    requestToUpdate.Status = 9;
-                    requestToUpdate.PhoneNumber = model.PhoneNumber;
-                    requestToUpdate.Email = model.Email;
-                    _context.Requests.Update(requestToUpdate);
-                    _context.SaveChanges();
+                    model.File.CopyTo(stream);
                 }
-                RequestStatusLog requestStatusLog = new RequestStatusLog();
-                requestStatusLog.RequestId = (int)requestId;
-                requestStatusLog.Status = 9;
-                requestStatusLog.CreatedDate = DateTime.Now;
-                _context.RequestStatusLogs.Add(requestStatusLog);
+                RequestWiseFile requestWiseFile = new RequestWiseFile();
+                requestWiseFile.RequestId = (int)model?.RequestId;
+                //IformFile has a property that to store filepath u need to add .filename behind it to store path
+                //requestWiseFile.AdminId = 1;
+                requestWiseFile.FileName = model.File.FileName;
+                requestWiseFile.CreatedDate = DateTime.Now;
+                _context.RequestWiseFiles.Add(requestWiseFile);
                 _context.SaveChanges();
-
-                if (model.File != null && model.File.Length > 0)
-                {
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\uploads", model.File.FileName);
-                    using (var stream = System.IO.File.Create(filePath))
-                    {
-                        model.File.CopyTo(stream);
-                    }
-                    RequestWiseFile requestWiseFile = new RequestWiseFile();
-                    requestWiseFile.RequestId = (int)model.RequestId;
-                    //IformFile has a property that to store filepath u need to add .filename behind it to store path
-                    //requestWiseFile.AdminId = 1;
-                    requestWiseFile.FileName = model.File.FileName;
-                    requestWiseFile.CreatedDate = DateTime.Now;
-                    _context.RequestWiseFiles.Add(requestWiseFile);
-                    _context.SaveChanges();
-                }
                 return true;
             }
             else
@@ -1079,7 +908,197 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
+        ViewUploadViewModel IAdmin.closeCase(int id)/////
+        {
+            var details = _context.Requests.Include(u => u.RequestClient).FirstOrDefault(i => i.RequestId == id);
+            var month1 = details.RequestClient.StrMonth;
+            string monthName = monthNameFunc(month1);
+            int month = DateTime.ParseExact(monthName, "MMMM", new CultureInfo("en-US")).Month;
+            var documents = _context.RequestWiseFiles.Include(u => u.Admin).Include(u => u.Physician).Where(u => u.RequestId == id).ToList();
+            var user = _context.Users.FirstOrDefault(u => u.UserId == details.UserId);
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 1;
+            ViewUploadViewModel viewUploadViewModel = new ViewUploadViewModel();
+            viewUploadViewModel.RequestId = id;
+            viewUploadViewModel.DOB = new DateTime((int)details.RequestClient.IntYear, month, (int)details.RequestClient.IntDate);
+            viewUploadViewModel.FirstName = details.RequestClient.FirstName;
+            viewUploadViewModel.LastName = details.RequestClient.LastName;
+            viewUploadViewModel.PhoneNumber = details.RequestClient.PhoneNumber;
+            viewUploadViewModel.Email = details.RequestClient.Email;
+            viewUploadViewModel.patient_name = string.Concat(details.RequestClient.FirstName, ' ', details.RequestClient.LastName);
+            viewUploadViewModel.name = string.Concat(user?.FirstName, ' ', user?.LastName);
+            viewUploadViewModel.confirmation_number = details.ConfirmationNumber;
+            viewUploadViewModel.requestWiseFiles = documents;
+            viewUploadViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            return viewUploadViewModel;
 
+            //to save file in wwwroot,that is uploaded by patient
+            //token
+            //var request = _context.Requests.Include(r => r.RequestClient).FirstOrDefault(u => u.RequestId == id);
+            //var documents = _context.RequestWiseFiles.Include(u => u.Admin).Include(u => u.Physician).Where(u => u.RequestId == id).ToList();
+            //var user = _context.Users.FirstOrDefault(u => u.UserId == request.UserId);
+            //var request2 = _httpContextAccessor.HttpContext.Request;
+            //var token = request2.Cookies["jwt"];
+            //CookieModel cookieModel = _jwtService.getDetails(token);
+            //string AdminName = cookieModel.name;
+
+            //AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            //adminNavbarViewModel.AdminName = AdminName;
+            //adminNavbarViewModel.Tab = 1;
+            //ViewUploadViewModel viewUploadViewModel = new ViewUploadViewModel();
+            //var data = _context.Requests.Include(u => u.RequestClient).FirstOrDefault(u => u.RequestId == id);
+            //viewUploadViewModel.Email = data?.RequestClient?.Email;
+            //viewUploadViewModel.PhoneNumber = data.RequestClient.PhoneNumber;
+            //viewUploadViewModel.FirstName = data.RequestClient.FirstName;
+            //viewUploadViewModel.LastName = data.RequestClient.LastName;
+            //viewUploadViewModel.adminNavbarViewModel = adminNavbarViewModel;
+
+            //int month;
+            //switch (data.RequestClient.StrMonth)
+            //{
+            //    case "1":
+            //        month = 1;
+            //        break;
+            //    case "2":
+            //        month = 2;
+            //        break;
+            //    case "3":
+            //        month = 3;
+            //        break;
+            //    case "4":
+            //        month = 4;
+            //        break;
+            //    case "5":
+            //        month = 5;
+            //        break;
+            //    case "6":
+            //        month = 6;
+            //        break;
+            //    case "7":
+            //        month = 7;
+            //        break;
+            //    case "8":
+            //        month = 8;
+            //        break;
+            //    case "9":
+            //        month = 9;
+            //        break;
+            //    case "10":
+            //        month = 10;
+            //        break;
+            //    case "11":
+            //        month = 11;
+            //        break;
+            //    case "12":
+            //        month = 12;
+            //        break;
+            //    default:
+            //        month = 0;
+            //        break;
+            //}
+
+            //if (month == 0)
+            //{
+            //    // Handle invalid month value here
+            //}
+            //else
+            //{
+            //    viewUploadViewModel.DOB = new DateTime((int)data.RequestClient.IntYear, month, (int)data.RequestClient.IntDate);
+            //}
+            //viewUploadViewModel.patient_name = string.Concat(request.RequestClient.FirstName, ' ', request.RequestClient.LastName);
+            //viewUploadViewModel.name = string.Concat(user?.FirstName, ' ', user?.LastName);
+            //viewUploadViewModel.confirmation_number = request.ConfirmationNumber;
+            //viewUploadViewModel.requestWiseFiles = documents;
+            //viewUploadViewModel.RequestId = id;
+            //return viewUploadViewModel;
+        }
+        bool IAdmin.closeCaseBtn(int requestId)
+        {
+            Request request = _context.Requests.FirstOrDefault(i => i.RequestId == requestId);
+            if (request != null)
+            {
+                request.Status = 9;
+                request.ModifiedDate = DateTime.Now;
+                _context.Requests.Update(request);
+                _context.SaveChanges();
+                RequestStatusLog requestStatusLog = new RequestStatusLog();
+                requestStatusLog.RequestId = requestId;
+                requestStatusLog.CreatedDate = DateTime.Now;
+                requestStatusLog.Status = 9;
+                _context.RequestStatusLogs.Add(requestStatusLog);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        bool IAdmin.closeCaseSaveBtn(ViewUploadViewModel model)
+        {
+            var details = _context.Requests.FirstOrDefault(i => i.RequestId == model.RequestId);
+            RequestClient requestClientDetail = _context.RequestClients.FirstOrDefault(i => i.RequestClientId == details.RequestClientId);
+            if (requestClientDetail != null)
+            {
+                requestClientDetail.Email = model?.Email;
+                requestClientDetail.PhoneNumber = model?.PhoneNumber;
+                _context.RequestClients.Update(requestClientDetail);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            //int requestId = (int)model.RequestId;
+            //if (requestId != null)
+            //{
+            //var requestToUpdate = _context.Requests.Where(u => u.RequestId == requestId).FirstOrDefault();
+
+            //if (requestToUpdate != null)
+            //{
+            //    requestToUpdate.Status = 9;
+            //    requestToUpdate.PhoneNumber = model.PhoneNumber;
+            //    requestToUpdate.Email = model.Email;
+            //    _context.Requests.Update(requestToUpdate);
+            //    _context.SaveChanges();
+            //}
+            //RequestStatusLog requestStatusLog = new RequestStatusLog();
+            //requestStatusLog.RequestId = (int)requestId;
+            //requestStatusLog.Status = 9;
+            //requestStatusLog.CreatedDate = DateTime.Now;
+            //_context.RequestStatusLogs.Add(requestStatusLog);
+            //_context.SaveChanges();
+
+            //if (model.File != null && model.File.Length > 0)
+            //{
+            //    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\uploads", model.File.FileName);
+            //    using (var stream = System.IO.File.Create(filePath))
+            //    {
+            //        model.File.CopyTo(stream);
+            //    }
+            //    RequestWiseFile requestWiseFile = new RequestWiseFile();
+            //    requestWiseFile.RequestId = (int)model.RequestId;
+            //    //IformFile has a property that to store filepath u need to add .filename behind it to store path
+            //    //requestWiseFile.AdminId = 1;
+            //    requestWiseFile.FileName = model.File.FileName;
+            //    requestWiseFile.CreatedDate = DateTime.Now;
+            //    _context.RequestWiseFiles.Add(requestWiseFile);
+            //    _context.SaveChanges();
+            //}
+            //    return true;
+            //}
+            //else
+            //{
+            //    return false;
+            //}
+
+        }
 
         //bool IAdmin.closeCase(AdminDashboardTableView model)
         //{
@@ -1157,40 +1176,17 @@ namespace HalloDoc.LogicLayer.Repository
             }
         }
         //current
-        bool IAdmin.sendAgreement(AdminDashboardTableView model, int id)
+        bool IAdmin.sendAgreement(AdminDashboardTableView model)
         {
             AdminDashboardTableView adminDashboardTableView = new AdminDashboardTableView();
-            var data = _context.Requests.Include(u => u.RequestClient).FirstOrDefault(u => u.RequestId == id);
-
-            adminDashboardTableView.RequestTypeId = data.RequestTypeId;
-            int requestTypeId = data.RequestTypeId;
-            var requestor = "";
-            if (requestTypeId == 1)
-            {
-                requestor = "Patient";
-            }
-            else if (requestTypeId == 2)
-            {
-                requestor = "Family/Friend";
-            }
-            else if (requestTypeId == 3)
-            {
-                requestor = "Conceirge";
-            }
-            else
-            {
-                requestor = "Business";
-            }
-            adminDashboardTableView.Requestor = requestor;
-
-
-
+            var data = _context.Requests.Include(u => u.RequestClient).FirstOrDefault(u => u.RequestId == model.RequestId);
 
             var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
             //var id = _context.Users.SingleOrDefault(u => u.Email == model.Email);
             bool userExists = true;
             if (existingUser != null)
             {
+                var userId = _context.Requests.Include(u => u.RequestClient).FirstOrDefault(u => u.RequestId == model.RequestId);
                 string senderEmail = "tatva.dotnet.karmadipsinhsolanki@outlook.com";
                 string senderPassword = "Karmadips@2311";
 
@@ -1203,18 +1199,19 @@ namespace HalloDoc.LogicLayer.Repository
                     UseDefaultCredentials = false
                 };
                 string email = model.Email;
+                var aspnetUser = _context.AspNetUsers.FirstOrDefault(u => u.Email == email);
                 var userFirstName = model.FirstName + " " + model.LastName;
                 var formatedDate = DateTime.Now.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-                string resetLink = $"https://localhost:44339/AdminDashboard/ReveiwAgreement";
+                string reviewAgreement = $"https://localhost:44339/Login/ReviewAgreement";
                 string message = $@"<html>
                                 <body>  
                                 <h1>Review Agreement</h1>  
                                 <h2>Hii {userFirstName},</h2>
                                 <p style=""margin-top:30px;"">We have sent you link to review the agreement. So, please click the below link to read agreement:</p>
-                                <p><a href=""{resetLink}"">Review Agreement here</a></p> 
+                                <p><a href=""{reviewAgreement}"">Review Agreement here</a></p> 
                                 </body>
                                 </html>";
-                if (email != null)
+                if (aspnetUser != null)
                 {
                     MailMessage mailMessage = new MailMessage
                     {
@@ -1225,6 +1222,13 @@ namespace HalloDoc.LogicLayer.Repository
                     };
                     mailMessage.To.Add(email);
                     client.Send(mailMessage);
+                    EmailLog emailLog = new EmailLog();
+                    emailLog.SubjectName = mailMessage.Subject;
+                    emailLog.EmailId = email;
+                    emailLog.ConfirmationNumber = userId?.ConfirmationNumber;
+                    emailLog.CreateDate = DateTime.Now;
+                    _context.EmailLogs.Add(emailLog);
+                    _context.SaveChanges();
                     return true;
                 }
                 else
@@ -1237,6 +1241,74 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
+        //bool IAdmin.sendAgreement(AdminDashboardTableView model)
+        //{
+
+        //}
+
+        //bool IAdmin.sendLink(AdminDashboardTableView model)
+        //{
+        //    var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
+        //    var id = _context.Users.SingleOrDefault(u => u.Email == model.Email);
+        //    bool userExists = true;
+        //    if (existingUser != null)
+        //    {
+        //        //userExists = false;
+        //        //aspNetUser.UserName = model.Email;
+        //        //aspNetUser.Email = model.Email;
+        //        //aspNetUser.PhoneNumber = model.PhoneNo;
+        //        //aspNetUser.CreatedDate = DateTime.Now;
+        //        //_context.AspNetUsers.Add(aspNetUser);
+        //        //await _context.SaveChangesAsync();
+
+        //        string senderEmail = "tatva.dotnet.karmadipsinhsolanki@outlook.com";
+        //        string senderPassword = "Karmadips@2311";
+
+        //        SmtpClient client = new SmtpClient("smtp.office365.com")
+        //        {
+        //            Port = 587,
+        //            Credentials = new NetworkCredential(senderEmail, senderPassword),
+        //            EnableSsl = true,
+        //            DeliveryMethod = SmtpDeliveryMethod.Network,
+        //            UseDefaultCredentials = false
+        //        };
+        //        string email = model.Email;
+        //        var userFirstName = model.FirstName + " " + model.LastName;
+        //        var formatedDate = DateTime.Now.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+        //        string resetLink = $"https://localhost:44339/Login/submitrequest";
+        //        string message = $@"<html>
+        //                        <body>  
+        //                        <h1>Create Request for patient</h1>  
+        //                        <h2>Hii {userFirstName},</h2>
+        //                        <p style=""margin-top:30px;"">We have sent you link to create request for patient. So, please click the below link to create request:</p>
+        //                        <p><a href=""{resetLink}"">Create Request</a></p> 
+        //                        <p>If you don't need request creation then please ignore this mail.</p>
+        //                        </body>
+        //                        </html>";
+        //        if (email != null)
+        //        {
+        //            MailMessage mailMessage = new MailMessage
+        //            {
+        //                From = new MailAddress(senderEmail, "HalloDoc"),
+        //                Subject = "Register Case",
+        //                IsBodyHtml = true,
+        //                Body = message,
+        //            };
+        //            mailMessage.To.Add(email);
+        //            client.Send(mailMessage);
+        //            return true;
+        //        }
+        //        else
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
+        ////
         string monthNameFunc(string month1)
         {
             string monthName;

@@ -32,6 +32,9 @@
         <div class="content shadow p-3 mb-3" style="background-color:white;">
             <form asp-action="CreateRequest" asp-controller="AdminDashboard" method="post">
 
+                <input type="hidden" asp-for="@Model.adminNavbarViewModel.AdminName" />
+                <input type="hidden" asp-for="@Model.adminNavbarViewModel.Tab" />
+
                 <div class="h5 mb-3">Patient</div>
                 <div class="row">
                     <div class="col-md-6">
@@ -117,12 +120,11 @@
                     </div>
                     <div class="col-md-4">
                         <div class="map-verify-btn">
-
-                            <button type="submit" class="back-navigation-link" style="position:relative;padding-right:5px !important;background-color:white;height:54px!important;width: 76px;display: flex;justify-content: center;">
+                            <a asp-action="VerifyState" asp-controller="AdminDashboard" asp-route-requestId="@Model.RequestId" class="back-navigation-link" style="position:relative;padding-right:5px !important;background-color:white;height:54px!important;width: 76px;display: flex;justify-content: center;">
                                 <div class="back-navigation">
                                     <span class="btn-text">Verify</span>
                                 </div>
-                            </button>
+                            </a>
                             <a id="map-button" class="back-navigation-link" style="position:relative;margin-left:10px;padding-right:10px;height:54px!important;width:84px;">
                                 <div class="back-navigation">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-geo-alt back-icon" viewBox="0 0 16 16">
