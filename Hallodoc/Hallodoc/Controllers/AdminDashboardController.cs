@@ -237,7 +237,7 @@ namespace HalloDoc.Controllers
         public IActionResult ViewNotes(ViewNotesViewModel viewNotesViewModel)
         {
             int requestId = viewNotesViewModel.RequestId;
-            var check = _admin.viewCase(viewNotesViewModel);
+            var check = _admin.viewNotes(viewNotesViewModel);
             if (check)
             {
                 TempData["success"] = "Admin Notes Updated!";

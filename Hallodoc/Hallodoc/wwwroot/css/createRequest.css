@@ -157,7 +157,9 @@
 .btn.btn-primary {
     --bs-btn-bg: #0dcaf0 !important;
 } */
-
+.hide{
+    display:none;
+}
 .footer {
     background-color: rgb(38, 38, 38);
     color: white;
