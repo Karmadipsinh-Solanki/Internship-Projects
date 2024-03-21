@@ -48,7 +48,7 @@
         <div class="seconddiv d-flex justify-content-between align-items-center mb-3">
             <h5>Documents</h5>
             <div class="d-flex">
-                <div class=" textdeco d-flex justify-content-center align-items-center me-2 p-2" onclick="downloadall()" style="cursor:pointer;border:1px solid #0bb6d0;border-radius:5px;color:#0bb6d0;">
+                <div class="link textdeco d-flex justify-content-center align-items-center me-2 p-2" onclick="downloadall()" style="cursor:pointer;border:1px solid #0bb6d0;border-radius:5px;color:#0bb6d0;">
                     <div class="back-navigation me-2 d-block d-md-none">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cloud-download" viewBox="0 0 16 16">
                             <path d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
@@ -59,7 +59,7 @@
                         <span class="textback">Download All</span>
                     </div>
                 </div>
-                <div class=" textdeco d-flex justify-content-center align-items-center me-2 p-2" onclick="deletedall()" style="cursor:pointer;border:1px solid #0bb6d0;border-radius:5px;color:#0bb6d0;">
+                <div class=" textdeco d-flex justify-content-center align-items-center me-2 p-2" onclick="deleteall()" style="cursor:pointer;border:1px solid #0bb6d0;border-radius:5px;color:#0bb6d0;">
                     <div class="back-navigation me-2 d-block d-md-none">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
@@ -100,7 +100,7 @@
                             <path d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
                         </svg>
                     </a>
-                    <a class="iconimg d-flex justify-content-center align-items-center" href="~/uploads/@item.FileName" style="border: 1px solid #00ccff; padding:5px;margin-right:5px;border-radius:5px;text-decoration:none">
+                    <a class="iconimg d-flex justify-content-center align-items-center" onclick="deleteFile" @* href="~/uploads/@item.FileName" *@ style="border: 1px solid #00ccff; padding:5px;margin-right:5px;border-radius:5px;text-decoration:none">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0dcaf0" class="bi bi-trash" viewBox="0 0 16 16">
                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
                             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
@@ -146,7 +146,7 @@
                                         <path d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
                                     </svg>
                                 </a>
-                                <a class="iconimg d-flex justify-content-center align-items-center" href="~/uploads/@item.FileName" style="border: 1px solid #00ccff; padding:5px;margin-right:5px;border-radius:5px;text-decoration:none">
+                                <a class="iconimg d-flex justify-content-center align-items-center" onclick="deleteFile(@Model.File)" @* href="~/uploads/@item.FileName" *@ style="border: 1px solid #00ccff; padding:5px;margin-right:5px;border-radius:5px;text-decoration:none">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0dcaf0" class="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
                                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
@@ -193,6 +193,111 @@
             if (count == classes.length) {
                 alert('No checkboxes are ticked');
             }
+        }
+        //send mail
+        function sendmail() {
+            var classes = document.getElementsByClassName('checkboxes');
+            let myArray = [];
+            var count = 0;
+            for (var i = 0; i < classes.length; i++) {
+                if (classes[i].checked == true) {
+                    myArray.push(parseInt(classes[i].value));
+                    console.log(myArray[i]);
+                } else {
+                    count++;
+                }
+            }
+            if (count == classes.length) {
+                alert('No checkboxes are ticked');
+            } else {
+                //document.getElementById('loader').style.display = 'flex';
+                var requestFilesIdString = myArray.join(',');
+                var id = document.getElementById('requestId').value;
+                $.ajax({
+                    url: '/AdminDashboard/MailDocument',
+                    type: 'GET',
+                    data: { requestFilesIdString: requestFilesIdString, requestId: id },
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log(response.res);
+                        if (response.res == "success") {
+                            location.reload();
+                        }
+                    },
+                    error: function () {
+                        //alert('An error occurred.');
+                    }
+                    //document.getElementById('loader').style.display = 'none';
+                });
+            }
+        }
+
+        //delete all
+        var selectedMenuItems = "";
+        $('.checkboxes').change(function () {
+            var itemId = $(this).data('itemId');
+            var isChecked = $(this).is(':checked');
+
+            // Update selectedRegion string based on checkbox state
+            if (isChecked) {
+                selectedMenuItems += (selectedMenuItems ? ',' : '') + itemId;
+            } else {
+                selectedMenuItems = selectedMenuItems.replace(new RegExp(',' + itemId + '|^' + itemId + ','), '');
+            }
+            //console.log(selectedMenuItems);
+        });
+        function deleteFile(fileid) {
+
+            var id = document.getElementById('requestId').value;
+            $.ajax({
+                url: '/AdminDashboard/DeleteViewUploadFile',
+                type: 'GET',
+                data: { fileids: fileid, id: id },
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response.response);
+                    if (response.response == "success") {
+                        location.reload();
+                    }
+                },
+                error: function () {
+                    alert('An error occurred.');
+                }
+                //document.getElementById('loader').style.display = 'none';
+            });
+        }
+        function deleteall() {
+            //console.log("button pressed");
+            var id = document.getElementById('requestId').value;
+            $.ajax({
+                url: '/AdminDashboard/DeleteViewUploadFile',
+                type: 'GET',
+                data: { fileids: selectedMenuItems, id: id },
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response.response);
+                    if (response.response == "success") {
+                        location.reload();
+                    }
+                },
+                error: function () {
+                    alert('An error occurred.');
+                }
+                //document.getElementById('loader').style.display = 'none';
+            });
+            //var classes = document.getElementsByClassName('checkboxes');
+            //var count = 0;
+            //for (var i = 0; i < classes.length; i++) {
+            //    if (classes[i].checked == true) {
+            //        document.getElementsByClassName('link')[i].click();
+            //    } else {
+            //        count++;
+            //    }
+            //}
+            //if (count == classes.length) {
+            //    alert('No checkboxes are ticked');
+            //}
+
         }
         //send mail
         // function sendmail() {
@@ -366,6 +471,8 @@
         //         console.log('no themes decided yet');
         //     }
         // }
+
+
         // function changeTheme() {
         //     let theme = localStorage.getItem('theme');
         //     if (theme == null || theme == 'light') {

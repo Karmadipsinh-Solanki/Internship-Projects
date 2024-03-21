@@ -11,10 +11,13 @@ using HalloDoc.DataLayer.ViewModels;
 using HalloDoc.ViewModels;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.EntityFrameworkCore;
+using DocumentFormat.OpenXml.Spreadsheet;
+using System.Globalization;
+using System.Diagnostics;
 
 namespace HalloDoc.LogicLayer.Repository
 {
-    public class Patient:IPatient
+    public class Patient : IPatient
     {
         private readonly ApplicationDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -42,8 +45,8 @@ namespace HalloDoc.LogicLayer.Repository
             DashboardViewModel dashboardViewModel = new DashboardViewModel();
             dashboardViewModel.requests = data;
             dashboardViewModel.name = string.Concat(curr_user.FirstName, ' ', curr_user.LastName);
-            dashboardViewModel.partialViewModel = new partialViewModel() { patient_name = string.Concat(curr_user.FirstName + ' ' + curr_user.LastName) };  
-            
+            dashboardViewModel.partialViewModel = new partialViewModel() { patient_name = string.Concat(curr_user.FirstName + ' ' + curr_user.LastName) };
+
             return dashboardViewModel;
         }
         ViewDocumentModel IPatient.viewDoc(int id)
@@ -88,7 +91,7 @@ namespace HalloDoc.LogicLayer.Repository
                 _context.RequestWiseFiles.Add(requestWiseFile);
                 _context.SaveChanges();
                 return true;
-                
+
             }
             else
             {
@@ -107,7 +110,7 @@ namespace HalloDoc.LogicLayer.Repository
             CookieModel cookieModel = _jwtService.getDetails(token);
             int id = cookieModel.userId;
             //to add one more state,that is to show that we dont give service in particular region
-            var region = _context.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
+            var region = _context.Regions.FirstOrDefault(u => u.Name.Trim().ToLower().Replace(" ", "") == model.State.Trim().ToLower().Replace(" ", ""));
             //var region = _meModalSubmit.StatesFromRegion(model);
             if (region == null)
             {
@@ -227,7 +230,7 @@ namespace HalloDoc.LogicLayer.Repository
             CookieModel cookieModel = _jwtService.getDetails(token);
             int id = cookieModel.userId;
             //to add one more state,that is to show that we dont give service in particular region
-            var region = _context.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
+            var region = _context.Regions.FirstOrDefault(u => u.Name.Trim().ToLower().Replace(" ", "") == model.State.Trim().ToLower().Replace(" ", ""));
             //var region = _relativeModalSubmit.StatesFromRegionInSomeoneModal(model);
             if (region == null)
             {
@@ -311,7 +314,7 @@ namespace HalloDoc.LogicLayer.Repository
 
             return 2;
         }
-        
+
         EditProfileViewModel IPatient.profile()
         {
             var request = _httpContextAccessor.HttpContext.Request;
@@ -319,6 +322,8 @@ namespace HalloDoc.LogicLayer.Repository
             CookieModel cookieModel = _jwtService.getDetails(token);
             int id = cookieModel.userId;
             var userDetail = _context.Users.FirstOrDefault(u => u.UserId == id);
+
+            partialViewModel patientName = new partialViewModel();
             //var userDetail = _profile.UserIdFromUserInProfile((int)user);
             EditProfileViewModel profileViewModel = new EditProfileViewModel();
             profileViewModel.City = userDetail.City;
@@ -331,7 +336,7 @@ namespace HalloDoc.LogicLayer.Repository
             profileViewModel.Email = userDetail.Email;
             //meViewModel.DOB = new DateTime(userDetail.IntYear, DateTime.ParseExact(userDetail.StrMonth, "MMMM", CultureInfo.CurrentCulture).Month, userDetail.IntDate);
             profileViewModel.PhoneNumber = userDetail.Mobile;
-            profileViewModel.partialViewModel = new partialViewModel() { patient_name = string.Concat(userDetail.FirstName + ' ' + userDetail) };
+            profileViewModel.partialViewModel = new partialViewModel() { patient_name = string.Concat(userDetail.FirstName + ' ' + userDetail.LastName) };
             return profileViewModel;
         }
         int IPatient.profile(EditProfileViewModel model)
@@ -342,120 +347,154 @@ namespace HalloDoc.LogicLayer.Repository
             CookieModel cookieModel = _jwtService.getDetails(token);
             int id = cookieModel.userId;
 
-            AspNetUser aspNetUser = new AspNetUser();
-            User user = new User();
-            RequestClient requestClient = new RequestClient();
-            Request request = new Request();
-            RequestWiseFile requestWiseFile = new RequestWiseFile();
-            RequestStatusLog requestStatusLog = new RequestStatusLog();
 
-            //to add one more state,that is to show that we dont give service in particular region
-            var region = _context.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
-            //var region = _profile.StateFromRegionInProfile(model);
-            if (region == null)
+            if (id != null)
             {
+                var userToUpdate = _context.Users.Where(u => u.UserId == id).FirstOrDefault();
+                if (userToUpdate != null)
+                {
+                    userToUpdate.FirstName = model.FirstName;
+                    userToUpdate.LastName = model.LastName;
+                    userToUpdate.IntDate = model.DOB.Day;
+                    userToUpdate.IntYear = model.DOB.Year;
+                    userToUpdate.StrMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(model.DOB.Month);
+                    //userToUpdate.Email = model.Email;
+                    userToUpdate.Mobile = model.PhoneNumber;
+                    userToUpdate.Street = model.Street;
+                    userToUpdate.City = model.City;
+                    userToUpdate.State = model.State;
+                    userToUpdate.ZipCode = model.ZipCode;
+                    userToUpdate.CreatedBy = userToUpdate.CreatedBy;
+                    userToUpdate.ModifiedBy = userToUpdate.CreatedBy;
+                    userToUpdate.ModifiedDate = DateTime.Now;
+
+                    _context.Users.Update(userToUpdate);
+                    _context.SaveChanges();
+
+                }
                 return 0;
             }
-
-            var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
-            //var existingUser = _profile.EmailFromAspnetuserinProfile(model);
-            bool userExists = true;
-            if (existingUser == null)
+            else
             {
-                userExists = false;
-                if (string.IsNullOrWhiteSpace(model.FirstName) || string.IsNullOrWhiteSpace(model.LastName))
-                {
-                    aspNetUser.UserName = "GuestUser";
-                }
-                else
-                {
-                    aspNetUser.UserName = model.FirstName + " " + model.LastName;
-                }
-                aspNetUser.Email = model.Email;
-                aspNetUser.PhoneNumber = model.PhoneNumber;
-                aspNetUser.CreatedDate = DateTime.Now;
-                aspNetUser.PasswordHash = model.PasswordHash;
-                //aspNetUser.UserName = model.FirstName + " " + model.LastName;
-                _context.AspNetUsers.Add(aspNetUser);
-                _context.SaveChanges();
-
-                user.AspNetUserId = aspNetUser.Id;
-                user.FirstName = model.FirstName;
-                user.LastName = model.LastName;
-                user.Email = model.Email;
-                user.Mobile = model.PhoneNumber;
-                user.Street = model.Street;
-                user.City = model.City;
-                user.State = model.State;
-                user.ZipCode = model.ZipCode;
-                user.IntDate = model.DOB.Day;
-                user.StrMonth = model.DOB.Month.ToString();
-                user.IntYear = model.DOB.Year;
-                user.CreatedBy = aspNetUser.Id;
-                user.CreatedDate = DateTime.Now;
-                _context.Users.Add(user);
-                _context.SaveChanges();
+                return 1;
             }
 
-            requestClient.FirstName = model.FirstName;
-            requestClient.LastName = model.LastName;
-            requestClient.PhoneNumber = model.PhoneNumber;
-            requestClient.Location = model.City;
-            requestClient.Address = model.Street;
-            requestClient.RegionId = region.RegionId;
-            //if (model.Symptoms != null)
+
+
+            //AspNetUser aspNetUser = new AspNetUser();
+            //User user = new User();
+            //RequestClient requestClient = new RequestClient();
+            //Request request = new Request();
+            //RequestWiseFile requestWiseFile = new RequestWiseFile();
+            //RequestStatusLog requestStatusLog = new RequestStatusLog();
+
+            ////to add one more state,that is to show that we dont give service in particular region
+            //var region = _context.Regions.FirstOrDefault(u => u.Name.Trim().ToLower().Replace(" ", "") == model.State.Trim().ToLower().Replace(" ", ""));
+            ////var region = _profile.StateFromRegionInProfile(model);
+            //if (region == null)
             //{
-            //    requestClient.Notes = model.Symptoms;
-            //}
-            requestClient.Email = model.Email;
-            requestClient.IntDate = model.DOB.Day;
-            requestClient.StrMonth = model.DOB.Month.ToString();
-            requestClient.IntYear = model.DOB.Year;
-            requestClient.Street = model.Street;
-            requestClient.City = model.City;
-            requestClient.State = model.State;
-            requestClient.ZipCode = model.ZipCode;
-            _context.RequestClients.Add(requestClient);
-            _context.SaveChanges();
-
-            //to generate confirmation number(method is given in srs that how to generate confirmation number
-            int requests = _context.Requests.Where(u => u.CreatedDate == DateTime.Now.Date).Count();
-            string ConfirmationNumber = string.Concat(region.Abbreviation, model.FirstName.Substring(0, 2).ToUpper(), model.LastName.Substring(0, 2).ToUpper(), requests.ToString("D" + 4));
-            
-            request.RequestTypeId = 1;
-
-            request.UserId = id;
-
-            request.FirstName = model.FirstName;
-            request.LastName = model.LastName;
-            request.Email = model.Email;
-            request.PhoneNumber = model.PhoneNumber;
-            request.Status = 1;
-            request.ConfirmationNumber = ConfirmationNumber;
-            request.CreatedDate = DateTime.Now;
-            //RequestId dropped from requestClient and requestClientId added in request + foreign key
-            request.RequestClientId = requestClient.RequestClientId;
-            _context.Requests.Add(request);
-            _context.SaveChanges();
-
-            //if (model.File != null)
-            //{
-            //    requestWiseFile.RequestId = request.RequestId;
-            //    //IformFile has a property that to store filepath u need to add .filename behind it to store path
-            //    requestWiseFile.FileName = model.File.FileName;
-            //    requestWiseFile.CreatedDate = DateTime.Now;
-            //    _context.RequestWiseFiles.Add(requestWiseFile);
-            //    await _context.SaveChangesAsync();
+            //    return 0;
             //}
 
-            requestStatusLog.RequestId = request.RequestId;
-            requestStatusLog.Status = 1;
-            //requestStatusLog.Notes = model.Symptoms;
-            requestStatusLog.CreatedDate = DateTime.Now;
-            _context.RequestStatusLogs.Add(requestStatusLog);
-            _context.SaveChanges();
+            //var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
+            ////var existingUser = _profile.EmailFromAspnetuserinProfile(model);
+            //bool userExists = true;
+            //if (existingUser == null)
+            //{
+            //    userExists = false;
+            //    if (string.IsNullOrWhiteSpace(model.FirstName) || string.IsNullOrWhiteSpace(model.LastName))
+            //    {
+            //        aspNetUser.UserName = "GuestUser";
+            //    }
+            //    else
+            //    {
+            //        aspNetUser.UserName = model.FirstName + " " + model.LastName;
+            //    }
+            //    aspNetUser.Email = model.Email;
+            //    aspNetUser.PhoneNumber = model.PhoneNumber;
+            //    aspNetUser.CreatedDate = DateTime.Now;
+            //    aspNetUser.PasswordHash = model.PasswordHash;
+            //    //aspNetUser.UserName = model.FirstName + " " + model.LastName;
+            //    _context.AspNetUsers.Add(aspNetUser);
+            //    _context.SaveChanges();
 
-            return 2;
+            //    user.AspNetUserId = aspNetUser.Id;
+            //    user.FirstName = model.FirstName;
+            //    user.LastName = model.LastName;
+            //    user.Email = model.Email;
+            //    user.Mobile = model.PhoneNumber;
+            //    user.Street = model.Street;
+            //    user.City = model.City;
+            //    user.State = model.State;
+            //    user.ZipCode = model.ZipCode;
+            //    user.IntDate = model.DOB.Day;
+            //    user.StrMonth = model.DOB.Month.ToString();
+            //    user.IntYear = model.DOB.Year;
+            //    user.CreatedBy = aspNetUser.Id;
+            //    user.CreatedDate = DateTime.Now;
+            //    _context.Users.Add(user);
+            //    _context.SaveChanges();
+            //}
+
+            //requestClient.FirstName = model.FirstName;
+            //requestClient.LastName = model.LastName;
+            //requestClient.PhoneNumber = model.PhoneNumber;
+            //requestClient.Location = model.City;
+            //requestClient.Address = model.Street;
+            //requestClient.RegionId = region.RegionId;
+            ////if (model.Symptoms != null)
+            ////{
+            ////    requestClient.Notes = model.Symptoms;
+            ////}
+            //requestClient.Email = model.Email;
+            //requestClient.IntDate = model.DOB.Day;
+            //requestClient.StrMonth = model.DOB.Month.ToString();
+            //requestClient.IntYear = model.DOB.Year;
+            //requestClient.Street = model.Street;
+            //requestClient.City = model.City;
+            //requestClient.State = model.State;
+            //requestClient.ZipCode = model.ZipCode;
+            //_context.RequestClients.Add(requestClient);
+            //_context.SaveChanges();
+
+            ////to generate confirmation number(method is given in srs that how to generate confirmation number
+            //int requests = _context.Requests.Where(u => u.CreatedDate == DateTime.Now.Date).Count();
+            //string ConfirmationNumber = string.Concat(region.Abbreviation, model.FirstName.Substring(0, 2).ToUpper(), model.LastName.Substring(0, 2).ToUpper(), requests.ToString("D" + 4));
+
+            //request.RequestTypeId = 1;
+
+            //request.UserId = id;
+
+            //request.FirstName = model.FirstName;
+            //request.LastName = model.LastName;
+            //request.Email = model.Email;
+            //request.PhoneNumber = model.PhoneNumber;
+            //request.Status = 1;
+            //request.ConfirmationNumber = ConfirmationNumber;
+            //request.CreatedDate = DateTime.Now;
+            ////RequestId dropped from requestClient and requestClientId added in request + foreign key
+            //request.RequestClientId = requestClient.RequestClientId;
+            //_context.Requests.Add(request);
+            //_context.SaveChanges();
+
+            ////if (model.File != null)
+            ////{
+            ////    requestWiseFile.RequestId = request.RequestId;
+            ////    //IformFile has a property that to store filepath u need to add .filename behind it to store path
+            ////    requestWiseFile.FileName = model.File.FileName;
+            ////    requestWiseFile.CreatedDate = DateTime.Now;
+            ////    _context.RequestWiseFiles.Add(requestWiseFile);
+            ////    await _context.SaveChangesAsync();
+            ////}
+
+            //requestStatusLog.RequestId = request.RequestId;
+            //requestStatusLog.Status = 1;
+            ////requestStatusLog.Notes = model.Symptoms;
+            //requestStatusLog.CreatedDate = DateTime.Now;
+            //_context.RequestStatusLogs.Add(requestStatusLog);
+            //_context.SaveChanges();
+
+            //return 2;
         }
 
         public bool viewDoc(ViewDocumentModel model)

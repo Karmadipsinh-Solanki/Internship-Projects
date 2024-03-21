@@ -70,7 +70,7 @@ namespace Hallodoc.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("UserName", "Username does not exists.");
+                    ModelState.AddModelError("Email", "This email is not registered");
                 }
             }
             return View();

@@ -21,7 +21,7 @@
             <div class="d-flex justify-content-between align-items-center p-3">
                 <h3>User Profile</h3>
                 <div class="d-flex justify-content-center align-items-center mb-3 mt-3" style="background-color:white;width: 90px;height: 45px;border:1px solid #0dcaf0;border-radius:5px;">
-                    <a class="textdeco" asp-controller="PatientDashboard" asp-action="patientDashboard" style="text-decoration:none;">
+                    <a class="textdeconone" asp-controller="PatientDashboard" asp-action="patientDashboard" style="text-decoration:none;">
                         <span class="textback" style="color:#0dcaf0;">&lt Back</span>
                     </a>
                 </div>
@@ -114,29 +114,31 @@
                             <span asp-validation-for="ZipCode" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="col-md-1" >
-                        <div style="border:1px solid #0bb6d0;height:58px;border-radius:5px;" class="map form-control d-flex justify-content-center align-items-center">
+                    <div class="col-md-1">
+                        <div style="border:1px solid #0bb6d0;height:58px;border-radius:5px;" class="map pointer  form-control d-flex justify-content-center align-items-center">
                             <a id="map-button" style="text-decoration:none;">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0bb6d0" class="bi bi-geo-alt" viewBox="0 0 16 16">
                                     <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
                                     <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
                                 </svg>
-                            <span style="color:#0bb6d0">Map</span>
+                                <span style="color:#0bb6d0">Map</span>
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-end align-items-center">
                     @* <input asp-for="RequestId" class="hide" /> *@
-                    <div class="form-button" id="edit-div9">
-                        <a class="d-flex justify-content-center align-items-center textdeconone" id="submit-button-2" style="margin-right:12px;color:white;border:1px solid #0dcaf0;border-radius:5px;background-color:#0dcaf0;">Edit</a>
+                    <div class="form-button mb-3 pointer" id="edit-div9" >
+                        <a class="d-flex justify-content-center align-items-center textdeconone" id="submit-button-2" style="color:white;border:1px solid #0dcaf0;border-radius:5px;background-color:#0dcaf0;padding: 10px;width: 72px;">Edit</a>
                     </div>
-                    <div id="submit-div" class="hide">
+                    <div id="submit-div" class="hide mb-3 mt-2">
                         <button type="submit" id="submit-button-4"
-                                style="border:none; margin-right:12px;background-color:#0dcaf0;border-radius:5px;color:white;" class="d-flex justify-content-center align-items-center mb-3 mt-2">
+                                style="border:none; margin-right:12px;background-color:#0dcaf0;border-radius:5px;color:white;border-radius:5px;background-color:#0dcaf0;padding: 10px;width: 72px;" class="d-flex justify-content-center align-items-center ">
                             Save
                         </button>
-                        <a class="textdeconone" id="submit-button-3" style="border:1px solid #0dcaf0;border-radius:5px;cursor:pointer;color:#0dcaf0;">Cancel</a>
+                        <div class="d-flex justify-content-center align-items-center" style="border:1px solid #0dcaf0;border-radius:5px;cursor:pointer;width: 72px;">
+                            <a class="textdeconone d-flex justify-content-center align-items-center" id="submit-button-3" style="color:#0dcaf0;">Cancel</a>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -181,17 +183,17 @@
         }
         //save
         document.getElementById('submit-button-4').onclick = function () {
-            document.getElementById('edit-div9').style.display = "flex";
-            document.getElementById('submit-div').style.display = "none";
-            var classes = document.getElementsByClassName('form-control');
-            for (var i = 0; i < 5; i++) {
-                classes[i].setAttribute('disabled', 'disabled');
-            }
-            for (var i = 6; i < classes.length; i++) {
-                classes[i].setAttribute('disabled', 'disabled');
-            }
-            var classes = document.getElementsByClassName('hide');
-            classes[0].setAttribute('hide');
+            // document.getElementById('edit-div9').style.display = "flex";
+            // document.getElementById('submit-div').style.display = "none";
+            // var classes = document.getElementsByClassName('form-control');
+            // for (var i = 0; i < 5; i++) {
+            //     classes[i].setAttribute('disabled', 'disabled');
+            // }
+            // for (var i = 6; i < classes.length; i++) {
+            //     classes[i].setAttribute('disabled', 'disabled');
+            // }
+            // var classes = document.getElementsByClassName('hide');
+            // classes[0].setAttribute('hide');
             location.reload();
         }
         //for creating countrywise phone format
@@ -245,7 +247,7 @@
 
 
 
-                var btn = document.getElementById("submit-button");
+        var btn = document.getElementById("submit-button");
 
         var span = document.getElementsByClassName("close")[0];
 

@@ -94,3 +94,172 @@
         </button>
     </div>
 </div>
+<div class="tab">
+    @if (Model.Tab == 1)
+    {
+        <a class="tabStyle textdeconone 1 active" asp-action="AdminDashboard" asp-controller="AdminDashboard" id="defaultOpen2">Dashboard</a>
+    }
+    else
+    {
+        <a class="tabStyle textdeconone 1" asp-action="AdminDashboard" asp-controller="AdminDashboard" id="defaultOpen2">Dashboard</a>
+    }
+    @if (Model.Tab == 2)
+    {
+        <a class="tabStyle textdeconone 2 active" asp-action="ProviderLocation" asp-controller="AdminDashboard">Provider Location</a>
+    }
+    else
+    {
+        <a class="tabStyle textdeconone 2 " asp-action="ProviderLocation" asp-controller="AdminDashboard">Provider Location</a>
+    }
+    @if (Model.Tab == 3)
+    {
+        <a class="tabStyle textdeconone 3 active" asp-action="AdminProfile" asp-controller="AdminDashboard">My Profile</a>
+    }
+    else
+    {
+        <a class="tabStyle textdeconone 3" asp-action="AdminProfile" asp-controller="AdminDashboard">My Profile</a>
+    }
+    <a class="tablinks textdeconone 4">Providers</a>
+    <a class="tablinks textdeconone 5">Partners</a>
+    <a class="tablinks textdeconone 6">Access</a>
+
+    @* @if (Model.Tab == 7 || Model.Tab == 8 || Model.Tab == 9 || Model.Tab == 10 || Model.Tab == 11)
+    {
+
+    <div class="tabStyle textdeconone 7 dropdown navbar-dropdown navbar-div active" style="padding:0px !important;background-color:transparent !important;">
+    <button class="navbar-btn dropdown-toggle navbar-button" style="color:#00ccff;font-weight:500;background-color:transparent !important;" type="button" id="records" data-bs-toggle="dropdown" aria-expanded="false">
+    Records
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="records">
+    @if (Model.Tab == 7)
+    {
+
+    <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="SearchRecords" asp-controller="AdminDashboard">Search Records</a></li>
+    }
+    else
+    {
+    <li><a class="navbar-dropdown-item dropdown-item" asp-action="SearchRecords" asp-controller="AdminDashboard">Search Records</a></li>
+
+    }
+    @if (Model.Tab == 8)
+    {
+
+    <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="PatientHistory" asp-controller="AdminDashboard">Email Logs</a></li>
+    }
+    else
+    {
+    <li><a class="navbar-dropdown-item dropdown-item" asp-action="PatientHistory" asp-controller="AdminDashboard">Email Logs</a></li>
+
+    }
+    @if (Model.Tab == 9)
+    {
+
+    <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="PatientHistory" asp-controller="AdminDashboard">SMS Logs</a></li>
+    }
+    else
+    {
+    <li><a class="navbar-dropdown-item dropdown-item" asp-action="PatientHistory" asp-controller="AdminDashboard">SMS Logs</a></li>
+
+    }
+    @if (Model.Tab == 10)
+    {
+
+    <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="PatientHistory" asp-controller="AdminDashboard">Patient History</a></li>
+    }
+    else
+    {
+    <li><a class="navbar-dropdown-item dropdown-item" asp-action="PatientHistory" asp-controller="AdminDashboard">Patient History</a></li>
+    }
+    @if (Model.Tab == 11)
+    {
+    <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="BlockHistory" asp-controller="AdminDashboard">Block History</a></li>
+    }
+    else
+    {
+    <li><a class="navbar-dropdown-item dropdown-item" asp-action="BlockHistory" asp-controller="AdminDashboard">Block History</a></li>
+    }
+
+
+    </ul>
+    </div>
+
+    }
+    else
+    {
+    <div class="tabStyle 7 dropdown navbar-dropdown navbar-div textdeconone" style="padding:0px !important;background-color:transparent !important;">
+    <button class="navbar-btn dropdown-toggle navbar-button" type="button" id="records" data-bs-toggle="dropdown" aria-expanded="false">
+    Records
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="records">
+    <li><a class="navbar-dropdown-item dropdown-item" asp-action="SearchRecords" asp-controller="AdminDashboard">Search Records</a></li>
+    <li><a class="navbar-dropdown-item dropdown-item" href="#">Email Logs</a></li>
+    <li><a class="navbar-dropdown-item dropdown-item" href="#">SMS Logs</a></li>
+    <li><a class="navbar-dropdown-item dropdown-item" asp-action="PatientHistory" asp-controller="AdminDashboard">Patient History</a></li>
+    <li><a class="navbar-dropdown-item dropdown-item" asp-action="BlockHistory" asp-controller="AdminDashboard">Block History</a></li>
+    </ul>
+    </div>
+    } *@
+</div>
+<script>
+    function navbarPressed(element) {
+        var classes = element.classList[1];
+        var all = document.getElementsByClassName('tablinks');
+        for (var i = 0; i < all.length; i++) {
+            if (all[i].classList[2] == "active") {
+                all[i].classList.remove("active");
+            }
+            if (classes - 1 == i) {
+                all[i].classList.add("active");
+            }
+            console.log(all[i].classList[2]);
+        }
+        var classes2 = element.classList[1];
+        var all2 = document.getElementsByClassName('tablinkss');
+        for (var i = 0; i < all2.length; i++) {
+            if (all2[i].classList[2] == "active") {
+                all2[i].classList.remove("active");
+            }
+            if (classes2 - 1 == i) {
+                all2[i].classList.add("active");
+            }
+            console.log(all[i].classList[2]);
+        }
+        sidebarOpen = false;
+        document.getElementById('sidebar').style.display = "none";
+        document.getElementById('main-div').style.opacity = "1";
+        document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+    }
+
+
+
+
+    function navbarPressed(element) {
+        var classes = element.classList[1];
+        var all = document.getElementsByClassName('tablinks');
+        for (var i = 0; i < all.length; i++) {
+            if (all[i].classList[2] == "active") {
+                all[i].classList.remove("active");
+            }
+            if (classes - 1 == i) {
+                all[i].classList.add("active");
+            }
+            console.log(all[i].classList[2]);
+        }
+        var classes2 = element.classList[1];
+        var all2 = document.getElementsByClassName('tabStyle');
+        for (var i = 0; i < all2.length; i++) {
+            if (all2[i].classList[2] == "active") {
+                all2[i].classList.remove("active");
+            }
+            if (classes2 - 1 == i) {
+                all2[i].classList.add("active");
+            }
+            console.log(all[i].classList[2]);
+        }
+        sidebarOpen = false;
+        document.getElementById('sidebar').style.display = "none";
+        document.getElementById('main-div').style.opacity = "1";
+        document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+    }
+</script>
+

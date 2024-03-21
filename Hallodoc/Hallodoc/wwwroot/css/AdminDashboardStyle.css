@@ -116,12 +116,14 @@
     width: 100%;
     margin: auto;
 }
+
 .main-profile-div {
     padding: 0 10%;
     background-color: #f9f9f9;
 }
-.contentProfile{
-    background-color:white;
+
+.contentProfile {
+    background-color: white;
 }
 
 #choose-file-button {
@@ -270,12 +272,15 @@
 
 .tab {
     overflow: hidden;
-    border-bottom: 3px solid #ededed;
+    /*border-bottom: 3px solid #ededed;*/
     background-color: white;
     margin-top: 2px;
     padding-left: 30px;
-    margin-top: 82px;
+    margin-top: 90px;
+    padding: 12px;
+    padding-left: 20px;
     border-top: 1px solid rgb(180, 180, 180);
+    z-index: 1000;
 }
 
 .tab-2 {
@@ -382,9 +387,10 @@ td {
     border-radius: 5px;
 }
 
-.textdeconone{
-    text-decoration:none;
+.textdeconone {
+    text-decoration: none;
 }
+
 .address-td {
     width: 400px !important;
     height: 100%;
@@ -590,14 +596,14 @@ td {
     border: none;
     background-color: #02bae9;
     border-radius: 8px;
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     height: 43px;
     padding-left: 15px;
     padding-right: 15px;
     margin-right: 10px;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .bi-reply-mirrored {
@@ -704,6 +710,7 @@ table.dataTable thead th, table.dataTable tfoot th {
     display: flex;
     align-items: center;
 }
+
     .categories-div span:focus {
         outline: 2px solid red;
     }
@@ -725,7 +732,7 @@ table.dataTable thead th, table.dataTable tfoot th {
     align-items: center;
     margin-right: 13px;
     margin-left: 13px;
-    text-decoration:none;
+    text-decoration: none;
 }
 
 .categories-div-sub-sub {
@@ -804,9 +811,9 @@ table.dataTable thead th, table.dataTable tfoot th {
     display: inline-block;
     border: 1px solid white;
     border-radius: 5px;
-    text-decoration:none;
-    height:40px!important;
-    width:80px;
+    text-decoration: none;
+    height: 40px !important;
+    width: 80px;
 }
 
 .dropdown-content {
@@ -825,7 +832,7 @@ table.dataTable thead th, table.dataTable tfoot th {
         padding: 12px 16px;
         text-decoration: none;
         display: block;
-        border-radius:5px;
+        border-radius: 5px;
     }
 
         .dropdown-content a:hover {
@@ -853,6 +860,7 @@ table.dataTable thead th, table.dataTable tfoot th {
 .modal-header {
     background-color: #01bce9;
 }
+
 .cancelButtonRed {
     background-color: #d32f2f;
     border: 1px solid #d32f2f;
@@ -860,16 +868,19 @@ table.dataTable thead th, table.dataTable tfoot th {
     height: 40px;
     width: 80px;
 }
+
 .saveButton {
     background-color: #01bbe8;
     border: 1px solid #01bbe8;
     border-radius: 5px;
-    height:40px;
-    width:80px;
+    height: 40px;
+    width: 80px;
 }
-.saveButtonText{
-    color:white;
+
+.saveButtonText {
+    color: white;
 }
+
 .cancelButton {
     background-color: white;
     border: 1px solid #01bbe8;
@@ -877,11 +888,13 @@ table.dataTable thead th, table.dataTable tfoot th {
     height: 40px;
     width: 80px;
 }
+
 .cancelButtonText {
     color: #01bbe8;
 }
-#phone{
-    height:60px;
+
+#phone {
+    height: 60px;
 }
 /*.modal-content {
     -webkit-border-radius: 0px !important;
@@ -900,6 +913,7 @@ table.dataTable thead th, table.dataTable tfoot th {
     min-width: 120px;
     cursor: pointer;
 }
+
 .circle {
     /*border:1px solid black;
     border-radius: 50%;
@@ -913,30 +927,33 @@ table.dataTable thead th, table.dataTable tfoot th {
     border: 1px solid black;
     border-radius: 50%;
     overflow: hidden;
-    display: flex!important;
+    display: flex !important;
     align-items: center;
     justify-content: center;
-    margin-right:5px;
+    margin-right: 5px;
 }
+
     .circle img {
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
 
-.flexclass{
-    display:flex;
-    align-items:center;
+.flexclass {
+    display: flex;
+    align-items: center;
 }
-    @media only screen and (max-width:1200px) {
-        .dashboard-sub-div-2-sub {
+
+@media only screen and (max-width:1200px) {
+    .dashboard-sub-div-2-sub {
         flex-direction: column;
     }
 }
 
 .accordion-button:not(.collapsed) {
-    color: black!important;
+    color: black !important;
 }
+
 .aquaborder {
     border: 1px solid #00bce7;
     border-radius: 25px;
@@ -945,17 +962,20 @@ table.dataTable thead th, table.dataTable tfoot th {
     align-items: center;
     padding: 10px;
 }
-.req-filter{
-    margin-right:20px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-decoration:none;
+
+.req-filter {
+    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
 }
+
 .dropdownBorder {
     border: 1px solid #dadada;
     border-radius: 4px;
 }
+
 .border-active {
     border: 2px solid #007bff;
 }
@@ -969,26 +989,28 @@ table.dataTable thead th, table.dataTable tfoot th {
     border-bottom: none;
 }
 
-.req-filter{
-    cursor:pointer;
-}
-.req-filter.filter-active {
-    border: 2px solid #e7e7e9;
-    border-radius: 5px;
-    padding: 5px;
+.req-filter {
+    cursor: pointer;
 }
 
+    .req-filter.filter-active {
+        border: 2px solid #e7e7e9;
+        border-radius: 5px;
+        padding: 5px;
+    }
+
 .modalExclamation {
-    height:70px;
-    width:70px;
-    padding:5px;
-    border:2px solid #f7ad00;
-    border-radius:50%;
+    height: 70px;
+    width: 70px;
+    padding: 5px;
+    border: 2px solid #f7ad00;
+    border-radius: 50%;
 }
+
 .subModalExclamation {
-    background-color:#f7ad00;
-    border:2px solid #f7ad00;
-    border-radius:50px;
+    background-color: #f7ad00;
+    border: 2px solid #f7ad00;
+    border-radius: 50px;
 }
 
 /*toast*/
@@ -1029,14 +1051,14 @@ table.dataTable thead th, table.dataTable tfoot th {
 }
 
 .uploadButton {
-    border: none!important;
-    border-radius: 5px!important;
-    flex-basis: 15%!important;
+    border: none !important;
+    border-radius: 5px !important;
+    flex-basis: 15% !important;
     /*background-color: #0dcaf0;*/
-    background-color: #0dcaf0!important;
-    padding: 10px!important;
+    background-color: #0dcaf0 !important;
+    padding: 10px !important;
     /*border-radius: 5px;*/
-    height: 50px!important;
+    height: 50px !important;
     /*border: 1px solid #0dcaf0;*/
 }
 
@@ -1049,6 +1071,7 @@ table.dataTable thead th, table.dataTable tfoot th {
     justify-content: flex-end;
     align-items: center;
 }
+
 .footer {
     background-color: rgb(38, 38, 38);
     color: white;
@@ -1069,17 +1092,26 @@ table.dataTable thead th, table.dataTable tfoot th {
     margin-bottom: 20px;
 }
 
+.tabStyle {
+    color: black;
+    margin-right: 25px;
+}
 
+    .tabStyle:active {
+        color: #10bce7;
+        margin-right: 25px;
+    }
+.dropdown-menu {
+    z-index: 1000;
+}
 /*encounter form*/
 /*.custom-input {
     box-shadow: none !important;*/ /* remove Bootstrap shadow */
-    /*transition: box-shadow 0.3s ease-in-out;
+/*transition: box-shadow 0.3s ease-in-out;
 }
     .custom-input:active {
         box-shadow: 0px 0px 10px 2px rgba(84,234,252,0.2);
     }*/
-
-
 /*label for assign case to go above selected text*/
 /*label {
     display: block;
@@ -1098,321 +1130,325 @@ table.dataTable thead th, table.dataTable tfoot th {
     }*/
 @media only screen and (max-width:1100px) {
     .modal-content {
-            height: 33% !important;
-            width: 100% !important;
-        }
-
-        .tab {
-            display: block;
-        }
-
-        .title-sub-div {
-            /* font-weight: 500; */
-            margin-left: 5px;
-            font-size: 15px;
-        }
-
-        .dashboard-button-text {
-            color: white;
-            margin-left: 5px;
-            font-size: 15px;
-        }
-
-        .dashboard-sub-div-icon {
-            height: 15px;
-            width: 15px;
-        }
+        height: 33% !important;
+        width: 100% !important;
     }
 
-    @media only screen and (max-width:965px) {
-        .dashboard-button-text {
-            color: white;
-            margin-left: 5px;
-            font-size: 13px;
-        }
-
-        .dashboard-sub-div-icon {
-            height: 15px;
-            width: 15px;
-        }
+    .tab {
+        display: block;
     }
 
-    @media only screen and (max-width:965px) {
-        .dashboard-button-text {
-            display: none;
-        }
-
-        .dashboard-sub-div-icon {
-            height: 18px;
-            width: 18px;
-        }
+    .title-sub-div {
+        /* font-weight: 500; */
+        margin-left: 5px;
+        font-size: 15px;
     }
 
-    @media only screen and (max-width:860px) {
-        .no {
-            font-size: 23px;
-        }
-
-        .icon-size {
-            height: 22px;
-            width: 22px;
-        }
-
-        .logo {
-            height: 4rem;
-            width: 7.8rem;
-            margin-left: 0px;
-        }
-
-        .labels {
-            font-size: 0.80rem;
-        }
-
-        .title {
-            font-size: 18px;
-        }
-
-        .hamburger {
-            display: block;
-        }
-
-        .tab {
-            display: none;
-        }
-
-        #main-sub-div {
-            margin-top: 100px;
-        }
-
-        .state {
-            margin-top: 20px;
-        }
-
-        .main-tabs {
-            padding-top: 0px;
-        }
+    .dashboard-button-text {
+        color: white;
+        margin-left: 5px;
+        font-size: 15px;
     }
 
-    @media only screen and (max-width:760px) {
+    .dashboard-sub-div-icon {
+        height: 15px;
+        width: 15px;
+    }
+}
+
+@media only screen and (max-width:965px) {
+    .dashboard-button-text {
+        color: white;
+        margin-left: 5px;
+        font-size: 13px;
     }
 
-    @media only screen and (max-width:743px) {
-        .categories-div-all-button {
-            display: none;
-        }
+    .dashboard-sub-div-icon {
+        height: 15px;
+        width: 15px;
+    }
+}
+
+@media only screen and (max-width:965px) {
+    .dashboard-button-text {
+        display: none;
     }
 
-    @media only screen and (max-width:743px) {
-        .categories-div-sub {
-            flex-direction: column;
-        }
+    .dashboard-sub-div-icon {
+        height: 18px;
+        width: 18px;
+    }
+}
 
-        .categories-div-sub-sub {
-            margin-right: 0px;
-            margin-bottom: 3px;
-        }
+@media only screen and (max-width:860px) {
+    .no {
+        font-size: 23px;
     }
 
-
-    @media only screen and (max-width:603px) {
-        .search-div-sub {
-            margin: auto;
-            margin-bottom: 10px;
-            width: 100%;
-        }
-
-        .search-div-sub-2 {
-            margin: auto;
-            width: 100%;
-            /* margin-top: 15px; */
-        }
-
-        .form-sub-div {
-            flex-direction: column;
-        }
-
-        .login-fields {
-            width: 100%;
-        }
-
-        .login-fields-2 {
-            margin-right: 0px !important;
-        }
-
-        .modal-content {
-            height: 35% !important;
-            width: 100% !important;
-        }
-
-        .dashboard-sub-div {
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-
-        .dashboard-sub-div-2 {
-            margin-left: 20px;
-            margin-right: 20px;
-        }
+    .icon-size {
+        height: 22px;
+        width: 22px;
     }
 
-    @media only screen and (max-width:550px) {
-        .dashboard-sub-div-icon {
-            height: 15px;
-            width: 15px;
-        }
-
-        .icon-size {
-            display: none;
-        }
-
-        .state-sub-div {
-            text-align: center;
-        }
-
-        .no {
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            margin-top: 3px;
-        }
-
-        .title-sub-div {
-            margin-left: 0px;
-        }
-
-        .state {
-            align-content: center;
-            justify-content: center;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .caret {
-            display: none;
-        }
-
-        .state {
-            border-radius: 0px;
-        }
-
-        .categories-div-sub {
-            margin-right: 10px;
-            margin-left: 10px;
-        }
+    .logo {
+        height: 4rem;
+        width: 7.8rem;
+        margin-left: 0px;
     }
 
-    @media only screen and (max-width:510px) {
-
-        .welcome-title,
-        .name-title,
-        .back-navigation-link-2 {
-            display: none;
-        }
-
-        .logout-icon {
-            display: block;
-        }
-
-        .dashboard-button {
-            padding: 12px;
-            padding-top: 9px;
-        }
+    .labels {
+        font-size: 0.80rem;
     }
 
-    @media only screen and (max-width:500px) {
-        .dataTables_length {
-            margin-top: 15px;
-            font-size: 15px;
-        }
+    .title {
+        font-size: 18px;
     }
 
-    @media only screen and (max-width:450px) {
-        .categories-div-sub {
-            margin-right: 7px;
-            margin-left: 7px;
-            margin-top: 5px;
-        }
-
-        .categories-div-sub-text {
-            font-size: 14px;
-        }
-
-        .patient-title {
-            font-size: 18px;
-        }
-
-        #status-text {
-            font-size: 15px;
-        }
-
-        .title-sub-div {
-            font-size: 13px;
-        }
-
-        .no {
-            font-size: 20px;
-        }
-
-        .state {
-            height: 90px;
-        }
-
-        .search-div-sub {
-            padding: 5px;
-            padding-left: 10px;
-        }
-
-        .search-div-sub-2 {
-            padding: 5px;
-            padding-left: 10px;
-        }
-
-        .searchPatientInput {
-            font-size: 14px;
-        }
-
-        .categories-div {
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .categories-div-sub {
-            margin-top: 10px;
-            text-decoration: none;
-        }
-        .hraccordian{
-            margin:0;
-        }
-        .hrbody{
-            position:relative;
-        }
-        .viewcase {
-            position: absolute;
-            top: -17px;
-            right: -2px;
-            border: 1px solid #4e67ad;
-            border-radius: 20px;
-            background-color:#e4e8f3;
-            padding: 5px;
-        }
-        ..accordion-body hr {
-            margin: 0rem 0 !important;
-        }
+    .hamburger {
+        display: block;
     }
 
-    @media only screen and (max-width:370px) {
-        .dashboard-button {
-            margin-right: 4px;
-            padding: 10px;
-        }
+    .tab {
+        display: none;
     }
 
-    @media only screen and (max-width:400px) {
-        .labels {
-            font-size: 0.70rem;
-        }
-
-        .title {
-            font-size: 16px;
-        }
+    #main-sub-div {
+        margin-top: 100px;
     }
+
+    .state {
+        margin-top: 20px;
+    }
+
+    .main-tabs {
+        padding-top: 0px;
+    }
+}
+
+@media only screen and (max-width:760px) {
+}
+
+@media only screen and (max-width:743px) {
+    .categories-div-all-button {
+        display: none;
+    }
+}
+
+@media only screen and (max-width:743px) {
+    .categories-div-sub {
+        flex-direction: column;
+    }
+
+    .categories-div-sub-sub {
+        margin-right: 0px;
+        margin-bottom: 3px;
+    }
+}
+
+
+@media only screen and (max-width:603px) {
+    .search-div-sub {
+        margin: auto;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .search-div-sub-2 {
+        margin: auto;
+        width: 100%;
+        /* margin-top: 15px; */
+    }
+
+    .form-sub-div {
+        flex-direction: column;
+    }
+
+    .login-fields {
+        width: 100%;
+    }
+
+    .login-fields-2 {
+        margin-right: 0px !important;
+    }
+
+    .modal-content {
+        height: 35% !important;
+        width: 100% !important;
+    }
+
+    .dashboard-sub-div {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .dashboard-sub-div-2 {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}
+
+@media only screen and (max-width:550px) {
+    .dashboard-sub-div-icon {
+        height: 15px;
+        width: 15px;
+    }
+
+    .icon-size {
+        display: none;
+    }
+
+    .state-sub-div {
+        text-align: center;
+    }
+
+    .no {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        margin-top: 3px;
+    }
+
+    .title-sub-div {
+        margin-left: 0px;
+    }
+
+    .state {
+        align-content: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .caret {
+        display: none;
+    }
+
+    .state {
+        border-radius: 0px;
+    }
+
+    .categories-div-sub {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+}
+
+@media only screen and (max-width:510px) {
+
+    .welcome-title,
+    .name-title,
+    .back-navigation-link-2 {
+        display: none;
+    }
+
+    .logout-icon {
+        display: block;
+    }
+
+    .dashboard-button {
+        padding: 12px;
+        padding-top: 9px;
+    }
+}
+
+@media only screen and (max-width:500px) {
+    .dataTables_length {
+        margin-top: 15px;
+        font-size: 15px;
+    }
+}
+
+@media only screen and (max-width:450px) {
+    .categories-div-sub {
+        margin-right: 7px;
+        margin-left: 7px;
+        margin-top: 5px;
+    }
+
+    .categories-div-sub-text {
+        font-size: 14px;
+    }
+
+    .patient-title {
+        font-size: 18px;
+    }
+
+    #status-text {
+        font-size: 15px;
+    }
+
+    .title-sub-div {
+        font-size: 13px;
+    }
+
+    .no {
+        font-size: 20px;
+    }
+
+    .state {
+        height: 90px;
+    }
+
+    .search-div-sub {
+        padding: 5px;
+        padding-left: 10px;
+    }
+
+    .search-div-sub-2 {
+        padding: 5px;
+        padding-left: 10px;
+    }
+
+    .searchPatientInput {
+        font-size: 14px;
+    }
+
+    .categories-div {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .categories-div-sub {
+        margin-top: 10px;
+        text-decoration: none;
+    }
+
+    .hraccordian {
+        margin: 0;
+    }
+
+    .hrbody {
+        position: relative;
+    }
+
+    .viewcase {
+        position: absolute;
+        top: -17px;
+        right: -2px;
+        border: 1px solid #4e67ad;
+        border-radius: 20px;
+        background-color: #e4e8f3;
+        padding: 5px;
+    }
+
+    ..accordion-body hr {
+        margin: 0rem 0 !important;
+    }
+}
+
+@media only screen and (max-width:370px) {
+    .dashboard-button {
+        margin-right: 4px;
+        padding: 10px;
+    }
+}
+
+@media only screen and (max-width:400px) {
+    .labels {
+        font-size: 0.70rem;
+    }
+
+    .title {
+        font-size: 16px;
+    }
+}

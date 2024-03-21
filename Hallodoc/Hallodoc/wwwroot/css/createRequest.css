@@ -300,7 +300,12 @@
 .back-icon {
     font-weight: 900;
 }
-
+.textdeconone{
+    text-decoration:none;
+}
+.pointer{
+    cursor:pointer;
+}
   
 @media only screen and (max-width:770px) {
     .inputUpload {

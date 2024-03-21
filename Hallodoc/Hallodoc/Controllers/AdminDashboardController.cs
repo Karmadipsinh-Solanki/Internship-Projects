@@ -376,6 +376,34 @@ namespace HalloDoc.Controllers
             }
             return RedirectToAction("viewUpload");
         }
+        public IActionResult MailDocument(string requestFilesIdString, int requestId)
+        {
+            int id = requestId;
+            List<int> requestFilesId = requestFilesIdString.Split(',').Select(int.Parse).ToList();
+            bool check = _admin.mailDocument(requestFilesId, requestId);
+            if (check)
+            {
+                TempData["success"] = "Mail sent successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,Mail not sent";
+            }
+            return Json(new { res = "success" });
+        }
+        public IActionResult DeleteViewUploadFile(string fileids, int id)
+        {
+            bool check = _admin.deleteViewUploadFile(fileids);
+            if (check)
+            {
+                ViewData["success"] = "File deleted successfully";
+            }
+            else
+            {
+                ViewData["error"] = "Error, file not selected";
+            }
+            return Json(new { response = "success" });
+        }
         public IActionResult SendOrder(int id)
         {
             OrderViewModel orderViewModel = _admin.SendOrder(id);

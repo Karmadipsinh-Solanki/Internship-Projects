@@ -50,13 +50,13 @@
             </div>
             <form asp-controller="Login" asp-action="Login" method="post">
                 <div class="email form-floating mb-1">
-                    <input type="email" class="form-control" id="email" placeholder="name@example.com" asp-for="Email">
+                    <input type="email" class="form-control" id="email" placeholder="name@example.com" asp-for="Email" style="background-color:transparent;">
                     <label for="floatingInput">Email address</label>
                     <img src="~/SRS Screen Shorts/profile.png" class="profile">
                 </div>
                 <span asp-validation-for="Email" class="text-danger email mb-5"></span>
                 <div class="password form-floating mb-1">
-                    <input type="password" class="form-control" id="password" placeholder="Password" asp-for="PasswordHash">
+                    <input type="password" class="form-control" id="password" placeholder="Password" asp-for="PasswordHash" style="background-color:transparent;">
                     <label for="floatingPassword">Password</label>
                     <div class="form-floating login-fields">
                         <svg onclick="onpress()" xmlns="http://www.w3.org/2000/svg" width="16" height="16"

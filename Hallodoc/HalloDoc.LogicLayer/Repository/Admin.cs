@@ -24,6 +24,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Metrics;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.ExtendedProperties;
+using System.Collections;
 
 namespace HalloDoc.LogicLayer.Repository
 {
@@ -908,6 +909,89 @@ namespace HalloDoc.LogicLayer.Repository
                 requestWiseFile.CreatedDate = DateTime.Now;
                 _context.RequestWiseFiles.Add(requestWiseFile);
                 _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        bool IAdmin.mailDocument(List<int> requestFilesId, int requestId)
+        {
+            string senderEmail = "mailto:tatva.dotnet.hetpatel@outlook.com";
+            string senderPassword = "Krishna$02";
+
+            SmtpClient client = new SmtpClient("smtp.office365.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false
+            };
+
+            var request = _context.Requests.FirstOrDefault(u => u.RequestId == requestId);
+            string? email = _context.RequestClients.FirstOrDefault(x => x.RequestClientId == request.RequestClientId).Email;
+            var requestWiseFile = from requestFiles in _context.RequestWiseFiles
+                                  where requestFilesId.Contains(requestFiles.RequestWiseFileId)
+                                  select new RequestWiseFile
+                                  {
+                                      RequestWiseFileId = requestFiles.RequestWiseFileId,
+                                      FileName = requestFiles.FileName,
+                                      RequestId = requestFiles.RequestId,
+                                  };
+            string message = $@"<html>
+                                <body>  
+                                <h1>All Documents</h1>
+                                </body>
+                                </html>";
+            if (email != null)
+            {
+                MailMessage mailMessage = new MailMessage
+                {
+                    From = new MailAddress(senderEmail, "HalloDoc"),
+                    Subject = "Documents",
+                    Body = message,
+                    IsBodyHtml = true
+                };
+                foreach (var item in requestWiseFile)
+                {
+                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/" + item.FileName);
+                    Attachment attachment = new Attachment(filePath);
+                    mailMessage.Attachments.Add(attachment);
+                }
+                mailMessage.To.Add(email);
+                client.Send(mailMessage);
+                EmailLog emailLog = new EmailLog();
+                emailLog.SubjectName = mailMessage.Subject;
+                emailLog.EmailId = email;
+                emailLog.ConfirmationNumber = request.ConfirmationNumber;
+                emailLog.CreateDate = DateTime.Now;
+                _context.EmailLogs.Add(emailLog);
+                _context.SaveChanges();
+                foreach (var attachment in mailMessage.Attachments)
+                {
+                    attachment.Dispose();
+                }
+                return true;
+            }
+            return false;
+        }
+        bool IAdmin.deleteViewUploadFile(string fileids)
+        {
+            if (fileids != null)
+            {
+                string[] deleteFileIds = fileids.Split(',');
+                BitArray check = new BitArray(1);
+                check.Set(0, true);
+                for (int i = 0; i < deleteFileIds.Length; i++)
+                {
+                    int n = i;
+                    RequestWiseFile requestWiseFile = _context.RequestWiseFiles.FirstOrDefault(i => i.RequestWiseFileId == Convert.ToInt32(deleteFileIds[n]));
+                    requestWiseFile.IsDeleted = check;
+                    _context.RequestWiseFiles.Update(requestWiseFile);
+                    _context.SaveChanges();
+                }
                 return true;
             }
             else

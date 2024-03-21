@@ -49,6 +49,7 @@ namespace HalloDoc.LogicLayer.Interface
         public List<Region> fetchAdminRegions();
         public bool encounter(EncounterViewModel model);
         public EncounterViewModel encounter(int id);
-
+        public bool mailDocument(List<int> requestFilesId, int requestId);
+        public bool deleteViewUploadFile(string fileids);
     }
 }

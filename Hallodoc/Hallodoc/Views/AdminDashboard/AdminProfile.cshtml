@@ -120,7 +120,6 @@
                                     <input class="hide" type="text" asp-for="SelectedRegion" id="SelectedRegion" disabled />
                                     @foreach (var item in Model.State)
                                     {
-
                                         <div style="display: flex;align-items: center;">
                                             <input type="checkbox" data-region-id="@item.RegionId" class="checkboxes" checked="@item.IsSelected" value="@item.RegionId" id="@item.Name" disabled>
                                             <label class="container">@item.Name</label>
