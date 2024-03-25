@@ -30,9 +30,8 @@ namespace HalloDoc.DataLayer.ViewModels.AdminViewModels
         [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
             ErrorMessage = "Please enter valid Email")]
         public string Email { get; set; }
-        public string Region { get; set; }
         //BusinessName/Address
-        public string BusinessAddress{ get; set; }
+        public string BusinessAddress { get; set; }
         public string Room { get; set; }
         public int RequestId { get; set; }
         public int RequestClientId { get; set; }
@@ -42,15 +41,13 @@ namespace HalloDoc.DataLayer.ViewModels.AdminViewModels
         public string PatientNotes { get; set; }
         public string Requestor { get; set; }
         public string? Admin_notes { get; set; }
-        public List<Region>? regions { get; set; } = new List<Region>();
         public int PhysicianId { get; set; }
         public string Description { get; set; }
+        ////Assign case
+        public List<Region> regions { get; set; } = new List<Region>();
+        public string? region { get; set; }
+        public List<Physician> physicians { get; set; } = new List<Physician>();
+        public string? physician { get; set; }
     }
 }
 
-        //public AdminNavbarViewModel adminNavbarViewModel { get; set; }
-
-        ////Assign case
-        //public int? RegionId { get; set; }
-        //public int? PhysicianId { get; set; }
-        //public string? Description { get; set; }
