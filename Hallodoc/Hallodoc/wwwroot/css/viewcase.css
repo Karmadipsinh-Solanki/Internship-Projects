@@ -31,7 +31,7 @@
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 1050;
     left: 0;
     top: 0;
     width: 100%;
@@ -51,7 +51,12 @@
     height: 45%;
     align-items: center;
 }
-
+.modal-backdrop {
+    display: none!important;
+}
+    .modal-backdrop.show {
+        opacity: 0!important;
+    }
 
 .floatingInput:focus {
     color: #0dcaf0 !important;

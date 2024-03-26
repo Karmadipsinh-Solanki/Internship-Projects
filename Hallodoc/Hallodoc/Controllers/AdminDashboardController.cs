@@ -446,6 +446,7 @@ namespace HalloDoc.Controllers
             }
             return RedirectToAction("AdminDashboard");
         }
+        [HttpPost]
         public IActionResult CloseCaseSaveBtn(ViewUploadViewModel model)
         {
             bool check = _admin.closeCaseSaveBtn(model);

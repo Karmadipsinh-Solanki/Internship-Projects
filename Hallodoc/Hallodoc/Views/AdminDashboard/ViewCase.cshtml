@@ -4,8 +4,8 @@
     ViewData["Title"] = "View-Case";
 }
 @section Styles {
-    <link href="~/css/viewcase.css" rel="stylesheet" type="text/css" />
     <link href="~/css/AdminDashboardStyle.css" rel="stylesheet" type="text/css" />
+    @* <link href="~/css/viewcase.css" rel="stylesheet" type="text/css" /> *@
 }
 @section Scripts {
     @{
@@ -213,7 +213,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" placeholder="Region" class="form-control" id="region" disabled asp-for="Region" />
+                            <input type="name" placeholder="Region" class="form-control" id="region" disabled asp-for="region" />
                             <label for="region">Region</label>
                         </div>
                     </div>
@@ -340,53 +340,7 @@
     </div>
 
     <script>
-        //for creating countrywise phone format
-        const phoneInputField = document.querySelector("#phone");
-        const phoneInput = window.intlTelInput(phoneInputField, {
-            innerHeight: 1,
-            utilsScript:
-                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-        });
-        // edit,save,cancel
-        document.getElementById('submit-button-2').onclick = function () {
-            document.getElementById('edit-div').style.display = "none";
-            document.getElementById('submit-div').style.display = "flex";
-            var classes = document.getElementsByClassName('form-control');
-            for (var i = 3; i < 5; i++) {
-                classes[i].removeAttribute('disabled');
-            }
-            var classes = document.getElementsByClassName('hide');
-            classes[0].removeAttribute('hide');
-
-        }
-
-        document.getElementById('submit-button-3').onclick = function () {
-            document.getElementById('edit-div').style.display = "flex";
-            document.getElementById('submit-div').style.display = "none";
-            var classes = document.getElementsByClassName('form-control');
-            for (var i = 3; i < 5; i++) {
-                classes[i].setAttribute('disabled', 'disabled');
-            }
-            var classes = document.getElementsByClassName('hide');
-            classes[0].setAttribute('hide');
-            location.reload();
-        }
-        // to print req type
-        const changeStatus = (element) => {
-            const states = document.getElementsByClassName("state");
-            const current_state = element.classList[1];
-        }
-        let name = current_state.split("-").length == 1 ? current_state.split("-")[0] : current_state.split("-")[1];
-        let finalName = name.split("State")[0];
-        if (finalName == "toclose") {
-            document.getElementById("status-text").innerHTML = "(To Close)";
-        } else {
-            document.getElementById("status-text").innerHTML = `(${finalName.charAt(0).toUpperCase() + finalName.slice(1)})`;
-        }
-
         //assigncase//for assigncase action
-        //here we have to use ajax, because a dropdown is dependant on another dropdown, as after selecting region, we get physians in particular region
-        //and we need to load page to get data dynamically from database, to avoid loading, we use ajax
         $(document).ready(function () {
             $.ajax({
                 url: '/AdminDashboard/FetchRegions',
@@ -453,6 +407,51 @@
                 }
             });
         });
+        //for creating countrywise phone format
+        const phoneInputField = document.querySelector("#phone");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            innerHeight: 1,
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+        // edit,save,cancel
+        document.getElementById('submit-button-2').onclick = function () {
+            document.getElementById('edit-div').style.display = "none";
+            document.getElementById('submit-div').style.display = "flex";
+            var classes = document.getElementsByClassName('form-control');
+            for (var i = 3; i < 5; i++) {
+                classes[i].removeAttribute('disabled');
+            }
+            var classes = document.getElementsByClassName('hide');
+            classes[0].removeAttribute('hide');
+
+        }
+
+        document.getElementById('submit-button-3').onclick = function () {
+            document.getElementById('edit-div').style.display = "flex";
+            document.getElementById('submit-div').style.display = "none";
+            var classes = document.getElementsByClassName('form-control');
+            for (var i = 3; i < 5; i++) {
+                classes[i].setAttribute('disabled', 'disabled');
+            }
+            var classes = document.getElementsByClassName('hide');
+            classes[0].setAttribute('hide');
+            location.reload();
+        }
+        // to print req type
+        const changeStatus = (element) => {
+            const states = document.getElementsByClassName("state");
+            const current_state = element.classList[1];
+        }
+        let name = current_state.split("-").length == 1 ? current_state.split("-")[0] : current_state.split("-")[1];
+        let finalName = name.split("State")[0];
+        if (finalName == "toclose") {
+            document.getElementById("status-text").innerHTML = "(To Close)";
+        } else {
+            document.getElementById("status-text").innerHTML = `(${finalName.charAt(0).toUpperCase() + finalName.slice(1)})`;
+        }
+
+        
 
 
 

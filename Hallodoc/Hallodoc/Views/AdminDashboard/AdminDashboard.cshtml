@@ -517,6 +517,7 @@
         //assigncase//for assigncase action
         //here we have to use ajax, because a dropdown is dependant on another dropdown, as after selecting region, we get physians in particular region
         //and we need to load page to get data dynamically from database, to avoid loading, we use ajax
+        console.log('before assign case')
         $(document).ready(function () {
             $.ajax({
                 url: '/AdminDashboard/FetchRegions',
@@ -734,7 +735,7 @@
                 }
             });
         });
-
+        console.log('before data table initiate')
         //data table initiate
         $(document).ready(function () {
             $("#dtBasicExample").DataTable();
@@ -746,7 +747,7 @@
                 document.getElementById('sidebar').style.display = "flex";
                 document.getElementById('main-sub-div').style.opacity = "0.5";
                 document.getElementById('main-sub-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
-                // document.getElementById("defaultOpen2").click();
+                document.getElementById("defaultOpen2").click();
                 sidebarOpen = true;
             } else {
                 console.log('hii');
@@ -786,8 +787,9 @@
                 alert('An error occurred.');
             }
         });
-        document.getElementById("defaultOpen").click();
+        // document.getElementById("defaultOpen2").click();
 
+        console.log('before changing status')
         //for changing status and focus on status
         const changeStatus = (element) => {
             const states = document.getElementsByClassName("state");
@@ -1014,7 +1016,7 @@
                 document.getElementById('main-div').style.backgroundColor = "black";
                 // document.getElementById('main-sub-div').style.backgroundColor = "black";
                 document.getElementById('body').style.backgroundColor = "black";
-                document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
+                document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');  
                 document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
             } else if (theme == 'dark') {
                 localStorage.setItem('theme', 'light');

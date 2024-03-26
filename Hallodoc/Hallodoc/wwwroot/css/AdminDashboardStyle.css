@@ -1082,7 +1082,7 @@ table.dataTable thead th, table.dataTable tfoot th {
 }
 
 .tablinkss {
-    border: 1px solid red;
+    border: 1px solid #00ccff;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -1090,9 +1090,10 @@ table.dataTable thead th, table.dataTable tfoot th {
     width: 145px;
     height: 40px;
     margin-bottom: 20px;
+    color: #00ccff;
 }
 
-.tabStyle {
+/*.tabStyle {
     color: black;
     margin-right: 25px;
 }
@@ -1100,10 +1101,43 @@ table.dataTable thead th, table.dataTable tfoot th {
     .tabStyle:active {
         color: #10bce7;
         margin-right: 25px;
-    }
+    }*/
 .dropdown-menu {
     z-index: 1000;
 }
+
+/*blackbox*/
+.tabStyle {
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.25s ease;
+    margin-right: 25px;
+}
+
+    .tabStyle:focus,
+    .tabStyle:hover,
+    .tabStyle.active {
+        color: #10bce7;
+        border-color: #10bce7;
+    }
+
+.tablinks {
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.25s ease;
+}
+
+    .tablinks:focus,
+    .tablinks:hover {
+        color: aqua;
+        border-color: aqua;
+    }
+
+
 /*encounter form*/
 /*.custom-input {
     box-shadow: none !important;*/ /* remove Bootstrap shadow */

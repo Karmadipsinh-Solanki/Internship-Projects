@@ -250,7 +250,7 @@ namespace HalloDoc.LogicLayer.Repository
             viewCaseModel.LastName = data.RequestClient.LastName;//
             viewCaseModel.RequestId = data.RequestId;
             viewCaseModel.RequestTypeId = data.RequestTypeId;
-            viewCaseModel.Region = data.RequestClient.State;
+            viewCaseModel.region = data.RequestClient.State;
             viewCaseModel.adminNavbarViewModel = adminNavbarViewModel;
             int requestId = data.RequestTypeId;
             var requestor = "";
