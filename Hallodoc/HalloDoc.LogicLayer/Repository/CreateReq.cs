@@ -514,7 +514,7 @@ namespace HalloDoc.LogicLayer.Repository
 
 
             var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
-            var id = _context.Users.SingleOrDefault(u => u.Email == model.Email);
+
             bool userExists = true;
             if (existingUser == null)
             {
@@ -603,6 +603,7 @@ namespace HalloDoc.LogicLayer.Repository
             int requests = _context.Requests.Where(u => u.CreatedDate == DateTime.Now.Date).Count();
             string ConfirmationNumber = string.Concat(region.Abbreviation, model.FirstName.Substring(0, 2).ToUpper(), model.LastName.Substring(0, 2).ToUpper(), requests.ToString("D" + 4));
             request.RequestTypeId = 2;
+            var id = _context.Users.SingleOrDefault(u => u.Email == model.Email);
             if (!userExists)
             {
                 request.UserId = user.UserId;

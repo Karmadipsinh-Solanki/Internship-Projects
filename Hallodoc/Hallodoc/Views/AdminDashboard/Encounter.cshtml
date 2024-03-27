@@ -39,14 +39,14 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control custom-input" id="FirstName" placeholder="First Name" asp-for="FirstName">
+                                    <input type="text" class="form-control custom-input" id="FirstName" placeholder="First Name" asp-for="FirstName" disabled>
                                     <label for="FirstName">First Name</label>
                                     <span asp-validation-for="FirstName" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control custom-input" id="LastName" placeholder="Last Name" asp-for="LastName">
+                                    <input type="text" class="form-control custom-input" id="LastName" placeholder="Last Name" asp-for="LastName" disabled>
                                     <label for="LastName">Last Name</label>
                                     <span asp-validation-for="LastName" class="text-danger"></span>
                                 </div>
@@ -55,7 +55,7 @@
                         <div class="row mb-3">
                             <div class="col-md">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control custom-input" id="Location" placeholder="Location" asp-for="Location">
+                                    <input type="text" class="form-control custom-input" id="Location" placeholder="Location" asp-for="Location" disabled>
                                     <label for="Location">Location</label>
                                     @* <span asp-validation-for="Location" class="text-danger"></span> *@
                                 </div>
@@ -64,14 +64,14 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="date" class="form-control custom-input" id="DOB" placeholder="Date Of Birth" asp-for="DOB">
+                                    <input type="date" class="form-control custom-input" id="DOB" placeholder="Date Of Birth" asp-for="DOB" disabled>
                                     <label for="DOB">Date Of Birth</label>
                                     <span asp-validation-for="DOB" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="Date" class="form-control custom-input" id="Date" placeholder="Date" asp-for="Date">
+                                    <input type="Date" class="form-control custom-input" id="Date" placeholder="Date" asp-for="Date" disabled>
                                     <label for="Date">Date<label>
                                     <span asp-validation-for="Date" class="text-danger"></span>
                                 </div>
@@ -80,7 +80,7 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="tel" class="form-control custom-input" id="phone" placeholder="User Name" asp-for="PhoneNumber">
+                                    <input type="tel" class="form-control custom-input" id="phone" placeholder="Phone Number" asp-for="PhoneNumber">
                                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                                 </div>
                             </div>

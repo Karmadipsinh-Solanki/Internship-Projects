@@ -67,7 +67,7 @@
                 @foreach (var item in Model.requestWiseFiles)
                 {
                     <tr>
-                        <td><input class="checkboxes" type="checkbox" /></td>
+                        <td><input class="checkboxes" type="checkbox" onchange="checkAll(event)" /></td>
                         <td>
 
                             <div class="file-icon">
@@ -108,6 +108,26 @@
 
 
     <script>
+        //uncheck thead checkbox when any of the checkbox is unchecked
+        function checkAll(event) {
+            var checkall = document.getElementById("checkall");
+            if (event.target.checked) {
+                checkall.checked = true;
+            } else {
+                checkall.checked = false;
+            }
+        }
+
+        document.querySelectorAll(".checkboxes").forEach(function (checkbox) {
+            checkbox.addEventListener("change", function () {
+                var checkboxes = document.querySelectorAll(".checkboxes");
+                var allChecked = Array.from(checkboxes).every(function (checkbox) {
+                    return checkbox.checked;
+                });
+                document.getElementById("checkall").checked = allChecked;
+            });
+        });
+        // check the checkboxes
         function oncheck() {
             var check = document.getElementById('checkall').checked;
             if (check) {

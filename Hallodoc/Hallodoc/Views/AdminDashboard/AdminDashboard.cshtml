@@ -117,19 +117,23 @@
                                     <form asp-action="SendLink" asp-controller="AdminDashboard" method="post">
                                         <div class="modal-body">
                                             <div class="form-floating mb-3">
-                                                <input type="name" class="form-control" id="floatingInputF" placeholder="First Name" asp-for="FirstName">
+                                                <input type="text" class="form-control" id="floatingInputF" placeholder="First Name" asp-for="FirstName">
                                                 <label for="floatingInputF">First Name</label>
+                                                <span asp-validation-for="FirstName" class="text-danger"></span>
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <input type="name" class="form-control" id="floatingPassword" placeholder="Last Name" asp-for="LastName">
                                                 <label for="floatingPassword">Last Name</label>
+                                                <span asp-validation-for="LastName" class="text-danger"></span>
                                             </div>
                                             <div class="form-floating login-fields mb-3" style="width:100%;margin-right:15px;">
                                                 <input type="tel" class="form-control" id="phone" asp-for="PhoneNo" />
+                                                <span asp-validation-for="PhoneNo" class="text-danger"></span>
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <input type="email" class="form-control" id="floatingInputE" placeholder="Email" asp-for="Email">
                                                 <label for="floatingInputE">Email</label>
+                                                <span asp-validation-for="Email" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="modal-footer form-floating mb-3">
@@ -194,6 +198,13 @@
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
                                 </svg>
                                 <input placeholder="All Regions" type="text" class="searchPatientInput" id="region" />
+                                <select class="searchPatientInput" id="region" onkeyup="searchFilter(this)" style="width: 100%;height: 54px;padding:8px;border:none;">
+                                    <option value="0" selected hidden><span>All Region</span></option>
+                                    @foreach (var item in Model.regions)
+                                    {
+                                    <option value="@item.RegionId"><span>@item.Name</span></option>
+                                    }
+                                </select>
                             </div>
                         </div>
 
@@ -278,6 +289,7 @@
                                             <textarea type="text" placeholder="Username" class="form-control"
                                                       style="height: 135px !important;" asp-for="CancelDescription"></textarea>
                                             <label for="floatingInput">Provide Additional Notes</label>
+                                            <span asp-validation-for="CancelDescription" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="modal-footer form-floating mb-3">
@@ -327,6 +339,7 @@
                                             <textarea type="text" placeholder="Description" class="form-control"
                                                       style="height: 135px !important;" asp-for="Description"></textarea>
                                             <label for="floatingInput">Description</label>
+                                            <span asp-validation-for="Description" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="modal-footer form-floating mb-3">
@@ -397,6 +410,7 @@
                                             <textarea type="text" placeholder="Username" class="form-control"
                                                       style="height: 135px !important;" asp-for="BlockReason"></textarea>
                                             <label for="floatingInput">Reason for Block Request</label>
+                                            <span asp-validation-for="BlockReason" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="modal-footer form-floating mb-3">
@@ -434,7 +448,7 @@
                                             <div class="modal-footer form-floating mb-3">
                                                 <input type="hidden" asp-for="RequestId" id="requestId9" />
                                                 <button type="submit" class="saveButton"><span class="saveButtonText">Clear</span> </button>
-                                                <button class="cancelButton" data-bs-dismiss="modal" onclick="cancel4()"><span class="cancelButtonText">Cancel</span></button>
+                                                <a class="cancelButton textdeconone d-flex justify-content-center align-items-center" data-bs-dismiss="modal" onclick="cancel4()"><span class="cancelButtonText">Cancel</span></a>
                                             </div>
                                         </form>
                                     </div>
@@ -484,10 +498,12 @@
                                         <div class="form-floating login-fields mb-3" style="width:100%;margin-right:15px;">
                                             <input type="text" class="form-control" id="PhoneNo" placeholder="Phone Number" asp-for="PhoneNo" />
                                             <label for="PhoneNo">Phone Number</label>
+                                            <span asp-validation-for="PhoneNo" class="text-danger"></span>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input type="email" class="form-control" id="floatingInputE" placeholder="Email" asp-for="Email">
                                             <label for="floatingInputE">Email</label>
+                                            <span asp-validation-for="Email" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="modal-footer form-floating mb-3">
@@ -740,6 +756,8 @@
         $(document).ready(function () {
             $("#dtBasicExample").DataTable();
         });
+
+        //sidebar hamburger
         let sidebarOpen = false;
         function hamburger() {
             console.log('in hamburger')

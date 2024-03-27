@@ -221,8 +221,7 @@ namespace HalloDoc.LogicLayer.Repository
             };
             return viewnotesviewmodel;
         }
-        //current
-        ViewCaseModel IAdmin.viewCase(int id)
+        public ViewCaseModel viewCase(int id)
         {
             var request2 = _httpContextAccessor.HttpContext.Request;
             var token = request2.Cookies["jwt"];
@@ -240,14 +239,14 @@ namespace HalloDoc.LogicLayer.Repository
                 status = "New";
             }
             viewCaseModel.Status = status;
-            viewCaseModel.Email = data?.RequestClient?.Email;/////
-            viewCaseModel.PhoneNumber = data.RequestClient.PhoneNumber;//
+            viewCaseModel.Email = data?.RequestClient?.Email;
+            viewCaseModel.PhoneNumber = data.RequestClient.PhoneNumber;
             viewCaseModel.Room = data.RequestClient.Street;
             viewCaseModel.BusinessAddress = data.RequestClient.Address + " " + data.RequestClient.City;
             viewCaseModel.ConfirmationNo = data.ConfirmationNumber;
             viewCaseModel.PatientNotes = data.RequestClient.Notes;
-            viewCaseModel.FirstName = data.RequestClient.FirstName;//
-            viewCaseModel.LastName = data.RequestClient.LastName;//
+            viewCaseModel.FirstName = data.RequestClient.FirstName;
+            viewCaseModel.LastName = data.RequestClient.LastName;
             viewCaseModel.RequestId = data.RequestId;
             viewCaseModel.RequestTypeId = data.RequestTypeId;
             viewCaseModel.region = data.RequestClient.State;
@@ -378,7 +377,7 @@ namespace HalloDoc.LogicLayer.Repository
             return viewCaseModel;
 
         }
-        bool IAdmin.viewCase(ViewCaseModel model)
+        public bool viewCase(ViewCaseModel model)
         {
             var requestId = model.RequestId;
             if (requestId != null)
@@ -387,13 +386,13 @@ namespace HalloDoc.LogicLayer.Repository
                 var userToUpdate = _context.RequestClients.Where(u => u.RequestClientId == rid.RequestClientId).FirstOrDefault();
                 if (userToUpdate != null)
                 {
-                    userToUpdate.FirstName = model.FirstName;
-                    userToUpdate.LastName = model.LastName;
+                    //userToUpdate.FirstName = model.FirstName;
+                    //userToUpdate.LastName = model.LastName;
                     userToUpdate.PhoneNumber = model.PhoneNumber;
                     userToUpdate.Email = model.Email;
-                    userToUpdate.IntDate = model.DOB.Day;
-                    userToUpdate.IntYear = model.DOB.Year;
-                    userToUpdate.StrMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(model.DOB.Month);
+                    //userToUpdate.IntDate = model.DOB.Day;
+                    //userToUpdate.IntYear = model.DOB.Year;
+                    //userToUpdate.StrMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(model.DOB.Month);
                     _context.RequestClients.Update(userToUpdate);
                     _context.SaveChanges();
                 }
@@ -404,7 +403,37 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
-        MemoryStream IAdmin.downloadExcel()
+        public bool viewCaseAssignModal(ViewCaseModel model)
+        {
+            int requestId = model.RequestId;
+            if (requestId != null)
+            {
+                var requestToUpdate = _context.Requests.Include(u => u.Physician).Where(u => u.RequestId == requestId).FirstOrDefault();
+                var PhysicianName = _context.Physicians.FirstOrDefault(u => u.PhysicianId == model.PhysicianId).FirstName;
+                if (requestToUpdate != null)
+                {
+                    requestToUpdate.PhysicianId = model.PhysicianId;
+                    requestToUpdate.ModifiedDate = DateTime.Now;
+                    requestToUpdate.Status = 2;
+                    _context.Requests.Update(requestToUpdate);
+                    _context.SaveChanges();
+                }
+                RequestStatusLog requestStatusLog = new RequestStatusLog();
+                requestStatusLog.RequestId = requestId;
+                requestStatusLog.Status = 2;
+                requestStatusLog.Notes = "Admin transferred to Dr. " + PhysicianName + " on " + DateTime.Now.ToString("dd/MM/yyyy") + " at " + DateTime.Now.ToString("HH:mm:ss") + " : " + model.Description;
+                requestStatusLog.CreatedDate = DateTime.Now;
+                requestStatusLog.TransToPhysicianId = model.PhysicianId;
+                _context.RequestStatusLogs.Add(requestStatusLog);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public MemoryStream downloadExcel()
         {
             List<Request> data = new List<Request>();
             data = _context.Requests.Include(r => r.RequestClient).Include(p => p.Physician).ToList();
@@ -831,7 +860,7 @@ namespace HalloDoc.LogicLayer.Repository
             }
         }
 
-        bool IAdmin.blockCase(AdminDashboardTableView model)
+        public bool blockCase(AdminDashboardTableView model)
         {
             int requestId = model.RequestId;
             if (requestId != null)
@@ -868,47 +897,26 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
-        ViewUploadViewModel IAdmin.viewUpload(int id)
+        /// <summary>
+        /// this controller is for view upload which contain get and post method of view upload and action methods of delete and send mail
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool deleteViewUploadFile(string fileids)
         {
-            //to save file in wwwroot,that is uploaded by patient
-            //token
-            var request = _context.Requests.Include(r => r.RequestClient).FirstOrDefault(u => u.RequestId == id);
-            var documents = _context.RequestWiseFiles.Include(u => u.Admin).Include(u => u.Physician).Where(u => u.RequestId == id).ToList();
-            var user = _context.Users.FirstOrDefault(u => u.UserId == request.UserId);
-            var request2 = _httpContextAccessor.HttpContext.Request;
-            var token = request2.Cookies["jwt"];
-            CookieModel cookieModel = _jwtService.getDetails(token);
-            string AdminName = cookieModel.name;
-            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
-            adminNavbarViewModel.AdminName = AdminName;
-            adminNavbarViewModel.Tab = 1;
-            ViewUploadViewModel viewUploadViewModel = new ViewUploadViewModel();
-            viewUploadViewModel.patient_name = string.Concat(request.RequestClient.FirstName, ' ', request.RequestClient.LastName);
-            //viewUploadViewModel.name = string.Concat(user.FirstName, ' ', user.LastName);        uncomment
-            viewUploadViewModel.confirmation_number = request.ConfirmationNumber;
-            viewUploadViewModel.requestWiseFiles = documents;
-            //viewUploadViewModel.uploader_name = string.Concat(request.FirstName, ' ', request.LastName);
-            viewUploadViewModel.RequestId = id;
-            viewUploadViewModel.adminNavbarViewModel = adminNavbarViewModel;
-            return viewUploadViewModel;
-        }
-        bool IAdmin.viewUpload(ViewUploadViewModel model)
-        {
-            if (model.File != null && model.File.Length > 0)
+            if (fileids != null)
             {
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\uploads", model.File.FileName);
-                using (var stream = System.IO.File.Create(filePath))
+                string[] deleteFileIds = fileids.Split(',');
+                BitArray check = new BitArray(1);
+                check.Set(0, true);
+                for (int i = 0; i < deleteFileIds.Length; i++)
                 {
-                    model.File.CopyTo(stream);
+                    int n = i;
+                    RequestWiseFile requestWiseFile = _context.RequestWiseFiles.FirstOrDefault(i => i.RequestWiseFileId == Convert.ToInt32(deleteFileIds[n]));
+                    requestWiseFile.IsDeleted = check;
+                    _context.RequestWiseFiles.Update(requestWiseFile);
+                    _context.SaveChanges();
                 }
-                RequestWiseFile requestWiseFile = new RequestWiseFile();
-                requestWiseFile.RequestId = (int)model?.RequestId;
-                //IformFile has a property that to store filepath u need to add .filename behind it to store path
-                //requestWiseFile.AdminId = 1;
-                requestWiseFile.FileName = model.File.FileName;
-                requestWiseFile.CreatedDate = DateTime.Now;
-                _context.RequestWiseFiles.Add(requestWiseFile);
-                _context.SaveChanges();
                 return true;
             }
             else
@@ -918,8 +926,8 @@ namespace HalloDoc.LogicLayer.Repository
         }
         bool IAdmin.mailDocument(List<int> requestFilesId, int requestId)
         {
-            string senderEmail = "mailto:tatva.dotnet.hetpatel@outlook.com";
-            string senderPassword = "Krishna$02";
+            string senderEmail = "tatva.dotnet.karmadipsinhsolanki@outlook.com";
+            string senderPassword = "Karmadips@2311";
 
             SmtpClient client = new SmtpClient("smtp.office365.com")
             {
@@ -977,21 +985,47 @@ namespace HalloDoc.LogicLayer.Repository
             }
             return false;
         }
-        bool IAdmin.deleteViewUploadFile(string fileids)
+        public ViewUploadViewModel viewUpload(int id)
         {
-            if (fileids != null)
+            //to save file in wwwroot,that is uploaded by patient
+            //token
+            var request = _context.Requests.Include(r => r.RequestClient).FirstOrDefault(u => u.RequestId == id);
+            var documents = _context.RequestWiseFiles.Include(u => u.Admin).Include(u => u.Physician).Where(u => u.RequestId == id).ToList();
+            var user = _context.Users.FirstOrDefault(u => u.UserId == request.UserId);
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 1;
+            ViewUploadViewModel viewUploadViewModel = new ViewUploadViewModel();
+            viewUploadViewModel.patient_name = string.Concat(request.RequestClient.FirstName, ' ', request.RequestClient.LastName);
+            //viewUploadViewModel.name = string.Concat(user.FirstName, ' ', user.LastName);        uncomment
+            viewUploadViewModel.confirmation_number = request.ConfirmationNumber;
+            viewUploadViewModel.requestWiseFiles = documents;
+            //viewUploadViewModel.uploader_name = string.Concat(request.FirstName, ' ', request.LastName);
+            viewUploadViewModel.RequestId = id;
+            viewUploadViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            return viewUploadViewModel;
+        }
+        bool IAdmin.viewUpload(ViewUploadViewModel model)
+        {
+            if (model.File != null && model.File.Length > 0)
             {
-                string[] deleteFileIds = fileids.Split(',');
-                BitArray check = new BitArray(1);
-                check.Set(0, true);
-                for (int i = 0; i < deleteFileIds.Length; i++)
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\uploads", model.File.FileName);
+                using (var stream = System.IO.File.Create(filePath))
                 {
-                    int n = i;
-                    RequestWiseFile requestWiseFile = _context.RequestWiseFiles.FirstOrDefault(i => i.RequestWiseFileId == Convert.ToInt32(deleteFileIds[n]));
-                    requestWiseFile.IsDeleted = check;
-                    _context.RequestWiseFiles.Update(requestWiseFile);
-                    _context.SaveChanges();
+                    model.File.CopyTo(stream);
                 }
+                RequestWiseFile requestWiseFile = new RequestWiseFile();
+                requestWiseFile.RequestId = (int)model?.RequestId;
+                //IformFile has a property that to store filepath u need to add .filename behind it to store path
+                //requestWiseFile.AdminId = 1;
+                requestWiseFile.FileName = model.File.FileName;
+                requestWiseFile.CreatedDate = DateTime.Now;
+                _context.RequestWiseFiles.Add(requestWiseFile);
+                _context.SaveChanges();
                 return true;
             }
             else
@@ -999,6 +1033,11 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
+        /// <summary>
+        /// this controller is for close case ,which contains closecase get method,closeCaseSaveBtn post method and closeCaseBtn action method
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         ViewUploadViewModel IAdmin.closeCase(int id)/////
         {
             var details = _context.Requests.Include(u => u.RequestClient).FirstOrDefault(i => i.RequestId == id);
@@ -1447,7 +1486,7 @@ namespace HalloDoc.LogicLayer.Repository
             }
             return monthName;
         }
-        EncounterViewModel IAdmin.encounter(int id)
+        public EncounterViewModel encounter(int id)
         {
             var request = _httpContextAccessor.HttpContext.Request;
             var token = request.Cookies["jwt"];

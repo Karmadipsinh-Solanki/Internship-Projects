@@ -42,6 +42,7 @@
                                     <option value="@item.HealthProfessionalId"><span>@item.ProfessionName</span></option>
                                 }
                             </select>
+                            <span asp-validation-for="Profession" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -54,6 +55,7 @@
                                     <option value="@item.VendorId"><span>@item.VendorName</span></option>
                                 }
                             </select>
+                            <span asp-validation-for="BusinessInProfession" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -70,6 +72,7 @@
                             <input type="text" asp-for="RequestId" value="@Model.RequestId" style="display:none;" />
                             <input type="email" placeholder="Email" class="form-control" id="Email" asp-for="Email" />
                             <label for="Email">Email</label>
+                            <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -88,6 +91,7 @@
                     <textarea type="text" placeholder="Username" class="form-control"
                               style="height: 135px !important;" asp-for="Prescription"></textarea>
                     <label for="username-input" class="">Prescription or Order Details</label>
+                    <span asp-validation-for="Prescription" class="text-danger"></span>
                 </div>
 
                 <div class="row mb-5">
@@ -101,6 +105,7 @@
                                 <option value=3>3</option>
                                 <option value=4>4</option>
                             </select>
+                            <span asp-validation-for="NoOfRefill" class="text-danger"></span>
                         </div>
                     </div>
                 </div>

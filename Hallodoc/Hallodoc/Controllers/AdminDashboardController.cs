@@ -222,7 +222,22 @@ namespace HalloDoc.Controllers
             {
                 TempData["error"] = "Request does not exists. Case not updated!";
             }
-            return RedirectToAction("ViewCase", new { requestId = requestId });
+            return RedirectToAction("ViewCase", new { id = requestId });
+        }
+        [HttpPost]
+        public IActionResult viewCaseAssignModal(ViewCaseModel model)
+        {
+            int requestId = model.RequestId;
+            bool check = _admin.viewCaseAssignModal(model);
+            if (check)
+            {
+                TempData["success"] = "Case assigned successfully";
+            }
+            else
+            {
+                TempData["error"] = "Case not assigned!";
+            }
+            return RedirectToAction("ViewCase", new { id = requestId });
         }
 
 
@@ -431,7 +446,6 @@ namespace HalloDoc.Controllers
             //return RedirectToAction("CloseCase", new { id = viewUploadViewModel.RequestId });
             return View(viewUploadViewModel);
         }
-        [HttpPost]
         public IActionResult CloseCaseBtn(int requestId)
         {
 
@@ -458,7 +472,7 @@ namespace HalloDoc.Controllers
             {
                 TempData["error"] = "Error,Patient Information not updated!";
             }
-            return RedirectToAction("CloseCase", new { requestId = model.RequestId });
+            return RedirectToAction("CloseCase", new { id = model.RequestId });
         }
         public IActionResult Encounter(int id)
         {

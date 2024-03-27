@@ -25,8 +25,11 @@ namespace HalloDoc.DataLayer.ViewModels.AdminViewModels
         public DateTime? LastModifiedDate { get; set;}
 
         //for close case
+        [Required(ErrorMessage = "Please enter FirstName")]
         public string? FirstName { get; set; }
+        [Required(ErrorMessage = "Please enter LastName")]
         public string? LastName { get; set; }
+        [Required(ErrorMessage = "Please enter DOB")]
         public DateTime? DOB { get; set; }
 
         [Required(ErrorMessage = "Please enter the patient's phone number")]

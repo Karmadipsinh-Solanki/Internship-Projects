@@ -21,6 +21,7 @@ namespace HalloDoc.LogicLayer.Interface
         public MemoryStream downloadExcel();
         public ViewCaseModel viewCase(int id);
         public bool viewCase(ViewCaseModel model);
+        public bool viewCaseAssignModal(ViewCaseModel model);
         public ViewNotesViewModel viewNotes(int id);
         public bool viewNotes(ViewNotesViewModel model);
         public ViewUploadViewModel viewUpload(int id);

@@ -42,6 +42,7 @@ namespace HalloDoc.DataLayer.ViewModels.AdminViewModels
         public string Requestor { get; set; }
         public string? Admin_notes { get; set; }
         public int PhysicianId { get; set; }
+        [Required(ErrorMessage = "Please enter the Description")]
         public string Description { get; set; }
         ////Assign case
         public List<Region> regions { get; set; } = new List<Region>();
