@@ -475,7 +475,10 @@
                     <div class="accordion-body" style="background-color: #dae8eb;">
                         <div class="hrbody">
                             <hr class="hraccordian">
-                            <div class="viewcase"><span>View Case</span></div>
+                            @* <div class="viewcase"><span>View Case</span></div> *@
+                            <a class="viewcase textdeconone" asp-action="ViewCase" asp-controller="AdminDashboard" asp-route-id="@Model.requests[i].RequestId">
+                                <span>View Case</span>
+                            </a>
                         </div>
                         <div style=" padding-top:20px;">
                             @if (Model.status != "Unpaid")

@@ -40,12 +40,12 @@ namespace HalloDoc.LogicLayer.Repository
             _httpContextAccessor = httpContextAccessor;
             _jwtService = jwtService;
         }
-        //AdminDashboardTableView IAdmin.adminDashboard(string status, string? search, string? requestor, int? region, int page = 1, int pageSize = 10)
+        //AdminDashboardTableView adminDashboard(string status, string? search, string? requestor, int? region, int page = 1, int pageSize = 10)
         //{
 
         //}
 
-        AdminDashboardTableView IAdmin.adminDashboard(string status, string? search, int? region, string? requestor)
+        public AdminDashboardTableView adminDashboard(string status, string? search, int? region, string? requestor)
         {
 
             Expression<Func<Request, bool>> exp;
@@ -139,7 +139,7 @@ namespace HalloDoc.LogicLayer.Repository
             return adminDashboardViewModel;
         }
         [HttpPost]
-        bool IAdmin.viewNotes(ViewNotesViewModel model)
+        public bool viewNotes(ViewNotesViewModel model)
         {
             //int aspnetuserid = (int)_context.HttpContext.Session.GetInt32("AspNetUserId");
             //int aspnetuserid = (int)_context.HttpContext.Session.GetInt32("AspNetUserId");//
@@ -194,7 +194,7 @@ namespace HalloDoc.LogicLayer.Repository
             }
 
         }
-        ViewNotesViewModel IAdmin.viewNotes(int id)
+        public ViewNotesViewModel viewNotes(int id)
         {
             var patientcancel = _context.RequestStatusLogs.FirstOrDefault(r => r.RequestId == id && r.Status == 7);
             var admincancel = _context.RequestStatusLogs.FirstOrDefault(r => r.RequestId == id && r.Status == 6);
@@ -498,7 +498,7 @@ namespace HalloDoc.LogicLayer.Repository
             memoryStream.Seek(0, SeekOrigin.Begin);
             return memoryStream;
         }
-        bool IAdmin.sendLink(AdminDashboardTableView model)
+        public bool sendLink(AdminDashboardTableView model)
         {
             var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
             var id = _context.Users.SingleOrDefault(u => u.Email == model.Email);
@@ -560,7 +560,7 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
-        int IAdmin.createRequest(CreateRequestViewModel model)
+        public int createRequest(CreateRequestViewModel model)
          {
             AspNetUser aspNetUser = new AspNetUser();
             User user = new User();
@@ -698,7 +698,7 @@ namespace HalloDoc.LogicLayer.Repository
             _context.SaveChanges();
             return 2;
         }
-        bool IAdmin.verifyState(CreateRequestViewModel model)
+        public bool verifyState(CreateRequestViewModel model)
         {
             var details = _context.Requests.FirstOrDefault(i => i.RequestId == model.RequestId);
             Region region = _context.Regions.FirstOrDefault(u => u.Name.Trim().ToLower().Replace(" ", "") == model.State.Trim().ToLower().Replace(" ", ""));
@@ -711,7 +711,7 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
-        CreateRequestViewModel IAdmin.createRequest()
+        public CreateRequestViewModel createRequest()
         {
             var request2 = _httpContextAccessor.HttpContext.Request;
             var token = request2.Cookies["jwt"];
@@ -724,28 +724,28 @@ namespace HalloDoc.LogicLayer.Repository
             createRequestViewModel.adminNavbarViewModel = adminNavbarViewModel;
             return createRequestViewModel;
         }
-        HealthProfessional IAdmin.fetchBusinessDetail(int id)
+        public HealthProfessional fetchBusinessDetail(int id)
         {
             return _context.HealthProfessionals.FirstOrDefault(r => r.VendorId == id);
         }
-        List<HealthProfessional> IAdmin.fetchBusiness(int id)
+        public List<HealthProfessional> fetchBusiness(int id)
         {
             return _context.HealthProfessionals.Where(r => r.Profession == id).ToList();
         }
 
-        List<Region> IAdmin.fetchRegions()
+        public List<Region> fetchRegions()
         {
             return _context.Regions.ToList(); // Directly project to List<Region>
         }
-        List<Physician> IAdmin.fetchPhysicians(int id)
+        public List<Physician> fetchPhysicians(int id)
         {
             return _context.Physicians.Where(r => r.RegionId == id).ToList();
         }
-        List<CaseTag> IAdmin.fetchTags()
+        public List<CaseTag> fetchTags()
         {
             return _context.CaseTags.ToList();
         }
-        bool IAdmin.assignCase(AdminDashboardTableView model)
+        public bool assignCase(AdminDashboardTableView model)
         {
             int requestId = model.RequestId;
             if (requestId != null)
@@ -775,7 +775,7 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
-        bool IAdmin.transferCase(AdminDashboardTableView model)
+        public bool transferCase(AdminDashboardTableView model)
         {
             int requestId = model.RequestId;
             if (requestId != null)
@@ -805,7 +805,7 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
-        bool IAdmin.cancelCase(AdminDashboardTableView model)
+        public bool cancelCase(AdminDashboardTableView model)
         {
             int requestId = model.RequestId;
             if (requestId != null)
@@ -833,7 +833,7 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
-        bool IAdmin.clearCase(AdminDashboardTableView model)
+        public bool clearCase(AdminDashboardTableView model)
         {
             int requestId = model.RequestId;
             if (requestId != null)
@@ -924,7 +924,7 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
-        bool IAdmin.mailDocument(List<int> requestFilesId, int requestId)
+        public bool mailDocument(List<int> requestFilesId, int requestId)
         {
             string senderEmail = "tatva.dotnet.karmadipsinhsolanki@outlook.com";
             string senderPassword = "Karmadips@2311";
@@ -1009,7 +1009,7 @@ namespace HalloDoc.LogicLayer.Repository
             viewUploadViewModel.adminNavbarViewModel = adminNavbarViewModel;
             return viewUploadViewModel;
         }
-        bool IAdmin.viewUpload(ViewUploadViewModel model)
+        public bool viewUpload(ViewUploadViewModel model)
         {
             if (model.File != null && model.File.Length > 0)
             {
@@ -1038,7 +1038,7 @@ namespace HalloDoc.LogicLayer.Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        ViewUploadViewModel IAdmin.closeCase(int id)/////
+        public ViewUploadViewModel closeCase(int id)/////
         {
             var details = _context.Requests.Include(u => u.RequestClient).FirstOrDefault(i => i.RequestId == id);
             var month1 = details.RequestClient.StrMonth;
@@ -1147,7 +1147,7 @@ namespace HalloDoc.LogicLayer.Repository
             //viewUploadViewModel.RequestId = id;
             //return viewUploadViewModel;
         }
-        bool IAdmin.closeCaseBtn(int requestId)
+        public bool closeCaseBtn(int requestId)
         {
             Request request = _context.Requests.FirstOrDefault(i => i.RequestId == requestId);
             if (request != null)
@@ -1169,7 +1169,7 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
-        bool IAdmin.closeCaseSaveBtn(ViewUploadViewModel model)
+        public bool closeCaseSaveBtn(ViewUploadViewModel model)
         {
             var details = _context.Requests.FirstOrDefault(i => i.RequestId == model.RequestId);
             RequestClient requestClientDetail = _context.RequestClients.FirstOrDefault(i => i.RequestClientId == details.RequestClientId);
@@ -1230,7 +1230,7 @@ namespace HalloDoc.LogicLayer.Repository
 
         }
 
-        //bool IAdmin.closeCase(AdminDashboardTableView model)
+        //bool closeCase(AdminDashboardTableView model)
         //{
         //    int requestId = model.RequestId;
         //    if (requestId != null)
@@ -1258,7 +1258,7 @@ namespace HalloDoc.LogicLayer.Repository
         //}
 
 
-        OrderViewModel IAdmin.SendOrder(int id)
+        public OrderViewModel SendOrder(int id)
         {
             var healthProfessionalType = _context.HealthProfessionalTypes.ToList();
             var healthProfessional = _context.HealthProfessionals.ToList();
@@ -1278,7 +1278,7 @@ namespace HalloDoc.LogicLayer.Repository
             orderViewModel.adminNavbarViewModel = adminNavbarViewModel;
             return orderViewModel;
         }
-        bool IAdmin.SendOrder(OrderViewModel model)
+        public bool SendOrder(OrderViewModel model)
         {
             try
             {
@@ -1306,7 +1306,7 @@ namespace HalloDoc.LogicLayer.Repository
             }
         }
         //current
-        bool IAdmin.sendAgreement(AdminDashboardTableView model)
+        public bool sendAgreement(AdminDashboardTableView model)
         {
             AdminDashboardTableView adminDashboardTableView = new AdminDashboardTableView();
             var data = _context.Requests.Include(u => u.RequestClient).FirstOrDefault(u => u.RequestId == model.RequestId);
@@ -1371,12 +1371,12 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
-        //bool IAdmin.sendAgreement(AdminDashboardTableView model)
+        //bool sendAgreement(AdminDashboardTableView model)
         //{
 
         //}
 
-        //bool IAdmin.sendLink(AdminDashboardTableView model)
+        //bool sendLink(AdminDashboardTableView model)
         //{
         //    var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
         //    var id = _context.Users.SingleOrDefault(u => u.Email == model.Email);
@@ -1439,7 +1439,7 @@ namespace HalloDoc.LogicLayer.Repository
         //    }
         //}
         ////
-        string monthNameFunc(string month1)
+        public string monthNameFunc(string month1)
         {
             string monthName;
             switch (month1)
@@ -1540,7 +1540,7 @@ namespace HalloDoc.LogicLayer.Repository
             };
             return encounterForm;
         }
-        bool IAdmin.encounter(EncounterViewModel model)
+        public bool encounter(EncounterViewModel model)
         {
             if (model.RequestId != null)
             {
@@ -1616,7 +1616,7 @@ namespace HalloDoc.LogicLayer.Repository
             }
         }
         //adminprofile page
-        List<Region> IAdmin.fetchAdminRegions()
+        public List<Region> fetchAdminRegions()
         {
             var request = _httpContextAccessor.HttpContext.Request;
             var token = request.Cookies["jwt"];
@@ -1634,7 +1634,7 @@ namespace HalloDoc.LogicLayer.Repository
                                        }).ToList();
             return regionName;
         }
-        bool IAdmin.saveAdministratorDetail(AdminProfileViewModel model)
+        public bool saveAdministratorDetail(AdminProfileViewModel model)
         {
             var request = _httpContextAccessor.HttpContext.Request;
             var token = request.Cookies["jwt"];
@@ -1681,7 +1681,7 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
-        bool IAdmin.saveBillingInformation(AdminProfileViewModel model)
+        public bool saveBillingInformation(AdminProfileViewModel model)
         {
             var request = _httpContextAccessor.HttpContext.Request;
             var token = request.Cookies["jwt"];
@@ -1705,7 +1705,7 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
-        bool IAdmin.resetPassword(AdminProfileViewModel model)
+        public bool resetPassword(AdminProfileViewModel model)
         {
             var request = _httpContextAccessor.HttpContext.Request;
             var token = request.Cookies["jwt"];
@@ -1724,7 +1724,7 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
-        AdminProfileViewModel IAdmin.adminProfile()
+        public AdminProfileViewModel adminProfile()
         {
             var request = _httpContextAccessor.HttpContext.Request;
             var token = request.Cookies["jwt"];
@@ -1776,6 +1776,54 @@ namespace HalloDoc.LogicLayer.Repository
             adminProfileViewModel.adminNavbarViewModel = adminNavbarViewModel;
             adminProfileViewModel.CreatedDate = AspAdminDetail.CreatedDate;
             return adminProfileViewModel;
+        }
+        public bool createAccess(CreateAccessViewModel model)
+        {
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            Role role = new Role();
+            role.CreatedBy = cookieModel.name;
+            BitArray check = new BitArray(1);
+            check.Set(0, false);
+            role.IsDeleted = check;
+            role.CreatedDate = DateTime.Now;
+            role.AccountType = (short)(model.AccountType == "admin-div" ? 2 : 1);
+            role.Name = model.RoleName;
+            _context.Roles.Add(role);
+            _context.SaveChanges();
+            string selectedRoleString = model.RoleId;
+
+            if (!string.IsNullOrEmpty(selectedRoleString))
+            {
+                string[] roleIds = selectedRoleString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (var roleIdString in roleIds)
+                {
+                    int roleId = int.Parse(roleIdString);
+                    RoleMenu roleMenu = new RoleMenu();
+                    roleMenu.RoleId = role.RoleId;
+                    roleMenu.MenuId = roleId;
+                    _context.RoleMenus.Add(roleMenu);
+                    _context.SaveChanges();
+                }
+            }
+            return true;
+        }
+        public CreateAccessViewModel createAccess()
+        {
+            CreateAccessViewModel createAccessViewModel = new CreateAccessViewModel();
+            List<Menu> menu = _context.Menus.ToList();
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 6;
+            createAccessViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            createAccessViewModel.Query = menu;
+            return createAccessViewModel;
         }
     }
 }

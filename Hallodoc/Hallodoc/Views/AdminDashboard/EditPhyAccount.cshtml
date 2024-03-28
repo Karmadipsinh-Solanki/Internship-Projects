@@ -1,0 +1,401 @@
+﻿@using HalloDoc.DataLayer.ViewModels.AdminViewModels;
+@model AdminProfileViewModel;
+@using static HalloDoc.EnumStatus;
+@{
+    ViewData["Title"] = "Edit Physician Account";
+}
+@section Styles {
+    <link href="~/css/accountAccess.css" rel="stylesheet" type="text/css" />
+}
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+
+<div id="body">
+    <partial name="Toast" />
+    <div style="display: flex;flex-direction: row;">
+
+        <div id="main-div" style="width: 100%;">
+            @*  <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" /> *@
+            <partial name="AdminDashboardNavbar" />
+
+            <div id="main-sub-div" class="tabcontent main-profile-div">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center p-3">
+                        <h3>Edit Physician Account</h3>
+                        <div class="d-flex justify-content-center align-items-center mb-3 mt-3" style="background-color:transparent;width: 90px;height: 45px;border:1px solid #0dcaf0;border-radius:5px;">
+                            <a class="textdeco" asp-controller="AdminDashboard" asp-action="AdminDashboard" style="text-decoration:none;">
+                                <span class="textback" style="color:#0dcaf0;">&lt Back</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="content shadow contentProfile h-100  ps-3 pt-3 pe-3 g-3" style="background-color:white;">
+                    <form asp-controller="AdminDashboard" asp-action="ResetPassword" enctype="multipart/form-data" method="post" class="">
+                        <header class="h4 mb-3">Account Information</header>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="floatingInput1" placeholder="User Name" asp-for="UserName" disabled>
+                                    <label for="floatingInput1">User Name</label>
+                                    <span asp-validation-for="UserName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="floatingInput2" placeholder="Password" asp-for="Password">
+                                    <label for="floatingInput2">Password</label>
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="floatingInput3" placeholder="Status" asp-for="Status" disabled>
+                                    <label for="floatingInput3">Status</label>
+                                    <span asp-validation-for="Status" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="floatingInput4" placeholder="Role" asp-for="role" disabled>
+                                    <label for="floatingInput4">Role</label>
+                                    <span asp-validation-for="role" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-center">
+                            <div id="submit-div3">
+                                <button type="submit" class="backbutton" style="padding:10px 5px;border:1px solid #0dcaf0;color:#0dcaf0;border-radius:6px;background-color:white;">Reset Password</button>
+                            </div>
+                        </div>
+                    </form>
+                    <header class="h4 mb-4">Administrator Information</header>
+                    <form asp-controller="AdminDashboard" asp-action="SaveAdministratorDetail" enctype="multipart/form-data" method="post" class="">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="floatingInput5" placeholder="First Name" asp-for="FirstName" disabled>
+                                    <label for="floatingInput5">First Name</label>
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="floatingInput6" placeholder="Last Name" asp-for="LastName" disabled>
+                                    <label for="floatingInput6">Last Name</label>
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="floatingInput7" placeholder="Email" asp-for="Email" disabled>
+                                    <label for="floatingInput7">Email</label>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="floatingInput8" placeholder="Confirm Email" asp-for="ConfirmEmail" disabled>
+                                    <label for="floatingInput8">Confirm Email</label>
+                                    <span asp-validation-for="ConfirmEmail" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="tel" class="form-control" id="floatingInput9" placeholder="Phone Number" asp-for="PhoneNumber1" disabled>
+                                    <label for="floatingInput9">Phone Number</label>
+                                    <span asp-validation-for="PhoneNumber1" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div style="flex-wrap: wrap;display: flex;width: 104.5%;">
+                                    <input class="hide" type="text" asp-for="SelectedRegion" id="SelectedRegion" disabled />
+                                    @* @foreach (var item in Model.State)
+                                    {
+                                    <div style="display: flex;align-items: center;">
+                                    <input type="checkbox" data-region-id="@item.RegionId" class="checkboxes" checked="@item.IsSelected" value="@item.RegionId" id="@item.Name" disabled>
+                                    <label class="container">@item.Name</label>
+                                    </div>
+                                    } *@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-center">
+                            <div class="saveButton form-button mb-4 me-3 " id="edit-div" style="padding: 7px 27px;background-color:#0dcaf0;border:1px solid #0dcaf0;color:white; margin-right:17px;">
+                                <a id="submit-button-2" class="textdeconone saveButtonText">Edit</a>
+                            </div>
+                            <div id="submit-div" class="hide">
+                                <button type="submit" id="submit-button" style="border:none;margin-right:25px!important;">Save</button>
+                                <a id="submit-button-3" class="backbutton textdeconone" style="padding:10px 5px;border:1px solid #0dcaf0;color:#0dcaf0;border-radius:6px;">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                    <header class="h4 mb-4">Mailing and Billing Information</header>
+                    <form asp-controller="AdminDashboard" asp-action="SaveBillingInformation" enctype="multipart/form-data" method="post" class="">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="floatingInput1" placeholder="Address1" asp-for="Address1" disabled>
+                                    <label for="floatingInput1">Address1</label>
+                                    <span asp-validation-for="Address1" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="floatingInput2" placeholder="Address2" asp-for="Address2" disabled>
+                                    <label for="floatingInput2">Address2</label>
+                                    <span asp-validation-for="Address2" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="floatingInput1" placeholder="City" asp-for="city" disabled>
+                                    <label for="floatingInput1">City</label>
+                                    <span asp-validation-for="city" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <select class="custom-select" asp-for="StateId" id="select-region" style="height: 58px;width: 100%;border-radius:5px;" disabled>
+
+                                        @* @foreach (var item in Model.regions)
+                                        {
+                                        <option value="@item.RegionId" style="color:gray !important;"><span style="color:gray;">@item.Name</span></option>
+                                        } *@
+                                    </select>
+                                    @* <label for="floatingInput1">State</label> *@
+
+                                    @* <input type="hidden" id="floatingInput1" asp-for="StateId">
+                                    <input type="name" class="form-control" id="floatingInput1" placeholder="State" asp-for="state" disabled>
+                                    <span asp-validation-for="state" class="text-danger"></span> *@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="tel" class="form-control" id="floatingInput1" placeholder="Zip" asp-for="zip" disabled>
+                                    <label for="floatingInput1">Zip</label>
+                                    <span asp-validation-for="zip" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="tel" class="form-control" id="floatingInput1" placeholder="PhoneNumber" asp-for="PhoneNumber2" disabled>
+                                    <label for="floatingInput1">PhoneNumber</label>
+                                    <span asp-validation-for="PhoneNumber2" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-center mb-3">
+                            <div class="saveButton form-button mb-4 me-3 " id="edit-div2" style="padding: 7px 27px;background-color:#0dcaf0;border:1px solid #0dcaf0;color:white; margin-right:17px;">
+                                <a id="submit-button-4" class="textdeconone saveButtonText">Edit</a>
+                            </div>
+                            <div id="submit-div2" class="hide">
+                                <button type="submit" id="submit-button-6" style="border:none;margin-right:25px!important;">Save</button>
+                                <a id="submit-button-5" class="backbutton textdeconone" style="padding:10px 5px;border:1px solid #0dcaf0;color:#0dcaf0;border-radius:6px;">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                    <header class="h4 mb-4">Provider Profile</header>
+                    <form asp-controller="AdminDashboard" asp-action="SaveBillingInformation" enctype="multipart/form-data" method="post" class="">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingInput1" placeholder="Business Name" disabled@* asp-for="BusinessName" *@>
+                                    <label for="Business Name">Business Name</label>
+                                    @* <span asp-validation-for="BusinessName" class="text-danger"></span> *@
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="floatingInput2" placeholder="Business Website" disabled @* asp-for="BusinessWebsite" *@>
+                                    <label for="Business Website">Business Website</label>
+                                    @* <span asp-validation-for="BusinessWebsite" class="text-danger"></span> *@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="selectPhoto" placeholder="Select Photo" disabled @* asp-for="selectPhoto" *@>
+                                    <label for="selectPhoto ">Select Photo</label>
+                                    @* <span asp-validation-for="selectPhoto" class="text-danger"></span> *@
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <select class="custom-select" asp-for="StateId" id="select-region" style="height: 58px;width: 100%;border-radius:5px;" disabled>
+
+                                        @* @foreach (var item in Model.regions)
+                                        {
+                                        <option value="@item.RegionId" style="color:gray !important;"><span style="color:gray;">@item.Name</span></option>
+                                        } *@
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-center mb-3">
+                            <div class="saveButton form-button mb-4 me-3 " id="edit-div2" style="padding: 7px 27px;background-color:#0dcaf0;border:1px solid #0dcaf0;color:white; margin-right:17px;">
+                                <a id="submit-button-4" class="textdeconone saveButtonText">Edit</a>
+                            </div>
+                            <div id="submit-div2" class="hide">
+                                <button type="submit" id="submit-button-6" style="border:none;margin-right:25px!important;">Save</button>
+                                <a id="submit-button-5" class="backbutton textdeconone" style="padding:10px 5px;border:1px solid #0dcaf0;color:#0dcaf0;border-radius:6px;">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        //admin wise region
+        $(document).ready(function () {
+            var selectedRegion = $('#SelectedRegion').val();
+            var ticked = document.getElementsByClassName('checkboxes');
+            for (var i = 0; i < ticked.length; i++) {
+                if (ticked[i].checked) {
+                    selectedRegion += (selectedRegion ? ',' : '') + ticked[i].value;
+                }
+            }
+            $('.checkboxes').change(function () {
+                var regionId = $(this).data('regionId');
+                var isChecked = $(this).is(':checked');
+
+                // Update selectedRegion string based on checkbox state
+                if (isChecked) {
+                    selectedRegion += (selectedRegion ? ',' : '') + regionId;
+                } else {
+                    selectedRegion = selectedRegion.replace(new RegExp(',' + regionId + '|^' + regionId + ','), '');
+                }
+
+                $('#SelectedRegion').val(selectedRegion);
+            });
+        }); $(document).ready(function () {
+            var selectedRegion = $('#SelectedRegion').val();
+            var ticked = document.getElementsByClassName('checkboxes');
+            for (var i = 0; i < ticked.length; i++) {
+                if (ticked[i].checked) {
+                    selectedRegion += (selectedRegion ? ',' : '') + ticked[i].value;
+                }
+            }
+            $('.checkboxes').change(function () {
+                var regionId = $(this).data('regionId');
+                var isChecked = $(this).is(':checked');
+
+                // Update selectedRegion string based on checkbox state
+                if (isChecked) {
+                    selectedRegion += (selectedRegion ? ',' : '') + regionId;
+                } else {
+                    selectedRegion = selectedRegion.replace(new RegExp(',' + regionId + '|^' + regionId + ','), '');
+                }
+
+                $('#SelectedRegion').val(selectedRegion);
+            });
+        });
+
+        //edit,save,cancel
+        document.getElementById('submit-button-2').onclick = function () {
+            document.getElementById('edit-div').style.display = "none";
+            document.getElementById('submit-div').style.display = "flex";
+            var classes = document.getElementsByClassName('form-control');
+            for (var i = 4; i < 9; i++) {
+                classes[i].removeAttribute('disabled');
+            }
+            var checkboxes = document.getElementsByClassName('checkboxes');
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].removeAttribute('disabled');
+            }
+        }
+        //document.getElementById('select-region').addEventListener('change',function(){
+        //    document.getElementById('option').style.display = "none";
+        //});
+        document.getElementById('submit-button-3').onclick = function () {
+            document.getElementById('edit-div').style.display = "flex";
+            document.getElementById('submit-div').style.display = "none";
+            var classes = document.getElementsByClassName('form-control');
+            for (var i = 4; i < 9; i++) {
+                classes[i].setAttribute('disabled', 'disabled');
+            }
+            var checkboxes = document.getElementsByClassName('checkboxes');
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].setAttribute('disabled', 'disabled');
+            }
+            location.reload();
+        }
+        document.getElementById('submit-button-4').onclick = function () {
+            document.getElementById('edit-div2').style.display = "none";
+            document.getElementById('submit-div2').style.display = "flex";
+            var classes = document.getElementsByClassName('form-control');
+            for (var i = 9; i < classes.length; i++) {
+                classes[i].removeAttribute('disabled');
+            }
+            document.getElementById('select-region').removeAttribute('disabled');
+
+        }
+        document.getElementById('submit-button-5').onclick = function () {
+            document.getElementById('edit-div2').style.display = "flex";
+            document.getElementById('submit-div2').style.display = "none";
+            var classes = document.getElementsByClassName('form-control');
+            for (var i = 9; i < classes.length; i++) {
+                classes[i].setAttribute('disabled', 'disabled');
+            }
+            document.getElementById('select-region').setAttribute('disabled', 'disabled');
+            location.reload();
+        }
+
+        //dark theme
+        window.onload = function checkingTheme() {
+            try {
+                let themeCheck = localStorage.getItem('theme');
+                if (themeCheck == null || themeCheck == 'light') {
+                    document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+                    document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
+                    document.getElementById('body').style.backgroundColor = "#f5f5f5";
+                    document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
+                    document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+                } else {
+                    document.getElementById('main-div').style.backgroundColor = "black";
+                    document.getElementById('main-sub-div').style.backgroundColor = "black";
+                    document.getElementById('body').style.backgroundColor = "black";
+                    document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
+                    document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
+                }
+            } catch (error) {
+                console.log('no themes decided yet');
+            }
+        }
+        function changeTheme() {
+            let theme = localStorage.getItem('theme');
+            if (theme == null || theme == 'light') {
+                localStorage.setItem('theme', 'dark');
+                document.getElementById('main-div').style.backgroundColor = "black";
+                document.getElementById('main-sub-div').style.backgroundColor = "black";
+                document.getElementById('body').style.backgroundColor = "black";
+                document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
+                document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
+            } else if (theme == 'dark') {
+                localStorage.setItem('theme', 'light');
+                document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+                document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
+                document.getElementById('body').style.backgroundColor = "#f5f5f5";
+                document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
+                document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+            }
+        }
+    </script>
+</div>

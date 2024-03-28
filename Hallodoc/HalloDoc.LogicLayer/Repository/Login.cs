@@ -72,7 +72,7 @@ namespace HalloDoc.LogicLayer.Repository
                 return 4;
             }
         }
-        bool ILogin.ForgotPassword(ForgotPassword model)
+        public bool ForgotPassword(ForgotPassword model)
         {
             string senderEmail = "tatva.dotnet.Karmadipsinhsolanki@outlook.com";
             string senderPassword = "Karmadips@2311";
@@ -116,7 +116,7 @@ namespace HalloDoc.LogicLayer.Repository
             }
             return false;
         }
-        bool ILogin.resetPasswordFromEmail(CreateNewPassword model)
+        public bool resetPasswordFromEmail(CreateNewPassword model)
         {
             var aspnetUser = _context.AspNetUsers.FirstOrDefault(u => u.Email == model.email);
             //var aspnetUser = _resetPasswordFromEmail.ResetPwdFromEmail(model);
@@ -136,7 +136,7 @@ namespace HalloDoc.LogicLayer.Repository
             }
         }
 
-        AspNetUser ILogin.getAspNetUser(string email)
+        public AspNetUser getAspNetUser(string email)
         {
             AspNetUser aspNetUser = _context.AspNetUsers.FirstOrDefault(u => u.Email == email);
             return aspNetUser;

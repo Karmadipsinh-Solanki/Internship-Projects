@@ -52,5 +52,9 @@ namespace HalloDoc.LogicLayer.Interface
         public EncounterViewModel encounter(int id);
         public bool mailDocument(List<int> requestFilesId, int requestId);
         public bool deleteViewUploadFile(string fileids);
+
+
+        public CreateAccessViewModel createAccess();
+        public bool createAccess(CreateAccessViewModel model);
     }
 }

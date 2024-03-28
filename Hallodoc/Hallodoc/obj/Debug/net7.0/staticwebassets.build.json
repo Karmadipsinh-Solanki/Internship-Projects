@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "2pcng9fN10mpGBxGFvOM6HxVY9zktn2mPVbP8ibPA64=",
+  "Hash": "J2Fb6BYp05vAhNcloDfN/eFpxKU07qZ/YRillPqKj2Y=",
   "Source": "Hallodoc",
   "BasePath": "_content/Hallodoc",
   "Mode": "Default",
@@ -53,6 +53,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Hallodoc.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\accountAccess.css",
+      "SourceId": "Hallodoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\",
+      "BasePath": "_content/Hallodoc",
+      "RelativePath": "css/accountAccess.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\accountAccess.css"
     },
     {
       "Identity": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\AdminDashboardStyle.css",

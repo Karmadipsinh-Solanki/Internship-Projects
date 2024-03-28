@@ -42,7 +42,7 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
-        int ICreateReq.createPatientRequest(RequestViewModelPatient model)
+        public int createPatientRequest(RequestViewModelPatient model)
         {
             AspNetUser aspNetUser = new AspNetUser();
             User user = new User();
@@ -179,7 +179,7 @@ namespace HalloDoc.LogicLayer.Repository
             _context.SaveChanges();
             return 2;
         }
-        int ICreateReq.createConceirgeRequest(RequestViewModelConcierge model)
+        public int createConceirgeRequest(RequestViewModelConcierge model)
         {
             AspNetUser aspNetUser = new AspNetUser();
             User user = new User();
@@ -331,7 +331,7 @@ namespace HalloDoc.LogicLayer.Repository
             _context.SaveChanges();
             return 2;
         }
-        int ICreateReq.createBusinessRequest(RequestViewModelBusiness model)
+        public int createBusinessRequest(RequestViewModelBusiness model)
         {
             AspNetUser aspNetUser = new AspNetUser();
             User user = new User();
@@ -483,7 +483,7 @@ namespace HalloDoc.LogicLayer.Repository
             _context.SaveChanges();
             return 2;
         }
-        int ICreateReq.createFamilyRequest(RequestViewModelFamily model)
+        public int createFamilyRequest(RequestViewModelFamily model)
         {
             AspNetUser aspNetUser = new AspNetUser();
             User user = new User();
@@ -640,7 +640,7 @@ namespace HalloDoc.LogicLayer.Repository
             _context.SaveChanges();
             return 2;
         }
-        AspNetUser ICreateReq.patientCheck(string email)
+        public AspNetUser patientCheck(string email)
         {
             return _context.AspNetUsers.SingleOrDefault(u => u.Email == email);
         }

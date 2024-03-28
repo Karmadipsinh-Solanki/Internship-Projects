@@ -1,0 +1,80 @@
+﻿@using HalloDoc.DataLayer.ViewModels;
+@model AdminDashboardTableView;
+@using static HalloDoc.EnumStatus;
+@{
+    ViewData["Title"] = "User Access";
+}
+@section Styles {
+    <link href="~/css/accountAccess.css" rel="stylesheet" type="text/css" />
+}
+@section Scripts {
+    @{
+        // <partial name="_ValidationScriptsPartial" />
+    }
+}
+
+<div id="body">
+    <div class="shadow header-nav-container">
+        <partial name="Toast" />
+        @* <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" /> *@
+    </div>
+    <div id="main-div" class="tabcontent main-profile-div">
+        <div class="main-sub-div">
+            <div class="py-3">
+                <h3>User Access</h3>
+            </div>
+            <div class="p-2 bg-white">
+
+                <div class="search-div">
+                    <div class="search-div-sub">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray"
+                             class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg>
+                        <input placeholder="Search Patients" class="searchPatientInput" type="text" id="search" onkeyup="searchFilter(this)" />
+                    </div>
+                </div>
+
+                <div class="d-none d-md-block">
+                    <table class="table">
+                        <thead>
+                            <tr class="table-light htable" style="background-color: #f0f0f0 !important;">
+                                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 20%;">Account Type <span class="ms-3">&uarr;</span></th>
+                                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 20%;">Account POC</th>
+                                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 20%;">Phone</th>
+                                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 15%;">Status</th>
+                                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 15%;">Open Requests</th>
+                                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 10%;"><span class="d-flex justify-content-center align-items-center">Actions</span></th>
+                            </tr>
+                        </thead>
+                        @* @foreach (var item in Model.requestWiseFiles)*@
+                        {
+                        <tr>
+                            <td class="bg-white">
+                                <div class="file-icon">
+                                    <span class="filename">@* @item. *@AccountTYpe</span>
+                                </div>
+                            </td>
+                            <td class="bg-white">
+                                @* @item. *@AccountPOC
+                            </td>
+                            <td class="bg-white">
+                                @* @item. *@Phone
+                            </td>
+                            <td class="bg-white">
+                                @* @item. *@Status
+                            </td>
+                            <td class="bg-white">
+                                @* @item. *@OpenReq
+                            </td>
+                            <td class="bg-white d-flex justify-content-center align-items-center">
+                                <a asp-action="#" asp-controller="#" class="cancelButtonTable me-2 textdeconone "><span class="cancelButtonText">Edit</span></a>
+                            </td>
+                        </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

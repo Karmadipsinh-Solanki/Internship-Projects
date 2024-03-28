@@ -745,6 +745,10 @@
       "PackagePath": "staticwebassets\\css\\Login.css"
     },
     {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\accountAccess.css",
+      "PackagePath": "staticwebassets\\css\\accountAccess.css"
+    },
+    {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\createPassword.css",
       "PackagePath": "staticwebassets\\css\\createPassword.css"
     },

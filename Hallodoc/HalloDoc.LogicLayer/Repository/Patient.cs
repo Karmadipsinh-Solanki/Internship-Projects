@@ -29,7 +29,7 @@ namespace HalloDoc.LogicLayer.Repository
             _httpContextAccessor = httpContextAccessor;
             _jwtService = jwtService;
         }
-        DashboardViewModel IPatient.patientDashboard()
+        public DashboardViewModel patientDashboard()
         {
             var request = _httpContextAccessor.HttpContext.Request;
             var token = request.Cookies["jwt"];
@@ -49,7 +49,7 @@ namespace HalloDoc.LogicLayer.Repository
 
             return dashboardViewModel;
         }
-        ViewDocumentModel IPatient.viewDoc(int id)
+        public ViewDocumentModel viewDoc(int id)
         {
             //to save file in wwwroot,that is uploaded by patient we use jwt and cookies
             var request2 = _httpContextAccessor.HttpContext.Request;
@@ -73,7 +73,7 @@ namespace HalloDoc.LogicLayer.Repository
             viewDocumentModel.partialViewModel = new partialViewModel() { patient_name = string.Concat(user.FirstName + ' ' + user.LastName) };
             return viewDocumentModel;
         }
-        bool IPatient.viewDoc(ViewDocumentModel model)
+        public bool viewDoc(ViewDocumentModel model)
         {
             if (model.File != null && model.File.Length > 0)
             {
@@ -98,7 +98,7 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
-        int IPatient.meModalSubmit(MeViewModel model)
+        public int meModalSubmit(MeViewModel model)
         {
             RequestClient requestClient = new RequestClient();
             Request request = new Request();
@@ -195,7 +195,7 @@ namespace HalloDoc.LogicLayer.Repository
 
             return 2;
         }
-        MeViewModel IPatient.meModal()
+        public MeViewModel meModal()
         {
             var request = _httpContextAccessor.HttpContext.Request;
             var token = request.Cookies["jwt"];
@@ -217,7 +217,7 @@ namespace HalloDoc.LogicLayer.Repository
 
             return meViewModel;
         }
-        int IPatient.RelativeModalSubmit(SomeoneElseViewModel model)
+        public int RelativeModalSubmit(SomeoneElseViewModel model)
         {
             RequestClient requestClient = new RequestClient();
             Request request = new Request();
@@ -315,7 +315,7 @@ namespace HalloDoc.LogicLayer.Repository
             return 2;
         }
 
-        EditProfileViewModel IPatient.profile()
+        public EditProfileViewModel profile()
         {
             var request = _httpContextAccessor.HttpContext.Request;
             var token = request.Cookies["jwt"];
@@ -339,7 +339,7 @@ namespace HalloDoc.LogicLayer.Repository
             profileViewModel.partialViewModel = new partialViewModel() { patient_name = string.Concat(userDetail.FirstName + ' ' + userDetail.LastName) };
             return profileViewModel;
         }
-        int IPatient.profile(EditProfileViewModel model)
+        public int profile(EditProfileViewModel model)
         {
             //token
             var request2 = _httpContextAccessor.HttpContext.Request;
@@ -497,20 +497,7 @@ namespace HalloDoc.LogicLayer.Repository
             //return 2;
         }
 
-        public bool viewDoc(ViewDocumentModel model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ViewDocumentModel viewDoc(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int meModalSubmit(MeViewModel model)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public SomeoneElseViewModel someoneModal()
         {

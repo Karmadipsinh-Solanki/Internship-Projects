@@ -558,6 +558,41 @@ namespace HalloDoc.Controllers
             AdminProfileViewModel adminProfileViewModel = _admin.adminProfile();
             return View(adminProfileViewModel);
         }
+        public IActionResult AccountAccess()
+        {
+            return View();
+        }
+        public IActionResult CreateAccess()
+        {
+            CreateAccessViewModel createAccessViewModel = _admin.createAccess();
+            return View(createAccessViewModel);
+        }
+        [HttpPost]
+        public IActionResult CreateAccess(CreateAccessViewModel model)
+        {
+            bool check = _admin.createAccess(model);
+            if (check)
+            {
+                TempData["success"] = "Account Access created successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,Access is not created!";
+            }
+            return RedirectToAction("AccountAccess");
+        }
+        public IActionResult UserAccess()
+        {
+            return View();
+        }
+        public IActionResult ProviderInfo()
+        {
+            return View();
+        }
+        public IActionResult EditPhyAccount()
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

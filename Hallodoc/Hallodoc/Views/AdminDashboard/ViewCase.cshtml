@@ -17,7 +17,7 @@
     <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" />
     <hr class="mb-0 mt-0 d-none d-md-block horizontal-line">
     <partial name="AdminDashboardNavbar" />
-    <div class="maindiv container-fluid d-flex flex-column justify-content-center px-5" style="background-color:#f5f5f5;">
+    <div class="maindiv viewcaseMaindiv container-fluid d-flex flex-column justify-content-center  " style="background-color:#f5f5f5;">
         <div class="firstdiv d-flex justify-content-between align-items-center">
             <form asp-action="viewcase" asp-controller="AdminDashboard" method="post">
                 <input type="hidden" asp-for="RequestId" id="requestId" />
@@ -121,7 +121,7 @@
                     }
                 }
             </form>
-            <div class="btn cancelButton mb-3 mt-3" style="background-color:transparent;">
+            <div class="btn cancelButton mb-3 mt-3 d-flex justify-content-center align-items-center" style="background-color:transparent;">
                 <a class="textdeconone" asp-controller="AdminDashboard" asp-action="AdminDashboard">
                     <span class="cancelButtonText">&lt Back</span>
                 </a>
@@ -266,25 +266,34 @@
                     </div>
                 </div>
                 <div class=" d-block d-md-none">
-                    @if (Model.Status != "Reserved")
-                    {
-                        <div>
-                            <button class="btn saveButton me-3 mb-3" style="width:110px!important;">
-                                <a class="textdeconone dropdown-item dashboard-button" data-bs-toggle="modal" data-bs-target="#assignCaseModal" onclick="AssignCase(@Model.RequestId)">
-                                    <span class="saveButtonText">Assign</span>
-                                </a>
-                            </button>
-                        </div>
-                    }
-                    <div class="d-flex align-items-center">
-                        <div class="btn saveButton me-3 mb-3 d-flex justify-content-center align-items-center" style="width:110px!important;">
+                    
+                    <div class="d-flex justify-content-end align-items-center">
+                        @if (Model.Status != "Reserved")
+                        {
+                            <div>
+                                <button class="btn saveButton me-3 mb-3" style="width:70px!important;">
+                                    <div class="textdeconone " data-bs-toggle="modal" data-bs-target="#assignCaseModal" onclick="AssignCase(@Model.RequestId)">
+                                        <span class="saveButtonText">Assign</span>
+                                    </div>
+                                </button>
+                            </div>
+                        }
+                        <div class="btn saveButton me-3 mb-3 d-flex justify-content-center align-items-center" style="width:95px!important;">
                             <a class="textdeconone" asp-controller="AdminDashboard" asp-action="ViewNotes">
                                 <span class="saveButtonText">View Notes</span>
                             </a>
                         </div>
-                        <a asp-action="AdminDashboard" asp-controller="AdminDashboard" class="btn redCancelButton mb-3 d-flex justify-content-center align-items-center" style="width:110px!important;background-color:#d72d31;">
-                            <span class="saveButtonText">Cancel</span>
-                        </a>
+                        <div class="btn redCancelButton mb-3 d-flex justify-content-center align-items-center" style="width:70px!important;background-color:#d72d31;height:40px;">
+                            <a class="textdeconone" asp-controller="AdminDashboard" asp-action="AdminDashboard">
+                                <span class="saveButtonText">Cancel</span>
+                            </a>
+                        </div>
+                        @* <div class="btn redCancelButton mb-3 d-flex justify-content-center align-items-center" style="width:70px!important;background-color:#d72d31;">
+                            <a asp-action="AdminDashboard" asp-controller="AdminDashboard" class="textdeconone">
+                                <span class="saveButtonText">Cancel</span>
+                            </a>
+                        </div> *@
+
                     </div>
                 </div>
             </form>
@@ -452,7 +461,7 @@
             document.getElementById("status-text").innerHTML = `(${finalName.charAt(0).toUpperCase() + finalName.slice(1)})`;
         }
 
-        
+
 
 
 

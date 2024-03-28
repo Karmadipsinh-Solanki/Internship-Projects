@@ -90,7 +90,7 @@ namespace HalloDoc.LogicLayer.Repository
         }
 
 
-        bool IJwtService.ValidateToken(string token, out JwtSecurityToken jwtSecurityToken)
+        public bool ValidateToken(string token, out JwtSecurityToken jwtSecurityToken)
         {
 
             jwtSecurityToken = null;
@@ -132,7 +132,7 @@ namespace HalloDoc.LogicLayer.Repository
             }
         }
 
-        CookieModel IJwtService.getDetails(string token)
+        public CookieModel getDetails(string token)
         {
             JwtSecurityToken jwtSecurityToken = null;
             var tokenHandler = new JwtSecurityTokenHandler();

@@ -80,13 +80,13 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="tel" class="form-control custom-input" id="phone" placeholder="Phone Number" asp-for="PhoneNumber">
+                                    <input type="tel" class="form-control custom-input" id="phone" placeholder="Phone Number" asp-for="PhoneNumber" disabled>
                                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control custom-input" id="Email" placeholder="Email" asp-for="Email">
+                                    <input type="text" class="form-control custom-input" id="Email" placeholder="Email" asp-for="Email" disabled>
                                     <label for="Email">Email</label>
                                     <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
@@ -115,7 +115,7 @@
                                 <div class="form-floating mb-3">
                                     <textarea type="text" class="form-control custom-input"
                                               style="height: 72px !important;resize:none;" id="Medications" placeholder="Medications" asp-for="Medications"></textarea>
-                                    <label for="Medications">Medications<label>
+                                    <label for="Medications">Medications</label>
                                     <span asp-validation-for="Medications" class="text-danger"></span>
                                 </div>
                             </div>
@@ -132,7 +132,7 @@
                             <div class="col-md-4">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control custom-input" id="temp" placeholder="Temp" asp-for="temp">
-                                    <label for="temp">Temp<label>
+                                    <label for="temp">Temp</label>
                                     <span asp-validation-for="temp" class="text-danger"></span>
                                 </div>
                             </div>
@@ -155,14 +155,14 @@
                             <div class="col-md-2">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control custom-input" id="BPSystolic" placeholder="BP (Systolic)" asp-for="BPSystolic">
-                                    <label for="BPSystolic">BP (Systolic)<label>
+                                    <label for="BPSystolic">BP (Systolic)</label>
                                     <span asp-validation-for="BPSystolic" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control custom-input" id="BPDiastolic" placeholder="BP (Diastolic)" asp-for="BPDiastolic">
-                                    <label for="BPDiastolic">BP (Diastolic)<label>
+                                    <label for="BPDiastolic">BP (Diastolic)</label>
                                     <span asp-validation-for="BPDiastolic" class="text-danger"></span>
                                 </div>
                             </div>
@@ -186,7 +186,7 @@
                                 <div class="form-floating mb-3">
                                     <textarea type="text" class="form-control custom-input"
                                               style="height: 72px !important;resize:none;" id="Heent" placeholder="Heent" asp-for="Heent"></textarea>
-                                    <label for="Heent">Heent<label>
+                                    <label for="Heent">Heent</label>
                                     <span asp-validation-for="Heent" class="text-danger"></span>
                                 </div>
                             </div>
@@ -204,7 +204,7 @@
                                 <div class="form-floating mb-3">
                                     <textarea type="text" class="form-control custom-input"
                                               style="height: 72px !important;resize:none;" id="Chest" placeholder="Chest" asp-for="Chest"></textarea>
-                                    <label for="Chest">Chest<label>
+                                    <label for="Chest">Chest</label>
                                     <span asp-validation-for="Chest" class="text-danger"></span>
                                 </div>
                             </div>
@@ -222,7 +222,7 @@
                                 <div class="form-floating mb-3">
                                     <textarea type="text" class="form-control custom-input"
                                               style="height: 72px !important;resize:none;" id="Extr" placeholder="Extr" asp-for="Extr"></textarea>
-                                    <label for="Extr">Extr<label>
+                                    <label for="Extr">Extr</label>
                                     <span asp-validation-for="Extr" class="text-danger"></span>
                                 </div>
                             </div>
@@ -240,7 +240,7 @@
                                 <div class="form-floating mb-3">
                                     <textarea type="text" class="form-control custom-input"
                                               style="height: 72px !important;resize:none;" id="Neuro" placeholder="Neuro" asp-for="Neuro"></textarea>
-                                    <label for="Neuro">Neuro<label>
+                                    <label for="Neuro">Neuro</label>
                                     <span asp-validation-for="Neuro" class="text-danger"></span>
                                 </div>
                             </div>
@@ -258,7 +258,7 @@
                                 <div class="form-floating mb-3">
                                     <textarea type="text" class="form-control custom-input"
                                               style="height: 72px !important;resize:none;" id="Diagnosis" placeholder="Diagnosis" asp-for="Diagnosis"></textarea>
-                                    <label for="Diagnosis">Diagnosis<label>
+                                    <label for="Diagnosis">Diagnosis</label>
                                     <span asp-validation-for="Diagnosis" class="text-danger"></span>
                                 </div>
                             </div>
@@ -276,7 +276,7 @@
                                 <div class="form-floating mb-3">
                                     <textarea type="text" class="form-control custom-input"
                                               style="height: 72px !important;resize:none;" id="MedicationsDispensed" placeholder="Medications Dispensed" asp-for="MedicationsDispensed"></textarea>
-                                    <label for="MedicationsDispensed">Medications Dispensed<label>
+                                    <label for="MedicationsDispensed">Medications Dispensed</label>
                                     <span asp-validation-for="MedicationsDispensed" class="text-danger"></span>
                                 </div>
                             </div>
@@ -330,57 +330,6 @@
             utilsScript:
                 "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
         });
-        
-        //edit,save,cancel
-        document.getElementById('submit-button-2').onclick = function () {
-            document.getElementById('edit-div').style.display = "none";
-            document.getElementById('submit-div').style.display = "flex";
-            var classes = document.getElementsByClassName('form-control');
-            for (var i = 4; i < 9; i++) {
-                classes[i].removeAttribute('disabled');
-            }
-            var checkboxes = document.getElementsByClassName('checkboxes');
-            for (var i = 0; i < checkboxes.length; i++) {
-                checkboxes[i].removeAttribute('disabled');
-            }
-        }
-        //document.getElementById('select-region').addEventListener('change',function(){
-        //    document.getElementById('option').style.display = "none";
-        //});
-        document.getElementById('submit-button-3').onclick = function () {
-            document.getElementById('edit-div').style.display = "flex";
-            document.getElementById('submit-div').style.display = "none";
-            var classes = document.getElementsByClassName('form-control');
-            for (var i = 4; i < 9; i++) {
-                classes[i].setAttribute('disabled', 'disabled');
-            }
-            var checkboxes = document.getElementsByClassName('checkboxes');
-            for (var i = 0; i < checkboxes.length; i++) {
-                checkboxes[i].setAttribute('disabled', 'disabled');
-            }
-            location.reload();
-        }
-        document.getElementById('submit-button-4').onclick = function () {
-            document.getElementById('edit-div2').style.display = "none";
-            document.getElementById('submit-div2').style.display = "flex";
-            var classes = document.getElementsByClassName('form-control');
-            for (var i = 9; i < classes.length; i++) {
-                classes[i].removeAttribute('disabled');
-            }
-            document.getElementById('select-region').removeAttribute('disabled');
-
-        }
-        document.getElementById('submit-button-5').onclick = function () {
-            document.getElementById('edit-div2').style.display = "flex";
-            document.getElementById('submit-div2').style.display = "none";
-            var classes = document.getElementsByClassName('form-control');
-            for (var i = 9; i < classes.length; i++) {
-                classes[i].setAttribute('disabled', 'disabled');
-            }
-            document.getElementById('select-region').setAttribute('disabled', 'disabled');
-            location.reload();
-        }
-
         //dark theme
         window.onload = function checkingTheme() {
             try {

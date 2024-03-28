@@ -119,13 +119,73 @@
     {
         <a class="tabStyle textdeconone 3" asp-action="AdminProfile" asp-controller="AdminDashboard">My Profile</a>
     }
-    <a class="tabStyle textdeconone 4">Providers</a>
-    <a class="tabStyle textdeconone 5">Partners</a>
+    @* <a class="tabStyle textdeconone 4">Providers</a> *@
+    @if (Model.Tab == 4 || Model.Tab == 13 || Model.Tab == 14)
+    {
+        <div class=" 6 dropdown navbar-dropdown navbar-div active" style="padding:0px !important;background-color:transparent !important;">
+            <button class="navbar-btn dropdown-toggle navbar-button" style="color:#00ccff;font-weight:500;background-color:transparent !important;" type="button" id="access" data-bs-toggle="dropdown" aria-expanded="false">
+                Providers
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="access">
+                @if (Model.Tab == 4)
+                {
+
+                    <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="SearchRecords" asp-controller="Admin">Provider</a></li>
+                }
+                else
+                {
+                    <li><a class="navbar-dropdown-item dropdown-item" asp-action="ProviderInfo" asp-controller="Admin">Provider</a></li>
+
+                }
+                @if (Model.Tab == 13)
+                {
+
+                    <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="PatientHistory" asp-controller="Admin">Scheduling</a></li>
+                }
+                else
+                {
+                    <li><a class="navbar-dropdown-item dropdown-item" asp-action="PatientHistory" asp-controller="Admin">Scheduling</a></li>
+
+                }
+                @if (Model.Tab == 14)
+                {
+
+                    <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="PatientHistory" asp-controller="Admin">Invoicing</a></li>
+                }
+                else
+                {
+                    <li><a class="navbar-dropdown-item dropdown-item" asp-action="PatientHistory" asp-controller="Admin">Invoicing</a></li>
+
+                }
+            </ul>
+        </div>
+    }
+    else
+    {
+        <div class=" 6 dropdown navbar-dropdown navbar-div" style="padding:0px !important;background-color:transparent !important;">
+            <button class="navbar-btn dropdown-toggle navbar-button" type="button" id="accesss" data-bs-toggle="dropdown" aria-expanded="false">
+                Providers
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="accesss">
+                <li><a class="navbar-dropdown-item dropdown-item" asp-action="ProviderInfo" asp-controller="Admin">Provider</a></li>
+                <li><a class="navbar-dropdown-item dropdown-item">Scheduling</a></li>
+                <li><a class="navbar-dropdown-item dropdown-item">Invoicing</a></li>
+            </ul>
+        </div>
+    }
+    @if (Model.Tab == 5)
+    {
+        <a class="tablinks 5 active" asp-action="Vendors" asp-controller="Admin">Partners</a>
+    }
+    else
+    {
+        <a class="tablinks 5" asp-action="Vendors" asp-controller="Admin">Partners</a>
+    }
+    @* <a class="tabStyle textdeconone 5">Partners</a> *@
     <a class="tabStyle textdeconone 6">Access</a>
 
-    @* @if (Model.Tab == 7 || Model.Tab == 8 || Model.Tab == 9 || Model.Tab == 10 || Model.Tab == 11)
+    @if (Model.Tab == 7 || Model.Tab == 8 || Model.Tab == 9 || Model.Tab == 10 || Model.Tab == 11)
     {
-
         <div class="tabStyle textdeconone 7 dropdown navbar-dropdown navbar-div active" style="padding:0px !important;background-color:transparent !important;">
             <button class="navbar-btn dropdown-toggle navbar-button" style="color:#00ccff;font-weight:500;background-color:transparent !important;" type="button" id="records" data-bs-toggle="dropdown" aria-expanded="false">
                 Records
@@ -198,7 +258,7 @@
                 <li><a class="navbar-dropdown-item dropdown-item" asp-action="BlockHistory" asp-controller="AdminDashboard">Block History</a></li>
             </ul>
         </div>
-    } *@
+    }
 </div>
 <script>
     // function navbarPressed(element) {

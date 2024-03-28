@@ -1,0 +1,104 @@
+﻿body {
+    height: 100vh;
+}
+
+#main-sub-div {
+    width: 100%;
+    margin: auto;
+}
+
+.cancelButton {
+    border: 1px solid #01bbe8;
+    border-radius: 5px;
+    padding: 5px;
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white !important;
+}
+
+.saveButton {
+    border: 1px solid #01bbe8;
+    border-radius: 5px;
+    padding: 5px;
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #01bbe8 !important;
+}
+
+.cancelButtonTable {
+    border: 1px solid #01bbe8;
+    border-radius: 5px;
+    padding: 5px;
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cancelButtonText {
+    color: #01bbe8;
+}
+
+.saveButtonText {
+    color: white;
+}
+
+#main-div {
+    background-color: #f9f9f9;
+    height: 100vh;
+}
+
+.main-sub-div {
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.textdeconone {
+    text-decoration: none;
+}
+
+.search-div {
+    display: flex;
+    margin: 18px;
+    flex-wrap: wrap;
+}
+
+.search-div-sub {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgb(211, 210, 210);
+    padding: 8px;
+    border-radius: 8px;
+    padding-left: 12px;
+}
+
+.searchPatientInput {
+    border: none;
+    margin-left: 10px;
+}
+
+    .searchPatientInput:focus {
+        border: none;
+    }
+
+/*create role checkbox*/
+.menu-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 25px;
+}
+
+.menu-items {
+    display: flex;
+    flex-wrap: wrap;
+}
+@media only screen and (max-width:450px) {
+    .searchPatientInput {
+        font-size: 14px;
+    }
+}

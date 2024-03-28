@@ -1,0 +1,61 @@
+﻿@using HalloDoc.DataLayer.ViewModels;
+@model AdminDashboardTableView;
+@using static HalloDoc.EnumStatus;
+@{
+    ViewData["Title"] = "Account Access";
+}
+@section Styles {
+    <link href="~/css/accountAccess.css" rel="stylesheet" type="text/css" />
+}
+@section Scripts {
+    @{
+        // <partial name="_ValidationScriptsPartial" />
+    }
+}
+
+<div id="body">
+    <div class="shadow header-nav-container">
+        <partial name="Toast" />
+        @* <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" /> *@
+    </div>
+    <div id="main-div" class="tabcontent main-profile-div">
+        <div class="main-sub-div">
+            <div class="py-3">
+                <h3>Account Access</h3>
+            </div>
+            <div class="p-2 bg-white">
+                <div class="d-flex justify-content-end align-items-center my-2">
+                    <a asp-action="#" asp-controller="#" class="cancelButton textdeconone me-2"><span class="cancelButtonText">Create Access</span></a>
+                </div>
+                <div class="d-none d-md-block">
+                    <table class="table">
+                        <thead>
+                            <tr class="table-light htable" style="background-color: #f0f0f0 !important;">
+                                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 40%;">Name</th>
+                                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 40%;">Account Type</th>
+                                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 20%;"><span class="d-flex justify-content-center align-items-center">Actions</span></th>
+                            </tr>
+                        </thead>
+                        @* @foreach (var item in Model.requestWiseFiles)
+                        { *@
+                        <tr>
+                            <td class="bg-white">
+                                <div class="file-icon">
+                                    <span class="filename">@* @item. *@UserName</span>
+                                </div>
+                            </td>
+                            <td class="bg-white">
+                                @* @item. *@AccountTYpe
+                            </td>
+                            <td class="bg-white d-flex justify-content-center align-items-center">
+                                <a asp-action="#" asp-controller="#" class="cancelButtonTable me-2 textdeconone "><span class="cancelButtonText">Edit</span></a>
+                                <a asp-action="#" asp-controller="#" class="cancelButtonTable me-2 textdeconone"><span class="cancelButtonText">Delete</span></a>
+                            </td>
+                        </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
