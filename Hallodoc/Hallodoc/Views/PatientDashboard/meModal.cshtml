@@ -49,8 +49,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="floatingInput3" asp-for="DOB">
-                            <label for="floatingInput3">Date of Birth</label>
+                            <input type="date" class="form-control" id="dob" asp-for="DOB">
+                            <label for="dob">Date of Birth</label>
                         </div>
                     </div>
                 </div>
@@ -160,8 +160,11 @@
     </footer>
 
     <script>
-
-
+        //date validation
+        const inputDate = document.getElementById('dob');
+        const today = new Date().toISOString().split('T')[0];
+        inputDate.setAttribute('max', today);
+        //
         var btn = document.getElementById("submit-button");
 
         var span = document.getElementsByClassName("close")[0];

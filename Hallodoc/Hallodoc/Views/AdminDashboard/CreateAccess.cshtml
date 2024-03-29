@@ -21,7 +21,7 @@
     </div>
     <div id="main-div" class="tabcontent main-profile-div">
         <div class="main-sub-div">
-            <div class="d-flex justify-content-between align-items-center py-3">
+            <div class="d-flex justify-content-between align-items-center py-3 topheader">
                 <h3>Create Role</h3>
                 <div class="cancelButton mb-3 mt-3" style="width:65px;">
                     <a class="textdeconone" asp-controller="AdminDashboard" asp-action="AdminDashboard">
@@ -86,100 +86,161 @@
         </div>
     </div>
     <script>
-        // $(document).ready(function () {
-        //     //var ticked = document.getElementsByClassName('checkbox');
-        //     //for (var i = 0; i < ticked.length; i++) {
-        //     //    if (ticked[i].checked) {
-        //     //        selectedMenuItems += (selectedMenuItems ? ',' : '') + ticked[i].value;
-        //     //    }
-        //     //}
-        //     var selectedMenuItems = $('#SelectedMenuItems').val();
-        //     $('.checkbox').change(function () {
-        //         var menuId = $(this).data('menuId');
-        //         var isChecked = $(this).is(':checked');
-
-        //         // Update selectedRegion string based on checkbox state
-        //         if (isChecked) {
-        //             selectedMenuItems += (selectedMenuItems ? ',' : '') + menuId;
-        //         } else {
-        //             selectedMenuItems = selectedMenuItems.replace(new RegExp(',' + menuId + '|^' + menuId + ','), '');
-        //         }
-        //         console.log(selectedMenuItems);
-        //         $('#SelectedMenuItems').val(selectedMenuItems);
-        //     });
-        // });
-        // document.getElementById('select-account-type').addEventListener('change', function () {
-        //     var id = document.getElementById('select-account-type').value;
-        //     var menuClasses = document.getElementsByClassName('menu-items');
-        //     for (var i = 0; i < menuClasses.length; i++) {
-        //         if (menuClasses[i].id == id) {
-        //             menuClasses[i].classList.remove('hide');
-        //         } else {
-        //             menuClasses[i].classList.add('hide');
-        //         }
-        //     }
-        //     //document.getElementById(id).classList.remove()
-        // });
-
-
         $(document).ready(function () {
-            // Function to fetch menu items based on account type
-            function fetchMenuItems(accountType) {
-                $.ajax({
-                    url: '/AdminDashboard/FetchMenuItems',
-                    type: 'GET',
-                    data: { accountType: accountType },
-                    dataType: 'json',
-                    success: function (response) {
-                        var menuItemsContainer = $('#' + accountType + '-div');
-                        menuItemsContainer.empty(); // Clear existing checkboxes
-                        $.each(response, function (index, menuItem) {
-                            var checkbox = $('<input>')
-                                .attr('type', 'checkbox')
-                                .attr('data-menu-id', menuItem.MenuId)
-                                .addClass('checkbox')
-                                .val(menuItem.MenuId);
-                            var span = $('<span>').addClass('ms-2').text(menuItem.Name);
-                            var menuItemDiv = $('<div>').addClass('menu-item').append(checkbox, span);
-                            menuItemsContainer.append(menuItemDiv);
-                        });
-                    },
-                    error: function () {
-                        console.log('An error occurred while fetching menu items.');
-                    }
-                });
+            //var ticked = document.getElementsByClassName('checkbox');
+            //for (var i = 0; i < ticked.length; i++) {
+            //    if (ticked[i].checked) {
+            //        selectedMenuItems += (selectedMenuItems ? ',' : '') + ticked[i].value;
+            //    }
+            //}
+            var selectedMenuItems = $('#SelectedMenuItems').val();
+            $('.checkbox').change(function () {
+                var menuId = $(this).data('menuId');
+                var isChecked = $(this).is(':checked');
+
+                // Update selectedRegion string based on checkbox state
+                if (isChecked) {
+                    selectedMenuItems += (selectedMenuItems ? ',' : '') + menuId;
+                } else {
+                    selectedMenuItems = selectedMenuItems.replace(new RegExp(',' + menuId + '|^' + menuId + ','), '');
+                }
+                console.log(selectedMenuItems);
+                $('#SelectedMenuItems').val(selectedMenuItems);
+            });
+        });
+        document.getElementById('physicianDropdown').addEventListener('change', function () {
+            var id = document.getElementById('physicianDropdown').value;
+            var menuClasses = document.getElementsByClassName('menu-items');
+            for (var i = 0; i < menuClasses.length; i++) {
+                if (menuClasses[i].id == id) {
+                    menuClasses[i].classList.remove('hide');
+                } else {
+                    menuClasses[i].classList.add('hide');
+                }
             }
+            //document.getElementById(id).classList.remove()
+        });
+
+        //my
+        // $(document).ready(function () {
+        //     // Function to fetch menu items based on account type
+        //     function fetchMenuItems(accountType) {
+        //         $.ajax({
+        //             url: '/AdminDashboard/FetchMenuItems',
+        //             type: 'GET',
+        //             data: { accountType: accountType },
+        //             dataType: 'json',
+        //             success: function (response) {
+        //                 var menuItemsContainer = $('#' + accountType + '-div');
+        //                 menuItemsContainer.empty(); // Clear existing checkboxes
+        //                 $.each(response, function (index, menuItem) {
+        //                     var checkbox = $('<input>')
+        //                         .attr('type', 'checkbox')
+        //                         .attr('data-menu-id', menuItem.MenuId)
+        //                         .addClass('checkbox')
+        //                         .val(menuItem.MenuId);
+        //                     var span = $('<span>').addClass('ms-2').text(menuItem.Name);
+        //                     var menuItemDiv = $('<div>').addClass('menu-item').append(checkbox, span);
+        //                     menuItemsContainer.append(menuItemDiv);
+        //                 });
+        //             },
+        //             error: function () {
+        //                 console.log('An error occurred while fetching menu items.');
+        //             }
+        //         });
+        //     }
 
             // Function to show all checkboxes when no account type is selected
-            function showAllCheckboxes() {
-                $('.menu-items').each(function () {
-                    $(this).removeClass('hide');
-                });
-            }
+        //     function showAllCheckboxes() {
+        //         $('.menu-items').each(function () {
+        //             $(this).removeClass('hide');
+        //         });
+        //     }
 
-            // Event listener for account type dropdown change
-            $('#physicianDropdown').change(function () {
-                var accountType = $(this).val(); // Get selected account type
-                if (accountType === '1') {
-                    showAllCheckboxes();
-                } else {
-                    $('.menu-items').addClass('hide'); // Hide all menu item containers
-                    $('#' + accountType + '-div').removeClass('hide'); // Show menu items for selected account type
-                    fetchMenuItems(accountType); // Fetch menu items based on selected account type
-                }
-            });
+        //     // Event listener for account type dropdown change
+        //     $('#physicianDropdown').change(function () {
+        //         var accountType = $(this).val(); // Get selected account type
+        //         if (accountType === '1') {
+        //             showAllCheckboxes();
+        //         } else {
+        //             $('.menu-items').addClass('hide'); // Hide all menu item containers
+        //             $('#' + accountType + '-div').removeClass('hide'); // Show menu items for selected account type
+        //             fetchMenuItems(accountType); // Fetch menu items based on selected account type
+        //         }
+        //     });
 
-            // Event listener for checkbox change
-            $('.checkbox').change(function () {
-                var selectedMenuItems = [];
-                $('.checkbox:checked').each(function () {
-                    selectedMenuItems.push($(this).val());
-                });
-                $('#SelectedMenuItems').val(selectedMenuItems.join(',')); // Set hidden input value
-            });
+        //     // Event listener for checkbox change
+        //     $('.checkbox').change(function () {
+        //         var selectedMenuItems = [];
+        //         $('.checkbox:checked').each(function () {
+        //             selectedMenuItems.push($(this).val());
+        //         });
+        //         $('#SelectedMenuItems').val(selectedMenuItems.join(',')); // Set hidden input value
+        //     });
 
-            // Show all checkboxes initially
-            showAllCheckboxes();
-        });
+        //     // Show all checkboxes initially
+        //     showAllCheckboxes();
+        // });
+
+
+
+
+
+
+        // <script>
+        //     $(document).ready(function () {
+        //         // Function to fetch menu items based on account type
+        //         function fetchMenuItems(accountType) {
+        //             $.ajax({
+        //                 url: '/AdminDashboard/FetchMenuItems', // Change the URL to match your controller action
+        //                 type: 'GET',
+        //                 data: { accountType: accountType },
+        //                 dataType: 'json',
+        //                 success: function (response) {
+        //                     var menuItemsContainer = $('#' + accountType + '-div');
+        //                     menuItemsContainer.empty(); // Clear existing checkboxes
+        //                     $.each(response, function (index, menuItem) {
+        //                         var checkbox = $('<input>')
+        //                             .attr('type', 'checkbox')
+        //                             .attr('data-menu-id', menuItem.MenuId)
+        //                             .addClass('checkbox')
+        //                             .val(menuItem.MenuId);
+        //                         var label = $('<label>').text(menuItem.Name);
+        //                         var menuItemDiv = $('<div>').addClass('menu-item').append(checkbox, label);
+        //                         menuItemsContainer.append(menuItemDiv);
+        //                     });
+        //                 },
+        //                 error: function () {
+        //                     console.log('An error occurred while fetching menu items.');
+        //                 }
+        //             });
+        //             console.log('in first')
+        //         }
+        //         console.log('before')
+        //         // Event listener for account type dropdown change
+        //         $('#physicianDropdown').change(function () {
+        //             console.log('in here')
+        //             var accountType = $(this).val(); // Get selected account type
+        //             if (accountType !== '0') {
+        //                 $('.menu-items').addClass('hide'); // Hide all menu item containers
+        //                 $('#' + accountType + '-div').removeClass('hide'); // Show menu items for selected account type
+        //                 fetchMenuItems(accountType); // Fetch menu items based on selected account type
+        //             } else {
+        //                 $('.menu-items').removeClass('hide'); // Show all menu item containers if "All" selected
+        //             }
+        //         });
+
+        //         // Event listener for checkbox change
+        //         $('.checkbox').change(function () {
+        //             var selectedMenuItems = [];
+        //             $('.checkbox:checked').each(function () {
+        //                 selectedMenuItems.push($(this).val());
+        //             });
+        //             $('#SelectedMenuItems').val(selectedMenuItems.join(',')); // Set hidden input value
+        //         });
+        //     });
+    </script>
+
+
     </script>
 </div>

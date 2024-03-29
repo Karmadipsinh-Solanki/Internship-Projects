@@ -69,7 +69,7 @@ namespace Hallodoc.Controllers
             {
                 TempData["error"] = "File upload error";
             }
-            return RedirectToAction("ViewDocument", new { model.RequestId });
+            return RedirectToAction("ViewDoc", new {id = model.RequestId });
         }
         public IActionResult meModal()
         {

@@ -560,7 +560,8 @@ namespace HalloDoc.Controllers
         }
         public IActionResult AccountAccess()
         {
-            return View();
+            AccountAccessViewModel accountAccessViewModel = _admin.accountAccess();
+            return View(accountAccessViewModel);
         }
         public IActionResult CreateAccess()
         {

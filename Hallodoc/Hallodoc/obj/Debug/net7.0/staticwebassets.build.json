@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "J2Fb6BYp05vAhNcloDfN/eFpxKU07qZ/YRillPqKj2Y=",
+  "Hash": "01uNyG6omnQyvCRimg1cn5ZHRj774utvEx3CY9PYkgg=",
   "Source": "Hallodoc",
   "BasePath": "_content/Hallodoc",
   "Mode": "Default",
@@ -5050,6 +5050,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\doc.png"
+    },
+    {
+      "Identity": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\dropdown.png",
+      "SourceId": "Hallodoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\",
+      "BasePath": "_content/Hallodoc",
+      "RelativePath": "uploads/dropdown.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\dropdown.png"
     },
     {
       "Identity": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\exportall.png",

@@ -56,5 +56,6 @@ namespace HalloDoc.LogicLayer.Interface
 
         public CreateAccessViewModel createAccess();
         public bool createAccess(CreateAccessViewModel model);
+        public AccountAccessViewModel accountAccess();
     }
 }

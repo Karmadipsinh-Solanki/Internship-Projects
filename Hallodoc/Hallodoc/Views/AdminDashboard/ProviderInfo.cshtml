@@ -1,5 +1,5 @@
-﻿@using HalloDoc.DataLayer.ViewModels;
-@model AdminDashboardTableView;
+﻿@* @using HalloDoc.DataLayer.ViewModels;
+@model ProviderViewModel;
 @using static HalloDoc.EnumStatus;
 @{
     ViewData["Title"] = "Provider Information";
@@ -16,11 +16,11 @@
 <div id="body">
     <div class="shadow header-nav-container">
         <partial name="Toast" />
-        @* <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" /> *@
+        <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" />
     </div>
     <div id="main-div" class="tabcontent main-profile-div">
         <div class="main-sub-div">
-            <div class="py-3">
+            <div class="py-3topheader">
                 <h3>Provider Information</h3>
             </div>
             <div class="p-2 bg-white">
@@ -31,7 +31,13 @@
                                  class="bi bi-search" viewBox="0 0 16 16">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
                             </svg>
-                            <input placeholder="Search Patients" class="searchPatientInput" type="text" id="search" onkeyup="searchFilter(this)" />
+                            <select class="custom-select-5" style="border:none;background-color:white;width:100%;" id="region" onchange="filter(1,10)">
+                                <option value="-1" style="color:gray !important;"><span style="color:gray;">All Region</span></option>
+                                @foreach (var item in Model.Regions)
+                                {
+                                    <option value="@item.RegionId" style="color:gray !important;"><span style="color:gray;">@item.Name</span></option>
+                                }
+                            </select>
                         </div>
                     </div>
                     <div class="saveButton" style="width: 192px;height: 44px;">
@@ -50,31 +56,81 @@
                                 <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 20%;"><span class="d-flex justify-content-center align-items-center">Actions</span></th>
                             </tr>
                         </thead>
-                        @* @foreach (var item in Model.requestWiseFiles)*@
+                        @foreach (var item in Model.PhysicianList)
                         {
-                        <tr>
-                            <td class="bg-white"><input class="checkboxes" type="checkbox" /></td>
-                            <td class="bg-white">
-                                <span class="filename">@* @item. *@Provider name</span>
-                            </td>
-                            <td class="bg-white">
-                                @* @item. *@Role
-                            </td>
-                            <td class="bg-white">
-                                @* @item. *@On call status
-                            </td>
-                            <td class="bg-white">
-                                @* @item. *@Status
-                            </td>
-                            <td class="bg-white d-flex justify-content-center align-items-center">
-                                <a asp-action="#" asp-controller="#" class="cancelButtonTable me-2 textdeconone "><span class="cancelButtonText">Contact</span></a>
-                                <a asp-action="#" asp-controller="#" class="cancelButtonTable me-2 textdeconone "><span class="cancelButtonText">Edit</span></a>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td class="bg-white"><input class="checkboxes" type="checkbox" /></td>
+                                <td class="bg-white">
+                                    <span class="filename">@item.ProviderName</span>
+                                </td>
+                                <td class="bg-white">
+                                    @item.RoleName
+                                </td>
+                                <td class="bg-white">
+                                    @item.OnCallStatus
+                                </td>
+                                <td class="bg-white">
+                                    @Enum.GetName(typeof(Status), @item.Status)
+                                </td>
+                                <td class="bg-white d-flex justify-content-center align-items-center">
+                                    <a asp-action="PatientRecord" asp-controller="AdminDashboard" asp-route-id="@item.PhysicianId" class="cancelButtonTable me-2 textdeconone "><span class="cancelButtonText">Contact</span></a>
+                                    <a asp-action="PatientRecord" asp-controller="AdminDashboard" asp-route-id="@item.PhysicianId" class="cancelButtonTable me-2 textdeconone "><span class="cancelButtonText">Edit</span></a>
+                                </td>
+                            </tr>
                         }
                     </table>
+                </div>
+                <div class="d-none d-md-block">
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        @foreach (var item in Model.PhysicianList)
+                        {
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="flush-heading@(item.PhysicianId)">
+                                    <button class="accordion-button collapsed main-accordion-div" style="background-color:#E5F2F8 !important;" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapse@(item.PhysicianId)" aria-expanded="false"
+                                            aria-controls="flush-collapse">
+                                        <div class="main-accordion-sub-div">
+                                            <span style="color:black;font-size:15px;"><input class="checkboxes" checked="@item.Notification" type="checkbox" style="height: 18px;width: 18px;margin-right:7px;" value="@item.Notification" /> @item.ProviderName</span>
+                                            <span class="accordian-item-text" style="margin-top:20px;">Email: <span class="accordian-item-text2">@item.OnCallStatus</span></span>
+                                        </div>
+                                    </button>
+                                </h2>
+                                <div id="flush-collapse@(item.PhysicianId)" class="accordion-collapse collapse"
+                                     aria-labelledby="flush-heading@(item.PhysicianId)" data-bs-parent="#accordionFlushExample"
+                                     style="position: relative;">
+                                    <div class="accordion-body accordion-main-body" style="background-color:#E5F2F8 !important;">
+                                        <div class="accordian-items">
+                                            <div class="accordion-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="14" height="14" fill="#00ccff" class="bi bi-person-plus" viewBox="0 0 16 16">
+                                                    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                                                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                                                </svg>
+                                            </div>
+                                            <span class="accordian-item-text">Role: <span class="accordian-item-text2">@item?.RoleName</span></span>
+                                        </div>
+                                        <div class="accordian-items">
+                                            <div class="accordion-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00ccff" class="bi bi-check" viewBox="0 0 16 16">
+                                                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
+                                                </svg>
+                                            </div>
+                                            <span class="accordian-item-text">Status: <span class="accordian-item-text2">@Enum.GetName(typeof(Status), @item.Status)</span></span>
+                                        </div>
+                                        <div class="accordion-btns">
+                                            <a class="link2" style="margin-right:10px;" asp-action="PatientRecord" asp-controller="Admin" asp-route-id="@item.PhysicianId">
+                                                <span>Contact</span>
+                                            </a>
+                                            <a class="link2" asp-action="PatientRecord" asp-controller="Admin" asp-route-id="@item.PhysicianId">
+                                                <span>Edit</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</div> *@

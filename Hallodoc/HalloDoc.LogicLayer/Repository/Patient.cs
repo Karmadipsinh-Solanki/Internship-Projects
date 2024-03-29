@@ -55,14 +55,11 @@ namespace HalloDoc.LogicLayer.Repository
             var request2 = _httpContextAccessor.HttpContext.Request;
             var token = request2.Cookies["jwt"];
             CookieModel cookieModel = _jwtService.getDetails(token);
-            //int id = cookieModel.userId;
+            int id2 = cookieModel.userId;
 
             var request = _context.Requests.Include(r => r.RequestClient).FirstOrDefault(u => u.RequestId == id);
-            //var request = _viewDoc.ListOfIncludeAdminPhysicianToReq(id);
             var documents = _context.RequestWiseFiles.Include(u => u.Admin).Include(u => u.Physician).Where(u => u.RequestId == id).ToList();
-            //var documents = _viewDoc.ListOfIncludeAdminPhysicianToReqwisefile(id);
-            var user = _context.Users.FirstOrDefault(u => u.UserId == id);
-            //var user = _viewDoc.UserIdFromUser((int)user_id);
+            var user = _context.Users.FirstOrDefault(u => u.UserId == id2);
             ViewDocumentModel viewDocumentModel = new ViewDocumentModel();
             viewDocumentModel.patient_name = string.Concat(request.RequestClient.FirstName, ' ', request.RequestClient.LastName);
             viewDocumentModel.name = string.Concat(user.FirstName, ' ', user.LastName);

@@ -271,12 +271,12 @@
 }
 
 .tab {
-    overflow: hidden;
+    /*overflow: hidden;*/
     /*border-bottom: 3px solid #ededed;*/
     background-color: white;
     margin-top: 2px;
     padding-left: 30px;
-    margin-top: 90px;
+    margin-top: 64px;
     padding: 12px;
     padding-left: 20px;
     border-top: 1px solid rgb(180, 180, 180);
@@ -284,7 +284,7 @@
 }
 
 .tab-2 {
-    overflow: hidden;
+    /*overflow: hidden;*/
     border-bottom: 3px solid #ededed;
     margin-top: 100px;
     display: flex;
@@ -804,7 +804,7 @@ table.dataTable thead th, table.dataTable tfoot th {
 }
 /*action dropdown css*/
 .dropdown {
-    display: flex;
+    display: flex!important;
     justify-content: center;
     align-items: center;
     position: relative;
@@ -814,6 +814,9 @@ table.dataTable thead th, table.dataTable tfoot th {
     text-decoration: none;
     height: 40px !important;
     width: 80px;
+}
+.navbar-div {
+    height: 100%;
 }
 
 .dropdown-content {
@@ -1147,6 +1150,20 @@ table.dataTable thead th, table.dataTable tfoot th {
 .firstdiv {
     margin-top: 82px;
 }
+
+.dark-mode {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+    .dark-mode .navbar {
+        background-color: #1a1a1a !important;
+        color: #ffffff !important;
+    }
+
+    .dark-mode .nav-link.text-muted {
+        color: white !important;
+    }
 /*encounter form*/
 /*.custom-input {
     box-shadow: none !important;*/ /* remove Bootstrap shadow */
@@ -1265,6 +1282,9 @@ table.dataTable thead th, table.dataTable tfoot th {
 
     .main-tabs {
         padding-top: 0px;
+    }
+    .topheader{
+        margin-top:75px!important;
     }
 }
 

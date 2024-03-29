@@ -205,6 +205,10 @@
     </div>
 
     <script>
+        //date validation
+        const inputDate = document.getElementById('dob');
+        const today = new Date().toISOString().split('T')[0];
+        inputDate.setAttribute('max', today);
         //there are 2 submit so putting click event listner on close case to submit form
         document.getElementById("close-case-button").addEventListener("click", function (event) {
             event.preventDefault(); // prevent the button from submitting the form the default way

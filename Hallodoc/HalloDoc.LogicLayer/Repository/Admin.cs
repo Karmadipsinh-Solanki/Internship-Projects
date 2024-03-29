@@ -1784,11 +1784,12 @@ namespace HalloDoc.LogicLayer.Repository
             CookieModel cookieModel = _jwtService.getDetails(token);
             Role role = new Role();
             role.CreatedBy = cookieModel.name;
+
             BitArray check = new BitArray(1);
             check.Set(0, false);
             role.IsDeleted = check;
             role.CreatedDate = DateTime.Now;
-            role.AccountType = (short)(model.AccountType == "admin-div" ? 2 : 1);
+            role.AccountType = (short)(model.AccountType == "admin-div" ? 1 : 2);
             role.Name = model.RoleName;
             _context.Roles.Add(role);
             _context.SaveChanges();
@@ -1824,6 +1825,40 @@ namespace HalloDoc.LogicLayer.Repository
             createAccessViewModel.adminNavbarViewModel = adminNavbarViewModel;
             createAccessViewModel.Query = menu;
             return createAccessViewModel;
+        }
+        public AccountAccessViewModel accountAccess()
+        {
+            BitArray check = new BitArray(1);
+            check.Set(0, false);
+            List<Role> role = _context.Roles.Where(i => i.IsDeleted == check).ToList();
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 6;
+            AccountAccessViewModel accountAccessViewModel = new AccountAccessViewModel();
+            accountAccessViewModel.Query = role;
+            accountAccessViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            return accountAccessViewModel;
+        }
+        public ProviderViewModel providerInfo()
+        {
+            ProviderViewModel providerViewModel = new ProviderViewModel();
+            List<Physician> PhysicianList = _context.Physicians.ToList();
+
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 4;
+            providerViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            providerViewModel.PhysicianList = PhysicianList;
+            return providerViewModel;
         }
     }
 }

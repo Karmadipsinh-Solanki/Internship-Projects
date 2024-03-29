@@ -64,8 +64,8 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="date" class="form-control custom-input" id="DOB" placeholder="Date Of Birth" asp-for="DOB" disabled>
-                                    <label for="DOB">Date Of Birth</label>
+                                    <input type="date" class="form-control custom-input" id="dob" placeholder="Date Of Birth" asp-for="DOB" disabled>
+                                    <label for="dob">Date Of Birth</label>
                                     <span asp-validation-for="DOB" class="text-danger"></span>
                                 </div>
                             </div>
@@ -323,6 +323,13 @@
         </div>
     </div>
     <script>
+        //date validation
+        const inputDate = document.getElementById('dob');
+        const today = new Date().toISOString().split('T')[0];
+        inputDate.setAttribute('max', today);
+        const inputDate = document.getElementById('Date');
+        const today = new Date().toISOString().split('T')[0];
+        inputDate.setAttribute('max', today);
         //for creating countrywise phone format
         const phoneInputField = document.querySelector("#phone");
         const phoneInput = window.intlTelInput(phoneInputField, {

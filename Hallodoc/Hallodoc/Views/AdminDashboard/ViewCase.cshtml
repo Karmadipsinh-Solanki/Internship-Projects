@@ -350,6 +350,10 @@
         </div>
     </div>
     <script>
+        //date validation
+        const inputDate = document.getElementById('dob');
+        const today = new Date().toISOString().split('T')[0];
+        inputDate.setAttribute('max', today);
         //assigncase//for assigncase action
         $(document).ready(function () {
             $.ajax({

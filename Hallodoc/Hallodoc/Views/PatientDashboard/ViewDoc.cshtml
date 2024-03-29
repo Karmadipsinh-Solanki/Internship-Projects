@@ -35,9 +35,10 @@
         <div class="mb-3">
             <span class="text-secondary">Check here for any files that you or the doctors of your subsequents requestors have attached for you to review.</span>
         </div>
-        <form asp-route-id=@Model.RequestId asp-controller="PatientDashboard" asp-action="viewDoc" method="post" enctype="multipart/form-data">
+        <form asp-route-id="@Model.RequestId" asp-controller="PatientDashboard" asp-action="viewDoc" method="post" enctype="multipart/form-data">
             <div class="upload mb-3">
                 <input type="file" class="inputUpload" placeholder="Select File" asp-for=@Model.File>
+                <input type="hidden" asp-for="@Model.RequestId">
                 <button class="uploadButton" type="submit" id="choose-file-button">
                     <img src="~/SRS Screen Shorts/cloud-upload-icon.svg" style="color:#0dcaf0">
                     <span class="textback" style="color:white;">Upload</span>

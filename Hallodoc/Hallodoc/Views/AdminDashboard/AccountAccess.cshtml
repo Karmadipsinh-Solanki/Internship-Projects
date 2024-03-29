@@ -1,59 +1,112 @@
-﻿@using HalloDoc.DataLayer.ViewModels;
-@model AdminDashboardTableView;
-@using static HalloDoc.EnumStatus;
+﻿@using HalloDoc.DataLayer.ViewModels.AdminViewModels;
+@model AccountAccessViewModel;
 @{
     ViewData["Title"] = "Account Access";
 }
 @section Styles {
+    <link href="~/css/AdminDashboardStyle.css" rel="stylesheet" type="text/css" />
     <link href="~/css/accountAccess.css" rel="stylesheet" type="text/css" />
 }
 @section Scripts {
     @{
-        // <partial name="_ValidationScriptsPartial" />
+        <partial name="_ValidationScriptsPartial" />
     }
 }
 
 <div id="body">
     <div class="shadow header-nav-container">
         <partial name="Toast" />
-        @* <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" /> *@
+        <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" />
     </div>
     <div id="main-div" class="tabcontent main-profile-div">
         <div class="main-sub-div">
-            <div class="py-3">
+            <div class="py-3 topheader">
                 <h3>Account Access</h3>
             </div>
             <div class="p-2 bg-white">
-                <div class="d-flex justify-content-end align-items-center my-2">
-                    <a asp-action="#" asp-controller="#" class="cancelButton textdeconone me-2"><span class="cancelButtonText">Create Access</span></a>
-                </div>
                 <div class="d-none d-md-block">
-                    <table class="table">
-                        <thead>
-                            <tr class="table-light htable" style="background-color: #f0f0f0 !important;">
-                                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 40%;">Name</th>
-                                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 40%;">Account Type</th>
-                                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 20%;"><span class="d-flex justify-content-center align-items-center">Actions</span></th>
-                            </tr>
-                        </thead>
-                        @* @foreach (var item in Model.requestWiseFiles)
-                        { *@
-                        <tr>
-                            <td class="bg-white">
-                                <div class="file-icon">
-                                    <span class="filename">@* @item. *@UserName</span>
+                    <div class="d-flex justify-content-end align-items-center my-2">
+                        <a asp-action="CreateAccess" asp-controller="AdminDashboard" class="cancelButton textdeconone me-2" style="width:120px;"><span class="cancelButtonText">Create Access</span></a>
+                    </div>
+                    @if (Model.Query.Count != 0)
+                    {
+                        <table class="table">
+                            <thead>
+                                <tr class="table-light htable" style="background-color: #f0f0f0 !important;">
+                                    <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 40%;">Name</th>
+                                    <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 40%;">Account Type</th>
+                                    <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 20%;"><span class="d-flex justify-content-center align-items-center">Actions</span></th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model.Query)
+                            {
+                                <tr>
+                                    <td class="bg-white">
+                                        <div class="file-icon">
+                                            <span class="filename">@item.Name</span>
+                                        </div>
+                                    </td>
+                                    @if (item.AccountType == 1)
+                                    {
+                                        <td class="bg-white">Admin</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="bg-white">Provider</td>
+                                    }
+                                    <td class="bg-white d-flex justify-content-center align-items-center">
+                                        <a asp-action="EditAccess" asp-controller="AdminDashboard" class="cancelButtonTable me-2 textdeconone "><span class="cancelButtonText">Edit</span></a>
+                                        <a asp-action="DeleteAccess" asp-controller="AdminDashboard" class="cancelButtonTable me-2 textdeconone" style="width:60px;"><span class="cancelButtonText">Delete</span></a>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    }
+                    else
+                    {
+                        <span style="margin-top:60px;align-self:center;">There is no roles, please create role.</span>
+                    }
+                </div>
+                <div class="d-block d-md-none">
+                    <div class="d-flex justify-content-end align-items-center my-2">
+                        <a asp-action="CreateAccess" asp-controller="AdminDashboard" class="cancelButton textdeconone me-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00bce7" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                            </svg>
+                        </a>
+                    </div>
+                    <hr />
+                    @if (Model.Query.Count != 0)
+                    {
+                        <div class="p-2">
+                            @foreach (var item in Model.Query)
+                            {
+                                <div class="mb-2">
+                                    <span class="me-1">Name:</span>
+                                    <span>@item.Name</span>
                                 </div>
-                            </td>
-                            <td class="bg-white">
-                                @* @item. *@AccountTYpe
-                            </td>
-                            <td class="bg-white d-flex justify-content-center align-items-center">
-                                <a asp-action="#" asp-controller="#" class="cancelButtonTable me-2 textdeconone "><span class="cancelButtonText">Edit</span></a>
-                                <a asp-action="#" asp-controller="#" class="cancelButtonTable me-2 textdeconone"><span class="cancelButtonText">Delete</span></a>
-                            </td>
-                        </tr>
-                        }
-                    </table>
+                                @if (item.AccountType == 1)
+                                {
+                                    <div class="mb-2">
+                                        <span class="me-1">Account Type:</span>
+                                        <span>Admin</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="mb-2">
+                                        <span class="me-1">Account Type:</span>
+                                        <span>Provider</span>
+                                    </div>
+                                }
+                                <div class="d-flex">
+                                    <a asp-action="EditAccess" asp-controller="AdminDashboard" class="cancelButtonTable me-2 textdeconone " style="width:40px;"><span class="cancelButtonText">Edit</span></a>
+                                    <a asp-action="DeleteAccess" asp-controller="AdminDashboard" class="cancelButtonTable me-2 textdeconone" style="width:60px;"><span class="cancelButtonText">Delete</span></a>
+                                </div>
+                                <hr />
+                            }
+                        </div>
+                    }
                 </div>
             </div>
         </div>

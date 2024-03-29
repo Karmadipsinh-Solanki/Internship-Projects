@@ -73,9 +73,9 @@ namespace Hallodoc.Controllers
             }
         }
         [HttpPost]
-        public IActionResult createConceirgeRequest(RequestViewModelConcierge model)
+        public IActionResult createConciergeRequest(RequestViewModelConcierge model)
         {
-            int check = _createReq.createConceirgeRequest(model);
+            int check = _createReq.createConciergeRequest(model);
             if (check == 0)
             {
                 ModelState.AddModelError("State", "Currently we are not serving in this region");

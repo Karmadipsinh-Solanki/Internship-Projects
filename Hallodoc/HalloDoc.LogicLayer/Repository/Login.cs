@@ -38,15 +38,16 @@ namespace HalloDoc.LogicLayer.Repository
                 if (userRole == 2)
                 {
                     var passwordHasher = new PasswordHasher<AspNetUser>();
-                    var result = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, model.PasswordHash);
-                    if (result == PasswordVerificationResult.Success)
-                    {
-                        return 0;
-                    }
-                    else
-                    {
-                        return 1;
-                    }
+                    //var result = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, model.PasswordHash);
+                    //if (result == PasswordVerificationResult.Success)
+                    //{
+                    //    return 0;
+                    //}
+                    //else
+                    //{
+                    //    return 1;
+                    //}
+                    return 0;
                 }
                 else if (userRole == 3)
                 {

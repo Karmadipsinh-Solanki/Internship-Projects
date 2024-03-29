@@ -52,6 +52,7 @@ namespace HalloDoc.LogicLayer.Repository
             RequestStatusLog requestStatusLog = new RequestStatusLog();
             Concierge concierge = new Concierge();
             RequestConcierge requestConcierge = new RequestConcierge();
+            AspNetUserRole aspNetUserRole = new AspNetUserRole();
 
             //to add one more state,that is to show that we dont give service in particular region
             var region = _context.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
@@ -116,6 +117,11 @@ namespace HalloDoc.LogicLayer.Repository
                 user.CreatedDate = DateTime.Now;
                 _context.Users.Add(user);
                 _context.SaveChanges();
+
+                aspNetUserRole.UserId = aspNetUser.Id;
+                aspNetUserRole.RoleId = 2;
+                _context.AspNetUserRoles.Add(aspNetUserRole);
+                _context.SaveChanges();
             }
 
             requestClient.FirstName = model.FirstName;
@@ -179,7 +185,7 @@ namespace HalloDoc.LogicLayer.Repository
             _context.SaveChanges();
             return 2;
         }
-        public int createConceirgeRequest(RequestViewModelConcierge model)
+        public int createConciergeRequest(RequestViewModelConcierge model)
         {
             AspNetUser aspNetUser = new AspNetUser();
             User user = new User();
@@ -189,6 +195,7 @@ namespace HalloDoc.LogicLayer.Repository
             RequestStatusLog requestStatusLog = new RequestStatusLog();
             Concierge concierge = new Concierge();
             RequestConcierge requestConcierge = new RequestConcierge();
+            AspNetUserRole aspNetUserRole = new AspNetUserRole();
 
             var region = _context.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
             if (region == null)
@@ -230,6 +237,11 @@ namespace HalloDoc.LogicLayer.Repository
                 user.CreatedBy = aspNetUser.Id;
                 user.CreatedDate = DateTime.Now;
                 _context.Users.Add(user);
+                _context.SaveChanges();
+
+                aspNetUserRole.UserId = aspNetUser.Id;
+                aspNetUserRole.RoleId = 2;
+                _context.AspNetUserRoles.Add(aspNetUserRole);
                 _context.SaveChanges();
 
                 var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
@@ -341,6 +353,7 @@ namespace HalloDoc.LogicLayer.Repository
             RequestStatusLog requestStatusLog = new RequestStatusLog();
             Business business = new Business();
             RequestBusiness requestBusiness = new RequestBusiness();
+            AspNetUserRole aspNetUserRole = new AspNetUserRole();
 
 
             var region = _context.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
@@ -382,6 +395,11 @@ namespace HalloDoc.LogicLayer.Repository
                 user.CreatedBy = aspNetUser.Id;
                 user.CreatedDate = DateTime.Now;
                 _context.Users.Add(user);
+                _context.SaveChanges();
+
+                aspNetUserRole.UserId = aspNetUser.Id;
+                aspNetUserRole.RoleId = 2;
+                _context.AspNetUserRoles.Add(aspNetUserRole);
                 _context.SaveChanges();
 
 
@@ -491,6 +509,7 @@ namespace HalloDoc.LogicLayer.Repository
             RequestClient requestClient = new RequestClient();
             RequestWiseFile requestWiseFile = new RequestWiseFile();
             RequestStatusLog requestStatusLog = new RequestStatusLog();
+            AspNetUserRole aspNetUserRole = new AspNetUserRole();
 
             var region = _context.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
             if (region == null)
@@ -544,6 +563,10 @@ namespace HalloDoc.LogicLayer.Repository
                 _context.Users.Add(user);
                 _context.SaveChanges();
 
+                aspNetUserRole.UserId = aspNetUser.Id;
+                aspNetUserRole.RoleId = 2;
+                _context.AspNetUserRoles.Add(aspNetUserRole);
+                _context.SaveChanges();
 
                 var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
                 {

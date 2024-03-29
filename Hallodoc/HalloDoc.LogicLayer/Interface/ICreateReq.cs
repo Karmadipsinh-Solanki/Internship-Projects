@@ -13,7 +13,7 @@ namespace HalloDoc.LogicLayer.Interface
     {
         public bool createPassword(CreatePasswordViewModel model);
         public int createPatientRequest(RequestViewModelPatient model);
-        public int createConceirgeRequest(RequestViewModelConcierge model);
+        public int createConciergeRequest(RequestViewModelConcierge model);
         public int createBusinessRequest(RequestViewModelBusiness model);
         public int createFamilyRequest(RequestViewModelFamily model);
         public AspNetUser patientCheck(string email);

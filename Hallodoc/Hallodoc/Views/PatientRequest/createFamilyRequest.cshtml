@@ -159,8 +159,8 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <input type="date" class="form-control" id="floatingInput7" asp-for="DOB">
-                        <label for="floatingInput7">Date of Birth</label>
+                        <input type="date" class="form-control" id="dob" asp-for="DOB">
+                        <label for="dob">Date of Birth</label>
                     </div>
                     <span asp-validation-for="DOB" class="text-danger"></span>
                 </div>
@@ -269,6 +269,10 @@
 </footer>
 
 <script>
+    //date validation
+    const inputDate = document.getElementById('dob');
+    const today = new Date().toISOString().split('T')[0];
+    inputDate.setAttribute('max', today);
     //for showing modal
     $(document).ready(function () {
         $('#myModal').modal('show');
