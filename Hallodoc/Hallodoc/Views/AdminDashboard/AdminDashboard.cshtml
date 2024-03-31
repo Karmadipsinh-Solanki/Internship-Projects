@@ -190,15 +190,15 @@
                                      class="bi bi-search" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
                                 </svg>
-                                <input placeholder="Search Patients" class="searchPatientInput" type="text" id="search" onkeyup="searchFilter(this)" />
+                                <input placeholder="Search Patients" class="searchPatientInput" type="text" id="search" onkeyup="filter(1,10)" />
                             </div>
                             <div class="search-div-sub-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray"
                                      class="bi bi-search" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
                                 </svg>
-                                <input placeholder="All Regions" type="text" class="searchPatientInput" id="region" />
-                                <select class="searchPatientInput" id="region" onkeyup="searchFilter(this)" style="width: 100%;height: 54px;padding:8px;border:none;">
+                                @* <input placeholder="All Regions" type="text" class="searchPatientInput" id="region" /> *@
+                                <select class="searchPatientInput" id="region" onchange="filter(1,10)" style="width: 100%;height: 54px;padding:8px;border:none;">
                                     <option value="0" selected hidden><span>All Region</span></option>
                                     @foreach (var item in Model.regions)
                                     {
@@ -877,6 +877,37 @@
             }
         }
 
+        //filter function 
+        function filter(page, pageSize) {
+            var categories = document.getElementsByClassName("req-filter");
+            for (var i = 0; i < categories.length; i++) {
+                if (categories[i].classList.length == 3) {
+                    var search = document.getElementById('search').value;
+                    var region = document.getElementById('region').value;
+                    var requestor = categories[i].classList[1];
+
+                    console.log(region)
+                    console.log(requestor)
+
+
+                    $.ajax({
+                        url: `/AdminDashboard/${document.getElementById("status-text").innerHTML.substring(1, document.getElementById("status-text").innerHTML.length - 1)}`,
+                        type: 'POST',
+                        dataType: 'html',
+                        data: { search: search, requestor: requestor, region: region, page: page, pageSize: pageSize },
+                        // Pass your data here
+                        success: function (response) {
+                            console.log(response);
+                            $("#AdminDashboardPartialView").html(response);
+                        },
+                        error: function () {
+                            alert('An error occurred.');
+                        }
+                    });
+                }
+            }
+        }
+
         const test = (element) => {
             console.log(element.value)
         }
@@ -926,26 +957,27 @@
             // Add the active class to the clicked element
             element.classList.add('filter-active');
 
+            filter(1,10)
 
             //?????
-            // document.getElementById("partial-container").style.display = "none";
-            // document.getElementsByClassName("loader-container")[0].style.display = "flex";
-            console.log(`/AdminDashboard/${document.getElementById("status-text").innerHTML.substring(1, document.getElementById("status-text").innerHTML.length - 1)}`)
-            $.ajax({
-                url: `/AdminDashboard/${document.getElementById("status-text").innerHTML.substring(1, document.getElementById("status-text").innerHTML.length - 1)}`,
-                type: 'POST',
-                dataType: 'html',
-                data: { requestor: current_state, search: document.getElementById("search").value, region: document.getElementById("region").value },
-                // Pass your data here
-                success: function (response) {
-                    // document.getElementsByClassName("loader-container")[0].style.display = "none";
-                    // document.getElementById("partial-container").style.display = "block";
-                    $("#AdminDashboardPartialView").html(response)
-                },
-                error: function () {
-                    alert('An error occurred.');
-                }
-            });
+            // // document.getElementById("partial-container").style.display = "none";
+            // // document.getElementsByClassName("loader-container")[0].style.display = "flex";
+            // console.log(`/AdminDashboard/${document.getElementById("status-text").innerHTML.substring(1, document.getElementById("status-text").innerHTML.length - 1)}`)
+            // $.ajax({
+            //     url: `/AdminDashboard/${document.getElementById("status-text").innerHTML.substring(1, document.getElementById("status-text").innerHTML.length - 1)}`,
+            //     type: 'POST',
+            //     dataType: 'html',
+            //     data: { requestor: current_state, search: document.getElementById("search").value, region: document.getElementById("region").value },
+            //     // Pass your data here
+            //     success: function (response) {
+            //         // document.getElementsByClassName("loader-container")[0].style.display = "none";
+            //         // document.getElementById("partial-container").style.display = "block";
+            //         $("#AdminDashboardPartialView").html(response)
+            //     },
+            //     error: function () {
+            //         alert('An error occurred.');
+            //     }
+            // });
         }
 
         //?????

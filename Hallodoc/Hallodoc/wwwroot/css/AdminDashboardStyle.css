@@ -1164,6 +1164,9 @@ table.dataTable thead th, table.dataTable tfoot th {
     .dark-mode .nav-link.text-muted {
         color: white !important;
     }
+.pointer{
+    cursor:pointer;
+}
 /*encounter form*/
 /*.custom-input {
     box-shadow: none !important;*/ /* remove Bootstrap shadow */

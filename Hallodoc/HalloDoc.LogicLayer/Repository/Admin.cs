@@ -45,7 +45,7 @@ namespace HalloDoc.LogicLayer.Repository
 
         //}
 
-        public AdminDashboardTableView adminDashboard(string status, string? search, int? region, string? requestor)
+        public AdminDashboardTableView adminDashboard(string status, string? search, int? region, string? requestor, int page = 1, int pageSize = 10)
         {
 
             Expression<Func<Request, bool>> exp;
@@ -86,7 +86,7 @@ namespace HalloDoc.LogicLayer.Repository
 
             if (search != null)
             {
-                query = query.Where(r => r.RequestClient.FirstName.Contains(search) || r.RequestClient.LastName.Contains(search));
+                query = query.Where(r => r.RequestClient.FirstName.ToLower().Contains(search.ToLower()) || r.RequestClient.LastName.ToLower().Contains(search.ToLower()));
             }
 
             if (requestor == "Family")
@@ -108,7 +108,7 @@ namespace HalloDoc.LogicLayer.Repository
             {
                 query = query.Where(r => r.RequestTypeId == 1);
             }
-            if (region != null && region != -1)
+            if (region != null && region != 0)
             {
                 query = query.Where(r => r.RequestClient.RegionId == region);
 
@@ -131,10 +131,14 @@ namespace HalloDoc.LogicLayer.Repository
                 toclose_count = count_toclose,
                 unpaid_count = count_unpaid,
                 query_requests = query,
-                requests = query.ToList(),
+                requests = query.Skip((page - 1) * pageSize).Take(pageSize).ToList(),
                 regions = regions,
                 status = status,
-                adminNavbarViewModel = adminNavbarViewModel
+                adminNavbarViewModel = adminNavbarViewModel,
+                TotalItems = query.Count(),
+                TotalPages = (int)Math.Ceiling((double)query.Count() / pageSize),
+                PageSize = pageSize,
+                CurrentPage = page
             };
             return adminDashboardViewModel;
         }
@@ -989,8 +993,10 @@ namespace HalloDoc.LogicLayer.Repository
         {
             //to save file in wwwroot,that is uploaded by patient
             //token
+            BitArray check = new BitArray(1);
+            check.Set(0, false);
             var request = _context.Requests.Include(r => r.RequestClient).FirstOrDefault(u => u.RequestId == id);
-            var documents = _context.RequestWiseFiles.Include(u => u.Admin).Include(u => u.Physician).Where(u => u.RequestId == id).ToList();
+            var documents = _context.RequestWiseFiles.Include(u => u.Admin).Include(u => u.Physician).Where(u => u.RequestId == id && u.IsDeleted == check).ToList();
             var user = _context.Users.FirstOrDefault(u => u.UserId == request.UserId);
             var request2 = _httpContextAccessor.HttpContext.Request;
             var token = request2.Cookies["jwt"];
@@ -1019,10 +1025,13 @@ namespace HalloDoc.LogicLayer.Repository
                     model.File.CopyTo(stream);
                 }
                 RequestWiseFile requestWiseFile = new RequestWiseFile();
+                BitArray check = new BitArray(1);
+                check.Set(0, false);
                 requestWiseFile.RequestId = (int)model?.RequestId;
                 //IformFile has a property that to store filepath u need to add .filename behind it to store path
                 //requestWiseFile.AdminId = 1;
                 requestWiseFile.FileName = model.File.FileName;
+                requestWiseFile.IsDeleted = check;
                 requestWiseFile.CreatedDate = DateTime.Now;
                 _context.RequestWiseFiles.Add(requestWiseFile);
                 _context.SaveChanges();

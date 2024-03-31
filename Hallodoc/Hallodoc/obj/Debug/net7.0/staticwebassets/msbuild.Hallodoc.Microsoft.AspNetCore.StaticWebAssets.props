@@ -2752,102 +2752,6 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Close case\Close case_mobile.png))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Create request - Admin - Provider\Create Request_Admin_mobile.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>Hallodoc</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Hallodoc</BasePath>
-      <RelativePath>SRS Screen Shorts/Hallo Doc - Mobile - Screenshots/Admin-Provider Site/Create request - Admin - Provider/Create Request_Admin_mobile.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Create request - Admin - Provider\Create Request_Admin_mobile.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Create request - Admin - Provider\Create request_Provider_mobile.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>Hallodoc</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Hallodoc</BasePath>
-      <RelativePath>SRS Screen Shorts/Hallo Doc - Mobile - Screenshots/Admin-Provider Site/Create request - Admin - Provider/Create request_Provider_mobile.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Create request - Admin - Provider\Create request_Provider_mobile.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Create-Update Role\Create role -all_mobile.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>Hallodoc</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Hallodoc</BasePath>
-      <RelativePath>SRS Screen Shorts/Hallo Doc - Mobile - Screenshots/Admin-Provider Site/Create-Update Role/Create role -all_mobile.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Create-Update Role\Create role -all_mobile.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Create-Update Role\Create Role-Admin_mobile.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>Hallodoc</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Hallodoc</BasePath>
-      <RelativePath>SRS Screen Shorts/Hallo Doc - Mobile - Screenshots/Admin-Provider Site/Create-Update Role/Create Role-Admin_mobile.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Create-Update Role\Create Role-Admin_mobile.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Create-Update Role\Create Role-Patient_mobile.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>Hallodoc</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Hallodoc</BasePath>
-      <RelativePath>SRS Screen Shorts/Hallo Doc - Mobile - Screenshots/Admin-Provider Site/Create-Update Role/Create Role-Patient_mobile.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Create-Update Role\Create Role-Patient_mobile.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Create-Update Role\Create Role-Physician_mobile.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>Hallodoc</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Hallodoc</BasePath>
-      <RelativePath>SRS Screen Shorts/Hallo Doc - Mobile - Screenshots/Admin-Provider Site/Create-Update Role/Create Role-Physician_mobile.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Create-Update Role\Create Role-Physician_mobile.png))</OriginalItemSpec>
-    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Dashboard\Dashboard_mobile_active_1.png))">
       <SourceType>Package</SourceType>
       <SourceId>Hallodoc</SourceId>
@@ -3184,22 +3088,6 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Dashboard\Physician_Dashboard_Pending_2.png))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Edit Physician Account\Edit Provider_mobile.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>Hallodoc</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Hallodoc</BasePath>
-      <RelativePath>SRS Screen Shorts/Hallo Doc - Mobile - Screenshots/Admin-Provider Site/Edit Physician Account/Edit Provider_mobile.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Edit Physician Account\Edit Provider_mobile.png))</OriginalItemSpec>
-    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\My Profile\my profile_admin_mobile.png))">
       <SourceType>Package</SourceType>
       <SourceId>Hallodoc</SourceId>
@@ -3295,22 +3183,6 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Physician_menus_mobile.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Provider location\Provider Location_mobile.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>Hallodoc</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Hallodoc</BasePath>
-      <RelativePath>SRS Screen Shorts/Hallo Doc - Mobile - Screenshots/Admin-Provider Site/Provider location/Provider Location_mobile.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Provider location\Provider Location_mobile.png))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Admin-Provider Site\Provider on call\provider on call_mobile.png))">
       <SourceType>Package</SourceType>
@@ -3663,22 +3535,6 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Patient Site\Create Request\Create Concirge Request_mobile.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Patient Site\Create Request\Create Family-friend Request_mobile.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>Hallodoc</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Hallodoc</BasePath>
-      <RelativePath>SRS Screen Shorts/Hallo Doc - Mobile - Screenshots/Patient Site/Create Request/Create Family-friend Request_mobile.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Patient Site\Create Request\Create Family-friend Request_mobile.png))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\SRS Screen Shorts\Hallo Doc - Mobile - Screenshots\Patient Site\Create Request\Create Patient Request_mobile.png))">
       <SourceType>Package</SourceType>
@@ -4208,6 +4064,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\attenadance.png))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\data (1).sql))">
+      <SourceType>Package</SourceType>
+      <SourceId>Hallodoc</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Hallodoc</BasePath>
+      <RelativePath>uploads/data (1).sql</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\data (1).sql))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\doc.png))">
       <SourceType>Package</SourceType>
       <SourceId>Hallodoc</SourceId>
@@ -4320,6 +4192,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\net-Whole-Plane-2024.pdf))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\new_data.json))">
+      <SourceType>Package</SourceType>
+      <SourceId>Hallodoc</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Hallodoc</BasePath>
+      <RelativePath>uploads/new_data.json</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\new_data.json))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\remaining work.txt))">
       <SourceType>Package</SourceType>
       <SourceId>Hallodoc</SourceId>
@@ -4335,6 +4223,22 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\remaining work.txt))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\schema (1).sql))">
+      <SourceType>Package</SourceType>
+      <SourceId>Hallodoc</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Hallodoc</BasePath>
+      <RelativePath>uploads/schema (1).sql</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\schema (1).sql))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\Screenshot (1).png))">
       <SourceType>Package</SourceType>
@@ -4624,6 +4528,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\Session 2 (1).txt))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\SRS-23-24-Trainees-8March24.pdf))">
+      <SourceType>Package</SourceType>
+      <SourceId>Hallodoc</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Hallodoc</BasePath>
+      <RelativePath>uploads/SRS-23-24-Trainees-8March24.pdf</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\SRS-23-24-Trainees-8March24.pdf))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\Today's task.txt))">
       <SourceType>Package</SourceType>
       <SourceId>Hallodoc</SourceId>
@@ -4655,6 +4575,22 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\traingle.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\Updated-Training-Plan-20March24.pdf))">
+      <SourceType>Package</SourceType>
+      <SourceId>Hallodoc</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Hallodoc</BasePath>
+      <RelativePath>uploads/Updated-Training-Plan-20March24.pdf</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\Updated-Training-Plan-20March24.pdf))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\vs error exception.png))">
       <SourceType>Package</SourceType>

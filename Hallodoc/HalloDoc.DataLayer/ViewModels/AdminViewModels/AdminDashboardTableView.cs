@@ -49,4 +49,8 @@ public class AdminDashboardTableView
     public string BlockReason { get; set; }
     public string Requestor { get; set; }//for sendagreement
     public int RequestTypeId { get; set; }//for sendagreement
+    public int CurrentPage { get; set; }
+    public int PageSize { get; set; }
+    public int TotalItems { get; set; }
+    public int TotalPages { get; set; }
 }

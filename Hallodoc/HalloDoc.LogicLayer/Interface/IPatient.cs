@@ -18,6 +18,6 @@ namespace HalloDoc.LogicLayer.Interface
         public SomeoneElseViewModel someoneModal();
         public int RelativeModalSubmit(SomeoneElseViewModel model);
         public EditProfileViewModel profile();
-        public int profile(EditProfileViewModel model);
+        public bool profile(EditProfileViewModel model);
     }
 }

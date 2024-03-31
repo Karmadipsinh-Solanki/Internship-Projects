@@ -89,7 +89,7 @@ namespace Hallodoc.Controllers
             else
             {
                 TempData["success"] = "Request created successfully!";
-                return RedirectToAction("Login");
+                return RedirectToAction("Login", "Login");
             }
         }
 
@@ -110,7 +110,7 @@ namespace Hallodoc.Controllers
             else
             {
                 TempData["success"] = "Request created successfully!";
-                return RedirectToAction("Login");
+                return RedirectToAction("Login", "Login");
             }
         }
         [HttpPost]
@@ -130,7 +130,7 @@ namespace Hallodoc.Controllers
             else
             {
                 TempData["success"] = "Request created successfully!";
-                return RedirectToAction("Login");
+                return RedirectToAction("Login","Login");
             }
         }
 
