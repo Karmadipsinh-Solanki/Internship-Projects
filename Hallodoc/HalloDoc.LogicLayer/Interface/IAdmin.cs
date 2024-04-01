@@ -13,7 +13,7 @@ namespace HalloDoc.LogicLayer.Interface
 {
     public interface IAdmin
     {
-        public AdminDashboardTableView adminDashboard(string status,string? search, int? region, string? requestor);
+        public AdminDashboardTableView adminDashboard(string status,string? search, int? region, string? requestor, int page = 1, int pageSize = 10);
         public int createRequest(CreateRequestViewModel model);
         public bool verifyState(CreateRequestViewModel model);
         public CreateRequestViewModel createRequest();

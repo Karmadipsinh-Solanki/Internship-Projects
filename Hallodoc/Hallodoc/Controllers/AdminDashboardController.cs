@@ -54,39 +54,39 @@ namespace HalloDoc.Controllers
             return View(adminDashboardTableView);
         }
 
-        public IActionResult New(string? search, int? region, string? requestor)
+        public IActionResult New(string? search, int? region, string? requestor,int page=1,int pageSize=10)
         {
-            AdminDashboardTableView adminDashboardTableView = _admin.adminDashboard("New", search, region, requestor);
+            AdminDashboardTableView adminDashboardTableView = _admin.adminDashboard("New", search, region, requestor,page,pageSize);
             return PartialView("AdminDashboardTablePartialView", adminDashboardTableView);
         }
 
-        public IActionResult Pending(string? search, int? region, string? requestor)
+        public IActionResult Pending(string? search, int? region, string? requestor, int page = 1, int pageSize = 10)
         {
-            AdminDashboardTableView adminDashboardTableView = _admin.adminDashboard("Pending", search, region, requestor);
+            AdminDashboardTableView adminDashboardTableView = _admin.adminDashboard("Pending", search, region, requestor,page,pageSize);
             return PartialView("AdminDashboardTablePartialView", adminDashboardTableView);
         }
 
-        public IActionResult Active(string? search, int? region, string? requestor)
+        public IActionResult Active(string? search, int? region, string? requestor, int page = 1, int pageSize = 10)
         {
-            AdminDashboardTableView adminDashboardTableView = _admin.adminDashboard("Active", search, region, requestor);
+            AdminDashboardTableView adminDashboardTableView = _admin.adminDashboard("Active", search, region, requestor, page, pageSize);
             return PartialView("AdminDashboardTablePartialView", adminDashboardTableView);
         }
 
-        public IActionResult Conclude(string? search, int? region, string? requestor)
+        public IActionResult Conclude(string? search, int? region, string? requestor, int page = 1, int pageSize = 10)
         {
-            AdminDashboardTableView adminDashboardTableView = _admin.adminDashboard("Conclude", search, region, requestor);
+            AdminDashboardTableView adminDashboardTableView = _admin.adminDashboard("Conclude", search, region, requestor, page, pageSize);
             return PartialView("AdminDashboardTablePartialView", adminDashboardTableView);
         }
 
-        public IActionResult ToClose(string? search, int? region, string? requestor)
+        public IActionResult ToClose(string? search, int? region, string? requestor, int page = 1, int pageSize = 10)
         {
-            AdminDashboardTableView adminDashboardTableView = _admin.adminDashboard("ToClose", search, region, requestor);
+            AdminDashboardTableView adminDashboardTableView = _admin.adminDashboard("ToClose", search, region, requestor, page, pageSize);
             return PartialView("AdminDashboardTablePartialView", adminDashboardTableView);
         }
 
-        public IActionResult Unpaid(string? search, int? region, string? requestor)
+        public IActionResult Unpaid(string? search, int? region, string? requestor, int page = 1, int pageSize = 10)
         {
-            AdminDashboardTableView adminDashboardTableView = _admin.adminDashboard("Unpaid", search, region, requestor);
+            AdminDashboardTableView adminDashboardTableView = _admin.adminDashboard("Unpaid", search, region, requestor, page, pageSize);
             return PartialView("AdminDashboardTablePartialView", adminDashboardTableView);
         }
         //public List<Request> GetTableData()

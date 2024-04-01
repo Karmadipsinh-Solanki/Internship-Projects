@@ -130,16 +130,16 @@ namespace Hallodoc.Controllers
         [HttpPost]
         public IActionResult profile(EditProfileViewModel model)
         {
-            int check = _patient.profile(model);
-            if (check == 0)
+            bool check = _patient.profile(model);
+            if (check)
             {
-                ModelState.AddModelError("State", "Currently we are not serving in this region");
-                return View(model);
+                TempData["success"] = "Profile updated successfully!";
             }
             else
             {
-                return RedirectToAction("profile");
+                TempData["error"] = "Profile is not updated!";
             }
+            return RedirectToAction("Profile");
         }
 
 

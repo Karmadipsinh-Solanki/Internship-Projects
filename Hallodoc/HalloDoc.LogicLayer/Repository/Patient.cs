@@ -336,7 +336,7 @@ namespace HalloDoc.LogicLayer.Repository
             profileViewModel.partialViewModel = new partialViewModel() { patient_name = string.Concat(userDetail.FirstName + ' ' + userDetail.LastName) };
             return profileViewModel;
         }
-        public int profile(EditProfileViewModel model)
+        public bool profile(EditProfileViewModel model)
         {
             //token
             var request2 = _httpContextAccessor.HttpContext.Request;
@@ -369,11 +369,11 @@ namespace HalloDoc.LogicLayer.Repository
                     _context.SaveChanges();
 
                 }
-                return 0;
+                return true;
             }
             else
             {
-                return 1;
+                return false;
             }
 
 
