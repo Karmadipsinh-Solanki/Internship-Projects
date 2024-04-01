@@ -10,7 +10,7 @@ namespace HalloDoc.DataLayer.ViewModels.AdminViewModels
 {
     public class ProviderViewModel
     {
-        public List<Physician> PhysicianList { get; set; }
+        public List<PhysicianList> PhysicianList { get; set; }
         public int PhysicianId { get; set; }
         public int RegionId { get; set; }
         public AdminNavbarViewModel? adminNavbarViewModel { get; set; }

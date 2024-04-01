@@ -173,7 +173,24 @@ namespace Hallodoc.Controllers
         {
             return View();
         }
-        public IActionResult ReviewAgreement() { return View(); }
+        public IActionResult ReviewAgreement()
+        {
+            return View();
+        }
+        public IActionResult ReviewAgreementSubmit(string email, int requestId, string reason, int status)
+        {
+            bool check = _login.reviewAgreementSubmit(email, requestId, reason, status);
+            if (check)
+            {
+                TempData["success"] = "Response submitted successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error, response not submitted!";
+            }
+            //return Json(new { success = "Success" });
+            return RedirectToAction("AgreementSuccess");
+        }
 
     }
 

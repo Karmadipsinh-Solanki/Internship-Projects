@@ -114,7 +114,7 @@
                                         <h1 class="saveButtonText fs-5" id="exampleModalLabel">Send mail to patient for submitting request</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <form asp-action="SendLink" asp-controller="AdminDashboard" method="post">
+                                    <form asp-action="SendLink" asp-controller="AdminDashboard" method="post" id="formclass1">
                                         <div class="modal-body">
                                             <div class="form-floating mb-3">
                                                 <input type="text" class="form-control" id="floatingInputF" placeholder="First Name" asp-for="FirstName">
@@ -265,7 +265,7 @@
                                     <h1 class="saveButtonText fs-5" id="cancelCaseModalLabel">Confirm Cancellation</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <form asp-action="CancelCase" asp-controller="AdminDashboard" method="post">
+                                <form asp-action="CancelCase" asp-controller="AdminDashboard" method="post" id="formclass2">
                                     <div class="modal-body">
                                         <div class="mb-3">
                                             <h6><span>Patient Name</span><span class="mx-1">:</span><span style="color:#01bce9;">test test</span></h6>
@@ -309,7 +309,7 @@
                                     <h1 class="saveButtonText fs-5" id="assignCaseModalLabel">Assign Request</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <form asp-action="AssignCase" asp-controller="AdminDashboard" method="post">
+                                <form asp-action="AssignCase" asp-controller="AdminDashboard" method="post" id="formclass3">
                                     <div class="modal-body">
                                         <div class="mb-3">
                                             <span class="text-secondary" style="font-size:14px"><strong>To assign this request, search and select another Physician.</strong></span>
@@ -359,7 +359,7 @@
                                     <h1 class="saveButtonText fs-5" id="transferCaseModalLabel">Transfer Request</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <form asp-action="TransferCase" asp-controller="AdminDashboard" method="post">
+                                <form asp-action="TransferCase" asp-controller="AdminDashboard" method="post" id="formclass4">
                                     <div class="modal-body">
                                         <div class="mb-3">
                                             <span class="text-secondary" style="font-size:14px"><strong>To transfer this request, search and select another Physician.</strong></span>
@@ -401,7 +401,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
 
-                                <form asp-action="BlockCase" asp-controller="AdminDashboard" method="post">
+                                <form asp-action="BlockCase" asp-controller="AdminDashboard" method="post" id="formclass5">
                                     <div class="modal-body">
                                         <div class="mb-3">
                                             <h6><span>Patient Name</span><span class="mx-1">:</span><span style="color:#01bce9;">test test</span></h6>
@@ -444,7 +444,7 @@
                                         <div class="mb-5">
                                             <span class="text-secondary" style="font-size:14px;">Are you sure you want to clear this request?Once clear this request then you are not able to see this request.</span>
                                         </div>
-                                        <form asp-action="ClearCase" asp-controller="AdminDashboard" method="post">
+                                        <form asp-action="ClearCase" asp-controller="AdminDashboard" method="post" id="formclass6">
                                             <div class="modal-footer form-floating mb-3">
                                                 <input type="hidden" asp-for="RequestId" id="requestId9" />
                                                 <button type="submit" class="saveButton"><span class="saveButtonText">Clear</span> </button>
@@ -465,7 +465,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
 
-                                <form asp-action="SendAgreement" asp-controller="AdminDashboard" method="post">
+                                <form asp-action="SendAgreement" asp-controller="AdminDashboard" method="post" id="formclass7">
                                     <div class="modal-body">
                                         <div class="mb-3">
                                             @* <span class="WhosRequest" id="status-text">
@@ -530,6 +530,51 @@
         </div>
     </div>
     <script>
+        //for creating countrywise phone format
+        const phoneInputField = document.querySelector("#phone");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            innerHeight: 1,
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+
+        // //to prevent browser caching the previous form
+        // document.getElementById("formclass1").addEventListener("submit", function (event) {
+        //     event.preventDefault();
+        //     this.reset();
+        // });
+        // document.getElementById("formclass1").addEventListener("focusout", function (event) {
+        //     // Clear the validation error message
+        //     var validationError = document.getElementById("validationError");
+        //     if (validationError) {
+        //         validationError.textContent = "";
+        //     }
+        // });
+        // document.getElementById("formclass2").addEventListener("submit", function (event) {
+        //     event.preventDefault();
+        //     this.reset();
+        // });
+        // document.getElementById("formclass3").addEventListener("submit", function (event) {
+        //     event.preventDefault();
+        //     this.reset();
+        // });
+        // document.getElementById("formclass4").addEventListener("submit", function (event) {
+        //     event.preventDefault();
+        //     this.reset();
+        // });
+        // document.getElementById("formclass5").addEventListener("submit", function (event) {
+        //     event.preventDefault();
+        //     this.reset();
+        // });
+        // document.getElementById("formclass6").addEventListener("submit", function (event) {
+        //     event.preventDefault();
+        //     this.reset();
+        // });
+        // document.getElementById("formclass7").addEventListener("submit", function (event) {
+        //     event.preventDefault();
+        //     this.reset();
+        // });
+
         //assigncase//for assigncase action
         //here we have to use ajax, because a dropdown is dependant on another dropdown, as after selecting region, we get physians in particular region
         //and we need to load page to get data dynamically from database, to avoid loading, we use ajax
@@ -979,17 +1024,6 @@
             //     }
             // });
         }
-
-        //?????
-
-        //for creating countrywise phone format
-        const phoneInputField = document.querySelector("#phone");
-        const phoneInput = window.intlTelInput(phoneInputField, {
-            innerHeight: 1,
-            utilsScript:
-                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-        });
-
 
 
 

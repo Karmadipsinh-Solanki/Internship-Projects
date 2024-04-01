@@ -553,6 +553,8 @@ namespace HalloDoc.Controllers
             }
             return RedirectToAction("AdminProfile");
         }
+       
+
         public IActionResult AdminProfile()
         {
             AdminProfileViewModel adminProfileViewModel = _admin.adminProfile();
@@ -586,9 +588,34 @@ namespace HalloDoc.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult CreateAdmin(CreateAdminViewModel createAdminViewModel)
+        {
+            bool check = _admin.createAdmin(createAdminViewModel);
+            if (check)
+            {
+                TempData["success"] = "Admin account created successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,Admin account is not created!";
+            }
+            return RedirectToAction("AdminDashboard");
+        }
+        public IActionResult CreateAdmin()
+        {
+            CreateAdminViewModel createAdminViewModel = _admin.createAdmin();
+            return View(createAdminViewModel);
+        }
+        public IActionResult FilterProviderInformation(int? region, int page = 1, int pageSize = 10)
+        {
+            ProviderViewModel providerViewModel = _admin.providerInfo(region, page, pageSize);
+            return PartialView("ProviderTable", providerViewModel);
+        }
         public IActionResult ProviderInfo()
         {
-            return View();
+            ProviderViewModel providerViewModel = _admin.providerInfo(null);
+            return View(providerViewModel);
         }
         public IActionResult EditPhyAccount()
         {

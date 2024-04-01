@@ -1,15 +1,16 @@
-﻿@* @using HalloDoc.DataLayer.ViewModels;
+﻿@using HalloDoc.DataLayer.ViewModels;
 @model ProviderViewModel;
 @using static HalloDoc.EnumStatus;
 @{
-    ViewData["Title"] = "Provider Information";
+    ViewData["Title"] = "Provider Menu";
 }
 @section Styles {
     <link href="~/css/accountAccess.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/AdminDashboardStyle.css" rel="stylesheet" type="text/css" />
 }
 @section Scripts {
     @{
-        <partial name="_ValidationScriptsPartial" />
+                        <partial name="_ValidationScriptsPartial" />
     }
 }
 
@@ -44,43 +45,13 @@
                         <span class="saveButtonText">Create Provider Account</span>
                     </div>
                 </div>
-                <div class="d-none d-md-block">
-                    <table class="table">
-                        <thead>
-                            <tr class="table-light htable" style="background-color: #f0f0f0 !important;">
-                                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 20%;align-content:center;">Stop Notification</th>
-                                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 20%;">Provider Name<span class="ms-3">&uarr;</span></th>
-                                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 10%;">Role</th>
-                                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 20%;">On Call Status</th>
-                                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 10%;">Status</th>
-                                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 20%;"><span class="d-flex justify-content-center align-items-center">Actions</span></th>
-                            </tr>
-                        </thead>
-                        @foreach (var item in Model.PhysicianList)
-                        {
-                            <tr>
-                                <td class="bg-white"><input class="checkboxes" type="checkbox" /></td>
-                                <td class="bg-white">
-                                    <span class="filename">@item.ProviderName</span>
-                                </td>
-                                <td class="bg-white">
-                                    @item.RoleName
-                                </td>
-                                <td class="bg-white">
-                                    @item.OnCallStatus
-                                </td>
-                                <td class="bg-white">
-                                    @Enum.GetName(typeof(Status), @item.Status)
-                                </td>
-                                <td class="bg-white d-flex justify-content-center align-items-center">
-                                    <a asp-action="PatientRecord" asp-controller="AdminDashboard" asp-route-id="@item.PhysicianId" class="cancelButtonTable me-2 textdeconone "><span class="cancelButtonText">Contact</span></a>
-                                    <a asp-action="PatientRecord" asp-controller="AdminDashboard" asp-route-id="@item.PhysicianId" class="cancelButtonTable me-2 textdeconone "><span class="cancelButtonText">Edit</span></a>
-                                </td>
-                            </tr>
-                        }
-                    </table>
-                </div>
-                <div class="d-none d-md-block">
+
+                
+                    <div id="ProviderInformationData"></div>
+                
+
+                
+                <div class="d-block d-md-none">
                     <div class="accordion accordion-flush" id="accordionFlushExample">
                         @foreach (var item in Model.PhysicianList)
                         {
@@ -133,4 +104,43 @@
             </div>
         </div>
     </div>
-</div> *@
+    <script>
+        window.onload = () => {
+            $.ajax({
+                url: '/AdminDashboard/FilterProviderInformation',
+                type: 'POST',
+                dataType: 'html',
+                // Pass your data here
+                success: function (response) {
+                    $("#ProviderInformationData").html(response)
+                },
+                error: function () {
+                    alert('An error occurred.');
+                }
+                    console.log("in 1st")
+            });
+        }
+        function filter(page, pageSize) {
+            // var region = document.getElementById('region').value;
+            var region = $('#region').val();
+
+            $.ajax({
+                url: '/AdminDashboard/FilterProviderInformation',
+                type: 'POST',
+                dataType: 'html',
+                data: { region: region, page: page, pageSize: pageSize },
+                // Pass your data here
+                success: function (response) {
+                    //console.log(response);
+                    $("#ProviderInformationData").html(response);
+                    // document.getElementById('loader2').style.display = 'none';
+                    // document.getElementById('ProviderInformationData').style.display = 'block';
+                        console.log("in 2nd")
+                },
+                error: function () {
+                    alert('An error occurred.');
+                }
+            });
+        }
+    </script>
+</div>

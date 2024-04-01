@@ -1380,6 +1380,7 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
+        
         //bool sendAgreement(AdminDashboardTableView model)
         //{
 
@@ -1852,22 +1853,129 @@ namespace HalloDoc.LogicLayer.Repository
             accountAccessViewModel.adminNavbarViewModel = adminNavbarViewModel;
             return accountAccessViewModel;
         }
-        public ProviderViewModel providerInfo()
+        public ProviderViewModel providerInfo(int? region, int page = 1, int pageSize = 10)
         {
-            ProviderViewModel providerViewModel = new ProviderViewModel();
-            List<Physician> PhysicianList = _context.Physicians.ToList();
-
             var request = _httpContextAccessor.HttpContext.Request;
             var token = request.Cookies["jwt"];
             CookieModel cookieModel = _jwtService.getDetails(token);
             string AdminName = cookieModel.name;
-
             AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
             adminNavbarViewModel.AdminName = AdminName;
             adminNavbarViewModel.Tab = 4;
+            BitArray check = new BitArray(1);
+            check.Set(0, false);
+            IQueryable<Physician> query = _context.Physicians.Where(i => i.IsDeleted == check);
+            if (region != null && region != -1)
+            {
+                query = query.Where(i => i.RegionId == region);
+            }
+            List<PhysicianList> physicianLists = new List<PhysicianList>();
+            List<Physician> fquery = query.ToList();
+            for (int i = 0; i < fquery.Count; i++)
+            {
+                BitArray bitArray = new BitArray(1);
+                bitArray.Set(0, true);
+                int n = i;
+                Role role = _context.Roles.FirstOrDefault(i => i.RoleId == fquery[n].RoleId);
+                bool notification;
+                PhysicianNotification physicianNotification = _context.PhysicianNotifications.FirstOrDefault(i => i.PhysicianId == fquery[n].PhysicianId);
+                if (physicianNotification.IsNotificationStopped == bitArray)
+                {
+                    notification = true;
+                }
+                else
+                {
+                    notification = false;
+                }
+                physicianLists.Add(new PhysicianList
+                {
+                    ProviderName = fquery[n]?.FirstName + " " + fquery[n]?.LastName,
+                    RoleName = role?.Name,
+                    OnCallStatus = 1,
+                    Status = (int)fquery[n]?.Status,
+                    Notification = notification,
+                    PhysicianId = fquery[n].PhysicianId,
+                });
+            }
+            List<Region> region1 = _context.Regions.ToList();
+            ProviderViewModel providerViewModel = new ProviderViewModel();
             providerViewModel.adminNavbarViewModel = adminNavbarViewModel;
-            providerViewModel.PhysicianList = PhysicianList;
+            providerViewModel.CurrentPage = 1;
+            providerViewModel.PageSize = pageSize;
+            providerViewModel.TotalItems = physicianLists.Count;
+            providerViewModel.TotalPages = (int)Math.Ceiling((double)physicianLists.Count / pageSize);
+            providerViewModel.PhysicianList = physicianLists.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            providerViewModel.Regions = region1;
             return providerViewModel;
+        }
+        public bool createAdmin(CreateAdminViewModel model)
+        {
+            try
+            {
+                AspNetUser aspNetUser = new AspNetUser();
+                aspNetUser.UserName = model.LastName + model.FirstName[0];
+                aspNetUser.PasswordHash = model.Password;
+                aspNetUser.Email = model.Email;
+                aspNetUser.PhoneNumber = model.PhoneNumber1;
+                aspNetUser.CreatedDate = DateTime.Now;
+                _context.AspNetUsers.Add(aspNetUser);
+                _context.SaveChanges();
+
+                var request = _httpContextAccessor.HttpContext.Request;
+                var token = request.Cookies["jwt"];
+                CookieModel cookieModel = _jwtService.getDetails(token);
+                Hallodoc.Admin admin = new Hallodoc.Admin();
+
+                admin.AspNetUserId = aspNetUser.Id;
+                admin.FirstName = model.FirstName;
+                admin.LastName = model.LastName;
+                admin.Email = model.Email;
+                admin.Mobile = model.PhoneNumber1;
+                admin.Address1 = model.Address1;
+                admin.Address2 = model.Address2;
+                admin.City = model.city;
+                admin.RegionId = model.StateId;
+                admin.Zip = model.zip;
+                admin.AltPhone = model.PhoneNumber2;
+                admin.CreatedDate = DateTime.Now;
+                admin.CreatedBy = cookieModel.aspId;
+                admin.IsDeleted = false;
+                admin.RoleId = Convert.ToInt32(model.Role);
+                _context.Admins.Add(admin);
+                _context.SaveChanges();
+
+                foreach (var regionIdString in model.SelectedRegion.Split(","))
+                {
+                    int regionId = int.Parse(regionIdString);
+                    AdminRegion adminRegion = new AdminRegion();
+                    adminRegion.RegionId = regionId;
+                    adminRegion.AdminId = admin.AdminId;
+                    _context.AdminRegions.Add(adminRegion);
+                }
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        CreateAdminViewModel IAdmin.createAdmin()
+        {
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 15;
+            List<Region> allRegions = _context.Regions.ToList();
+            List<Role> roles = _context.Roles.ToList();
+            CreateAdminViewModel createAdminViewModel = new CreateAdminViewModel();
+            createAdminViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            createAdminViewModel.regions = allRegions;
+            createAdminViewModel.Roles = roles;
+            return createAdminViewModel;
         }
     }
 }

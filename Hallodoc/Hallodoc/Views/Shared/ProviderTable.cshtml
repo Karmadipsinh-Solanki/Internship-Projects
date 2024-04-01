@@ -1,0 +1,38 @@
+﻿@model ProviderViewModel;
+@using static HalloDoc.DataLayer.ViewModels.AdminViewModels.ProviderStatus;
+<div class="d-none d-md-block">
+    <table class="table" id="table-data-patient-history">
+        <thead>
+            <tr class="table-light htable" style="background-color: #f0f0f0 !important;">
+                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 20%;align-content:center;">Stop Notification</th>
+                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 20%;">Provider Name<span class="ms-3">&uarr;</span></th>
+                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 10%;">Role</th>
+                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 20%;">On Call Status</th>
+                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 10%;">Status</th>
+                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 20%;"><span class="d-flex justify-content-center align-items-center">Actions</span></th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.PhysicianList)
+        {
+            <tr>
+                <td class="bg-white"><input class="checkboxes" type="checkbox" checked="@item.Notification" value="@item.Notification" /></td>
+                <td class="bg-white">
+                    <span class="filename">@item.ProviderName</span>
+                </td>
+                <td class="bg-white">
+                    @item.RoleName
+                </td>
+                <td class="bg-white">
+                    @item.OnCallStatus
+                </td>
+                <td class="bg-white">
+                    @Enum.GetName(typeof(Status), @item.Status)
+                </td>
+                <td class="bg-white d-flex justify-content-center align-items-center">
+                    <a asp-action="PatientRecord" asp-controller="AdminDashboard" asp-route-id="@item.PhysicianId" class="cancelButtonTable me-2 textdeconone "><span class="cancelButtonText">Contact</span></a>
+                    <a asp-action="PatientRecord" asp-controller="AdminDashboard" asp-route-id="@item.PhysicianId" class="cancelButtonTable me-2 textdeconone "><span class="cancelButtonText">Edit</span></a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

@@ -1,5 +1,5 @@
-﻿@* @using HalloDoc.DataLayer.ViewModels.AdminViewModels
-@model ViewCaseModel; *@
+﻿@using HalloDoc.DataLayer.ViewModels
+@model ReviewAgreementViewModel;
 @{
     ViewData["Title"] = "Review Agreement";
 }
@@ -9,24 +9,142 @@
 }
 @section Scripts {
     @{
-        <partial name="_ValidationScriptsPartial"/>
+        <partial name="_ValidationScriptsPartial" />
     }
 }
 <partial name="Toast" />
 <div class="Container-fluid d-flex justify-content-center align-items-center flex-column" style="padding-left:30%;padding-right:30%;padding-top:10%">
     <div class="mb-5">
         <h5>
-            To provide best medical service, we cannot determine the cost right away. If you agree to our service, so we will provide care and follow-up 
-            until all care is completed. So with this points, if you like us to provide care to you click on "Agree" and we'll get started immediately, 
+            To provide best medical service, we cannot determine the cost right away. If you agree to our service, so we will provide care and follow-up
+            until all care is completed. So with this points, if you like us to provide care to you click on "Agree" and we'll get started immediately,
             if you do not agree simply click "Cancel".
         </h5>
     </div>
-    <form asp-action="ReviewAgreement" asp-controller="Login" method="post">
-        <div class="d-flex justify-content-between align-items-center">
-            <button type="submit" style="border: 1px solid #6cb233;border-radius: 5px;background-color: #6cb233;margin-right: 65px;height: 40px;width: 80px;">
+    <div class="d-flex justify-content-between align-items-center">
+        <form asp-action="ReviewAgreement" asp-controller="Login" method="post">
+            <input type="text" style="display:none;" id="requestId" />
+            <input style="display:none;" id="email" />
+            <button type="submit" style="border: 1px solid #6cb233;border-radius: 5px;background-color: #6cb233;margin-right: 65px;height: 40px;width: 80px;" id="agreeBtn">
                 <span class="saveButtonText">I Agree</span>
             </button>
-            <div class="cancelButtonRed d-flex justify-content-center align-items-center" data-bs-dismiss="modal" onclick="cancel4()"><span class="saveButtonText">Cancel</span></div>
+        </form>
+        <!-- Button trigger modal -->
+        <button type="button" class="cancelButtonRed d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal"><span class="saveButtonText">Cancel</span></button>
+    </div>
+
+    <!--Cancel Case Modal -->
+    <div class="modal fade " id="myModal" tabindex="-1" aria-labelledby="cancelCaseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="saveButtonText fs-5" id="cancelCaseModalLabel">Confirm Cancellation</h1>
+                    <span class="close">&times;</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form asp-action="CancelCase" asp-controller="AdminDashboard" method="post" id="formclass2">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <h6><span>Patient Name</span><span class="mx-1">:</span><span style="color:#01bce9;">test test</span></h6>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <span id="name-text"></span>
+                            <textarea placeholder="Please provide a brief explanation for your cancellation"
+                                      style="height: 150px; margin-top: 15px" id="reason" asp-for="PatientCancellationNotes" id="reason">
+                            </textarea>
+                        </div>
+                        @* <div class="form-floating login-fields" style="width: 100%;margin-top: 20px;">
+                            <textarea type="text" placeholder="Username" class="form-control"
+                                      style="height: 135px !important;" asp-for="CancelDescription"></textarea>
+                            <label for="floatingInput">Provide Additional Notes</label>
+                            <span asp-validation-for="CancelDescription" class="text-danger"></span>
+                        </div> *@
+                    </div>
+                    <div class="modal-footer form-floating mb-3">
+                        <button type="submit" id="confirmCancelBtn"><span class="saveButtonText">Confirm</span> </button>
+                        <button class="cancelButton" data-bs-dismiss="modal" onclick="cancel()" id="cancelBtn"><span class="cancelButtonText">Cancel</span></button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </form>
+    </div>
+    <script>
+        var url = window.location.href;
+        var namePart = url.split("?name=")[1];
+        var name = namePart.split("&email")[0];
+        var emailPart = namePart.split("&email=")[1];
+        var email = emailPart.split("&requestId=")[0];
+        var requestIds = emailPart.split("&requestId=")[1];
+        console.log(email);
+        console.log(requestIds);
+        console.log(name);
+        document.getElementById("name-text").innerHTML = name;
+        $('#agreeBtn').on('click', function () {
+            var reason = $('#reason').val();
+            $.ajax({
+                url: '/AdminDashboard/ReviewAgreementSubmit',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    requestId: requestIds,
+                    email: email,
+                    reason: reason,
+                    status: 3
+                },
+                success: function (response) {
+                    alert("Thank you for understanding, we will start further treatment very soon!");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error("Error:", textStatus, errorThrown);
+                }
+            });
+        });
+        $('#confirmCancelBtn').on('click', function () {
+            var reason = $('#reason').val();
+            $.ajax({
+                url: '/AdminDashboard/ReviewAgreementSubmit',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    requestId: requestIds,
+                    email: email,
+                    reason: reason,
+                    status: 7
+                },
+                success: function (response) {
+                    alert("Okay no problem, Get well soon.");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error("Error:", textStatus, errorThrown);
+                }
+            });
+        });
+        var modal = document.getElementById("myModal");
+        var cancelBtn = document.getElementById("cancelBtn");
+        var span = document.getElementsByClassName("close")[0];
+        cancelBtn.onclick = function () {
+            modal.style.display = "block";
+        };
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        };
+        function cancel() {
+            modal.style.display = "none";
+        }
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+
+
+        // Functionality for confirming cancellation
+        //var confirmCancelBtn = document.getElementById("confirmCancelBtn");
+        //confirmCancelBtn.onclick = function () {
+        //    alert("Cancellation confirmed!"); // You can replace this with any other action you want
+        //    modal.style.display = "none"; // Close the modal after confirmation
+        //};
+    </script>
 </div>

@@ -9,14 +9,14 @@
 }
 @section Scripts {
     @{
-        // <partial name="_ValidationScriptsPartial" />
+        <partial name="_ValidationScriptsPartial" />
     }
 }
 
 <div id="body">
     <div class="shadow header-nav-container">
         <partial name="Toast" />
-        @* <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" /> *@
+        <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" />
     </div>
     <div id="main-div" class="tabcontent main-profile-div">
         <div class="main-sub-div">
@@ -47,7 +47,7 @@
                                 <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 10%;"><span class="d-flex justify-content-center align-items-center">Actions</span></th>
                             </tr>
                         </thead>
-                        @* @foreach (var item in Model.requestWiseFiles)*@
+                        @* @foreach (var item in Model.requestWiseFiles) *@
                         {
                         <tr>
                             <td class="bg-white">
@@ -77,4 +77,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> 

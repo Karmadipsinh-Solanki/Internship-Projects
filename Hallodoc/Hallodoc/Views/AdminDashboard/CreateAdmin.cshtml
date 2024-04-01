@@ -1,0 +1,306 @@
+﻿@using HalloDoc.DataLayer.ViewModels.AdminViewModels;
+@model CreateAdminViewModel;
+@using static HalloDoc.EnumStatus;
+@{
+    ViewData["Title"] = "Create Admin Account";
+}
+@section Styles {
+    <link href="~/css/AdminDashboardStyle.css" rel="stylesheet" type="text/css" />
+}
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+
+<div id="body">
+    <partial name="Toast" />
+    <div style="display: flex;flex-direction: row;">
+
+        <div id="main-div" style="width: 100%;">
+            <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" />
+
+            <div id="main-sub-div" class="tabcontent main-profile-div">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center p-3">
+                        <h3>Create Admin Account</h3>
+                        <div class="d-flex justify-content-center align-items-center mb-3 mt-3" style="background-color:transparent;width: 90px;height: 45px;border:1px solid #0dcaf0;border-radius:5px;">
+                            <a class="textdeco" asp-controller="AdminDashboard" asp-action="AdminDashboard" style="text-decoration:none;">
+                                <span class="textback" style="color:#0dcaf0;">&lt Back</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="content shadow contentProfile h-100  ps-3 pt-3 pe-3 g-3">
+                    <form asp-controller="AdminDashboard" asp-action="CreateAdmin" enctype="multipart/form-data" method="post" class="">
+                        <header class="h4 mb-3">Account Information</header>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="floatingInput1" placeholder="User Name" asp-for="UserName" >
+                                    <label for="floatingInput1">User Name(LastnameF)</label>
+                                    <span asp-validation-for="UserName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="floatingInput2" placeholder="Password" asp-for="Password">
+                                    <label for="floatingInput2">Password</label>
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <select class="custom-select is-invalid" asp-for="Role" id="select-role" style="height: 58px;width: 100%;border-radius:5px;">
+                                        <option value="-1" style="color:gray !important;"><span style="color:gray;">Select Role</span></option>
+                                        @foreach (var item in Model.Roles)
+                                        {
+                                            <option value="@item.RoleId" style="color:gray !important;"><span style="color:gray;">@item.Name</span></option>
+                                        }
+                                    </select>
+                                    @* <label for="floatingInput1">State</label> *@
+
+                                    @* <input type="hidden" id="floatingInput1" asp-for="StateId">
+                                    <input type="name" class="form-control" id="floatingInput1" placeholder="State" asp-for="state" >
+                                    <span asp-validation-for="state" class="text-danger"></span> *@
+                                </div>
+                            </div>
+                        </div>
+                    <header class="h4 mb-4">Administrator Information</header>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="floatingInput5" placeholder="First Name" asp-for="FirstName" >
+                                    <label for="floatingInput5">First Name</label>
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="floatingInput6" placeholder="Last Name" asp-for="LastName" >
+                                    <label for="floatingInput6">Last Name</label>
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="floatingInput7" placeholder="Email" asp-for="Email" >
+                                    <label for="floatingInput7">Email</label>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="floatingInput8" placeholder="Confirm Email" asp-for="ConfirmEmail" >
+                                    <label for="floatingInput8">Confirm Email</label>
+                                    <span asp-validation-for="ConfirmEmail" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="tel" class="form-control" id="phone1" placeholder="Phone Number" asp-for="PhoneNumber1" style="height: 58px;">
+                                    <span asp-validation-for="PhoneNumber1" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div style="flex-wrap: wrap;display: flex;width: 104.5%;">
+                                    <input class="hide" type="text" asp-for="SelectedRegion" id="SelectedRegion"  />
+                                    @foreach (var item in Model.regions)
+                                    {
+                                        <div style="display: flex;align-items: center;">
+                                            <input type="checkbox" data-region-id="@item.RegionId" class="checkboxes" value="@item.RegionId" id="@item.Name" >
+                                            <label class="container">@item.Name</label>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    <header class="h4 mb-4">Mailing and Billing Information</header>
+                    
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="floatingInput1" placeholder="Address1" asp-for="Address1" >
+                                    <label for="floatingInput1">Address1</label>
+                                    <span asp-validation-for="Address1" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="floatingInput2" placeholder="Address2" asp-for="Address2" >
+                                    <label for="floatingInput2">Address2</label>
+                                    <span asp-validation-for="Address2" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="name" class="form-control" id="floatingInput1" placeholder="City" asp-for="city" >
+                                    <label for="floatingInput1">City</label>
+                                    <span asp-validation-for="city" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <select class="custom-select is-invalid" asp-for="StateId" id="select-region" style="height: 58px;width: 100%;border-radius:5px;">
+                                        <option value="-1" style="color:gray !important;"><span style="color:gray;">Select Region</span></option>
+                                        @foreach (var item in Model.regions)
+                                        {
+                                            <option value="@item.RegionId" style="color:gray !important;"><span style="color:gray;">@item.Name</span></option>
+                                        }
+                                    </select>
+                                    @* <label for="floatingInput1">State</label> *@
+
+                                    @* <input type="hidden" id="floatingInput1" asp-for="StateId">
+                                    <input type="name" class="form-control" id="floatingInput1" placeholder="State" asp-for="state" >
+                                    <span asp-validation-for="state" class="text-danger"></span> *@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingInput1" placeholder="Zip" asp-for="zip" >
+                                    <label for="floatingInput1">Zip</label>
+                                    <span asp-validation-for="zip" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating login-fields mb-3" style="width:100%;margin-right:15px;">
+                                    <input type="tel" class="form-control" id="phone2" placeholder="Phone Number" asp-for="PhoneNumber2" style="height: 58px;">
+                                    <span asp-validation-for="PhoneNumber2" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-center mb-3">
+                            @* <div class="saveButton form-button mb-4 me-3 " id="edit-div2" style="padding: 7px 27px;background-color:#0dcaf0;border:1px solid #0dcaf0;color:white; margin-right:17px;"> *@
+                            <button type="submit" id="submit-button-4" class="textdeconone saveButton mb-3" style="background-color:#2e7d32;width:135px;border:1px solid #2e7d32;"><span class="saveButtonText">Create Account</span></button>
+                            @* </div> *@
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        function validateFields() {
+            const regionDropdown = document.getElementById("select-region");
+            const roleDropdown = document.getElementById("select-role");
+            const regionErrorFeedback = document.querySelector("#select-region + div");
+            const roleErrorFeedback = document.querySelector("#select-role + div");
+
+            regionDropdown.classList.remove("is-invalid");
+            roleDropdown.classList.remove("is-invalid");
+            regionErrorFeedback.classList.add("d-none");
+            roleErrorFeedback.classList.add("d-none");
+
+            if (regionDropdown.value === "-1") {
+                regionDropdown.classList.add("is-invalid");
+                regionErrorFeedback.classList.remove("d-none");
+            }
+            //function validate() {
+            var emailInput = document.getElementById("email");
+            var confirmEmailInput = document.getElementById("retype_email");
+
+            if (roleDropdown.value === "-1") {
+                roleDropdown.classList.add("is-invalid");
+                roleErrorFeedback.classList.remove("d-none");
+            }
+
+            if (regionDropdown.classList.contains("is-invalid") || roleDropdown.classList.contains("is-invalid")) {
+                alert("Please address the highlighted fields.");
+                return false;
+            }
+            if (emailInput.value === confirmEmailInput.value) {
+                // Passwords match
+                return true;
+            } else {
+                alert("Email and Confirm Email not matching!");
+                return false;
+            }
+            //}
+            return true;
+        }
+        const phoneInputField = document.querySelector("#phone1");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+        const phoneInputField2 = document.querySelector("#phone2");
+        const phoneInput2 = window.intlTelInput(phoneInputField2, {
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+
+
+        //admin wise region
+        $(document).ready(function () {
+            var selectedRegion = $('#SelectedRegion').val();
+            var ticked = document.getElementsByClassName('checkboxes');
+            for (var i = 0; i < ticked.length; i++) {
+               if (ticked[i].checked) {
+                   selectedRegion += (selectedRegion ? ',' : '') + ticked[i].value;
+               }
+            }
+            $('.checkboxes').change(function () {
+                var regionId = $(this).data('regionId');
+                var isChecked = $(this).is(':checked');
+
+                // Update selectedRegion string based on checkbox state
+                if (isChecked) {
+                    selectedRegion += (selectedRegion ? ',' : '') + regionId;
+                } else {
+                    selectedRegion = selectedRegion.replace(new RegExp(',' + regionId + '|^' + regionId + ','), '');
+                }
+
+                $('#SelectedRegion').val(selectedRegion);
+            });
+        });
+
+        //dark theme
+        window.onload = function checkingTheme() {
+            try {
+                let themeCheck = localStorage.getItem('theme');
+                if (themeCheck == null || themeCheck == 'light') {
+                    document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+                    document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
+                    document.getElementById('body').style.backgroundColor = "#f5f5f5";
+                    document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
+                    document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+                } else {
+                    document.getElementById('main-div').style.backgroundColor = "black";
+                    document.getElementById('main-sub-div').style.backgroundColor = "black";
+                    document.getElementById('body').style.backgroundColor = "black";
+                    document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
+                    document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
+                }
+            } catch (error) {
+                console.log('no themes decided yet');
+            }
+        }
+        function changeTheme() {
+            let theme = localStorage.getItem('theme');
+            if (theme == null || theme == 'light') {
+                localStorage.setItem('theme', 'dark');
+                document.getElementById('main-div').style.backgroundColor = "black";
+                document.getElementById('main-sub-div').style.backgroundColor = "black";
+                document.getElementById('body').style.backgroundColor = "black";
+                document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
+                document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
+            } else if (theme == 'dark') {
+                localStorage.setItem('theme', 'light');
+                document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+                document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
+                document.getElementById('body').style.backgroundColor = "#f5f5f5";
+                document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
+                document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+            }
+        }
+    </script>
+</div>

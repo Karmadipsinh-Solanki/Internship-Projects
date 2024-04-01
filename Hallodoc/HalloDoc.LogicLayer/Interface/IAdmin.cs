@@ -52,10 +52,13 @@ namespace HalloDoc.LogicLayer.Interface
         public EncounterViewModel encounter(int id);
         public bool mailDocument(List<int> requestFilesId, int requestId);
         public bool deleteViewUploadFile(string fileids);
-
+        public CreateAdminViewModel createAdmin();
+        public bool createAdmin(CreateAdminViewModel model);
 
         public CreateAccessViewModel createAccess();
         public bool createAccess(CreateAccessViewModel model);
         public AccountAccessViewModel accountAccess();
+
+        public ProviderViewModel providerInfo(int? region, int page = 1, int pageSize = 10);
     }
 }

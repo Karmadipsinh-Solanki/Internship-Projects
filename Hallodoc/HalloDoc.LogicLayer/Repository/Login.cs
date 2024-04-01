@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using System.Net.Mail;
 using System.Net;
 using Microsoft.AspNetCore.Identity;
+using System.Collections;
 
 namespace HalloDoc.LogicLayer.Repository
 {
@@ -136,7 +137,37 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
+        public bool reviewAgreementSubmit(string email, int requestId, string reason, int status)
+        {
+            int requestid = requestId;
+            BitArray check = new BitArray(1);
+            check.Set(0, false);
+            if (requestId != null)
+            {
+                var requestToUpdate = _context.Requests.Where(u => u.RequestId == requestId && u.IsDeleted == check).FirstOrDefault();
 
+                if (requestToUpdate != null)
+                {
+                    requestToUpdate.ModifiedDate = DateTime.Now;
+                    requestToUpdate.Status = (short)status;
+
+                    _context.Requests.Update(requestToUpdate);
+                    _context.SaveChanges();
+                }
+                RequestStatusLog requestStatusLog = new RequestStatusLog();
+                requestStatusLog.RequestId = requestId;
+                requestStatusLog.Status = (short)status;
+                requestStatusLog.Notes = reason;
+                requestStatusLog.CreatedDate = DateTime.Now;
+                _context.RequestStatusLogs.Add(requestStatusLog);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public AspNetUser getAspNetUser(string email)
         {
             AspNetUser aspNetUser = _context.AspNetUsers.FirstOrDefault(u => u.Email == email);

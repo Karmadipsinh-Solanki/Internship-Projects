@@ -17,6 +17,7 @@ namespace HalloDoc.LogicLayer.Interface
         public bool ForgotPassword(ForgotPassword model);
         public bool resetPasswordFromEmail(CreateNewPassword model);
         public AspNetUser getAspNetUser(string email);
+        public bool reviewAgreementSubmit(string email, int requestId, string reason, int status);
 
     }
 }
