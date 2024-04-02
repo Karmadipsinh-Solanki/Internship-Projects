@@ -1,0 +1,120 @@
+﻿@using HalloDoc.DataLayer.ViewModels.AdminViewModels;
+@model PatientHistoryViewModel;
+@using static HalloDoc.EnumStatus;
+@{
+    ViewData["Title"] = "Patient History";
+}
+@section Styles {
+    <link href="~/css/searchRecords.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/AdminDashboardStyle.css" rel="stylesheet" type="text/css" />
+}
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+
+<div id="body">
+    <div class="shadow header-nav-container">
+        <partial name="Toast" />
+        <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" />
+    </div>
+    <div id="main-div" class="tabcontent main-profile-div">
+        <div class="main-sub-div">
+            <div class="py-3 topheader">
+                <h3>Patient History</h3>
+            </div>
+        </div>
+
+        <div class="bg-white">
+            <div class="row p-2">
+                <div class="col-md-3">
+                    <div class="form-floating mb-3">
+                        <textarea type="text" class="form-control custom-input"
+                                  style="resize:none;" id="FirstName" placeholder="FirstName" asp-for="FirstName"></textarea>
+                        <label for="FirstName">FirstName</label>
+                        @* <span asp-validation-for="FirstName" class="text-danger"></span> *@
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-floating mb-3">
+                        <textarea type="text" class="form-control custom-input"
+                                  style="resize:none;" id="LastName" placeholder="Patient Name" asp-for="LastName"></textarea>
+                        <label for="LastName">Last Name</label>
+                            @* <span asp-validation-for="LastName" class="text-danger"></span> *@
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-floating mb-3">
+                        <textarea type="text" class="form-control custom-input"
+                                  style="resize:none;" id="Email" placeholder="Email" asp-for="Email"></textarea>
+                        <label for="Email">Email</label>
+                        @* <span asp-validation-for="Email" class="text-danger"></span> *@
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-floating mb-3">
+                        <textarea type="text" class="form-control custom-input"
+                                  style="resize:none;" id="PhoneNumber" placeholder="Phone Number" asp-for="PhoneNumber"></textarea>
+                        <label for="PhoneNumber" class="label">Phone Number</label>
+                        @* <span asp-validation-for="PhoneNumber" class="text-danger"></span> *@
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end align-items-center">
+                <a class="cancelButton textdeconone d-flex justify-content-center align-items-center me-2" onclick="clearFields()">
+                    <span class="cancelButtonText">Clear</span>
+                </a>
+                <a class="saveButton textdeconone d-flex justify-content-center align-items-center me-2">
+                    <span class="saveButtonText" onclick="filter(1,10)">Search</span>
+                </a>
+            </div>
+            @if (Model.Users.Count != 0)
+            {
+                <div class="table-responsive" style="margin-top: 20px">
+                    <div id="PatientHistoryTablePartialView"></div>
+                </div>
+            }
+        </div>
+    </div>
+    <script>
+        $.ajax({
+            url: `/AdminDashboard/PatientSearchHistory`,
+            type: 'POST',
+            dataType: 'html',
+            // Pass your data here
+            success: function (response) {
+                $("#PatientHistoryTablePartialView").html(response)
+            },
+            error: function () {
+                alert('An error occurred.');
+            }
+        });
+        function filter(page, pageSize) {
+            var firstname = document.getElementById('FirstName').value;
+            var lastname = document.getElementById('LastName').value;
+            var email = document.getElementById('Email').value;
+            var phonenumber = document.getElementById('PhoneNumber').value;
+
+            $.ajax({
+                url: `/AdminDashboard/PatientSearchHistory`,
+                type: 'POST',
+                dataType: 'html',
+                data: { firstname: firstname, lastname: lastname, email: email, phonenumber: phonenumber, page: page, pageSize: pageSize },
+                // Pass your data here
+                success: function (response) {
+                    //console.log(response);
+                    $("#PatientHistoryTablePartialView").html(response);
+                    //document.getElementById('loader2').style.display = 'none';
+                    //document.getElementById('PatientHistoryTablePartialView').style.display = 'block';
+                },
+                error: function () {
+                    alert('An error occurred.');
+                }
+            });
+        }
+        function clearFields() {
+            location.reload();
+        }
+    </script>
+</div>

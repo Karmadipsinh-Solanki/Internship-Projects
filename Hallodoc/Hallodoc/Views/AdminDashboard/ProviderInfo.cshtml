@@ -105,7 +105,8 @@
         </div>
     </div>
     <script>
-        window.onload = () => {
+         $(document).ready(function() {
+             debugger
             $.ajax({
                 url: '/AdminDashboard/FilterProviderInformation',
                 type: 'POST',
@@ -118,8 +119,11 @@
                     alert('An error occurred.');
                 }
                     console.log("in 1st")
-            });
-        }
+            }); });
+        // window.onload = () => {
+        //     debugger
+            
+        // }
         function filter(page, pageSize) {
             // var region = document.getElementById('region').value;
             var region = $('#region').val();
@@ -133,7 +137,6 @@
                 success: function (response) {
                     //console.log(response);
                     $("#ProviderInformationData").html(response);
-                    // document.getElementById('loader2').style.display = 'none';
                     // document.getElementById('ProviderInformationData').style.display = 'block';
                         console.log("in 2nd")
                 },

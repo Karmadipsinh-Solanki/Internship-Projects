@@ -1047,7 +1047,7 @@ namespace HalloDoc.LogicLayer.Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ViewUploadViewModel closeCase(int id)/////
+        public ViewUploadViewModel closeCase(int id)
         {
             var details = _context.Requests.Include(u => u.RequestClient).FirstOrDefault(i => i.RequestId == id);
             var month1 = details.RequestClient.StrMonth;
@@ -1976,6 +1976,102 @@ namespace HalloDoc.LogicLayer.Repository
             createAdminViewModel.regions = allRegions;
             createAdminViewModel.Roles = roles;
             return createAdminViewModel;
+        }
+       
+        PatientHistoryViewModel IAdmin.patientHistory(string? firstname, string? lastname, string? email, string? phonenumber, int page = 1, int pageSize = 10)
+        {
+            IQueryable<User> users = _context.Users;
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 10;
+            PatientHistoryViewModel patientHistoryViewModel = new PatientHistoryViewModel();
+            patientHistoryViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            if (firstname != null)
+            {
+                users = users.Where(r => r.FirstName.ToLower().Contains(firstname.ToLower()));
+            }
+            if (lastname != null)
+            {
+                users = users.Where(r => r.LastName.ToLower().Contains(lastname.ToLower()));
+            }
+            if (email != null)
+            {
+                users = users.Where(r => r.Email.ToLower().Contains(email.ToLower()));
+            }
+            if (phonenumber != null)
+            {
+                users = users.Where(r => r.Mobile.Contains(phonenumber));
+            }
+            patientHistoryViewModel.CurrentPage = page;
+            patientHistoryViewModel.PageSize = pageSize;
+            patientHistoryViewModel.TotalItems = users.Count();
+            patientHistoryViewModel.TotalPages = (int)Math.Ceiling((double)users.Count() / pageSize);
+            //adminDashboardViewModel.requests = query.ToList();
+
+            patientHistoryViewModel.Users = users.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            return patientHistoryViewModel;
+        }
+        BlockHistoryViewModel IAdmin.blockHistory(string? firstname, DateTime? date, string? email, string? phonenumber, int page = 1, int pageSize = 10)
+        {
+            IQueryable<BlockRequest> query = _context.BlockRequests.Include(i => i.Request);
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 11;
+            BlockHistoryViewModel blockHistoryViewModel = new BlockHistoryViewModel();
+            blockHistoryViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            if (firstname != null)
+            {
+                query = query.Where(i => i.Request.RequestClient.FirstName.ToLower().Contains(firstname.ToLower()));
+            }
+            if (date != null)
+            {
+                query = query.Where(b => b.CreatedDate.Date == date.Value.Date);
+            }
+
+            if (email != null)
+            {
+                query = query.Where(b => b.Email.ToLower().Contains(email.ToLower()));
+            }
+
+            if (phonenumber != null)
+            {
+                query = query.Where(b => b.PhoneNumber.Contains(phonenumber));
+            }
+            blockHistoryViewModel.CurrentPage = page;
+            blockHistoryViewModel.PageSize = pageSize;
+            blockHistoryViewModel.TotalItems = query.Count();
+            blockHistoryViewModel.TotalPages = (int)Math.Ceiling((double)query.Count() / pageSize);
+            List<BlockRequest> queries = query.ToList();
+            List<BlockHistoryTable> blockHistoryTable = new List<BlockHistoryTable>();
+            for (int i = 0; i < queries.Count; i++)
+            {
+                int num = i;
+                BitArray check = new BitArray(1);
+                check.Set(0, false);
+                bool isActiveValue = queries[i].IsActive.Get(0);  // Assuming bit 0 represents IsActive
+                var requestClient = _context.Requests.Include(i => i.RequestClient).FirstOrDefault(i => i.RequestId == queries[num].RequestId && i.IsDeleted == check);
+                blockHistoryTable.Add(new BlockHistoryTable()
+                {
+                    FirstName = requestClient?.FirstName,
+                    PhoneNumber = queries[i].PhoneNumber,
+                    CreatedDate = queries[i].CreatedDate,
+                    Reason = queries[i].Reason,
+                    Email = queries[i].Email,
+                    IsActive = isActiveValue,
+                    BlockRequestId = queries[i].BlockRequestId,
+                });
+            }
+            blockHistoryViewModel.Query = blockHistoryTable.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            return blockHistoryViewModel;
         }
     }
 }

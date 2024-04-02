@@ -97,8 +97,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="name" class="form-control" id="floatingInput8" placeholder="State" asp-for="State">
-                            <label for="floatingInput8">State</label>
+                            <input type="name" class="form-control" id="state" placeholder="State" asp-for="State">
+                            <label for="state">State</label>
                             <span asp-validation-for="State" class="text-danger"></span>
                         </div>
                     </div>
@@ -120,7 +120,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="map-verify-btn">
-                            <a asp-action="VerifyState" asp-controller="AdminDashboard" asp-route-requestId="@Model.RequestId" class="back-navigation-link" style="position:relative;padding-right:5px !important;background-color:white;height:54px!important;width: 76px;display: flex;justify-content: center;">
+                            <a id="verifyRegion" class="back-navigation-link" style="position:relative;padding-right:5px !important;background-color:white;height:54px!important;width: 76px;display: flex;justify-content: center;">
                                 <div class="back-navigation">
                                     <span class="btn-text">Verify</span>
                                 </div>
@@ -191,6 +191,22 @@
         </div>
     </div>
     <script>
+        //verify state
+        $('#verifyRegion').on('click', () => {
+            console.log("Hello")
+            $.post('/AdminDashboard/VerifyState', { region: document.getElementById("state")?.value }, function (response) {
+                console.log(response)
+                if (response.isVerified == 1) { 
+                    toastr.success("We are serving in this region!!");
+                }
+                else if (response.isVerified == 2) {
+                    toastr.error("Please provide the required details to verify!!");
+                }
+                else if (response.isVerified == 3) {
+                    toastr.error("We are currently not serving in this region!!");
+                }
+            });
+        })
         //date validation
         const inputDate = document.getElementById('dob');
         const today = new Date().toISOString().split('T')[0];

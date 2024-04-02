@@ -32,14 +32,14 @@
                         <div class="form-floating mb-3">
                             <input type="name" class="form-control" id="floatingInput1" placeholder="First Name" asp-for="FirstName">
                             <label class="floatingInput1">First Name</label>
-                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="name" class="form-control" id="floatingInput2" placeholder="Last Name" asp-for="LastName">
                             <label for="floatingInput2">Last Name</label>
-                    <span asp-validation-for="LastName" class="text-danger"></span>
+                            <span asp-validation-for="LastName" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                         <div class="form-floating mb-3">
                             <input type="date" class="form-control" id="dob" asp-for="DOB">
                             <label for="dob">Date of Birth</label>
-                    <span asp-validation-for="DOB" class="text-danger"></span>
+                            <span asp-validation-for="DOB" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -58,13 +58,13 @@
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control" id="inputEmail4" placeholder="Email" asp-for="Email">
                             <label for="floatingInput4">Email</label>
-                        <span asp-validation-for="Email" class="text-danger"></span>
+                            <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="tel" class="phone form-control" id="floatingInput5" placeholder="(201)555-0123" asp-for="PhoneNumber">
-                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="hidden" id="pass">
@@ -73,11 +73,11 @@
                                 <input type="password" class="form-control" id="floatingpassword1" placeholder="Password" asp-for="PasswordHash">
                                 <label for="floatingPassword1">Password</label>
                                 @* <div class="eye">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" fill="currentColor" class="bi bi-eye"
-                                         viewBox="0 0 16 16">
-                                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
-                                        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
-                                    </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" fill="currentColor" class="bi bi-eye"
+                                viewBox="0 0 16 16">
+                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
+                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
+                                </svg>
                                 </div> *@
                             </div>
                             <span asp-validation-for="PasswordHash" class="text-danger"></span>
@@ -89,11 +89,11 @@
                                 <input type="password" class="form-control" id="retype_password" onblur="validate()" placeholder="Password" asp-for="RequirePasswordHash">
                                 <label for="floatingPassword2">Confirm Password</label>
                                 @* <div class="eye">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" fill="currentColor" class="bi bi-eye"
-                                         viewBox="0 0 16 16">
-                                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
-                                        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
-                                    </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" fill="currentColor" class="bi bi-eye"
+                                viewBox="0 0 16 16">
+                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
+                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
+                                </svg>
                                 </div> *@
                             </div>
                             <span asp-validation-for="RequirePasswordHash" class="text-danger"></span>
@@ -101,20 +101,20 @@
                     </div>
                 </div>
                 @* <div class="row">
-                    <div class="col-md-6 ">
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="inputEmail4" placeholder="Password" asp-for="Password">
-                            <label for="floatingInput">Password</label>
-                        </div>
-                        <span asp-validation-for="Password" class="text-danger"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="floatingInput" placeholder="Confirm Password" asp-for="ConfirmPassword">
-                            <label for="floatingInput">Confirm Password</label>
-                        </div>
-                        <span asp-validation-for="Password" class="text-danger"></span>
-                    </div>
+                <div class="col-md-6 ">
+                <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="inputEmail4" placeholder="Password" asp-for="Password">
+                <label for="floatingInput">Password</label>
+                </div>
+                <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="floatingInput" placeholder="Confirm Password" asp-for="ConfirmPassword">
+                <label for="floatingInput">Confirm Password</label>
+                </div>
+                <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
                 </div> *@
                 <header class="h5">Patient Location</header>
                 <div class="row">
@@ -122,7 +122,7 @@
                         <div class="form-floating mb-3">
                             <input type="name" class="form-control" id="floatingInput6" placeholder="Street" asp-for="Street">
                             <label for="floatingInput6">Street</label>
-                        <span asp-validation-for="Street" class="text-danger"></span>
+                            <span asp-validation-for="Street" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -138,14 +138,14 @@
                         <div class="form-floating mb-3">
                             <input type="name" class="form-control" id="floatingInput8" placeholder="State" asp-for="State">
                             <label for="floatingInput8">State</label>
-                        <span asp-validation-for="State" class="text-danger"></span>
+                            <span asp-validation-for="State" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="name" class="form-control" id="floatingInput9" placeholder="Zip Code" asp-for="ZipCode">
                             <label for="floatingInput9">Zip Code</label>
-                        <span asp-validation-for="ZipCode" class="text-danger"></span>
+                            <span asp-validation-for="ZipCode" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -168,7 +168,7 @@
                 </div>
                 <div class="submit pb-3">
                     <input type="submit" class="btn btn-outline-pri" id="submit-button" />
-                        &nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp
                     <button type="button" class="btn btn-outline-pri">Cancel</button>
 
                 </div>
@@ -263,5 +263,5 @@
             }
         });
 
-    </script>   
+    </script>
 </div>

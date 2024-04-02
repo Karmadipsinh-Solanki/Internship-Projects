@@ -9,7 +9,7 @@
 }
 @section Scripts {
     @{
-        <partial name="_ValidationScriptsPartial" />
+            <partial name="_ValidationScriptsPartial" />
     }
 }
 
@@ -198,11 +198,11 @@
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
                                 </svg>
                                 @* <input placeholder="All Regions" type="text" class="searchPatientInput" id="region" /> *@
-                                <select class="searchPatientInput" id="region" onchange="filter(1,10)" style="width: 100%;height: 54px;padding:8px;border:none;">
-                                    <option value="0" selected hidden><span>All Region</span></option>
+                                <select class="searchPatientInput" id="region" onchange="filter(1,10)" style="padding:8px;border:none;">
+                                    <option value="0"class="text-secondary" selected hidden><span style="color:gray;">All Region</span></option>
                                     @foreach (var item in Model.regions)
                                     {
-                                    <option value="@item.RegionId"><span>@item.Name</span></option>
+                                        <option value="@item.RegionId"><span>@item.Name</span></option>
                                     }
                                 </select>
                             </div>
@@ -265,14 +265,14 @@
                                     <h1 class="saveButtonText fs-5" id="cancelCaseModalLabel">Confirm Cancellation</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <form asp-action="CancelCase" asp-controller="AdminDashboard" method="post" id="formclass2">
+                                <form asp-action="CancelCase" asp-controller="AdminDashboard" method="post" id="formclassCancel">
                                     <div class="modal-body">
                                         <div class="mb-3">
                                             <h6><span>Patient Name</span><span class="mx-1">:</span><span style="color:#01bce9;">test test</span></h6>
                                         </div>
 
                                         <div class="form-floating mb-3">
-                                            <input type="text" asp-for="RequestId" style="display:none;" id="requestId2" />
+                                            <input type="text" asp-for="RequestId" style="display:none;" id="requestIdCancel" />
                                             <select class="custom-select-3 text-secondary dropdownBorder" asp-for="CaseTagId" style="width: 100%;height: 54px;padding:8px;">
                                                 <option value="0" style="color:gray !important;">
                                                     <span style="color:gray;">Reason for Cancellation:</span>
@@ -289,12 +289,12 @@
                                             <textarea type="text" placeholder="Username" class="form-control"
                                                       style="height: 135px !important;" asp-for="CancelDescription"></textarea>
                                             <label for="floatingInput">Provide Additional Notes</label>
-                                            <span asp-validation-for="CancelDescription" class="text-danger"></span>
+                                            <span asp-validation-for="CancelDescription" class="text-danger descriptionErrorClass" class="validationText"></span>
                                         </div>
                                     </div>
                                     <div class="modal-footer form-floating mb-3">
                                         <button type="submit" class="saveButton"><span class="saveButtonText">Confirm</span> </button>
-                                        <button class="cancelButton" data-bs-dismiss="modal" onclick="cancel4()"><span class="cancelButtonText">Cancel</span></button>
+                                        <button class="cancelButton" data-bs-dismiss="modal" onclick="cancelCancel()"><span class="cancelButtonText">Cancel</span></button>
                                     </div>
                                 </form>
                             </div>
@@ -339,8 +339,8 @@
                                             <textarea type="text" placeholder="Description" class="form-control"
                                                       style="height: 135px !important;" asp-for="Description"></textarea>
                                             <label for="floatingInput">Description</label>
-                                            <span asp-validation-for="Description" class="text-danger"></span>
                                         </div>
+                                        <span asp-validation-for="Description" class="text-danger"></span>
                                     </div>
                                     <div class="modal-footer form-floating mb-3">
                                         <button type="submit" class="saveButton"><span class="saveButtonText">Submit</span> </button>
@@ -366,7 +366,7 @@
                                         </div>
 
                                         <div class="form-floating mb-3">
-                                            <input type="hidden" asp-for="RequestId" id="requestId" />
+                                            <input type="hidden" asp-for="RequestId" id="requestIdTransfer" />
                                             <select class="custom-select-4 text-secondary dropdownBorder" id="regionDropdown2" style="width: 100%;height: 54px;padding:8px;">
                                                 <option value="0" disabled selected hidden><span>Narrow Search by Region</span></option>
 
@@ -414,7 +414,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer form-floating mb-3">
-                                        <input type="hidden" asp-for="RequestId" id="requestId4" />
+                                        <input type="hidden" asp-for="RequestId" id="requestIdBlock" />
                                         <button type="submit" class="saveButton"><span class="saveButtonText">Confirm</span> </button>
                                         <button class="cancelButton" data-bs-dismiss="modal" onclick="cancel4()"><span class="cancelButtonText">Cancel</span></button>
                                     </div>
@@ -446,7 +446,7 @@
                                         </div>
                                         <form asp-action="ClearCase" asp-controller="AdminDashboard" method="post" id="formclass6">
                                             <div class="modal-footer form-floating mb-3">
-                                                <input type="hidden" asp-for="RequestId" id="requestId9" />
+                                                <input type="hidden" asp-for="RequestId" id="requestIdClear" />
                                                 <button type="submit" class="saveButton"><span class="saveButtonText">Clear</span> </button>
                                                 <a class="cancelButton textdeconone d-flex justify-content-center align-items-center" data-bs-dismiss="modal" onclick="cancel4()"><span class="cancelButtonText">Cancel</span></a>
                                             </div>
@@ -507,7 +507,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer form-floating mb-3">
-                                        <input type="hidden" asp-for="RequestId" id="requestId11" />
+                                        <input type="hidden" asp-for="RequestId" id="requestIdSendAgree" />
                                         <button type="submit" class="saveButton"><span class="saveButtonText">Send</span> </button>
                                         <button class="cancelButton" data-bs-dismiss="modal" onclick="cancel4()"><span class="cancelButtonText">Cancel</span></button>
                                     </div>
@@ -530,6 +530,10 @@
         </div>
     </div>
     <script>
+        $('#cancelCaseModal').on('hide.bs.modal', function (e) {
+            debugger
+            $('.validationText').html("");
+        });
         //for creating countrywise phone format
         const phoneInputField = document.querySelector("#phone");
         const phoneInput = window.intlTelInput(phoneInputField, {
@@ -691,7 +695,7 @@
         // var span4 = document.getElementsByClassName("close-btn")[3];
         function CancelCase(requestId) {
             console.log(requestId);
-            document.getElementById("requestId2").value = requestId;
+            document.getElementById("requestIdCancel").value = requestId;
             cancelModal.style.display = "block";
         };
 
@@ -709,11 +713,15 @@
 
         //blockcase reqid
         const BlockCase = (requestid) => {
-            document.getElementById("requestId4").value = requestid;
+            document.getElementById("requestIdBlock").value = requestid;
         }
         //send agreement reqid
         const SendAgreement = (requestid) => {
-            document.getElementById("requestId11").value = requestid;
+            document.getElementById("requestIdSendAgree").value = requestid;
+        }
+        //transfercase reqid
+        const TransferCase = (requestid) => {
+            document.getElementById("requestIdTransfer").value = requestid;
         }
 
 
@@ -724,6 +732,16 @@
             console.log(requestId);
             document.getElementById("requestId").value = requestId;
             modal3.style.display = "block";
+        }
+        // function cancel4() {
+        //     modal3.style.display = "none";
+        // }
+        function cancelCancel() {
+            debugger
+            console.log('in cancel')
+            document.getElementById("formclassCancel").reset();
+            let x = document.getElementsByClassName("descriptionErrorClass");
+            console.log(x.html)
         }
 
         // for transfer case action
@@ -922,7 +940,7 @@
             }
         }
 
-        //filter function 
+        //filter function
         function filter(page, pageSize) {
             var categories = document.getElementsByClassName("req-filter");
             for (var i = 0; i < categories.length; i++) {
@@ -958,7 +976,7 @@
         }
 
         const ClearCase = (id) => {
-            document.getElementById("requestId9").value = id
+            document.getElementById("requestIdClear").value = id
         }
 
 
@@ -1002,7 +1020,7 @@
             // Add the active class to the clicked element
             element.classList.add('filter-active');
 
-            filter(1,10)
+            filter(1, 10)
 
             //?????
             // // document.getElementById("partial-container").style.display = "none";
@@ -1100,7 +1118,7 @@
                 document.getElementById('main-div').style.backgroundColor = "black";
                 // document.getElementById('main-sub-div').style.backgroundColor = "black";
                 document.getElementById('body').style.backgroundColor = "black";
-                document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');  
+                document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
                 document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
             } else if (theme == 'dark') {
                 localStorage.setItem('theme', 'light');

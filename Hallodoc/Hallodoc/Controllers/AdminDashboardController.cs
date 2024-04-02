@@ -621,6 +621,39 @@ namespace HalloDoc.Controllers
         {
             return View();
         }
+        public IActionResult PatientHistory()
+        {
+            PatientHistoryViewModel patientHistoryViewModel = _admin.patientHistory(null, null, null, null);
+            return View(patientHistoryViewModel);
+        }
+        public IActionResult PatientSearchHistory(string? firstname, string? lastname, string? email, string? phonenumber, int page = 1, int pageSize = 10)
+        {
+            PatientHistoryViewModel patientHistoryViewModel = _admin.patientHistory(firstname, lastname, email, phonenumber, page, pageSize);
+            return PartialView("PatientHistoryTable", patientHistoryViewModel);
+        }
+        public IActionResult UnBlock(int id)
+        {
+            bool check = _admin.unBlock(id);
+            if (check)
+            {
+                TempData["success"] = "Patient Unblocked successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,Patient is not unblocked!";
+            }
+            return RedirectToAction("BlockHistory");
+        }
+        public IActionResult BlockHistory()
+        {
+            BlockHistoryViewModel blockHistoryViewModel = _admin.blockHistory(null, null, null, null);
+            return View(blockHistoryViewModel);
+        }
+        public IActionResult PatientBlockHistory(string? firstname, DateTime? date, string? email, string? phonenumber, int page = 1, int pageSize = 10)
+        {
+            BlockHistoryViewModel blockHistoryViewModel = _admin.blockHistory(firstname, date, email, phonenumber, page, pageSize);
+            return PartialView("BlockHistoryTable", blockHistoryViewModel);
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
