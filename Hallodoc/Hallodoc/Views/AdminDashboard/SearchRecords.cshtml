@@ -1,1 +1,184 @@
-﻿
+﻿@using HalloDoc.DataLayer.ViewModels;
+@model SearchRecordsViewModel;
+@using static HalloDoc.EnumStatus;
+@{
+    ViewData["Title"] = "Search Records";
+}
+@section Styles {
+    <link href="~/css/searchRecords.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/AdminDashboardStyle.css" rel="stylesheet" type="text/css" />
+}
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+
+<div id="body">
+    <div class="shadow header-nav-container">
+        <partial name="Toast" />
+        <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" />
+    </div>
+    <div id="main-div" class="tabcontent" style="background-color: #f9f9f9;">
+        <div class="main-sub-div">
+            <div class="d-flex justify-content-between align-items-center py-3 topheader p-3">
+                <div class="">
+                    <h3>Search Records</h3>
+                </div>
+                <div class="saveButton d-flex justify-content-center align-items-center" style="width: 192px;height: 44px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white"
+                         class="bi bi-reply-all-mirrored" viewBox="0 0 16 16">
+                        <path d="M8.098 5.013a.144.144 0 0 1 .202.134V6.3a.5.5 0 0 0 .5.5c.667 0 2.013.005 3.3.822.984.624 1.99 1.76 2.595 3.876-1.02-.983-2.185-1.516-3.205-1.799a8.7 8.7 0 0 0-1.921-.306 7 7 0 0 0-.798.008h-.013l-.005.001h-.001L8.8 9.9l-.05-.498a.5.5 0 0 0-.45.498v1.153c0 .108-.11.176-.202.134L4.114 8.254l-.042-.028a.147.147 0 0 1 0-.252l.042-.028zM9.3 10.386q.102 0 .223.006c.434.02 1.034.086 1.7.271 1.326.368 2.896 1.202 3.94 3.08a.5.5 0 0 0 .933-.305c-.464-3.71-1.886-5.662-3.46-6.66-1.245-.79-2.527-.942-3.336-.971v-.66a1.144 1.144 0 0 0-1.767-.96l-3.994 2.94a1.147 1.147 0 0 0 0 1.946l3.994 2.94a1.144 1.144 0 0 0 1.767-.96z" />
+                        <path d="M5.232 4.293a.5.5 0 0 0-.7-.106L.54 7.127a1.147 1.147 0 0 0 0 1.946l3.994 2.94a.5.5 0 1 0 .593-.805L1.114 8.254l-.042-.028a.147.147 0 0 1 0-.252l.042-.028 4.012-2.954a.5.5 0 0 0 .106-.699" />
+                    </svg>
+                    <span class="saveButtonText">Export Data to Excel</span>
+                </div>
+            </div>
+
+            <div class="p-2 bg-white m-2">
+                <form asp-action="DownloadSearchRecordsExcel" asp-controller="AdminDashboard">
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="form-floating mb-3">
+                                    <select class="custom-select login-fields-2 dropdownBorder form-control" id="Status" asp-for="RequestStatus" style="width: 100%!important;height: 58px;padding:8px;">
+                                    <option value="0" style="color:gray !important;"><span style="color:gray;">Select Request Status</span></option>
+                                    <option value="1" style="color:gray !important;"><span style="color:gray;">New</span></option>
+                                    <option value="2" style="color:gray !important;"><span style="color:gray;">Pending</span></option>
+                                    <option value="3" style="color:gray !important;"><span style="color:gray;">Active</span></option>
+                                    <option value="4" style="color:gray !important;"><span style="color:gray;">Conclude</span></option>
+                                    <option value="5" style="color:gray !important;"><span style="color:gray;">To Close</span></option>
+                                    <option value="6" style="color:gray !important;"><span style="color:gray;">Unpaid</span></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-floating mb-3">
+                                <input type="text" placeholder="First Name" class="form-control" id="PatientName" asp-for="PatientName" />
+                                <label for="first-name" class="labels">Patient Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-floating mb-3">
+                                <select class="custom-select login-fields-2 dropdownBorder form-control" id="SelectRequestType" asp-for="RequestType" style="width: 100%!important;height: 58px;padding:8px;">
+                                    <option value="0" style="color:gray !important;"><span style="color:gray;">Select Request Type</span></option>
+                                    <option value="4" style="color:gray !important;"><span style="color:gray;">Patient</span></option>
+                                    <option value="3" style="color:gray !important;"><span style="color:gray;">Conceirge</span></option>
+                                    <option value="1" style="color:gray !important;"><span style="color:gray;">Business</span></option>
+                                    <option value="2" style="color:gray !important;"><span style="color:gray;">Family/Friend</span></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-floating mb-3">
+                                <input type="date" placeholder="Last Name" class="form-control" id="FromDate" asp-for="FromDate" />
+                                <label for="last-name" class="labels">From Date of Service</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="form-floating mb-3">
+                                <input type="date" placeholder="Last Name" class="form-control" id="ToDate" asp-for="ToDate" />
+                                <label for="last-name" class="labels">To Date of Service</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-floating mb-3">
+                                <input type="text" placeholder="Last Name" class="form-control" id="ProviderName" asp-for="ProviderName" />
+                                <label for="last-name" class="labels">Provider Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-floating mb-3">
+                                <input type="text" placeholder="First Name" class="form-control" id="Email" asp-for="Email" />
+                                <label for="Email" class="labels">Email</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-floating mb-3">
+                                <input type="text" placeholder="First Name" class="form-control" id="PhoneNumber" asp-for="PhoneNumber" />
+                                <label for="PhoneNumber" class="labels">Phone Number</label>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="submit-button-excel" />
+                </form>
+                <div class="d-flex justify-content-end align-items-center">
+                    <a class="cancelButton textdeconone d-flex justify-content-center align-items-center me-2" onclick="clearFields()">
+                        <span class="cancelButtonText">Clear</span>
+                    </a>
+                    <a class="saveButton textdeconone d-flex justify-content-center align-items-center me-2">
+                        <span class="saveButtonText" onclick="filter(1,10)">Search</span>
+                    </a>
+                </div>
+                @if (Model.Query.Count != 0)
+                {
+                    <div class="table-responsive" style="margin-top: 20px">
+                        @* <div id="loader2" class="loader2">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    </div> *@
+                        <div id="SearchRecordsData"></div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <script>
+        function downloadExcel() {
+            document.getElementById('submit-button-excel').click();
+        }
+        // document.getElementById('loader2').style.display = 'flex';
+
+        $.ajax({
+            url: `/AdminDashboard/SearchSearchRecords`,
+            type: 'POST',
+            dataType: 'html',
+            // Pass your data here
+            success: function (response) {
+                // document.getElementById('loader2').style.display = 'none';
+                $("#SearchRecordsData").html(response);
+
+            },
+            error: function () {
+                alert('An error occurred.');
+            }
+        });
+        function filter(page, pageSize) {
+            var patientName = document.getElementById('PatientName').value;
+            var providerName = document.getElementById('ProviderName').value;
+            var email = document.getElementById('Email').value;
+            var phonenumber = document.getElementById('PhoneNumber').value;
+            var selectedOptionValue = document.getElementById("Status").value;
+            var selectRequestType = document.getElementById("SelectRequestType").value;
+            var fromDate = document.getElementById("FromDate").value;
+            var toDate = document.getElementById("ToDate").value;
+
+            // document.getElementById('loader2').style.display = 'flex';
+            document.getElementById("SearchRecordsData").style.display = "none";
+            $.ajax({
+                url: `/AdminDashboard/SearchSearchRecords`,
+                type: 'POST',
+                dataType: 'html',
+                data: { patientName: patientName, providerName: providerName, email: email, phonenumber: phonenumber, selectedOptionValue: selectedOptionValue, selectRequestType: selectRequestType, fromDate: fromDate, toDate: toDate, page: page, pageSize: pageSize },
+                // Pass your data here
+                success: function (response) {
+                    //console.log(response);
+                    $("#SearchRecordsData").html(response);
+                    // document.getElementById('loader2').style.display = 'none';
+                    document.getElementById("SearchRecordsData").style.display = "block";
+
+                    //document.getElementById('PatientHistoryTablePartialView').style.display = 'block';
+                },
+                error: function () {
+                    alert('An error occurred.');
+                }
+            });
+        }
+        function clearFields() {
+            location.reload();
+        }
+    </script>
+</div>

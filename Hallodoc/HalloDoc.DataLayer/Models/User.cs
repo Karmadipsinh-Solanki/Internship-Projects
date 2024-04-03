@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Hallodoc;
+namespace HalloDoc.DataLayer.Models;
 
 [Table("User")]
 public partial class User

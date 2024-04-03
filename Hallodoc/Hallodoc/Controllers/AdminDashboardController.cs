@@ -28,6 +28,7 @@ using HalloDoc.LogicLayer.Repository;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using DocumentFormat.OpenXml.Office2010.Excel;
+using HalloDoc.DataLayer.Data;
 
 namespace HalloDoc.Controllers
 {
@@ -279,7 +280,7 @@ namespace HalloDoc.Controllers
         public IActionResult FetchRegions()
         {
             //var regions = _context.Regions.Select(r => new { Id = r.RegionId, Name = r.Name }).ToList();
-            List<Hallodoc.Region> regions = _admin.fetchRegions();
+            List<HalloDoc.DataLayer.Models.Region> regions = _admin.fetchRegions();
             return Json(regions);
         }
 
@@ -510,7 +511,7 @@ namespace HalloDoc.Controllers
 
         public IActionResult FetchAdminRegions()
         {
-            List<Hallodoc.Region> regions = _admin.fetchAdminRegions();
+            List<HalloDoc.DataLayer.Models.Region> regions = _admin.fetchAdminRegions();
             return Json(new { response = regions });
         }
         public IActionResult SaveAdministratorDetail(AdminProfileViewModel model)
@@ -620,6 +621,16 @@ namespace HalloDoc.Controllers
         public IActionResult EditPhyAccount()
         {
             return View();
+        }
+        public IActionResult SearchRecords()
+        {
+            SearchRecordsViewModel searchRecordsViewModel = _admin.searchRecords(null, null, null, null, null, null, null, null);
+            return View(searchRecordsViewModel);
+        }
+        public IActionResult SearchSearchRecords(string? patientName, string? providerName, string? email, string? phonenumber, int? selectedOptionValue, int? selectRequestType, DateTime? fromDate, DateTime? toDate, int page = 1, int pageSize = 10)
+        {
+            SearchRecordsViewModel searchRecordsViewModel = _admin.searchRecords(patientName, providerName, email, phonenumber, selectedOptionValue, selectRequestType, fromDate, toDate, page, pageSize);
+            return PartialView("SearchRecordsTable", searchRecordsViewModel);
         }
         public IActionResult PatientHistory()
         {

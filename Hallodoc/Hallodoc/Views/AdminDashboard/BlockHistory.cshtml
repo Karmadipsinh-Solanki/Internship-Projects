@@ -72,7 +72,7 @@
                     <span class="saveButtonText" onclick="filter(1,10)">Search</span>
                 </a>
             </div>
-            @if (Model.Users.Count != 0)
+            @if (Model.Query.Count != 0)
             {
                 <div class="table-responsive" style="margin-top: 20px">
                     <div id="BlockHistoryTable"></div>
@@ -95,7 +95,7 @@
         });
         function filter(page, pageSize) {
             var firstname = document.getElementById('FirstName').value;
-            var lastname = document.getElementById('LastName').value;
+            var date = document.getElementById('LastName').value;
             var email = document.getElementById('Email').value;
             var phonenumber = document.getElementById('PhoneNumber').value;
 
@@ -103,7 +103,7 @@
                 url: `/AdminDashboard/PatientBlockHistory`,
                 type: 'POST',
                 dataType: 'html',
-                data: { firstname: firstname, lastname: lastname, email: email, phonenumber: phonenumber, page: page, pageSize: pageSize },
+                data: { firstname: firstname, date: date, email: email, phonenumber: phonenumber, page: page, pageSize: pageSize },
                 // Pass your data here
                 success: function (response) {
                     //console.log(response);

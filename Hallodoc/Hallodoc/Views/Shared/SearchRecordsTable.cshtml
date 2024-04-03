@@ -1,1 +1,226 @@
-﻿
+﻿@model SearchRecordsViewModel;
+@using static HalloDoc.DataLayer.ViewModels.AdminViewModels.RequestType;
+@using static HalloDoc.EnumStatus;
+<div class="d-none d-md-block">
+    <table class="table" id="table-data">
+        <thead>
+            <tr>
+                @*<th style="width:80px !important;background-color: #ededed !important;"><input type="checkbox" id="checkall" onclick="oncheck()" style="height: 18px;width: 18px;" /></th>*@
+                <th class="tableHeader">Patient Name</th>
+                <th class="tableHeader">Requestor</th>
+                <th class="tableHeader">Date Of Service</th>
+                <th class="tableHeader">Close Case Date</th>
+                <th scope="col" class="tableHeader">Email</th>
+                <th scope="col" class="tableHeader">Phone Number</th>
+                <th scope="col" class="tableHeader">Address</th>
+                <th scope="col" class="tableHeader">Zip</th>
+                <th scope="col" class="tableHeader">Request Status</th>
+                <th scope="col" class="tableHeader">Physician</th>
+                <th scope="col" class="tableHeader">Physician Note</th>
+                @*<th scope="col" style="color: rgb(73, 73, 73);font-weight:500;background-color: #ededed !important;">Cancelled By Provider Note</th>*@
+                <th scope="col" class="tableHeader">Admin Note</th>
+                <th scope="col" class="tableHeader">Patient Note</th>
+                <th scope="col" class="tableHeader">Delete Permanently</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.Query)
+        {
+            <tr>
+                @*<td><input class="checkboxes" type="checkbox" style="height: 18px;width: 18px;" value="@item.RequestWiseFileId" /></td>*@
+                <td class="newtd">
+                    @item.PatientName
+                </td>
+                <td class="newtd">@Enum.GetName(typeof(Statuses), @item.Requestor)</td>
+                <td class="newtd">@item?.DateOfService</td>
+                <td class="newtd">@item?.CloseCaseDate</td>
+                <td class="newtd">@item.Email</td>
+                <td class="newtd">@item.PhoneNumber</td>
+                <td class="newtd">@item?.Address</td>
+                <td class="newtd">@item?.Zip</td>
+                <td class="newtd">@Enum.GetName(typeof(Status), @item.RequestStatus)</td>
+                <td class="newtd">@item?.Physician</td>
+                <td class="newtd">@item?.PhysicianNote</td>
+                @*<td>@item?.CancelledByProviderNote</td>*@
+                <td class="newtd">@item?.AdminNote</td>
+                <td class="newtd">@item?.PatientNote</td>
+
+
+                <td class="newtd">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <a class="link " asp-action="DeleteRecords" asp-controller="AdminDashboard" asp-route-id="@item.RequestId">
+                            <span>Delete</span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<div class="d-block d-md-none">
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        @foreach (var item in Model.Query)
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-heading@(item.RequestId)">
+                    <button class="accordion-button collapsed main-accordion-div" style="background-color:#E5F2F8 !important;" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapse@(item.RequestId)" aria-expanded="false"
+                            aria-controls="flush-collapse">
+                        <div class="main-accordion-sub-div">
+                            <span style="color:black;font-size:15px;">@item.PatientName</span>
+                            <span style="margin-top:20px;color:black;font-size:15px;">
+                                @item?.Address ,
+                                @item?.Zip
+                            </span>
+                        </div>
+                    </button>
+                </h2>
+                <div id="flush-collapse@(item.RequestId)" class="accordion-collapse collapse"
+                     aria-labelledby="flush-heading@(item.RequestId)" data-bs-parent="#accordionFlushExample"
+                     style="position: relative;">
+                    <div class="accordion-body accordion-main-body" style="background-color:#E5F2F8 !important;">
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00ccff" class="bi bi-person" viewBox="0 0 16 16">
+                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Requestor: <span class="accordian-item-text2">@Enum.GetName(typeof(Statuses), @item.Requestor)</span></span>
+                        </div>
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="14" height="14" fill="#00ccff" class="bi bi-calendar" viewBox="0 0 16 16">
+                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Date Of Service: <span class="accordian-item-text2">@item?.DateOfService</span></span>
+                        </div>
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="14" height="14" fill="#00ccff" class="bi bi-calendar" viewBox="0 0 16 16">
+                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Close Case Date: <span class="accordian-item-text2">@item?.CloseCaseDate</span></span>
+                        </div>
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="14" height="14" fill="#00ccff" class="bi bi-envelope" viewBox="0 0 16 16">
+                                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Email: <span class="accordian-item-text2">@item.Email</span></span>
+                        </div>
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="14" height="14" fill="#00ccff" class="bi bi-telephone" viewBox="0 0 16 16">
+                                    <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Phone Number: <span class="accordian-item-text2">@item.PhoneNumber</span></span>
+                        </div>
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="14" height="14" fill="#00ccff" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Address: <span class="accordian-item-text2">@item?.Address</span></span>
+                        </div>
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="14" height="14" fill="#00ccff" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Zipcode: <span class="accordian-item-text2">@item?.Zip</span></span>
+                        </div>
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00ccff" class="bi bi-check" viewBox="0 0 16 16">
+                                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Request Status: <span class="accordian-item-text2">@Enum.GetName(typeof(Status), @item.RequestStatus)</span></span>
+                        </div>
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="14" height="14" fill="#00ccff" class="bi bi-person-plus" viewBox="0 0 16 16">
+                                    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Physician: <span class="accordian-item-text2">@item?.Physician</span></span>
+                        </div>
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="14" height="14" fill="#00ccff" class="bi bi-card-checklist" viewBox="0 0 16 16">
+                                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z" />
+                                    <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Physician Note: <span class="accordian-item-text2">@item?.PhysicianNote</span></span>
+                        </div>
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="14" height="14" fill="#00ccff" class="bi bi-journal-medical" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L9 6l.549.317a.5.5 0 1 1-.5.866L8.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L7 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 8 4M5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+                                    <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
+                                    <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Admin Note: <span class="accordian-item-text2">@item?.AdminNote</span></span>
+                        </div>
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="14" height="14" fill="#00ccff" class="bi bi-journal-check" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0" />
+                                    <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
+                                    <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Patient Note: <span class="accordian-item-text2">@item?.PatientNote</span></span>
+                        </div>
+                        <div class="accordion-btns">
+                            <a class="link2" style="margin-right:20px;" asp-action="DeleteRecords" asp-controller="AdminDashboard" asp-route-id="@item.RequestId">
+                                <span>Delete</span>
+                            </a>
+                            <a class="link2" asp-action="ViewCase" asp-controller="AdminDashboard" asp-route-id="@item.RequestId">
+                                <span>View Case</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="pagination">
+    <span style="margin-right:10px;">Pages:</span>
+    @if (Model.CurrentPage > 1)
+    {
+        <a style="color:#00ccff !important;" data-page="@(Model.CurrentPage - 1)">Previous</a>
+    }
+
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        <a data-page="@i" class="@(i == Model.CurrentPage ? "pagination-active" : "")">@i</a>
+    }
+
+    @if (Model.CurrentPage < Model.TotalPages)
+    {
+        <a style="color:#00ccff !important;" data-page="@(Model.CurrentPage + 1)">Next</a>
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        $('.pagination a').click(function (e) {
+            e.preventDefault();
+            //console.log("hiiiiiii");
+            var page = $(this).attr('data-page');
+            filter(page, 10);
+        });
+    });
+</script>

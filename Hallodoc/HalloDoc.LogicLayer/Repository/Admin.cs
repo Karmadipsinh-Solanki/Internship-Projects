@@ -25,6 +25,10 @@ using System.Diagnostics.Metrics;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.ExtendedProperties;
 using System.Collections;
+using static HalloDoc.DataLayer.ViewModels.AdminViewModels.ProviderStatus;
+using static HalloDoc.DataLayer.ViewModels.AdminViewModels.RequestType;
+using HalloDoc.DataLayer.Models;
+using HalloDoc.DataLayer.Data;
 
 namespace HalloDoc.LogicLayer.Repository
 {
@@ -869,7 +873,7 @@ namespace HalloDoc.LogicLayer.Repository
             int requestId = model.RequestId;
             if (requestId != null)
             {
-                var requestToUpdate = _context.Requests.Where(u => u.RequestId == requestId).FirstOrDefault();
+                var requestToUpdate = _context.Requests.Include(r => r.RequestClient).Where(u => u.RequestId == requestId).FirstOrDefault();
 
                 if (requestToUpdate != null)
                 {
@@ -887,11 +891,13 @@ namespace HalloDoc.LogicLayer.Repository
                 _context.SaveChanges();
 
                 BlockRequest blockRequest = new BlockRequest();
-                blockRequest.RequestId = (model.RequestId).ToString();
+                blockRequest.RequestId = model.RequestId;
                 blockRequest.Reason = model.BlockReason;
                 blockRequest.Email = requestToUpdate.Email;
                 blockRequest.PhoneNumber = requestToUpdate.PhoneNumber;
                 blockRequest.CreatedDate = DateTime.Now;
+                //blockRequest.FirstName = requestToUpdate.RequestClient.FirstName;
+
                 _context.BlockRequests.Add(blockRequest);
                 _context.SaveChanges();
                 return true;
@@ -1653,7 +1659,7 @@ namespace HalloDoc.LogicLayer.Repository
 
             if (aspNetUserId != null)
             {
-                Hallodoc.Admin admin = _context.Admins.FirstOrDefault(u => u.AspNetUserId == aspNetUserId);
+                HalloDoc.DataLayer.Models.Admin admin = _context.Admins.FirstOrDefault(u => u.AspNetUserId == aspNetUserId);
                 admin.FirstName = model.FirstName;
                 admin.LastName = model.LastName;
                 admin.Email = model.Email;
@@ -1699,7 +1705,7 @@ namespace HalloDoc.LogicLayer.Repository
             int aspNetUserId = cookieModel.aspId;
             if (aspNetUserId != null)
             {
-                Hallodoc.Admin admin = _context.Admins.FirstOrDefault(u => u.AspNetUserId == aspNetUserId);
+                HalloDoc.DataLayer.Models.Admin admin = _context.Admins.FirstOrDefault(u => u.AspNetUserId == aspNetUserId);
                 admin.Address1 = model.Address1;
                 admin.Address2 = model.Address2;
                 admin.City = model.city;
@@ -1924,7 +1930,7 @@ namespace HalloDoc.LogicLayer.Repository
                 var request = _httpContextAccessor.HttpContext.Request;
                 var token = request.Cookies["jwt"];
                 CookieModel cookieModel = _jwtService.getDetails(token);
-                Hallodoc.Admin admin = new Hallodoc.Admin();
+                HalloDoc.DataLayer.Models.Admin admin = new HalloDoc.DataLayer.Models.Admin();
 
                 admin.AspNetUserId = aspNetUser.Id;
                 admin.FirstName = model.FirstName;
@@ -1977,7 +1983,175 @@ namespace HalloDoc.LogicLayer.Repository
             createAdminViewModel.Roles = roles;
             return createAdminViewModel;
         }
-       
+
+        public SearchRecordsViewModel searchRecord(string? patientName, string? providerName, string? email, string? phonenumber, int? selectedOptionValue, int? selectRequestType, DateTime? fromDate, DateTime? toDate, int page = 1, int pageSize = 10)
+        {
+            BitArray check = new BitArray(1);
+            check.Set(0, false);
+            IQueryable<Request> query = _context.Requests.Include(i => i.RequestClient).Include(i => i.Physician).Where(i => i.IsDeleted == check);
+            if (selectedOptionValue != 0 && selectedOptionValue != null)
+            {
+                if (selectedOptionValue == 1)
+                {
+                    query = query.Where(i => i.Status == 1);
+                }
+                else if (selectedOptionValue == 2)
+                {
+                    query = query.Where(i => i.Status == 2);
+                }
+                else if (selectedOptionValue == 3)
+                {
+                    query = query.Where(i => i.Status == 3 || i.Status == 4);
+                }
+                else if (selectedOptionValue == 4)
+                {
+                    query = query.Where(i => i.Status == 5);
+                }
+                else if (selectedOptionValue == 5)
+                {
+                    query = query.Where(i => i.Status == 6 || i.Status == 7 || i.Status == 8);
+                }
+                else
+                {
+                    query = query.Where(i => i.Status == 9);
+                }
+            }
+            if (patientName != null)
+            {
+                query = query.Where(i => i.RequestClient.FirstName.ToLower().Contains(patientName.ToLower()));
+            }
+            if (selectRequestType != 0 && selectRequestType != null)
+            {
+                query = query.Where(i => i.RequestTypeId == selectRequestType);
+            }
+            //if(fromDate != null  && toDate != null)
+            //{
+            //    query = query.Where(i => i.RequestStatusLogs.Any(rsl => rsl.Status == 2 && rsl.CreatedDate >= fromDate && rsl.CreatedDate <= toDate));
+            //}
+            if (fromDate != null && toDate == null)
+            {
+                query = query.Where(r => r.AcceptedDate.Value.Date >= fromDate.Value.Date);
+            }
+            if (fromDate == null && toDate != null)
+            {
+                query = query.Where(r => r.AcceptedDate.Value.Date <= toDate.Value.Date);
+            }
+            if (fromDate != null && toDate != null)
+            {
+                query = query.Where(r => r.AcceptedDate.Value.Date >= fromDate.Value.Date && r.AcceptedDate.Value.Date <= toDate.Value.Date);
+            }
+            if (providerName != null)
+            {
+                query = query.Where(i => i.Physician.FirstName.ToLower().Contains(providerName.ToLower()));
+            }
+            if (email != null)
+            {
+                query = query.Where(i => i.RequestClient.Email.ToLower().Contains(email.ToLower()));
+            }
+            if (phonenumber != null)
+            {
+                query = query.Where(i => i.RequestClient.PhoneNumber.Contains(phonenumber));
+            }
+            SearchRecordsViewModel searchRecordsViewModel = new SearchRecordsViewModel();
+            searchRecordsViewModel.CurrentPage = page;
+            searchRecordsViewModel.PageSize = pageSize;
+            searchRecordsViewModel.TotalItems = query.Count();
+            searchRecordsViewModel.TotalPages = (int)Math.Ceiling((double)query.Count() / pageSize);
+            List<SearchRecordTable> searchRecordTable = new List<SearchRecordTable>();
+            List<Request> requests = query.ToList();
+            for (int i = 0; i < requests.Count; i++)
+            {
+                int num = i;
+                int id = requests[i].RequestId;
+                RequestStatusLog requestStatusLog = _context.RequestStatusLogs.FirstOrDefault(i => i.RequestId == id);
+                bool isActiveValue = requestStatusLog?.TransToAdmin?.Get(0) ?? false;
+
+                RequestStatusLog requestStatusLogDOS = _context.RequestStatusLogs.FirstOrDefault(i => i.RequestId == id && i.Status == 2);
+                RequestStatusLog requestStatusLogCCD = _context.RequestStatusLogs.FirstOrDefault(i => i.RequestId == id && i.Status == 9);
+                RequestStatusLog requestStatusLogPCN = _context.RequestStatusLogs.FirstOrDefault(i => i.RequestId == id && i.Status == 2 && isActiveValue == true);
+                RequestNote requestNote = _context.RequestNotes.FirstOrDefault(i => i.RequestId == id);
+                searchRecordTable.Add(new SearchRecordTable
+                {
+                    PatientName = requests[i].RequestClient?.FirstName + " " + requests[i].RequestClient?.LastName,
+                    Requestor = requests[i].RequestTypeId,
+                    DateOfService = requestStatusLogDOS?.CreatedDate,
+                    CloseCaseDate = requestStatusLogCCD?.CreatedDate,
+                    Email = requests[i].RequestClient.Email,
+                    PhoneNumber = requests[i].RequestClient?.PhoneNumber,
+                    Address = requests[i].RequestClient?.Address + " ," + requests[i].RequestClient?.City + " ," + requests[i].RequestClient?.State,
+                    Zip = requests[i].RequestClient?.ZipCode,
+                    RequestStatus = requests[i].Status,
+                    Physician = requests[i].Physician?.FirstName + " " + requests[i].Physician?.LastName,
+                    PhysicianNote = requestNote?.PhysicianNotes,
+                    //CancelledByProviderNote = requestStatusLogPCN?.Notes,
+                    AdminNote = requestNote?.AdminNotes,
+                    PatientNote = requests[i].RequestClient?.Notes,
+                    RequestId = requests[i].RequestId,
+                });
+            }
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 7;
+            searchRecordsViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            searchRecordsViewModel.ExcelData = searchRecordTable.ToList();
+            searchRecordsViewModel.Query = searchRecordTable.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            return searchRecordsViewModel;
+        }
+        MemoryStream IAdmin.downloadSearchRecordsExcel(SearchRecordsViewModel model)
+        {
+            SearchRecordsViewModel searchRecordsViewModel = searchRecord(model.PatientName, model.ProviderName, model.Email, model.PhoneNumber, model.RequestStatus, model.RequestType, model.FromDate, model.ToDate);
+            List<SearchRecordTable> data = searchRecordsViewModel.ExcelData;
+            var workbook = new XLWorkbook();
+            var worksheet = workbook.Worksheets.Add("Data");
+
+            worksheet.Cell(1, 1).Value = "Patient Name";
+            worksheet.Cell(1, 2).Value = "Requestor";
+            worksheet.Cell(1, 3).Value = "Date of Service";
+            worksheet.Cell(1, 4).Value = "Close Case Date";
+            worksheet.Cell(1, 5).Value = "Email";
+            worksheet.Cell(1, 6).Value = "Phone Number";
+            worksheet.Cell(1, 7).Value = "Address";
+            worksheet.Cell(1, 8).Value = "Zip";
+            worksheet.Cell(1, 9).Value = "Request Status";
+            worksheet.Cell(1, 10).Value = "Physician";
+            worksheet.Cell(1, 11).Value = "Physician Note";
+            worksheet.Cell(1, 12).Value = "Admin Note";
+            worksheet.Cell(1, 13).Value = "Patient Note";
+
+            int row = 2;
+            foreach (var item in data)
+            {
+                worksheet.Cell(row, 1).Value = item.PatientName;
+
+                worksheet.Cell(row, 2).Value = Enum.GetName(typeof(Statuses), item.Requestor);
+                worksheet.Cell(row, 3).Value = item?.DateOfService;
+                worksheet.Cell(row, 4).Value = item?.CloseCaseDate;
+                worksheet.Cell(row, 5).Value = item.Email;
+                worksheet.Cell(row, 6).Value = item.PhoneNumber;
+                worksheet.Cell(row, 7).Value = item?.Address;
+                worksheet.Cell(row, 8).Value = item?.Zip;
+                worksheet.Cell(row, 9).Value = Enum.GetName(typeof(Status), item.RequestStatus);
+                worksheet.Cell(row, 10).Value = item?.PhysicianNote;
+                worksheet.Cell(row, 11).Value = item?.AdminNote;
+                worksheet.Cell(row, 12).Value = item?.PatientNote;
+
+                row++;
+            }
+            worksheet.Columns().AdjustToContents();
+            var memoryStream = new MemoryStream();
+            workbook.SaveAs(memoryStream);
+            memoryStream.Seek(0, SeekOrigin.Begin);
+            return memoryStream;
+        }
+        SearchRecordsViewModel IAdmin.searchRecords(string? patientName, string? providerName, string? email, string? phonenumber, int? selectedOptionValue, int? selectRequestType, DateTime? fromDate, DateTime? toDate, int page = 1, int pageSize = 10)
+        {
+            SearchRecordsViewModel searchRecordsViewModel = searchRecord(patientName, providerName, email, phonenumber, selectedOptionValue, selectRequestType, fromDate, toDate, page, pageSize);
+            return searchRecordsViewModel;
+        }
         PatientHistoryViewModel IAdmin.patientHistory(string? firstname, string? lastname, string? email, string? phonenumber, int page = 1, int pageSize = 10)
         {
             IQueryable<User> users = _context.Users;
@@ -2034,7 +2208,7 @@ namespace HalloDoc.LogicLayer.Repository
             }
             if (date != null)
             {
-                query = query.Where(b => b.CreatedDate.Date == date.Value.Date);
+                query = query.Where(b => b.CreatedDate == date.Value.Date);
             }
 
             if (email != null)
@@ -2058,7 +2232,12 @@ namespace HalloDoc.LogicLayer.Repository
                 BitArray check = new BitArray(1);
                 check.Set(0, false);
                 bool isActiveValue = queries[i].IsActive.Get(0);  // Assuming bit 0 represents IsActive
-                var requestClient = _context.Requests.Include(i => i.RequestClient).FirstOrDefault(i => i.RequestId == queries[num].RequestId && i.IsDeleted == check);
+                int requestId = int.Parse(queries[num].RequestId);
+                var requestClient = _context.Requests
+                                           .Include(i => i.RequestClient)
+                                           .FirstOrDefault(i => i.RequestId == requestId && i.IsDeleted == check);
+                //var requestClient = _context.Requests.Include(i => i.RequestClient).FirstOrDefault(i => i.RequestId == queries[num].RequestId && i.IsDeleted == check);
+
                 blockHistoryTable.Add(new BlockHistoryTable()
                 {
                     FirstName = requestClient?.FirstName,
@@ -2072,6 +2251,33 @@ namespace HalloDoc.LogicLayer.Repository
             }
             blockHistoryViewModel.Query = blockHistoryTable.Skip((page - 1) * pageSize).Take(pageSize).ToList();
             return blockHistoryViewModel;
+        }
+        bool IAdmin.unBlock(int id)
+        {
+            BlockRequest blockRequest = _context.BlockRequests.FirstOrDefault(i => i.BlockRequestId == id);
+
+
+            if (blockRequest != null)
+            {
+                RequestStatusLog requestStatusLog = _context.RequestStatusLogs.Where(i => i.RequestId == blockRequest.RequestId).OrderByDescending(i => i.CreatedDate).Skip(1).Take(1).FirstOrDefault();
+                Request request = _context.Requests.FirstOrDefault(i => i.RequestId == blockRequest.RequestId);
+                request.Status = requestStatusLog.Status;
+                _context.Requests.Update(request);
+                _context.SaveChanges();
+                RequestStatusLog requestStatusLog1 = new RequestStatusLog();
+                requestStatusLog1.Status = requestStatusLog.Status;
+                requestStatusLog1.CreatedDate = DateTime.Now;
+                requestStatusLog1.RequestId = blockRequest.RequestId;
+                _context.RequestStatusLogs.Add(requestStatusLog1);
+                _context.SaveChanges();
+                _context.BlockRequests.Remove(blockRequest);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

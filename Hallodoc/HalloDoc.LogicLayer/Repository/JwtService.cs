@@ -3,6 +3,8 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using Hallodoc;
 //using Hallodoc.Data;
 using Hallodoc.Models.Models;
+using HalloDoc.DataLayer.Data;
+using HalloDoc.DataLayer.Models;
 using HalloDoc.Repository.Interface;
 using HalloDoc.ViewModels;
 using Microsoft.AspNetCore.Authentication.Cookies;

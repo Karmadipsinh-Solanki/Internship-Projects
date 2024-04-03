@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Hallodoc;
+namespace HalloDoc.DataLayer.Models;
 
 [Table("RequestConcierge")]
 public partial class RequestConcierge

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Hallodoc;
+namespace HalloDoc.DataLayer.Models;
 
 public partial class BlockRequest
 {
@@ -23,8 +23,7 @@ public partial class BlockRequest
 
     public string? Reason { get; set; }
 
-    [StringLength(50)]
-    public string RequestId { get; set; } = null!;
+    public int RequestId { get; set; }
 
     [Column("IP")]
     [StringLength(20)]
@@ -35,4 +34,7 @@ public partial class BlockRequest
 
     [Column(TypeName = "timestamp without time zone")]
     public DateTime? ModifiedDate { get; set; }
+
+    [StringLength(50)]
+    public string? FirstName { get; set; }
 }

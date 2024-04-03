@@ -1,5 +1,6 @@
 ﻿using Hallodoc;
 using Hallodoc.Models.Models;
+using HalloDoc.DataLayer.Models;
 using HalloDoc.Models;
 using Microsoft.AspNetCore.Http;
 using System;

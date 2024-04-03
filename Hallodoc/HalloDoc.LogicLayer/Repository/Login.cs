@@ -13,6 +13,8 @@ using System.Net.Mail;
 using System.Net;
 using Microsoft.AspNetCore.Identity;
 using System.Collections;
+using HalloDoc.DataLayer.Data;
+using HalloDoc.DataLayer.Models;
 
 namespace HalloDoc.LogicLayer.Repository
 {

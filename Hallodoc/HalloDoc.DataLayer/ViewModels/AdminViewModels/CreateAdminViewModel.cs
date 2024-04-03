@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using HalloDoc.DataLayer.Models;
 
 namespace HalloDoc.DataLayer.ViewModels.AdminViewModels
 {

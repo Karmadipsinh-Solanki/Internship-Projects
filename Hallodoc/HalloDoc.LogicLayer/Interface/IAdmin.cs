@@ -1,4 +1,5 @@
 ﻿using Hallodoc;
+using HalloDoc.DataLayer.Models;
 using HalloDoc.DataLayer.ViewModels.AdminViewModels;
 using HalloDoc.Models;
 using HalloDoc.ViewModels;
@@ -60,7 +61,8 @@ namespace HalloDoc.LogicLayer.Interface
         public AccountAccessViewModel accountAccess();
 
         public ProviderViewModel providerInfo(int? region, int page = 1, int pageSize = 10);
-
+        public SearchRecordsViewModel searchRecords(string? patientName, string? providerName, string? email, string? phonenumber, int? selectedOptionValue, int? selectRequestType, DateTime? fromDate, DateTime? toDate, int page = 1, int pageSize = 10);
+        public MemoryStream downloadSearchRecordsExcel(SearchRecordsViewModel model);
         public PatientHistoryViewModel patientHistory(string? firstname, string? lastname, string? email, string? phonenumber, int page = 1, int pageSize = 10);
         public BlockHistoryViewModel blockHistory(string? firstname, DateTime? date, string? email, string? phonenumber, int page = 1, int pageSize = 10);
         public bool unBlock(int id);

@@ -1,4 +1,5 @@
 ﻿using Hallodoc;
+using HalloDoc.DataLayer.Models;
 using HalloDoc.Models;
 using System;
 using System.Collections.Generic;

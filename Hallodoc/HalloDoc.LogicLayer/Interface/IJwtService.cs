@@ -1,5 +1,6 @@
 ﻿using Hallodoc;
 using Hallodoc.Models.Models;
+using HalloDoc.DataLayer.Models;
 using HalloDoc.ViewModels;
 using Microsoft.Extensions.Configuration;
 using System;

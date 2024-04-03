@@ -1,4 +1,5 @@
 ﻿using Hallodoc;
+using HalloDoc.DataLayer.Models;
 using HalloDoc.DataLayer.ViewModels;
 using HalloDoc.ViewModels;
 using System;
