@@ -41,7 +41,7 @@
                         <textarea type="text" class="form-control custom-input"
                                   style="resize:none;" id="LastName" placeholder="Patient Name" asp-for="LastName"></textarea>
                         <label for="LastName">Last Name</label>
-                            @* <span asp-validation-for="LastName" class="text-danger"></span> *@
+                        @* <span asp-validation-for="LastName" class="text-danger"></span> *@
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -78,17 +78,19 @@
         </div>
     </div>
     <script>
-        $.ajax({
-            url: `/AdminDashboard/PatientSearchHistory`,
-            type: 'POST',
-            dataType: 'html',
-            // Pass your data here
-            success: function (response) {
-                $("#PatientHistoryTablePartialView").html(response)
-            },
-            error: function () {
-                alert('An error occurred.');
-            }
+        $(document).ready(function () {
+            $.ajax({
+                url: `/AdminDashboard/PatientSearchHistory`,
+                type: 'POST',
+                dataType: 'html',
+                // Pass your data here
+                success: function (response) {
+                    $("#PatientHistoryTablePartialView").html(response)
+                },
+                error: function () {
+                    alert('An error occurred.');
+                }
+            });
         });
         function filter(page, pageSize) {
             var firstname = document.getElementById('FirstName').value;

@@ -15,7 +15,9 @@
         @foreach (var item in Model.PhysicianList)
         {
             <tr>
-                <td class="bg-white"><input class="checkboxes" type="checkbox" checked="@item.Notification" value="@item.Notification" /></td>
+                @* <td class="bg-white"><input class="checkboxes" type="checkbox" checked="@item.Notification" value="@item.Notification" /> *@
+                <td class="bg-white"><input class="checkboxes" type="checkbox" id="stopNotification-@item.PhysicianId" @(item.Notification == true ? "checked" : "") />
+                </td>
                 <td class="bg-white">
                     <span class="filename">@item.ProviderName</span>
                 </td>
@@ -36,3 +38,80 @@
         }
     </table>
 </div>
+<div class="d-block d-md-none">
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        @foreach (var item in Model.PhysicianList)
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-heading@(item.PhysicianId)">
+                    <button class="accordion-button collapsed main-accordion-div" style="background-color:#E5F2F8 !important;" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapse@(item.PhysicianId)" aria-expanded="false"
+                            aria-controls="flush-collapse">
+                        <div class="main-accordion-sub-div">
+                            <span style="color:black;font-size:15px;"><input class="checkboxes" checked="@item.Notification" type="checkbox" style="height: 18px;width: 18px;margin-right:7px;" value="@item.Notification" /> @item.ProviderName</span>
+                            <span class="accordian-item-text" style="margin-top:20px;">Email: <span class="accordian-item-text2">@item.OnCallStatus</span></span>
+                        </div>
+                    </button>
+                </h2>
+                <div id="flush-collapse@(item.PhysicianId)" class="accordion-collapse collapse"
+                     aria-labelledby="flush-heading@(item.PhysicianId)" data-bs-parent="#accordionFlushExample"
+                     style="position: relative;">
+                    <div class="accordion-body accordion-main-body" style="background-color:#E5F2F8 !important;">
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="14" height="14" fill="#00ccff" class="bi bi-person-plus" viewBox="0 0 16 16">
+                                    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Role: <span class="accordian-item-text2">@item?.RoleName</span></span>
+                        </div>
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00ccff" class="bi bi-check" viewBox="0 0 16 16">
+                                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Status: <span class="accordian-item-text2">@Enum.GetName(typeof(Status), @item.Status)</span></span>
+                        </div>
+                        <div class="accordion-btns">
+                            <a class="link2" style="margin-right:10px;" asp-action="PatientRecord" asp-controller="Admin" asp-route-id="@item.PhysicianId">
+                                <span>Contact</span>
+                            </a>
+                            <a class="link2" asp-action="PatientRecord" asp-controller="Admin" asp-route-id="@item.PhysicianId">
+                                <span>Edit</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="pagination d-flex justify-content-end align-items-center">
+    <span style="margin-right:10px;">Pages:</span>
+    @if (Model.CurrentPage > 1)
+    {
+        <a style="color:#00ccff !important;" data-page="@(Model.CurrentPage - 1)">Previous</a>
+    }
+
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        <a data-page="@i" class="@(i == Model.CurrentPage ? "pagination-active" : "")">@i</a>
+    }
+
+    @if (Model.CurrentPage < Model.TotalPages)
+    {
+        <a style="color:#00ccff !important;" data-page="@(Model.CurrentPage + 1)">Next</a>
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        $('.pagination a').click(function (e) {
+            e.preventDefault();
+            //console.log("hiiiiiii");
+            var page = $(this).attr('data-page');
+            filter(page, 10);
+        });
+    });
+</script>

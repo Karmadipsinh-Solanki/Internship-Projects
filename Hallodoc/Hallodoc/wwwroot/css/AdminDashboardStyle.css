@@ -1017,7 +1017,25 @@ table.dataTable thead th, table.dataTable tfoot th {
     border: 2px solid #f7ad00;
     border-radius: 50px;
 }
+/*pagination*/
+.pagination {
+    margin: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
 
+    .pagination a {
+        color: black;
+        text-decoration: none;
+        margin-right: 8px;
+        margin-left: 8px;
+        font-size: 17px;
+        cursor: pointer;
+    }
+
+.pagination-active {
+    color: #00ccff !important;
+}
 /*toast*/
 .toast-success {
     background-color: #51A351 !important;
@@ -1119,6 +1137,7 @@ table.dataTable thead th, table.dataTable tfoot th {
     border-bottom: 1px solid transparent!important;
     transition: border-color 0.25s ease!important;
     margin-right: 25px!important;
+    cursor:pointer;
 }
 
     .tabStyle:focus,

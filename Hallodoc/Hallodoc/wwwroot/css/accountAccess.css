@@ -33,7 +33,7 @@
     border: 1px solid #01bbe8;
     border-radius: 5px;
     padding: 5px;
-    width: 35%;
+    width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -53,8 +53,7 @@
 }
 
 .main-sub-div {
-    padding-left: 20%;
-    padding-right: 20%;
+    padding:0 10%;
 }
 
 .textdeconone {

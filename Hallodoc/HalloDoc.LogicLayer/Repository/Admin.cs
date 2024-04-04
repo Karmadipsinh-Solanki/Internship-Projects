@@ -29,6 +29,7 @@ using static HalloDoc.DataLayer.ViewModels.AdminViewModels.ProviderStatus;
 using static HalloDoc.DataLayer.ViewModels.AdminViewModels.RequestType;
 using HalloDoc.DataLayer.Models;
 using HalloDoc.DataLayer.Data;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace HalloDoc.LogicLayer.Repository
 {
@@ -196,7 +197,7 @@ namespace HalloDoc.LogicLayer.Repository
                 //model.Transfer_Notes = requestStatusLogs;
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -569,7 +570,7 @@ namespace HalloDoc.LogicLayer.Repository
             }
         }
         public int createRequest(CreateRequestViewModel model)
-         {
+        {
             AspNetUser aspNetUser = new AspNetUser();
             User user = new User();
             Request request = new Request();
@@ -896,6 +897,7 @@ namespace HalloDoc.LogicLayer.Repository
                 blockRequest.Email = requestToUpdate.Email;
                 blockRequest.PhoneNumber = requestToUpdate.PhoneNumber;
                 blockRequest.CreatedDate = DateTime.Now;
+                blockRequest.IsActive = new BitArray(new[] { false });
                 //blockRequest.FirstName = requestToUpdate.RequestClient.FirstName;
 
                 _context.BlockRequests.Add(blockRequest);
@@ -1326,7 +1328,7 @@ namespace HalloDoc.LogicLayer.Repository
             AdminDashboardTableView adminDashboardTableView = new AdminDashboardTableView();
             var data = _context.Requests.Include(u => u.RequestClient).FirstOrDefault(u => u.RequestId == model.RequestId);
 
-            var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
+            var existingUser = _context.AspNetUsers.FirstOrDefault(u => u.Email == model.Email);
             //var id = _context.Users.SingleOrDefault(u => u.Email == model.Email);
             bool userExists = true;
             if (existingUser != null)
@@ -1386,7 +1388,7 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
-        
+
         //bool sendAgreement(AdminDashboardTableView model)
         //{
 
@@ -1761,7 +1763,7 @@ namespace HalloDoc.LogicLayer.Repository
             //}).ToList();
             //var data = _context.Admins.Include(u => u.AspNetUsers).FirstOrDefault(u => u.AdminId == id);
             AdminProfileViewModel adminProfileViewModel = new AdminProfileViewModel();
-            
+
 
             var allRegions = _context.Regions.ToList();
 
@@ -1914,6 +1916,21 @@ namespace HalloDoc.LogicLayer.Repository
             providerViewModel.Regions = region1;
             return providerViewModel;
         }
+        public bool updateStopNotification(int id, bool stopNotification)
+        {
+            Physician physician = _context.Physicians.FirstOrDefault(i => i.PhysicianId == id);
+
+            if (physician != null)
+            {
+                //physician.Notification = new BitArray(new[] { isActive });
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public bool createAdmin(CreateAdminViewModel model)
         {
             try
@@ -1966,7 +1983,7 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
-        CreateAdminViewModel IAdmin.createAdmin()
+        public CreateAdminViewModel createAdmin()
         {
             var request = _httpContextAccessor.HttpContext.Request;
             var token = request.Cookies["jwt"];
@@ -2101,7 +2118,7 @@ namespace HalloDoc.LogicLayer.Repository
             searchRecordsViewModel.Query = searchRecordTable.Skip((page - 1) * pageSize).Take(pageSize).ToList();
             return searchRecordsViewModel;
         }
-        MemoryStream IAdmin.downloadSearchRecordsExcel(SearchRecordsViewModel model)
+        public MemoryStream downloadSearchRecordsExcel(SearchRecordsViewModel model)
         {
             SearchRecordsViewModel searchRecordsViewModel = searchRecord(model.PatientName, model.ProviderName, model.Email, model.PhoneNumber, model.RequestStatus, model.RequestType, model.FromDate, model.ToDate);
             List<SearchRecordTable> data = searchRecordsViewModel.ExcelData;
@@ -2147,12 +2164,12 @@ namespace HalloDoc.LogicLayer.Repository
             memoryStream.Seek(0, SeekOrigin.Begin);
             return memoryStream;
         }
-        SearchRecordsViewModel IAdmin.searchRecords(string? patientName, string? providerName, string? email, string? phonenumber, int? selectedOptionValue, int? selectRequestType, DateTime? fromDate, DateTime? toDate, int page = 1, int pageSize = 10)
+        public SearchRecordsViewModel searchRecords(string? patientName, string? providerName, string? email, string? phonenumber, int? selectedOptionValue, int? selectRequestType, DateTime? fromDate, DateTime? toDate, int page = 1, int pageSize = 10)
         {
             SearchRecordsViewModel searchRecordsViewModel = searchRecord(patientName, providerName, email, phonenumber, selectedOptionValue, selectRequestType, fromDate, toDate, page, pageSize);
             return searchRecordsViewModel;
         }
-        PatientHistoryViewModel IAdmin.patientHistory(string? firstname, string? lastname, string? email, string? phonenumber, int page = 1, int pageSize = 10)
+        public PatientHistoryViewModel patientHistory(string? firstname, string? lastname, string? email, string? phonenumber, int page = 1, int pageSize = 10)
         {
             IQueryable<User> users = _context.Users;
             var request = _httpContextAccessor.HttpContext.Request;
@@ -2190,9 +2207,10 @@ namespace HalloDoc.LogicLayer.Repository
 
             return patientHistoryViewModel;
         }
-        BlockHistoryViewModel IAdmin.blockHistory(string? firstname, DateTime? date, string? email, string? phonenumber, int page = 1, int pageSize = 10)
+        public BlockHistoryViewModel blockHistory(string? firstname, DateTime? date, string? email, string? phonenumber, int page = 1, int pageSize = 10)
         {
-            IQueryable<BlockRequest> query = _context.BlockRequests.Include(i => i.Request);
+            //IQueryable<BlockRequest> query = _context.BlockRequests.Include(i => i.Request);
+            IQueryable<BlockRequest> query = _context.BlockRequests;
             var request = _httpContextAccessor.HttpContext.Request;
             var token = request.Cookies["jwt"];
             CookieModel cookieModel = _jwtService.getDetails(token);
@@ -2204,7 +2222,7 @@ namespace HalloDoc.LogicLayer.Repository
             blockHistoryViewModel.adminNavbarViewModel = adminNavbarViewModel;
             if (firstname != null)
             {
-                query = query.Where(i => i.Request.RequestClient.FirstName.ToLower().Contains(firstname.ToLower()));
+                query = query.Where(i => i.FirstName.ToLower().Contains(firstname.ToLower()));
             }
             if (date != null)
             {
@@ -2232,7 +2250,7 @@ namespace HalloDoc.LogicLayer.Repository
                 BitArray check = new BitArray(1);
                 check.Set(0, false);
                 bool isActiveValue = queries[i].IsActive.Get(0);  // Assuming bit 0 represents IsActive
-                int requestId = int.Parse(queries[num].RequestId);
+                int requestId = queries[num].RequestId;
                 var requestClient = _context.Requests
                                            .Include(i => i.RequestClient)
                                            .FirstOrDefault(i => i.RequestId == requestId && i.IsDeleted == check);
@@ -2252,7 +2270,7 @@ namespace HalloDoc.LogicLayer.Repository
             blockHistoryViewModel.Query = blockHistoryTable.Skip((page - 1) * pageSize).Take(pageSize).ToList();
             return blockHistoryViewModel;
         }
-        bool IAdmin.unBlock(int id)
+        public bool unBlock(int id)
         {
             BlockRequest blockRequest = _context.BlockRequests.FirstOrDefault(i => i.BlockRequestId == id);
 
@@ -2271,6 +2289,21 @@ namespace HalloDoc.LogicLayer.Repository
                 _context.RequestStatusLogs.Add(requestStatusLog1);
                 _context.SaveChanges();
                 _context.BlockRequests.Remove(blockRequest);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool updateIsActive(int id, bool isActive)
+        {
+            BlockRequest blockRequest = _context.BlockRequests.FirstOrDefault(i => i.BlockRequestId == id);
+
+            if (blockRequest != null)
+            {
+                blockRequest.IsActive = new BitArray(new[] { isActive });
                 _context.SaveChanges();
                 return true;
             }

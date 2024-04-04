@@ -618,6 +618,12 @@ namespace HalloDoc.Controllers
             ProviderViewModel providerViewModel = _admin.providerInfo(null);
             return View(providerViewModel);
         }
+        [HttpPost]
+        public IActionResult UpdateStopNotification(int id, bool stopNotification)
+        {
+            //bool check = _admin.updateStopNotification(id, stopNotification);
+            return RedirectToAction("ProviderInfo");
+        }
         public IActionResult EditPhyAccount()
         {
             return View();
@@ -653,6 +659,38 @@ namespace HalloDoc.Controllers
             {
                 TempData["error"] = "Error,Patient is not unblocked!";
             }
+            return RedirectToAction("BlockHistory");
+        }
+        /// <summary>
+        /// for isActive checkbox in block history page
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="isActive"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult UpdateIsActive(int id, bool isActive)
+        {
+            //var blockRequest = _context.BlockRequests.Find(id);
+
+            //if (blockRequest == null)
+            //{
+            //    return Json(new { success = false });
+            //}
+
+            //blockRequest.IsActive = isActive;
+            //_context.SaveChanges();
+
+            //return Json(new { success = true });
+
+            bool check = _admin.updateIsActive(id,isActive);
+            //if (check)
+            //{
+            //    TempData["success"] = "Patient Unblocked successfully!";
+            //}
+            //else
+            //{
+            //    TempData["error"] = "Error,Patient is not unblocked!";
+            //}
             return RedirectToAction("BlockHistory");
         }
         public IActionResult BlockHistory()

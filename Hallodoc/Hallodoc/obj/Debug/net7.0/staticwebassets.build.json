@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "MyIzGFhZ2AiBHS9B29KF86YgBAUvwsHatavWJ9iHWyo=",
+  "Hash": "6UVkoTCjpw5M0x54D9xIduf6442fwYW61i6XGTVEi0Q=",
   "Source": "Hallodoc",
   "BasePath": "_content/Hallodoc",
   "Mode": "Default",
@@ -224,6 +224,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\resetPassword.css"
+    },
+    {
+      "Identity": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\ReviewAgreement.js",
+      "SourceId": "Hallodoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\",
+      "BasePath": "_content/Hallodoc",
+      "RelativePath": "css/ReviewAgreement.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\ReviewAgreement.js"
     },
     {
       "Identity": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\searchRecords.css",

@@ -18,7 +18,7 @@ using HalloDoc.DataLayer.Models;
 
 namespace HalloDoc.LogicLayer.Repository
 {
-    public class Login:ILogin
+    public class Login : ILogin
     {
         private readonly ApplicationDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
