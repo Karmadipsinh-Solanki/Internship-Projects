@@ -709,8 +709,8 @@
       "PackagePath": "staticwebassets\\css\\Login.css"
     },
     {
-      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\ReviewAgreement.js",
-      "PackagePath": "staticwebassets\\css\\ReviewAgreement.js"
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\ReviewAgreement.css",
+      "PackagePath": "staticwebassets\\css\\ReviewAgreement.css"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\accountAccess.css",
@@ -1091,6 +1091,10 @@
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (36).png",
       "PackagePath": "staticwebassets\\uploads\\Screenshot (36).png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (42).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (42).png"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\Screenshot (5).png",

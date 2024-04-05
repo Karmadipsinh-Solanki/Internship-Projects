@@ -38,19 +38,23 @@ namespace HalloDoc.LogicLayer.Repository
         {
 
             AspNetUserRole aspNetRole = _context.AspNetUserRoles.Include(a => a.Role).FirstOrDefault(a => a.UserId == aspNetUser.Id);
+            //RoleMenu roleMenu = _context.RoleMenus.Include(a => a.Menu).FirstOrDefault(a => a.RoleMenuId == .MenuId);
 
             var userId = "";
             var name = "";
-
+            var Accessid = "";
             if (aspNetRole.Role.Name == "Patient")
             {
+                //var menu = _context.Menus.FirstOrDefault(m => m.MenuId == menuId);
                 var user = _context.Users.FirstOrDefault(a => a.AspNetUserId == aspNetUser.Id);
                 userId = user.UserId.ToString();
                 name = string.Concat(user.FirstName, " ", user.LastName);
+                //Accessid = _context.Admins.FirstOrDefault(a=>a.AdminId == 
             }
             else if (aspNetRole.Role.Name == "Admin")
             {
                 var admin = _context.Admins.FirstOrDefault(a => a.AspNetUserId == aspNetUser.Id);
+                
                 userId = admin.AdminId.ToString();
                 name = string.Concat(admin.FirstName, " ", admin.LastName);
             }
@@ -63,6 +67,7 @@ namespace HalloDoc.LogicLayer.Repository
 
 
 
+
             var claims = new List<Claim>
             {
                 new Claim("AspNetUserId", aspNetUser.Id.ToString()),
@@ -70,6 +75,7 @@ namespace HalloDoc.LogicLayer.Repository
                 new Claim(ClaimTypes.Role, aspNetRole.Role.Name),
                 new Claim("UserId", userId),
                 new Claim("Name", name),
+                 new Claim("AccessRoleid",aspNetRole.Role.Id.ToString()),
             };
 
 
@@ -159,6 +165,7 @@ namespace HalloDoc.LogicLayer.Repository
                 role = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value,
                 email = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value,
                 name = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == "Name").Value,
+                AccessRoleId = int.Parse(jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == "AccessRoleid").Value),
             };
 
             return cookieModel;

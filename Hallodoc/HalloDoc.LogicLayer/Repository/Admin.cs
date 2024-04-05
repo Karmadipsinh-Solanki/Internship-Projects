@@ -30,6 +30,7 @@ using static HalloDoc.DataLayer.ViewModels.AdminViewModels.RequestType;
 using HalloDoc.DataLayer.Models;
 using HalloDoc.DataLayer.Data;
 using DocumentFormat.OpenXml.Wordprocessing;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace HalloDoc.LogicLayer.Repository
 {
@@ -121,11 +122,25 @@ namespace HalloDoc.LogicLayer.Repository
 
             var request2 = _httpContextAccessor.HttpContext.Request;
             var token = request2.Cookies["jwt"];
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
+
+            //ViewBag.Menu = roleMenu;
+
             CookieModel cookieModel = _jwtService.getDetails(token);
             string AdminName = cookieModel.name;
             AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
             adminNavbarViewModel.AdminName = AdminName;
             adminNavbarViewModel.Tab = 1;
+
+
+            //var request2 = _httpContextAccessor.HttpContext.Request;
+            //var token = request2.Cookies["jwt"];
+            //CookieModel cookieModel = _jwtService.getDetails(token);
+            //string AdminName = cookieModel.name;
+            //AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            //adminNavbarViewModel.AdminName = AdminName;
+            //adminNavbarViewModel.Tab = 1;
 
             AdminDashboardTableView adminDashboardViewModel = new AdminDashboardTableView
             {
@@ -146,6 +161,23 @@ namespace HalloDoc.LogicLayer.Repository
                 CurrentPage = page
             };
             return adminDashboardViewModel;
+        }
+        public List<string> GetListOfRoleMenu(int? roleId)
+        {
+            List<RoleMenu> roleMenus = _context.RoleMenus.Where(u => u.RoleId == roleId).ToList();
+            if (roleMenus.Count > 0)
+            {
+                List<string> menus = new List<string>();
+                foreach (var item in roleMenus)
+                {
+                    menus.Add(_context.Menus.FirstOrDefault(u => u.MenuId == item.MenuId).Name);
+                }
+                return menus;
+            }
+            else
+            {
+                return new List<string>();
+            }
         }
         [HttpPost]
         public bool viewNotes(ViewNotesViewModel model)
@@ -707,11 +739,11 @@ namespace HalloDoc.LogicLayer.Repository
             _context.SaveChanges();
             return 2;
         }
-        public bool verifyState(CreateRequestViewModel model)
+        public bool verifyState(string? region)
         {
-            var details = _context.Requests.FirstOrDefault(i => i.RequestId == model.RequestId);
-            Region region = _context.Regions.FirstOrDefault(u => u.Name.Trim().ToLower().Replace(" ", "") == model.State.Trim().ToLower().Replace(" ", ""));
-            if (region != null)
+            //var details = _context.Requests.FirstOrDefault(i => i.RequestId == model.RequestId);
+            Region state = _context.Regions.FirstOrDefault(u => u.Name.Trim().ToLower().Replace(" ", "") == region.Trim().ToLower().Replace(" ", ""));
+            if (state != null)
             {
                 return true;
             }
@@ -1347,9 +1379,10 @@ namespace HalloDoc.LogicLayer.Repository
                 };
                 string email = model.Email;
                 var aspnetUser = _context.AspNetUsers.FirstOrDefault(u => u.Email == email);
-                var userFirstName = model.FirstName + " " + model.LastName;
+                var userFirstName = data.RequestClient.FirstName;
+                var requestId = (int)userId.RequestId;
                 var formatedDate = DateTime.Now.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-                string reviewAgreement = $"https://localhost:44339/Login/ReviewAgreement";
+                string reviewAgreement = $"https://localhost:44339/Login/ReviewAgreement?name={userFirstName}&email={email}&requestId={requestId}";
                 string message = $@"<html>
                                 <body>  
                                 <h1>Review Agreement</h1>  

@@ -179,6 +179,10 @@ namespace Hallodoc.Controllers
         {
             return View();
         }
+        public IActionResult AgreementSuccess()
+        {
+            return View();
+        }
         public IActionResult ReviewAgreementSubmit(string email, int requestId, string reason, int status)
         {
             bool check = _login.reviewAgreementSubmit(email, requestId, reason, status);
@@ -190,8 +194,9 @@ namespace Hallodoc.Controllers
             {
                 TempData["error"] = "Error, response not submitted!";
             }
-            //return Json(new { success = "Success" });
-            return RedirectToAction("AgreementSuccess");
+
+            return Json(new { success = "Success" });
+            //return RedirectToAction("AgreementSuccess");
         }
 
     }

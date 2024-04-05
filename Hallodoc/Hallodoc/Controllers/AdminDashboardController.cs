@@ -37,21 +37,29 @@ namespace HalloDoc.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<AdminDashboardController> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IAdmin _admin;
         //private readonly IPatient _patient;
         private readonly IJwtService _jwtService;
 
-        public AdminDashboardController(ApplicationDbContext context, IAdmin admin, IJwtService jwtService)
+        public AdminDashboardController(ApplicationDbContext context, IAdmin admin, IJwtService jwtService, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _admin = admin;
             //_patient = patient;
             _jwtService = jwtService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public IActionResult adminDashboard(string? status)
         {
             AdminDashboardTableView adminDashboardTableView = _admin.adminDashboard("New", null, -1, null);
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
             return View(adminDashboardTableView);
         }
 
@@ -98,6 +106,7 @@ namespace HalloDoc.Controllers
         //    return data;
         //}
 
+        
         [HttpPost]
         public async Task<IActionResult> SendLink(AdminDashboardTableView model)
         {
@@ -138,9 +147,9 @@ namespace HalloDoc.Controllers
             }
         }
         [HttpPost]
-        public IActionResult VerifyState(CreateRequestViewModel model)
+        public IActionResult VerifyState(string? region)
         {
-            bool check = _admin.verifyState(model);
+            bool check = _admin.verifyState(region);
             if (check)
             {
                 TempData["success"] = "We are serving in this region!";

@@ -7,6 +7,7 @@
     <link href="~/css/ReviewAgreement.css" rel="stylesheet" type="text/css" />
 }
 <div>
+    <partial name="Toast" />
     <div style="width: 600px; margin: auto; margin-top: 110px">
         <input type="text" style="display:none;" value=3 />
         <p style="line-height: 27px">
@@ -77,7 +78,7 @@
             ">Cancel confirmation</span>
                 <span class="close">&times;</span>
             </div>
-            <div style="padding: 30px;">
+            <div class="d-flex flex-column" style="padding: 30px;">
                 @*                <form asp-action="ReviewAgreement" asp-controller="Admin" method="post">*@
                 <span id="name-text"></span>
                 <textarea placeholder="Please provide a brief explanation for your cancellation"
@@ -119,15 +120,12 @@
     </div>
 
     <script>
-        console.log('1st')
-        debugger
         var url = window.location.href;
         var namePart = url.split("?name=")[1];
         var name = namePart.split("&email")[0];
         var emailPart = namePart.split("&email=")[1];
         var email = emailPart.split("&requestId=")[0];
         var requestIds = emailPart.split("&requestId=")[1];
-        console.log('2st')
         console.log(email);
         console.log(requestIds);
         console.log(name);
@@ -146,13 +144,13 @@
                 },
                 success: function (response) {
                     alert("Thank you for understanding, we will start further treatment very soon!");
+                    window.location.href = 'https://localhost:44339/Login/AgreementSuccess';
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.error("Error:", textStatus, errorThrown);
                 }
             });
         });
-        console.log('3st')
         $('#confirmCancelBtn').on('click', function () {
             var reason = $('#reason').val();
             $.ajax({
@@ -173,7 +171,6 @@
                 }
             });
         });
-        console.log('4st')
         var modal = document.getElementById("myModal");
         var cancelBtn = document.getElementById("cancelBtn");
         var span = document.getElementsByClassName("close")[0];

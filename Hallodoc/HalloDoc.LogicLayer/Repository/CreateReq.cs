@@ -57,7 +57,7 @@ namespace HalloDoc.LogicLayer.Repository
             AspNetUserRole aspNetUserRole = new AspNetUserRole();
 
             //to add one more state,that is to show that we dont give service in particular region
-            var region = _context.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
+            var region = _context.Regions.FirstOrDefault(u => u.Name.Trim().ToLower().Replace(" ", "") == model.State.Trim().ToLower().Replace(" ", ""));
             if (region == null)
             {
                 return 0;
@@ -78,7 +78,7 @@ namespace HalloDoc.LogicLayer.Repository
                 }
             }
 
-            var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
+            var existingUser = _context.AspNetUsers.FirstOrDefault(u => u.Email == model.Email);
             //var existingUser = _createPatientRequest.EmailFromAspnetuser(model);
             bool userExists = true;
 
@@ -199,7 +199,7 @@ namespace HalloDoc.LogicLayer.Repository
             RequestConcierge requestConcierge = new RequestConcierge();
             AspNetUserRole aspNetUserRole = new AspNetUserRole();
 
-            var region = _context.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
+            var region = _context.Regions.FirstOrDefault(u => u.Name.Trim().ToLower().Replace(" ", "") == model.CState.Trim().ToLower().Replace(" ", ""));
             if (region == null)
             {
                 return 0;
@@ -210,8 +210,8 @@ namespace HalloDoc.LogicLayer.Repository
                 return 1;
             }
 
-            var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
-            var id = _context.Users.SingleOrDefault(u => u.Email == model.Email);
+            var existingUser = _context.AspNetUsers.FirstOrDefault(u => u.Email == model.Email);
+            var id = _context.Users.FirstOrDefault(u => u.Email == model.Email);
             bool userExists = true;
             if (existingUser == null)
             {
@@ -229,9 +229,9 @@ namespace HalloDoc.LogicLayer.Repository
                 user.LastName = model.LastName;
                 user.Email = model.Email;
                 user.Mobile = model.PhoneNumber;
-                user.Street = model.Street;
-                user.City = model.City;
-                user.State = model.State;
+                user.Street = model.CStreet;
+                user.City = model.CCity;
+                user.State = model.CState;
                 user.ZipCode = model.CZipCode;
                 user.IntDate = model.DOB.Day;
                 user.StrMonth = model.DOB.Month.ToString();
@@ -283,18 +283,18 @@ namespace HalloDoc.LogicLayer.Repository
             requestClient.FirstName = model.FirstName;
             requestClient.LastName = model.LastName;
             requestClient.PhoneNumber = model.PhoneNumber;
-            requestClient.Location = model.City;
-            requestClient.Address = model.Street;
+            requestClient.Location = model.CCity;
+            requestClient.Address = model.CStreet;
             requestClient.RegionId = region.RegionId;
             requestClient.Notes = model.Symptoms;
             requestClient.Email = model.Email;
             requestClient.IntDate = model.DOB.Day;
             requestClient.StrMonth = model.DOB.Month.ToString();
             requestClient.IntYear = model.DOB.Year;
-            requestClient.Street = model.Street;
-            requestClient.City = model.City;
-            requestClient.State = model.State;
-            requestClient.ZipCode = model.ZipCode;
+            requestClient.Street = model.CStreet;
+            requestClient.City = model.CCity;
+            requestClient.State = model.CState;
+            requestClient.ZipCode = model.CZipCode;
             _context.RequestClients.Add(requestClient);
             _context.SaveChanges();
 
@@ -358,7 +358,7 @@ namespace HalloDoc.LogicLayer.Repository
             AspNetUserRole aspNetUserRole = new AspNetUserRole();
 
 
-            var region = _context.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
+            var region = _context.Regions.FirstOrDefault(u => u.Name.Trim().ToLower().Replace(" ", "") == model.State.Trim().ToLower().Replace(" ", ""));
             if (region == null)
             {
                 return 0;
@@ -368,8 +368,8 @@ namespace HalloDoc.LogicLayer.Repository
             {
                 return 1;
             }
-            var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
-            var id = _context.Users.SingleOrDefault(u => u.Email == model.Email);
+            var existingUser = _context.AspNetUsers.FirstOrDefault(u => u.Email == model.Email);
+            var id = _context.Users.FirstOrDefault(u => u.Email == model.Email);
             bool userExists = true;
             if (existingUser == null)
             {
@@ -458,7 +458,7 @@ namespace HalloDoc.LogicLayer.Repository
 
             int requests = _context.Requests.Where(u => u.CreatedDate == DateTime.Now.Date).Count();
             string ConfirmationNumber = string.Concat(region.Abbreviation, model.FirstName.Substring(0, 2).ToUpper(), model.LastName.Substring(0, 2).ToUpper(), requests.ToString("D" + 4));
-            request.RequestTypeId = 1;
+            request.RequestTypeId = 4;
             if (!userExists)
             {
                 request.UserId = user.UserId;
@@ -487,9 +487,9 @@ namespace HalloDoc.LogicLayer.Repository
             _context.SaveChanges();
 
             business.Name = model.BFirstName + " " + model.BLastName;
-            //business.Address1 = model.BusinessPropertyName;
-            //business.Address2 = model.BusinessPropertyName;
-            business.City = model.City;
+            business.Address1 = model.BHotel;
+            business.Address2 = model.BHotel;
+            business.City = model.BHotel;
             business.ZipCode = "380058";
             business.CreatedDate = DateTime.Now;
             business.Status = 1;
@@ -512,8 +512,8 @@ namespace HalloDoc.LogicLayer.Repository
             RequestWiseFile requestWiseFile = new RequestWiseFile();
             RequestStatusLog requestStatusLog = new RequestStatusLog();
             AspNetUserRole aspNetUserRole = new AspNetUserRole();
-
-            var region = _context.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
+            
+            var region = _context.Regions.FirstOrDefault(u => u.Name.Trim().ToLower().Replace(" ", "") == model.State.Trim().ToLower().Replace(" ", ""));
             if (region == null)
             {
                 return 0;
@@ -534,7 +534,7 @@ namespace HalloDoc.LogicLayer.Repository
             }
 
 
-            var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
+            var existingUser = _context.AspNetUsers.FirstOrDefault(u => u.Email == model.Email);
 
             bool userExists = true;
             if (existingUser == null)
@@ -628,7 +628,7 @@ namespace HalloDoc.LogicLayer.Repository
             int requests = _context.Requests.Where(u => u.CreatedDate == DateTime.Now.Date).Count();
             string ConfirmationNumber = string.Concat(region.Abbreviation, model.FirstName.Substring(0, 2).ToUpper(), model.LastName.Substring(0, 2).ToUpper(), requests.ToString("D" + 4));
             request.RequestTypeId = 2;
-            var id = _context.Users.SingleOrDefault(u => u.Email == model.Email);
+            var id = _context.Users.FirstOrDefault(u => u.Email == model.Email);
             if (!userExists)
             {
                 request.UserId = user.UserId;
@@ -667,7 +667,7 @@ namespace HalloDoc.LogicLayer.Repository
         }
         public AspNetUser patientCheck(string email)
         {
-            return _context.AspNetUsers.SingleOrDefault(u => u.Email == email);
+            return _context.AspNetUsers.FirstOrDefault(u => u.Email == email);
         }
 
 

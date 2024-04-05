@@ -96,226 +96,315 @@
 </div>
 <div class="tab d-flex align-items-baseline">
     <hr class="m-0">
-    @if (Model.Tab == 1)
+    @if (ViewBag.Menu.Contains("Dashboard"))
     {
-        <a class="tabStyle textdeconone 1 active text-black" asp-action="AdminDashboard" asp-controller="AdminDashboard" id="defaultOpen2">Dashboard</a>
+        @if (Model.Tab == 1)
+        {
+            <a class="tabStyle textdeconone 1 active text-black" asp-action="AdminDashboard" asp-controller="AdminDashboard" id="defaultOpen2">Dashboard</a>
+        }
+        else
+        {
+            <a class="tabStyle textdeconone 1 text-black" asp-action="AdminDashboard" asp-controller="AdminDashboard" id="defaultOpen2">Dashboard</a>
+        }
     }
-    else
+    @if (ViewBag.Menu.Contains("Provider Location"))
     {
-        <a class="tabStyle textdeconone 1 text-black" asp-action="AdminDashboard" asp-controller="AdminDashboard" id="defaultOpen2">Dashboard</a>
+        @if (Model.Tab == 2)
+        {
+            <a class="tabStyle textdeconone 2 active text-black" asp-action="ProviderLocation" asp-controller="AdminDashboard">Provider Location</a>
+        }
+        else
+        {
+            <a class="tabStyle textdeconone 2 text-black" asp-action="ProviderLocation" asp-controller="AdminDashboard">Provider Location</a>
+        }
     }
-    @if (Model.Tab == 2)
+    @if (ViewBag.Menu.Contains("My Profile"))
     {
-        <a class="tabStyle textdeconone 2 active text-black" asp-action="ProviderLocation" asp-controller="AdminDashboard">Provider Location</a>
+        @if (Model.Tab == 3)
+        {
+            <a class="tabStyle textdeconone 3 active text-black" asp-action="AdminProfile" asp-controller="AdminDashboard">My Profile</a>
+        }
+        else
+        {
+            <a class="tabStyle textdeconone 3 text-black" asp-action="AdminProfile" asp-controller="AdminDashboard">My Profile</a>
+        }
     }
-    else
+
+    @if (ViewBag.Menu.Contains("Providers"))
     {
-        <a class="tabStyle textdeconone 2 text-black" asp-action="ProviderLocation" asp-controller="AdminDashboard">Provider Location</a>
-    }
-    @if (Model.Tab == 3)
-    {
-        <a class="tabStyle textdeconone 3 active text-black" asp-action="AdminProfile" asp-controller="AdminDashboard">My Profile</a>
-    }
-    else
-    {
-        <a class="tabStyle textdeconone 3 text-black" asp-action="AdminProfile" asp-controller="AdminDashboard">My Profile</a>
-    }
-    @* <a class="tabStyle textdeconone 4">Providers</a> *@
-    @if (Model.Tab == 4 || Model.Tab == 13 || Model.Tab == 14)
-    {
-        <div class=" 6 navbar-dropdown navbar-div active" style="padding:0px !important;background-color:transparent !important;margin-right:25px;!important">
-            @* <button class="navbar-btn dropdown-toggle navbar-button" style="color:#00ccff;font-weight:500;background-color:transparent !important;" type="button" id="access" data-bs-toggle="dropdown" aria-expanded="false">
+        @* <a class="tabStyle textdeconone 4">Providers</a> *@
+        @if (Model.Tab == 4 || Model.Tab == 13 || Model.Tab == 14)
+        {
+            <div class=" 6 navbar-dropdown navbar-div active" style="padding:0px !important;background-color:transparent !important;margin-right:25px;!important">
+                @* <button class="navbar-btn dropdown-toggle navbar-button" style="color:#00ccff;font-weight:500;background-color:transparent !important;" type="button" id="access" data-bs-toggle="dropdown" aria-expanded="false">
         Providers
         </button> *@
-            <a class="tabStyle navbar-btn dropdown-toggle navbar-button textdeconone" style="color:#00ccff!important;font-weight:500;background-color:transparent !important;"id="providers" data-bs-toggle="dropdown" aria-expanded="false">
-                Providers
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="access">
-                @if (Model.Tab == 4)
-                {
+                <a class="tabStyle navbar-btn dropdown-toggle navbar-button textdeconone" style="color:#00ccff!important;font-weight:500;background-color:transparent !important;" id="providers" data-bs-toggle="dropdown" aria-expanded="false">
+                    Providers
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="access">
+                    @if (ViewBag.Menu.Contains("Provider"))
+                    {
+                        @if (Model.Tab == 4)
+                        {
 
-                    <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="SearchRecords" asp-controller="AdminDashboard">Provider</a></li>
-                }
-                else
-                {
-                    <li><a class="navbar-dropdown-item dropdown-item" asp-action="ProviderInfo" asp-controller="AdminDashboard">Provider</a></li>
+                            <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="SearchRecords" asp-controller="AdminDashboard">Provider</a></li>
+                        }
+                        else
+                        {
+                            <li><a class="navbar-dropdown-item dropdown-item" asp-action="ProviderInfo" asp-controller="AdminDashboard">Provider</a></li>
 
-                }
-                @if (Model.Tab == 13)
-                {
+                        }
+                    }
+                    @if (ViewBag.Menu.Contains("Scheduling"))
+                    {
+                        @if (Model.Tab == 13)
+                        {
 
-                    <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="PatientHistory" asp-controller="AdminDashboard">Scheduling</a></li>
-                }
-                else
-                {
-                    <li><a class="navbar-dropdown-item dropdown-item" asp-action="PatientHistory" asp-controller="Admin">Scheduling</a></li>
+                            <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="PatientHistory" asp-controller="AdminDashboard">Scheduling</a></li>
+                        }
+                        else
+                        {
+                            <li><a class="navbar-dropdown-item dropdown-item" asp-action="PatientHistory" asp-controller="Admin">Scheduling</a></li>
 
-                }
-                @if (Model.Tab == 14)
-                {
+                        }
+                    }
 
-                    <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="PatientHistory" asp-controller="AdminDashboard">Invoicing</a></li>
-                }
-                else
-                {
-                    <li><a class="navbar-dropdown-item dropdown-item" asp-action="PatientHistory" asp-controller="AdminDashboard">Invoicing</a></li>
+                    @if (ViewBag.Menu.Contains("Invoicing"))
+                    {
+                        @if (Model.Tab == 14)
+                        {
 
-                }
-            </ul>
-        </div>
+                            <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="PatientHistory" asp-controller="AdminDashboard">Invoicing</a></li>
+                        }
+                        else
+                        {
+                            <li><a class="navbar-dropdown-item dropdown-item" asp-action="PatientHistory" asp-controller="AdminDashboard">Invoicing</a></li>
+
+                        }
+                    }
+                </ul>
+            </div>
+        }
+        else
+        {
+            <div class=" 6 navbar-dropdown navbar-div" style="padding:0px !important;background-color:transparent !important;">
+                <a class="tabStyle navbar-btn dropdown-toggle navbar-button textdeconone text-black" id="providers" data-bs-toggle="dropdown" aria-expanded="false">
+                    Providers
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="accesss">
+                    @if (ViewBag.Menu.Contains("Provider"))
+                    {
+                        <li><a class="navbar-dropdown-item dropdown-item" asp-action="ProviderInfo" asp-controller="AdminDashboard">Provider</a></li>
+                    }
+                    @if (ViewBag.Menu.Contains("Scheduling"))
+                    {
+                        <li><a class="navbar-dropdown-item dropdown-item">Scheduling</a></li>
+                    }
+                    @if (ViewBag.Menu.Contains("Invoicing"))
+                    {
+                        <li><a class="navbar-dropdown-item dropdown-item">Invoicing</a></li>
+                    }
+                </ul>
+            </div>
+        }
     }
-    else
+    @if (ViewBag.Menu.Contains("Partners"))
     {
-        <div class=" 6 navbar-dropdown navbar-div" style="padding:0px !important;background-color:transparent !important;">
-            <a class="tabStyle navbar-btn dropdown-toggle navbar-button textdeconone text-black" id="providers" data-bs-toggle="dropdown" aria-expanded="false">
-                Providers
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="accesss">
-                <li><a class="navbar-dropdown-item dropdown-item" asp-action="ProviderInfo" asp-controller="AdminDashboard">Provider</a></li>
-                <li><a class="navbar-dropdown-item dropdown-item">Scheduling</a></li>
-                <li><a class="navbar-dropdown-item dropdown-item">Invoicing</a></li>
-            </ul>
-        </div>
+        @if (Model.Tab == 5)
+        {
+            <a class="tabStyle textdeconone 5 active text-black" asp-action="Vendors" asp-controller="AdminDashboard">Partners</a>
+        }
+        else
+        {
+            <a class="tabStyle textdeconone 5 text-black" asp-action="Vendors" asp-controller="AdminDashboard">Partners</a>
+        }
     }
-    @if (Model.Tab == 5)
+
+    @if (ViewBag.Menu.Contains("Access"))
     {
-        <a class="tabStyle textdeconone 5 active text-black" asp-action="Vendors" asp-controller="AdminDashboard">Partners</a>
+        @* <a class="tabStyle textdeconone 5">Partners</a> *@
+        @if (Model.Tab == 6 || Model.Tab == 12 || Model.Tab == 15)
+        {
+            <div class=" 6  navbar-dropdown navbar-div active" style="padding:0px !important;background-color:transparent !important;">
+                <a class="tabStyle navbar-btn dropdown-toggle navbar-button textdeconone" style="color:#00ccff;font-weight:500;background-color:transparent !important;" type="button" id="access" data-bs-toggle="dropdown" aria-expanded="false">
+                    Access
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="access">
+                    @if (ViewBag.Menu.Contains("Account Access"))
+                    {
+                        @if (Model.Tab == 6)
+                        {
+
+                            <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="SearchRecords" asp-controller="Admin">Account Access</a></li>
+                        }
+                        else
+                        {
+                            <li><a class="navbar-dropdown-item dropdown-item" asp-action="AccountAccess" asp-controller="AdminDashboard">Account Access</a></li>
+
+                        }
+                    }
+                    @if (ViewBag.Menu.Contains("User Access"))
+                    {
+                        @if (Model.Tab == 12)
+                        {
+
+                            <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="UserAccess" asp-controller="Admin">User Access</a></li>
+                        }
+                        else
+                        {
+                            <li><a class="navbar-dropdown-item dropdown-item" asp-action="UserAccess" asp-controller="AdminDashboard">User Access</a></li>
+
+                        }
+                    }
+                    @if (ViewBag.Menu.Contains("Create Admin"))
+                    {
+                        @if (Model.Tab == 15)
+                        {
+
+                            <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="CreateAdmin" asp-controller="Admin">Create Admin</a></li>
+                        }
+                        else
+                        {
+                            <li><a class="navbar-dropdown-item dropdown-item" asp-action="CreateAdmin" asp-controller="AdminDashboard">Create Admin</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+        }
+        else
+        {
+            <div class=" 6  navbar-dropdown navbar-div" style="padding:0px !important;background-color:transparent !important;">
+                <a class="tabStyle navbar-btn dropdown-toggle navbar-button textdeconone text-black" type="button" id="accesss" data-bs-toggle="dropdown" aria-expanded="false">
+                    Access
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="accesss">
+                    @if (ViewBag.Menu.Contains("Account Access"))
+                    {
+                        <li><a class="navbar-dropdown-item dropdown-item" asp-action="AccountAccess" asp-controller="AdminDashboard">Account Access</a></li>
+                    }
+                    @if (ViewBag.Menu.Contains("User Access"))
+                    {
+                        <li><a class="navbar-dropdown-item dropdown-item">User Access</a></li>
+                    }
+                    @if (ViewBag.Menu.Contains("Create Admin"))
+                    {
+                        <li><a class="navbar-dropdown-item dropdown-item" asp-action="CreateAdmin" asp-controller="AdminDashboard">Create Admin</a></li>
+                    }
+                </ul>
+            </div>
+        }
     }
-    else
+
+    @if (ViewBag.Menu.Contains("Records"))
     {
-        <a class="tabStyle textdeconone 5 text-black" asp-action="Vendors" asp-controller="AdminDashboard">Partners</a>
+        @if (Model.Tab == 7 || Model.Tab == 8 || Model.Tab == 9 || Model.Tab == 10 || Model.Tab == 11)
+        {
+            <div class=" 7 navbar-dropdown navbar-div active" style="padding:0px !important;background-color:transparent !important;margin-right:25px;!important">
+                <a class="tabStyle navbar-btn dropdown-toggle navbar-button textdeconone" style="color:#00ccff;font-weight:500;background-color:transparent !important;" type="button" id="records" data-bs-toggle="dropdown" aria-expanded="false">
+                    Records
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="records">
+                    @if (ViewBag.Menu.Contains("Search Records"))
+                    {
+                        @if (Model.Tab == 7)
+                        {
+
+                            <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="SearchRecords" asp-controller="AdminDashboard">Search Records</a></li>
+                        }
+                        else
+                        {
+                            <li><a class="navbar-dropdown-item dropdown-item" asp-action="SearchRecords" asp-controller="AdminDashboard">Search Records</a></li>
+
+                        }
+                    }
+                    @if (ViewBag.Menu.Contains("Email Logs"))
+                    {
+                        @if (Model.Tab == 8)
+                        {
+
+                            <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="PatientHistory" asp-controller="AdminDashboard">Email Logs</a></li>
+                        }
+                        else
+                        {
+                            <li><a class="navbar-dropdown-item dropdown-item" asp-action="PatientHistory" asp-controller="AdminDashboard">Email Logs</a></li>
+
+                        }
+                    }
+                    @if (ViewBag.Menu.Contains("SMS Logs"))
+                    {
+                        @if (Model.Tab == 9)
+                        {
+
+                            <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="PatientHistory" asp-controller="AdminDashboard">SMS Logs</a></li>
+                        }
+                        else
+                        {
+                            <li><a class="navbar-dropdown-item dropdown-item" asp-action="PatientHistory" asp-controller="AdminDashboard">SMS Logs</a></li>
+
+                        }
+                    }
+                    @if (ViewBag.Menu.Contains("Patient History"))
+                    {
+                        @if (Model.Tab == 10)
+                        {
+
+                            <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="PatientHistory" asp-controller="AdminDashboard">Patient History</a></li>
+                        }
+                        else
+                        {
+                            <li><a class="navbar-dropdown-item dropdown-item" asp-action="PatientHistory" asp-controller="AdminDashboard">Patient History</a></li>
+                        }
+                    }
+                    @if (ViewBag.Menu.Contains("Block History"))
+                    {
+                        @if (Model.Tab == 11)
+                        {
+                            <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="BlockHistory" asp-controller="AdminDashboard">Block History</a></li>
+                        }
+                        else
+                        {
+                            <li><a class="navbar-dropdown-item dropdown-item" asp-action="BlockHistory" asp-controller="AdminDashboard">Block History</a></li>
+                        }
+                    }
+
+                </ul>
+            </div>
+
+        }
+        else
+        {
+            <div class=" 7 navbar-dropdown navbar-div textdeconone" style="padding:0px !important;background-color:transparent !important;margin-right:25px;!important">
+                <a class="tabStyle navbar-btn dropdown-toggle navbar-button textdeconone text-black" type="button" id="records" data-bs-toggle="dropdown" aria-expanded="false">
+                    Records
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="records">
+                    @if (ViewBag.Menu.Contains("Search Records"))
+                    {
+                        <li><a class="navbar-dropdown-item dropdown-item" asp-action="SearchRecords" asp-controller="AdminDashboard">Search Records</a></li>
+                    }
+                    @if (ViewBag.Menu.Contains("Email Logs"))
+                    {
+                        <li><a class="navbar-dropdown-item dropdown-item" href="#">Email Logs</a></li>
+                    }
+                    @if (ViewBag.Menu.Contains("SMS Logs"))
+                    {
+                        <li><a class="navbar-dropdown-item dropdown-item" href="#">SMS Logs</a></li>
+                    }
+                    @if (ViewBag.Menu.Contains("Patient History"))
+                    {
+                        <li><a class="navbar-dropdown-item dropdown-item" asp-action="PatientHistory" asp-controller="AdminDashboard">Patient History</a></li>
+                    }
+                    @if (ViewBag.Menu.Contains("Block History"))
+                    {
+                        <li><a class="navbar-dropdown-item dropdown-item" asp-action="BlockHistory" asp-controller="AdminDashboard">Block History</a></li>
+                    }
+                </ul>
+            </div>
+        }
     }
-    @* <a class="tabStyle textdeconone 5">Partners</a> *@
-    @if (Model.Tab == 6 || Model.Tab == 12 || Model.Tab == 15)
-    {
-        <div class=" 6  navbar-dropdown navbar-div active" style="padding:0px !important;background-color:transparent !important;">
-            <a class="tabStyle navbar-btn dropdown-toggle navbar-button textdeconone" style="color:#00ccff;font-weight:500;background-color:transparent !important;" type="button" id="access" data-bs-toggle="dropdown" aria-expanded="false">
-                Access
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="access">
-                @if (Model.Tab == 6)
-                {
-
-                    <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="SearchRecords" asp-controller="Admin">Account Access</a></li>
-                }
-                else
-                {
-                    <li><a class="navbar-dropdown-item dropdown-item" asp-action="AccountAccess" asp-controller="AdminDashboard">Account Access</a></li>
-
-                }
-                @if (Model.Tab == 12)
-                {
-
-                    <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="UserAccess" asp-controller="Admin">User Access</a></li>
-                }
-                else
-                {
-                    <li><a class="navbar-dropdown-item dropdown-item" asp-action="UserAccess" asp-controller="AdminDashboard">User Access</a></li>
-
-                }
-                @if (Model.Tab == 15)
-                {
-
-                    <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="CreateAdmin" asp-controller="Admin">Create Admin</a></li>
-                }
-                else
-                {
-                    <li><a class="navbar-dropdown-item dropdown-item" asp-action="CreateAdmin" asp-controller="AdminDashboard">Create Admin</a></li>
-                }
-            </ul>
-        </div>
-    }
-    else
-    {
-        <div class=" 6  navbar-dropdown navbar-div" style="padding:0px !important;background-color:transparent !important;">
-            <a class="tabStyle navbar-btn dropdown-toggle navbar-button textdeconone text-black" type="button" id="accesss" data-bs-toggle="dropdown" aria-expanded="false">
-                Access
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="accesss">
-                <li><a class="navbar-dropdown-item dropdown-item" asp-action="AccountAccess" asp-controller="AdminDashboard">Account Access</a></li>
-                <li><a class="navbar-dropdown-item dropdown-item">User Access</a></li>
-                <li><a class="navbar-dropdown-item dropdown-item" asp-action="CreateAdmin" asp-controller="AdminDashboard">Create Admin</a></li>
-            </ul>
-        </div>
-    }
-
-    @if (Model.Tab == 7 || Model.Tab == 8 || Model.Tab == 9 || Model.Tab == 10 || Model.Tab == 11)
-    {
-        <div class=" 7 navbar-dropdown navbar-div active" style="padding:0px !important;background-color:transparent !important;margin-right:25px;!important">
-            <a class="tabStyle navbar-btn dropdown-toggle navbar-button textdeconone" style="color:#00ccff;font-weight:500;background-color:transparent !important;" type="button" id="records" data-bs-toggle="dropdown" aria-expanded="false">
-                Records
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="records">
-                @if (Model.Tab == 7)
-                {
-
-                    <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="SearchRecords" asp-controller="AdminDashboard">Search Records</a></li>
-                }
-                else
-                {
-                    <li><a class="navbar-dropdown-item dropdown-item" asp-action="SearchRecords" asp-controller="AdminDashboard">Search Records</a></li>
-
-                }
-                @if (Model.Tab == 8)
-                {
-
-                    <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="PatientHistory" asp-controller="AdminDashboard">Email Logs</a></li>
-                }
-                else
-                {
-                    <li><a class="navbar-dropdown-item dropdown-item" asp-action="PatientHistory" asp-controller="AdminDashboard">Email Logs</a></li>
-
-                }
-                @if (Model.Tab == 9)
-                {
-
-                    <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="PatientHistory" asp-controller="AdminDashboard">SMS Logs</a></li>
-                }
-                else
-                {
-                    <li><a class="navbar-dropdown-item dropdown-item" asp-action="PatientHistory" asp-controller="AdminDashboard">SMS Logs</a></li>
-
-                }
-                @if (Model.Tab == 10)
-                {
-
-                    <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="PatientHistory" asp-controller="AdminDashboard">Patient History</a></li>
-                }
-                else
-                {
-                    <li><a class="navbar-dropdown-item dropdown-item" asp-action="PatientHistory" asp-controller="AdminDashboard">Patient History</a></li>
-                }
-                @if (Model.Tab == 11)
-                {
-                    <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="BlockHistory" asp-controller="AdminDashboard">Block History</a></li>
-                }
-                else
-                {
-                    <li><a class="navbar-dropdown-item dropdown-item" asp-action="BlockHistory" asp-controller="AdminDashboard">Block History</a></li>
-                }
-
-
-            </ul>
-        </div>
-
-    }
-    else
-    {
-        <div class=" 7 navbar-dropdown navbar-div textdeconone" style="padding:0px !important;background-color:transparent !important;margin-right:25px;!important">
-            <a class="tabStyle navbar-btn dropdown-toggle navbar-button textdeconone text-black" type="button" id="records" data-bs-toggle="dropdown" aria-expanded="false">
-                Records
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="records">
-                <li><a class="navbar-dropdown-item dropdown-item" asp-action="SearchRecords" asp-controller="AdminDashboard">Search Records</a></li>
-                <li><a class="navbar-dropdown-item dropdown-item" href="#">Email Logs</a></li>
-                <li><a class="navbar-dropdown-item dropdown-item" href="#">SMS Logs</a></li>
-                <li><a class="navbar-dropdown-item dropdown-item" asp-action="PatientHistory" asp-controller="AdminDashboard">Patient History</a></li>
-                <li><a class="navbar-dropdown-item dropdown-item" asp-action="BlockHistory" asp-controller="AdminDashboard">Block History</a></li>
-            </ul>
-        </div>
-    }
-</div>
-<script>
+    </ div >
+    <script>
     // function navbarPressed(element) {
     //     var classes = element.classList[1];
     //     var all = document.getElementsByClassName('tablinks');
@@ -381,29 +470,35 @@
 
 
     function navbarPressed(element) {
-        var classes = element.classList[1];
-        var all = document.getElementsByClassName('tablinks');
-        var all2 = document.getElementsByClassName('tabStyle');
-        for (var i = 0; i < all.length; i++) {
-            if (all[i].classList[2] == "active") {
-                all[i].classList.remove("active");
-            }
-            if (classes - 1 == i) {
-                all[i].classList.add("active");
-            }
-        }
-        for (var i = 0; i < all2.length; i++) {
-            if (all2[i].classList[2] == "active") {
-                all2[i].classList.remove("active");
-            }
-            if (classes - 1 == i) {
-                all2[i].classList.add("active");
-            }
-        }
-        sidebarOpen = false;
-        document.getElementById('sidebar').style.display = "none";
-        document.getElementById('main-div').style.opacity = "1";
-        document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+    var classes = element.classList[1];
+    var all = document.getElementsByClassName('tablinks');
+    var all2 = document.getElementsByClassName('tabStyle');
+    for (var i = 0; i < all.length; i++)
+    {
+    if (all[i].classList[2] == "active")
+    {
+    all[i].classList.remove("active");
     }
-</script>
+    if (classes - 1 == i)
+    {
+    all[i].classList.add("active");
+    }
+    }
+    for (var i = 0; i < all2.length; i++)
+    {
+    if (all2[i].classList[2] == "active")
+    {
+    all2[i].classList.remove("active");
+    }
+    if (classes - 1 == i)
+    {
+    all2[i].classList.add("active");
+    }
+    }
+    sidebarOpen = false;
+    document.getElementById('sidebar').style.display = "none";
+    document.getElementById('main-div').style.opacity = "1";
+    document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+    }
+    </script>
 

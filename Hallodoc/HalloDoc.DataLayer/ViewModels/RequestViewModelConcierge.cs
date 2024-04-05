@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,22 +24,22 @@ namespace HalloDoc.DataLayer.ViewModels
         [Required(ErrorMessage = "PhoneNumber is required")]
         public string? PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "Street is required")]
-        public string? Street { get; set; }
+        //[Required(ErrorMessage = "Street is required")]
+        //public string? Street { get; set; }
 
-        [Required(ErrorMessage = "City is required")]
-        public string? City { get; set; }
+        //[Required(ErrorMessage = "City is required")]
+        //public string? City { get; set; }
 
-        [Required(ErrorMessage = "State is required")]
-        public string? State { get; set; }
+        //[Required(ErrorMessage = "State is required")]
+        //public string? State { get; set; }
 
-        [Required(ErrorMessage = "ZipCode is required")]
-        public string? ZipCode { get; set; }
+        //[Required(ErrorMessage = "ZipCode is required")]
+        //public string? ZipCode { get; set; }
         public string? Room { get; set; }
-        [Required(ErrorMessage = "Password is required")]
+        //[Required(ErrorMessage = "Password is required")]
         public string? Password { get; set; }
         public bool? isPassword { get; set; } = false;
-        public string? File { get; set; }
+        //public string? File { get; set; }
 
 
         [Required(ErrorMessage = "First name is required")]

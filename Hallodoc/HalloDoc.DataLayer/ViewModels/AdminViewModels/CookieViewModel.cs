@@ -17,6 +17,8 @@ namespace HalloDoc.ViewModels
         public string email { get; set; }
 
         public string name { get; set; }
+
+        public int AccessRoleId { get; set; }
     }
 }
 
