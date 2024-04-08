@@ -741,6 +741,10 @@
       "PackagePath": "staticwebassets\\css\\resetPassword.css"
     },
     {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\scheduling.css",
+      "PackagePath": "staticwebassets\\css\\scheduling.css"
+    },
+    {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\searchRecords.css",
       "PackagePath": "staticwebassets\\css\\searchRecords.css"
     },

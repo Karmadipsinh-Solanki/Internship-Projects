@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Hallodoc.Models.Models;
+using HalloDoc.Models;
 
 namespace HalloDoc.DataLayer.ViewModels;
 

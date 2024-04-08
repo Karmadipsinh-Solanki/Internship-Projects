@@ -14,11 +14,13 @@
 }
 
 <div id="body">
-    <partial name="Toast" />
+    <div class="shadow header-nav-container">
+        <partial name="Toast" />
+        <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" />
+    </div>
     <div style="display: flex;flex-direction: row;">
 
         <div id="main-div" style="width: 100%;">
-            <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel"/>
 
             <div id="main-sub-div" class="tabcontent main-profile-div">
                 <div>

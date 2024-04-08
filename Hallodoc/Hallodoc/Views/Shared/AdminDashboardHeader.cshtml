@@ -161,11 +161,11 @@
                         @if (Model.Tab == 13)
                         {
 
-                            <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="PatientHistory" asp-controller="AdminDashboard">Scheduling</a></li>
+                            <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="Scheduling" asp-controller="AdminDashboard">Scheduling</a></li>
                         }
                         else
                         {
-                            <li><a class="navbar-dropdown-item dropdown-item" asp-action="PatientHistory" asp-controller="Admin">Scheduling</a></li>
+                            <li><a class="navbar-dropdown-item dropdown-item" asp-action="Scheduling" asp-controller="AdminDashboard">Scheduling</a></li>
 
                         }
                     }
@@ -199,7 +199,7 @@
                     }
                     @if (ViewBag.Menu.Contains("Scheduling"))
                     {
-                        <li><a class="navbar-dropdown-item dropdown-item">Scheduling</a></li>
+                        <li><a class="navbar-dropdown-item dropdown-item" asp-action="Scheduling" asp-controller="AdminDashboard">Scheduling</a></li>
                     }
                     @if (ViewBag.Menu.Contains("Invoicing"))
                     {
@@ -236,7 +236,7 @@
                         @if (Model.Tab == 6)
                         {
 
-                            <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="SearchRecords" asp-controller="Admin">Account Access</a></li>
+                            <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="SearchRecords" asp-controller="AdmAdminDashboardin">Account Access</a></li>
                         }
                         else
                         {
@@ -249,7 +249,7 @@
                         @if (Model.Tab == 12)
                         {
 
-                            <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="UserAccess" asp-controller="Admin">User Access</a></li>
+                            <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="UserAccess" asp-controller="AdminDashboard">User Access</a></li>
                         }
                         else
                         {
@@ -257,12 +257,12 @@
 
                         }
                     }
-                    @if (ViewBag.Menu.Contains("Create Admin"))
+                    @if (ViewBag.Menu.Contains("Create Admin Account"))
                     {
                         @if (Model.Tab == 15)
                         {
 
-                            <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="CreateAdmin" asp-controller="Admin">Create Admin</a></li>
+                            <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="CreateAdmin" asp-controller="AdminDashboard">Create Admin</a></li>
                         }
                         else
                         {
@@ -287,7 +287,7 @@
                     {
                         <li><a class="navbar-dropdown-item dropdown-item">User Access</a></li>
                     }
-                    @if (ViewBag.Menu.Contains("Create Admin"))
+                    @if (ViewBag.Menu.Contains("Create Admin Account"))
                     {
                         <li><a class="navbar-dropdown-item dropdown-item" asp-action="CreateAdmin" asp-controller="AdminDashboard">Create Admin</a></li>
                     }

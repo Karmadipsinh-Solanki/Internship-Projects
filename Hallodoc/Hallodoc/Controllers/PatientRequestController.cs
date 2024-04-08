@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Identity;
 using HalloDoc.LogicLayer.Interface;
 using HalloDoc.LogicLayer.Repository;
 using HalloDoc.DataLayer.Data;
+//using HalloDoc.DataLayer.Data;
 namespace Hallodoc.Controllers
 {
     public class PatientRequestController : Controller

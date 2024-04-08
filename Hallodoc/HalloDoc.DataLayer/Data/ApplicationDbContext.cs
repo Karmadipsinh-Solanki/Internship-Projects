@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hallodoc.Models.Models;
 using HalloDoc.DataLayer.Models;
+using HalloDoc.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace HalloDoc.DataLayer.Data;
@@ -47,7 +47,7 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<OrderDetail> OrderDetails { get; set; }
 
-    public virtual DbSet<Passwordreset> Passwordresets { get; set; }
+    public virtual DbSet<PasswordReset> PasswordResets { get; set; }
 
     public virtual DbSet<Physician> Physicians { get; set; }
 
@@ -90,7 +90,6 @@ public partial class ApplicationDbContext : DbContext
     public virtual DbSet<Smslog> Smslogs { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
-
     public virtual DbSet<TableContent> TableContents { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -218,9 +217,11 @@ public partial class ApplicationDbContext : DbContext
             entity.HasKey(e => e.Id).HasName("OrderDetails_pkey");
         });
 
-        modelBuilder.Entity<Passwordreset>(entity =>
+        modelBuilder.Entity<PasswordReset>(entity =>
         {
-            entity.HasKey(e => e.Token).HasName("passwordreset_pkey");
+            entity.HasKey(e => e.Token).HasName("PasswordReset_pkey");
+
+            entity.Property(e => e.IsUpdated).HasDefaultValueSql("false");
         });
 
         modelBuilder.Entity<Physician>(entity =>
@@ -445,11 +446,9 @@ public partial class ApplicationDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("User_CreatedBy_fkey");
 
-            modelBuilder.Entity<TableContent>().HasNoKey();
-
             entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.UserModifiedByNavigations).HasConstraintName("User_ModifiedBy_fkey");
         });
-
+        modelBuilder.Entity<TableContent>().HasNoKey();
         OnModelCreatingPartial(modelBuilder);
     }
 

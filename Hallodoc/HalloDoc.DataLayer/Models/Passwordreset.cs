@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,21 +6,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HalloDoc.DataLayer.Models;
 
-[Table("passwordreset")]
-public partial class Passwordreset
+[Table("PasswordReset")]
+public partial class PasswordReset
 {
     [Key]
-    [Column("token")]
-    [StringLength(256)]
     public string Token { get; set; } = null!;
 
-    [Column("email")]
-    [StringLength(256)]
-    public string? Email { get; set; }
+    public string Email { get; set; } = null!;
 
-    [Column("isupdated", TypeName = "bit(1)")]
-    public BitArray? Isupdated { get; set; }
+    [Column(TypeName = "timestamp without time zone")]
+    public DateTime CreatedDate { get; set; }
 
-    [Column("createddate", TypeName = "timestamp without time zone")]
-    public DateTime? Createddate { get; set; }
+    [Column("isUpdated")]
+    public bool? IsUpdated { get; set; }
 }

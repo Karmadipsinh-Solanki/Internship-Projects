@@ -54,4 +54,11 @@ public class AdminDashboardTableView
     public int PageSize { get; set; }
     public int TotalItems { get; set; }
     public int TotalPages { get; set; }
+
+    //download filtered excel
+    public string? search { get; set; }
+    public string? requestor { get; set; }
+    public int? RegionId { get; set; }
+
+
 }

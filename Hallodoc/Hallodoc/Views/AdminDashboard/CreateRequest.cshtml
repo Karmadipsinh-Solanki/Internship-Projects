@@ -14,17 +14,38 @@
     }
 }
 <div>
-    <partial name="Toast" />
-    <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" />
+    <div class="shadow header-nav-container">
+        <partial name="Toast" />
+        <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" />
+    </div>
     <hr class="mb-0 mt-0 d-none d-md-block horizontal-line">
-    <partial name="AdminDashboardNavbar" />
     <div class="maindiv container-fluid d-flex flex-column justify-content-center px-5" style="background-color:#f5f5f5;">
-        <div>
+        @* <div>
             <div class="firstdiv d-flex justify-content-between align-items-center">
                 <h3>Submit Information</h3>
                 <div class="btn cancelButton mb-3 mt-3" style="background-color:transparent;">
                     <a class="textdeconone" asp-controller="AdminDashboard" asp-action="AdminDashboard">
                         <span class="cancelButtonText">&lt Back</span>
+                    </a>
+                </div>
+            </div>
+        </div> *@
+        <div>
+            <div class="d-flex justify-content-between align-items-center p-3">
+                <h3>Submit Information</h3>
+                <div class="d-flex justify-content-center align-items-center mb-3 mt-3" style="background-color:transparent;width: 90px;height: 45px;border:1px solid #0dcaf0;border-radius:5px;">
+                    <a class="textdeco" asp-controller="AdminDashboard" asp-action="AdminDashboard" style="text-decoration:none;">
+                        <span class="textback" style="color:#0dcaf0;">&lt Back</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="d-block d-md-none" style="margin-top:-26px;">
+            <div class="d-flex justify-content-between align-items-center p-3">
+                <h3>Submit Information</h3>
+                <div class="d-flex justify-content-center align-items-center mb-3 mt-3" style="background-color:transparent;width: 90px;height: 45px;border:1px solid #0dcaf0;border-radius:5px;">
+                    <a class="textdeco" asp-controller="AdminDashboard" asp-action="AdminDashboard" style="text-decoration:none;">
+                        <span class="textback" style="color:#0dcaf0;">&lt Back</span>
                     </a>
                 </div>
             </div>

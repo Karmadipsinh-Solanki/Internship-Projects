@@ -13,8 +13,11 @@
     }
 }
 <div>
-    <partial name="Toast" />
-    <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" />
+
+    <div class="shadow header-nav-container">
+        <partial name="Toast" />
+        <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" />
+    </div>
     <hr class="mb-0 mt-0 d-none d-md-block horizontal-line">
     <partial name="AdminDashboardNavbar" />
     <div class="maindiv viewcaseMaindiv container-fluid d-flex flex-column justify-content-center  " style="background-color:#f5f5f5;">

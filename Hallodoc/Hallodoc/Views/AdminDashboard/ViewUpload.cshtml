@@ -12,11 +12,13 @@
         <partial name="_ValidationScriptsPartial" />
     }
 }
-<partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" />
-<hr class="mb-0 mt-0 d-none d-md-block horizontal-line">
-<partial name="AdminDashboardNavbar" />
-<div class="maindiv container d-flex flex-column justify-content-center">
+
+<div class="shadow header-nav-container">
     <partial name="Toast" />
+    <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" />
+</div>
+<hr class="mb-0 mt-0 d-none d-md-block horizontal-line">
+<div class="maindiv container d-flex flex-column justify-content-center">
     <div class="d-flex justify-content-between align-items-center p-3">
         <h3>Documents</h3>
         <div class="btn btn-primary backbutton mb-3 mt-3">
@@ -166,6 +168,7 @@
         var selectedMenuItems = "";
 
         function checkAll(event) {
+            debugger
             var checkall = document.getElementById("checkall");
             if (event.target.checked) {
                 var classes = document.getElementsByClassName("checkboxes");

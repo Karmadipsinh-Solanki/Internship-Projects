@@ -13,8 +13,9 @@ using System.Net.Mail;
 using System.Net;
 using Microsoft.AspNetCore.Identity;
 using System.Collections;
-using HalloDoc.DataLayer.Data;
+//using HalloDoc.DataLayer.Data;
 using HalloDoc.DataLayer.Models;
+using HalloDoc.DataLayer.Data;
 
 namespace HalloDoc.LogicLayer.Repository
 {
@@ -120,8 +121,25 @@ namespace HalloDoc.LogicLayer.Repository
             }
             return false;
         }
+        public bool resetPassword(string token)
+        {
+            PasswordReset1 passwordReset = _context.PasswordResets1.FirstOrDefault(u => u.Token == token);
+            if (DateTime.Now.Date.Day - passwordReset.CreatedDate.Day > 0)
+            {
+                return false;
+            }
+            else if (passwordReset.IsUpdated == true)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         public bool resetPasswordFromEmail(CreateNewPassword model)
         {
+            //PasswordReset1 passwordReset = _context.PasswordResets1.FirstOrDefault(u => u.Token == model.token);
             var aspnetUser = _context.AspNetUsers.FirstOrDefault(u => u.Email == model.email);
             //var aspnetUser = _resetPasswordFromEmail.ResetPwdFromEmail(model);
             if (aspnetUser != null)
@@ -132,6 +150,11 @@ namespace HalloDoc.LogicLayer.Repository
 
                 _context.AspNetUsers.Update(aspnetUser);
                 _context.SaveChanges();
+
+                //passwordReset.IsUpdated = true;
+                //_context.PasswordResets1.Update(passwordReset);
+                _context.SaveChanges();
+                //PasswordReset passwordReset = _context.PasswordResets.FirstOrDefault(u=>u.)
                 return true;
             }
             else

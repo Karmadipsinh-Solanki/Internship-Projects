@@ -29,6 +29,7 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using HalloDoc.DataLayer.Data;
+//using HalloDoc.DataLayer.Data;
 
 namespace HalloDoc.Controllers
 {
@@ -106,10 +107,24 @@ namespace HalloDoc.Controllers
         //    return data;
         //}
 
-        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AdminDashboard(AdminDashboardTableView model)
+        {
+            AdminDashboardTableView viewmodel = _admin.adminDashboard(model.status, model.search, model.RegionId, model.requestor, (int)model.CurrentPage, (int)model.PageSize);
+            MemoryStream memoryStream = _admin.Export(viewmodel);
+            return File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"Data-{model.status}.xlsx");
+        }
+
         [HttpPost]
         public async Task<IActionResult> SendLink(AdminDashboardTableView model)
         {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
             bool check = _admin.sendLink(model);
             if (check)
             {
@@ -123,6 +138,12 @@ namespace HalloDoc.Controllers
         }
         public IActionResult CreateRequest()
         {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
             CreateRequestViewModel createRequestViewModel = _admin.createRequest();
             return View(createRequestViewModel);
         }
@@ -149,16 +170,22 @@ namespace HalloDoc.Controllers
         [HttpPost]
         public IActionResult VerifyState(string? region)
         {
+            int isVerified = 0;
+            if (region == null)
+            {
+                isVerified = 2;
+                return Json(new { isVerified = isVerified });
+            }
             bool check = _admin.verifyState(region);
             if (check)
             {
-                TempData["success"] = "We are serving in this region!";
+                isVerified = 1;
             }
             else
             {
-                TempData["error"] = "Currently, We are not serving in this region!";
+                isVerified = 3;
             }
-            return RedirectToAction("CreateRequest");
+            return Json(new { isVerified = isVerified });
         }
 
 
@@ -215,6 +242,12 @@ namespace HalloDoc.Controllers
 
         public IActionResult ViewCase(int id)
         {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
             ViewCaseModel viewCaseModel = _admin.viewCase(id);
             return View(viewCaseModel);
         }
@@ -253,6 +286,12 @@ namespace HalloDoc.Controllers
 
         public IActionResult ViewNotes(int id)
         {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
             ViewNotesViewModel viewNotesViewModel = _admin.viewNotes(id);
             return View(viewNotesViewModel);
         }
@@ -384,6 +423,12 @@ namespace HalloDoc.Controllers
         //}
         public IActionResult viewUpload(int id)
         {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
             ViewUploadViewModel viewUploadViewModel = _admin.viewUpload(id);
             return View(viewUploadViewModel);
         }
@@ -431,6 +476,12 @@ namespace HalloDoc.Controllers
         }
         public IActionResult SendOrder(int id)
         {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
             OrderViewModel orderViewModel = _admin.SendOrder(id);
             return View(orderViewModel);
         }
@@ -451,6 +502,12 @@ namespace HalloDoc.Controllers
 
         public IActionResult CloseCase(int id)
         {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
             ViewUploadViewModel viewUploadViewModel = _admin.closeCase(id);
             //return View(viewUploadViewModel);
             //return RedirectToAction("CloseCase", new { id = viewUploadViewModel.RequestId });
@@ -486,6 +543,12 @@ namespace HalloDoc.Controllers
         }
         public IActionResult Encounter(int id)
         {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
             EncounterViewModel encounterViewModel = _admin.encounter(id);
             return View(encounterViewModel);
         }
@@ -567,16 +630,34 @@ namespace HalloDoc.Controllers
 
         public IActionResult AdminProfile()
         {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
             AdminProfileViewModel adminProfileViewModel = _admin.adminProfile();
             return View(adminProfileViewModel);
         }
         public IActionResult AccountAccess()
         {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
             AccountAccessViewModel accountAccessViewModel = _admin.accountAccess();
             return View(accountAccessViewModel);
         }
         public IActionResult CreateAccess()
         {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
             CreateAccessViewModel createAccessViewModel = _admin.createAccess();
             return View(createAccessViewModel);
         }
@@ -596,6 +677,12 @@ namespace HalloDoc.Controllers
         }
         public IActionResult UserAccess()
         {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
             return View();
         }
         [HttpPost]
@@ -614,6 +701,12 @@ namespace HalloDoc.Controllers
         }
         public IActionResult CreateAdmin()
         {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
             CreateAdminViewModel createAdminViewModel = _admin.createAdmin();
             return View(createAdminViewModel);
         }
@@ -624,6 +717,12 @@ namespace HalloDoc.Controllers
         }
         public IActionResult ProviderInfo()
         {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
             ProviderViewModel providerViewModel = _admin.providerInfo(null);
             return View(providerViewModel);
         }
@@ -635,10 +734,22 @@ namespace HalloDoc.Controllers
         }
         public IActionResult EditPhyAccount()
         {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
             return View();
         }
         public IActionResult SearchRecords()
         {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
             SearchRecordsViewModel searchRecordsViewModel = _admin.searchRecords(null, null, null, null, null, null, null, null);
             return View(searchRecordsViewModel);
         }
@@ -649,6 +760,12 @@ namespace HalloDoc.Controllers
         }
         public IActionResult PatientHistory()
         {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
             PatientHistoryViewModel patientHistoryViewModel = _admin.patientHistory(null, null, null, null);
             return View(patientHistoryViewModel);
         }
@@ -704,6 +821,12 @@ namespace HalloDoc.Controllers
         }
         public IActionResult BlockHistory()
         {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
             BlockHistoryViewModel blockHistoryViewModel = _admin.blockHistory(null, null, null, null);
             return View(blockHistoryViewModel);
         }
@@ -711,6 +834,112 @@ namespace HalloDoc.Controllers
         {
             BlockHistoryViewModel blockHistoryViewModel = _admin.blockHistory(firstname, date, email, phonenumber, page, pageSize);
             return PartialView("BlockHistoryTable", blockHistoryViewModel);
+        }
+        /// <summary>
+        /// emailLogTable page controller
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult EmailLog()
+        {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
+            EmailLogViewModel emailLogViewModel = _admin.emailLog(null, null, null, null, null);
+            return View(emailLogViewModel);
+        }
+        public IActionResult EmailLogFilter(string? receiverName, DateTime? date, DateTime? date2, string? email, string? role, int page = 1, int pageSize = 10)
+        {
+            EmailLogViewModel emailLogViewModel = _admin.emailLog(receiverName, date, date2, email, role, page, pageSize);
+            return PartialView("EmailLogTable", emailLogViewModel);
+        }
+
+        /// <summary>
+        /// This is vendors/partners controllers that contains edit and delete business
+        /// </summary>
+        /// <returns></returns>
+        /// 
+        //public IActionResult AddBusiness(int id = -1)
+        //{
+        //    AddBusinessViewModel addBusinessViewModel = _admin.addBusiness(id);
+        //    return View(addBusinessViewModel);
+        //}
+        //public IActionResult EditBusiness(AddBusinessViewModel model)
+        //{
+        //    bool check = _admin.editBusiness(model);
+        //    if (check)
+        //    {
+        //        TempData["success"] = "Business details updated successfully!";
+        //    }
+        //    else
+        //    {
+        //        TempData["error"] = "Error,business details not updated!";
+        //    }
+        //    return RedirectToAction("Vendors");
+        //}
+        //[HttpPost]
+        //public IActionResult AddBusiness(AddBusinessViewModel model)
+        //{
+        //    bool check = _admin.addBusiness(model);
+        //    if (check)
+        //    {
+        //        TempData["success"] = "Business added successfully!";
+        //    }
+        //    else
+        //    {
+        //        TempData["error"] = "Error,business not added!";
+        //    }
+        //    return RedirectToAction("Vendors");
+        //}
+
+
+
+        //public IActionResult AddBusiness()
+        //{
+        //    AddBusinessViewModel addBusinessViewModel = _admin.addBusiness();
+        //    return View();
+        //}
+        public IActionResult DeleteVendor(int id)
+        {
+            bool check = _admin.deleteVendor(id);
+            if (check)
+            {
+                TempData["success"] = "Vendor deleted successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,Vendor not deleted!";
+            }
+            return RedirectToAction("Vendors");
+        }
+        public IActionResult FilterVendorInformation(string? vendorName, int? professionType, int page = 1, int pageSize = 10)
+        {
+            VendorViewModel vendorViewModel = _admin.vendorInformation(vendorName, professionType, page, pageSize);
+            return PartialView("VendorTable", vendorViewModel);
+        }
+        public IActionResult Vendors()
+        {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
+            VendorViewModel vendorViewModel = _admin.vendorInformation(null, null);
+            return View(vendorViewModel);
+        }
+        public IActionResult Scheduling()
+        {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
+            ProviderShift providerShift = _admin.scheduling();
+            return View(providerShift);
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

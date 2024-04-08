@@ -28,9 +28,10 @@ using System.Collections;
 using static HalloDoc.DataLayer.ViewModels.AdminViewModels.ProviderStatus;
 using static HalloDoc.DataLayer.ViewModels.AdminViewModels.RequestType;
 using HalloDoc.DataLayer.Models;
-using HalloDoc.DataLayer.Data;
+//using HalloDoc.DataLayer.Data;
 using DocumentFormat.OpenXml.Wordprocessing;
 using System.IdentityModel.Tokens.Jwt;
+using HalloDoc.DataLayer.Data;
 
 namespace HalloDoc.LogicLayer.Repository
 {
@@ -539,6 +540,132 @@ namespace HalloDoc.LogicLayer.Repository
             memoryStream.Seek(0, SeekOrigin.Begin);
             return memoryStream;
         }
+
+        public MemoryStream Export(AdminDashboardTableView model)
+        {
+            try
+            {
+                var data = model.requests;
+                var workbook = new XLWorkbook();
+                var worksheet = workbook.Worksheets.Add("Export");
+
+                int count = 1;
+                worksheet.Cell(1, count++).Value = "Name";
+                if (model.status != "Unpaid")
+                {
+                    worksheet.Cell(1, count++).Value = "Date Of Birth";
+                }
+                if (model.status == "New" || model.status == "Pending" || model.status == "Active")
+                {
+                    worksheet.Cell(1, count++).Value = "Requestor";
+                }
+                if (model.status != "New")
+                {
+                    worksheet.Cell(1, count++).Value = "Physician Name";
+                    worksheet.Cell(1, count++).Value = "Date Of Service";
+                }
+                if (model.status == "New")
+                {
+                    worksheet.Cell(1, count++).Value = "Requested Date";
+                }
+                if (model.status != "ToClose")
+                {
+                    worksheet.Cell(1, count++).Value = "Phone";
+                }
+                worksheet.Cell(1, count++).Value = "Address";
+                if (model.status != "Conclude" || model.status != "Unpaid")
+                {
+                    worksheet.Cell(1, count++).Value = "Notes";
+                }
+
+                int row = 2;
+                foreach (var item in data)
+                {
+                    count = 1;
+                    var statusClass = "";
+                    var dos = "";
+                    var notes = "";
+                    if (item.RequestTypeId == 1)
+                    {
+                        statusClass = "patient";
+                    }
+                    else if (item.RequestTypeId == 2)
+                    {
+                        statusClass = "family";
+                    }
+                    else if (item.RequestTypeId == 3)
+                    {
+                        statusClass = "concierge";
+                    }
+                    else
+                    {
+                        statusClass = "business";
+                    }
+                    foreach (var stat in item.RequestStatusLogs)
+                    {
+                        if (stat.Status == 2)
+                        {
+                            dos = stat.CreatedDate.ToString("MMMM dd,yyyy");
+                            notes += stat.Notes + Environment.NewLine;
+                        }
+                    }
+                    worksheet.Cell(row, count++).Value = string.Concat(item.RequestClient.FirstName, ',', item.RequestClient.LastName);
+                    if (model.status != "Unpaid")
+                    {
+
+                        DateTime now = DateTime.Today;
+                        int age = now.Year - DateTime.Parse($"{item.RequestClient.IntYear}-{item.RequestClient.StrMonth}-{item.RequestClient.IntDate}").Year;
+                        if (DateTime.Parse($"{item.RequestClient.IntYear}-{item.RequestClient.StrMonth}-{item.RequestClient.IntDate}") > now.AddYears(-age))
+                            age--;
+
+                        worksheet.Cell(row, count++).Value = DateTime.Parse($"{item.RequestClient.IntYear}-{item.RequestClient.StrMonth}-{item.RequestClient.IntDate}").ToString("MMMM dd,yyyy") + "(" + age + ")";
+                    }
+                    if (model.status == "New" || model.status == "Pending" || model.status == "Active")
+                    {
+                        worksheet.Cell(row, count++).Value = statusClass.Substring(0, 1).ToUpper() + statusClass.Substring(1).ToLower() + " " + string.Concat(item.FirstName, ',', item.LastName);
+                    }
+                    if (model.status != "New")
+                    {
+                        worksheet.Cell(row, count++).Value = "Dr." + item.Physician == null ? "" : item.Physician.FirstName;
+                    }
+                    if (model.status == "New")
+                    {
+
+                        int hoursDifference = (int)(DateTime.Now - item.CreatedDate).TotalHours;
+                        int minutesDifference = (DateTime.Now - item.CreatedDate).Minutes;
+
+                        worksheet.Cell(row, count++).Value = item.CreatedDate.ToString("MMMM dd,yyyy") + " " + hoursDifference + "H " + minutesDifference + "M";
+                    }
+                    if (model.status != "New")
+                    {
+                        worksheet.Cell(row, count++).Value = item.AcceptedDate?.ToString("MMMM dd,yyyy");
+                    }
+                    if (model.status != "ToClose")
+                    {
+                        worksheet.Cell(row, count++).Value = item.RequestClient.PhoneNumber + "(Patient)" + (item.RequestTypeId != 2 ? item.PhoneNumber + "(" + statusClass.Substring(0, 1).ToUpper() + statusClass.Substring(1).ToLower() + ")" : "");
+                    }
+                    worksheet.Cell(row, count++).Value = (item.RequestClient.Address != null ? string.Concat(item.RequestClient.Address, ',', item.RequestClient.Street, ',', item.RequestClient.City, ',', item.RequestClient.State, ',', item.RequestClient.ZipCode) : string.Concat(item.RequestClient.Street, ',', item.RequestClient.City, ',', item.RequestClient.State, ',', item.RequestClient.ZipCode));
+                    if (model.status != "Conclude" || model.status != "Unpaid")
+                    {
+                        worksheet.Cell(row, count++).Value = notes;
+                    }
+                    row++;
+                }
+                worksheet.Columns().AdjustToContents();
+
+                var memoryStream = new MemoryStream();
+                workbook.SaveAs(memoryStream);
+                memoryStream.Seek(0, SeekOrigin.Begin);
+                return memoryStream;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: {ex.Message}");
+                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+                throw;
+            }
+        }
+
         public bool sendLink(AdminDashboardTableView model)
         {
             var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == model.Email);
@@ -2344,6 +2471,219 @@ namespace HalloDoc.LogicLayer.Repository
             {
                 return false;
             }
+        }
+        public EmailLogViewModel emailLog(string? receiverName, DateTime? date, DateTime? date2, string? email, string? role, int page, int pageSize)
+        {
+            IQueryable<EmailLog> query = _context.EmailLogs;
+            //IQueryable<BlockRequest> query = _context.BlockRequests.Include(i => i.Request);
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 8;
+            EmailLogViewModel emailLogViewModel = new EmailLogViewModel();
+            emailLogViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            List<AspNetRole> aspNetRoles = _context.AspNetRoles.ToList();
+            if (date != null)
+            {
+                query = query.Where(b => b.CreateDate.Date == date.Value.Date);
+            }
+            if (date2 != null)
+            {
+                query = query.Where(b => b.SentDate.Value.Date == date.Value.Date);
+            }
+            if (email != null)
+            {
+                query = query.Where(b => b.EmailId.ToLower().Contains(email.ToLower()));
+            }
+            if (role != null && role != "-1")
+            {
+                query = query.Where(b => b.RoleId == Convert.ToInt32(role));
+            }
+            emailLogViewModel.CurrentPage = page;
+            //emailLogViewModel.Role = aspNetRoles;
+            emailLogViewModel.PageSize = pageSize;
+            emailLogViewModel.TotalItems = query.Count();
+            emailLogViewModel.TotalPages = (int)Math.Ceiling((double)query.Count() / pageSize);
+            List<EmailLog> queries = query.ToList();
+            List<EmailLogTable> emailLogTable = new List<EmailLogTable>();
+            for (int i = 0; i < queries.Count; i++)
+            {
+                int num = i;
+                var recipient = "";
+                var confirmationNumber = "-";
+                if (queries[i].RoleId == 2)
+                {
+                    if (queries[i].RequestId != null)
+                    {
+                        var request2 = _context.Requests.Include(i => i.RequestClient).FirstOrDefault(i => i.RequestId == queries[num].RequestId);
+                        recipient = request2.RequestClient.FirstName + " " + request2.RequestClient.LastName;
+                        confirmationNumber = request2.ConfirmationNumber;
+                    }
+                    else
+                    {
+                        AspNetUser aspNetUser = _context.AspNetUsers.FirstOrDefault(i => i.Email == queries[num].EmailId);
+                        User user = _context.Users.FirstOrDefault(i => i.AspNetUserId == aspNetUser.Id);
+                        recipient = user.FirstName + " " + user.LastName;
+                    }
+                }
+                else if (queries[i].RoleId == 1)
+                {
+                    if (queries[i].PhysicianId != null)
+                    {
+                        Physician physician = _context.Physicians.FirstOrDefault(i => i.PhysicianId == queries[num].PhysicianId);
+                        recipient = physician.FirstName + " " + physician.LastName;
+                    }
+                    else
+                    {
+                        AspNetUser aspNetUser = _context.AspNetUsers.FirstOrDefault(i => i.Email == queries[num].EmailId);
+                        Physician physician = _context.Physicians.FirstOrDefault(i => i.PhysicianId == queries[num].PhysicianId);
+                        recipient = physician.FirstName + " " + physician.LastName;
+                    }
+                }
+                else
+                {
+                    if (queries[i].AdminId != null)
+                    {
+                        HalloDoc.DataLayer.Models.Admin admin = _context.Admins.FirstOrDefault(i => i.AdminId == queries[num].AdminId);
+                        recipient = admin.FirstName + " " + admin.LastName;
+                    }
+                    else
+                    {
+                        AspNetUser aspNetUser = _context.AspNetUsers.FirstOrDefault(i => i.Email == queries[num].EmailId);
+                        HalloDoc.DataLayer.Models.Admin admin = _context.Admins.FirstOrDefault(i => i.AdminId == queries[num].AdminId);
+                        recipient = admin.FirstName + " " + admin.LastName;
+                    }
+                }
+                BitArray check = new BitArray(1);
+                check.Set(0, false);
+
+                emailLogTable.Add(new EmailLogTable()
+                {
+                    Recipient = recipient,
+                    SentDate = queries[i].SentDate.Value,
+                    CreatedDate = queries[i].CreateDate,
+                    Action = "Request Monthly Data",
+                    RoleName = (int)queries[i].RoleId,
+                    Email = queries[i].EmailId,
+                    Sent = queries[i].IsEmailSent == check ? "Yes" : "No",
+                    SentTries = (int)queries[i].SentTries,
+                    EmailLogId = queries[i].EmailLogId,
+                    ConfirmationNumber = confirmationNumber,
+                });
+            }
+            if (receiverName != null)
+            {
+                for (int i = 0; i < emailLogTable.Count(); i++)
+                {
+                    BitArray check = new BitArray(1);
+                    check.Set(0, false);
+                    emailLogTable = emailLogTable.Where(i => i.Recipient.ToLower().Contains(receiverName.ToLower())).Select(i => new EmailLogTable
+                    {
+                        Recipient = i.Recipient,
+                        SentDate = i.SentDate,
+                        CreatedDate = i.CreatedDate,
+                        Action = "Request Monthly Data",
+                        RoleName = i.RoleName,
+                        Email = i.Email,
+                        Sent = i.Sent,
+                        SentTries = (int)i.SentTries,
+                        EmailLogId = i.EmailLogId,
+                        ConfirmationNumber = i.ConfirmationNumber,
+                    }).ToList();
+                }
+            }
+
+            emailLogViewModel.Query = emailLogTable.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            return emailLogViewModel;
+        }
+        public bool deleteVendor(int id)
+        {
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            HealthProfessional healthProfessional = _context.HealthProfessionals.FirstOrDefault(i => i.VendorId == id);
+            if (healthProfessional != null)
+            {
+                BitArray check = new BitArray(1);
+                check.Set(0, true);
+                healthProfessional.IsDeleted = check;
+                healthProfessional.ModifiedDate = DateTime.Now;
+                _context.HealthProfessionals.Update(healthProfessional);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public VendorViewModel vendorInformation(string? vendorName, int? professionType, int page, int pageSize)
+        {
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 5;
+            BitArray check = new BitArray(1);
+            check.Set(0, false);
+            IQueryable<HealthProfessional> query = _context.HealthProfessionals.Where(i => i.IsDeleted == check);
+            if (vendorName != null)
+            {
+                query = query.Where(i => i.VendorName.ToLower().Contains(vendorName.ToLower()));
+            }
+            if (professionType != null && professionType != -1)
+            {
+                query = query.Where(i => i.Profession == professionType);
+            }
+            List<VendorTable> vendorTables = new List<VendorTable>();
+            List<HealthProfessional> fquery = query.ToList();
+            for (int i = 0; i < fquery.Count; i++)
+            {
+                int n = i;
+                HealthProfessionalType healthProfessionalType = _context.HealthProfessionalTypes.FirstOrDefault(i => i.HealthProfessionalId == fquery[n].Profession);
+                vendorTables.Add(new VendorTable
+                {
+                    BusinessContact = fquery[n].BusinessContact,
+                    BusinessName = fquery[n].VendorName,
+                    Email = fquery[n].Email,
+                    FaxNumber = fquery[n].FaxNumber,
+                    PhoneNumber = fquery[n].PhoneNumber,
+                    ProfessionName = healthProfessionalType.ProfessionName,
+                    VendorId = fquery[n].VendorId,
+                });
+            }
+            List<HealthProfessionalType> healthProfessionalTypes = _context.HealthProfessionalTypes.ToList();
+            VendorViewModel vendorViewModel = new VendorViewModel();
+            vendorViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            vendorViewModel.CurrentPage = 1;
+            vendorViewModel.PageSize = pageSize;
+            vendorViewModel.TotalItems = vendorTables.Count;
+            vendorViewModel.TotalPages = (int)Math.Ceiling((double)vendorTables.Count / pageSize);
+            vendorViewModel.Query = vendorTables.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            vendorViewModel.HealthProfessionalTypes = healthProfessionalTypes;
+            return vendorViewModel;
+
+        }
+        public ProviderShift scheduling()
+        {
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = cookieModel.name;
+            adminNavbarViewModel.Tab = 13;
+            List<Region> regions = _context.Regions.ToList();
+            List<Physician> physicians = _context.Physicians.ToList();
+            ProviderShift providerShift = new ProviderShift();
+            providerShift.adminNavbarViewModel = adminNavbarViewModel;
+            providerShift.RegionList = regions;
+            providerShift.Physicians = physicians;
+            return providerShift;
         }
     }
 }

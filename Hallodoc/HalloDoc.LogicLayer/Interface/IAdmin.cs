@@ -68,5 +68,10 @@ namespace HalloDoc.LogicLayer.Interface
         public BlockHistoryViewModel blockHistory(string? firstname, DateTime? date, string? email, string? phonenumber, int page = 1, int pageSize = 10);
         public bool unBlock(int id);
         public bool updateIsActive(int id, bool isActive);
+        public EmailLogViewModel emailLog(string? receiverName, DateTime? date, DateTime? date2, string? email, string? role, int page = 1, int pageSize = 10);
+        public VendorViewModel vendorInformation(string? vendorName, int? professionType, int page = 1, int pageSize = 10);
+        public bool deleteVendor(int id);
+        public MemoryStream Export(AdminDashboardTableView model);
+        public ProviderShift scheduling();
     }
 }

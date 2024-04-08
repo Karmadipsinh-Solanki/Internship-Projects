@@ -75,10 +75,10 @@
                             <span class="accordian-item-text">Status: <span class="accordian-item-text2">@Enum.GetName(typeof(Status), @item.Status)</span></span>
                         </div>
                         <div class="accordion-btns">
-                            <a class="link2" style="margin-right:10px;" asp-action="PatientRecord" asp-controller="Admin" asp-route-id="@item.PhysicianId">
+                            <a class="link2" style="margin-right:10px;" asp-action="PatientRecord" asp-controller="AdminDashboard" asp-route-id="@item.PhysicianId">
                                 <span>Contact</span>
                             </a>
-                            <a class="link2" asp-action="PatientRecord" asp-controller="Admin" asp-route-id="@item.PhysicianId">
+                            <a class="link2" asp-action="PatientRecord" asp-controller="AdminDashboard" asp-route-id="@item.PhysicianId">
                                 <span>Edit</span>
                             </a>
                         </div>

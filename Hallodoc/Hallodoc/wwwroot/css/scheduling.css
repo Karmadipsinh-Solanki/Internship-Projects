@@ -1,0 +1,143 @@
+﻿.fc-timeline-slot-frame {
+    text-decoration: none !important;
+}
+
+.fc-scrollgrid-sync-inner {
+    text-decoration: none !important;
+}
+
+.fc-timeline-event {
+    height: 40px !important;
+}
+
+.fc-event-main-frame {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    text-align: center !important;
+}
+
+.fc-event-time {
+    margin: auto !important;
+}
+
+.fc th {
+    color: white;
+    background-color: dimgray;
+}
+
+#calendar .fc-timeline-slot-cushion, .fc-col-header-cell-cushion {
+    text-decoration: none;
+    color: white;
+}
+
+.fc-daygrid-day-top {
+    background-color: #ffacf5;
+    justify-content: center;
+}
+
+.fc-daygrid-day-number {
+    text-decoration: none;
+    color: ActiveCaption;
+}
+
+.fc-event-time, .fc-event-title {
+    color: ActiveCaption;
+}
+
+.fc-event {
+    margin-top: 1px !important;
+}
+
+.btn-info {
+    color: white;
+    margin-bottom: 30px;
+    font-size: 15px;
+    /*margin-left:8px;*/
+}
+
+    .btn-info:hover {
+        background-color: #00ccff;
+        color: white;
+    }
+
+.actions {
+    margin-left: 8px;
+}
+
+.rounded-circle {
+    border-radius: 48% !important;
+}
+
+.material-symbols-outlined {
+    /*background-color:white;*/
+    /*border-radius:10px;*/
+    /*padding:2px;*/
+}
+
+.btn-check:checked + .btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check) + .btn:active {
+    color: white;
+}
+
+.fc-datagrid-cell-main {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row-reverse;
+    gap: 10px;
+    /*display: grid;
+                            grid-template-columns: 50px auto; /* Define columns: image (fixed 50px), text */
+    /*align-items: center;*/
+}
+
+    .fc-datagrid-cell-main img {
+        width: 40px;
+        height: 40px;
+    }
+
+.fc-datagrid-expander + .fc-datagrid-cell-main {
+}
+
+img {
+    /*flex: 1;*/
+}
+
+.fc-datagrid-cell-main {
+    /*flex: 2;*/
+}
+
+.fc-timeline-header-row .fc-timeline-header-row-chrono {
+    z-index: 0;
+}
+
+#myModal {
+    z-index: 10;
+}
+
+.modal-content {
+    margin: 7% auto;
+    /*height:650px !important;*/
+}
+
+.form-check-input {
+    margin-right: 5px;
+}
+
+.form-check-label {
+    margin-right: 15px;
+}
+
+.fc-event-time {
+    display: none;
+}
+
+.fc-event-title {
+    color: black;
+}
+
+.fc-daygrid-day-number {
+    color: black;
+}
+
+.fc-scrollgrid-section .fc-scrollgrid-section-header .fc-scrollgrid-section-sticky {
+    z-index: 0;
+}

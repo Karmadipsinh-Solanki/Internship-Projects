@@ -21,6 +21,16 @@
         src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 
 
+<form asp-action="AdminDashboard" asp-controller="AdminDashboard" method="post">
+    <button type="submit" style="opacity:inherit;width:0px;height:0px;display:none;" id="dwnld-excel"></button>
+    <input type="hidden" asp-for="RegionId" id="excel-regionid"/>
+    <input type="hidden" asp-for="status" id="excel-status"/>
+    <input type="hidden" asp-for="requestor" id="excel-requestor"/>
+    <input type="hidden" asp-for="CurrentPage" id="excel-currentpage"/>
+    <input type="hidden" asp-for="PageSize" id="excel-pagesize"/>
+    <input type="hidden" asp-for="search" id="excel-search"/>
+</form>
+
 <div class=" d-none d-md-block">
     <table id="dtBasicExample" class="table ">
         <thead>

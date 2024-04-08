@@ -4,7 +4,10 @@ using Hallodoc;
 //using Hallodoc.Data;
 using Hallodoc.Models.Models;
 using HalloDoc.DataLayer.Data;
+
+//using HalloDoc.DataLayer.Data;
 using HalloDoc.DataLayer.Models;
+using HalloDoc.LogicLayer.Interface;
 using HalloDoc.Repository.Interface;
 using HalloDoc.ViewModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -39,7 +42,7 @@ namespace HalloDoc.LogicLayer.Repository
 
             AspNetUserRole aspNetRole = _context.AspNetUserRoles.Include(a => a.Role).FirstOrDefault(a => a.UserId == aspNetUser.Id);
             //RoleMenu roleMenu = _context.RoleMenus.Include(a => a.Menu).FirstOrDefault(a => a.RoleMenuId == .MenuId);
-
+            var roleId = 0;
             var userId = "";
             var name = "";
             var Accessid = "";
@@ -57,12 +60,14 @@ namespace HalloDoc.LogicLayer.Repository
                 
                 userId = admin.AdminId.ToString();
                 name = string.Concat(admin.FirstName, " ", admin.LastName);
+                roleId = (int)admin.RoleId;
             }
             else if (aspNetRole.Role.Name == "Provider")
             {
                 var physician = _context.Physicians.FirstOrDefault(a => a.AspNetUserId == aspNetUser.Id);
                 userId = physician.PhysicianId.ToString();
                 name = string.Concat(physician.FirstName, " ", physician.LastName);
+                roleId = (int)physician.RoleId;
             }
 
 
@@ -75,7 +80,7 @@ namespace HalloDoc.LogicLayer.Repository
                 new Claim(ClaimTypes.Role, aspNetRole.Role.Name),
                 new Claim("UserId", userId),
                 new Claim("Name", name),
-                 new Claim("AccessRoleid",aspNetRole.Role.Id.ToString()),
+                 new Claim("AccessRoleid",roleId.ToString()),
             };
 
 
