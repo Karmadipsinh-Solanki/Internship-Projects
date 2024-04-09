@@ -73,5 +73,26 @@ namespace HalloDoc.LogicLayer.Interface
         public bool deleteVendor(int id);
         public MemoryStream Export(AdminDashboardTableView model);
         public ProviderShift scheduling();
+        public bool createShift(ProviderShift model);
+        public ShiftDetail viewShift(int id);
+        public List<ProviderInformationViewModel> GetProviderInformation(int Region);
+        public List<ShiftDetail> GetScheduleData(int RegionId);
+        public string GetPhyFromId(int id, int shiftId);
+        public bool deleteShift(int id);
+        public bool editShift(ProviderShift model);
+        public ShiftReviewViewModel filterShiftDetail(int? region, int page = 1, int pageSize = 10);
+        public bool returnShift(int id);
+        public bool createPhysician(CreateProviderViewModel model);
+        public CreateProviderViewModel createPhysician();
+        public bool contactProvider(ProviderViewModel model);
+        public bool deletePhysicianAccount(int id);
+        public bool editPhysicianAccountInformation(CreateProviderViewModel model);
+        public bool editPhysicianPassword(string password, int id);
+        public bool editPhysicianInformation(CreateProviderViewModel model);
+        public bool editPhysicianMailingInformation(CreateProviderViewModel model);
+        public bool editPhysicianAccount(CreateProviderViewModel model);
+        public CreateProviderViewModel editPhysicianAccount(int id);
+        public bool editPhysicianProfile(CreateProviderViewModel model);
+        public bool editPhysicianOnboarding(CreateProviderViewModel model);
     }
 }

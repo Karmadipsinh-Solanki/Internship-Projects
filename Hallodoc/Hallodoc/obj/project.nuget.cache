@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "JhKVzyvSKEJ6yC9cSV+cQppcFU0KvaWOMyrferWmTnoza4H4dw+A4EarqIxL0GbMUDyuzGu/8B2Tz8ihzvoylg==",
+  "dgSpecHash": "vWlmLbOfnvxdQU7LKkY5uKPUwtjhDSalSzJxz0PPZeN3ZusBDL4COGjFUaz6N6gG0+4kTYbPGMhArPGBoo1wog==",
   "success": true,
   "projectFilePath": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\Hallodoc.csproj",
   "expectedPackageFiles": [
@@ -199,6 +199,8 @@
     "C:\\Users\\pca161\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\system.collections.concurrent\\4.3.0\\system.collections.concurrent.4.3.0.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
+    "C:\\Users\\pca161\\.nuget\\packages\\system.collections.nongeneric\\4.3.0\\system.collections.nongeneric.4.3.0.nupkg.sha512",
+    "C:\\Users\\pca161\\.nuget\\packages\\system.collections.specialized\\4.3.0\\system.collections.specialized.4.3.0.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\system.componentmodel.annotations\\4.5.0\\system.componentmodel.annotations.4.5.0.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\system.composition\\6.0.0\\system.composition.6.0.0.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\system.composition.attributedmodel\\6.0.0\\system.composition.attributedmodel.6.0.0.nupkg.sha512",
@@ -277,6 +279,7 @@
     "C:\\Users\\pca161\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\pca161\\.nuget\\packages\\twilio\\7.0.4\\twilio.7.0.4.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\watcher.net\\0.2.0\\watcher.net.0.2.0.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\xlparser\\1.5.2\\xlparser.1.5.2.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.14\\microsoft.windowsdesktop.app.ref.7.0.14.nupkg.sha512",

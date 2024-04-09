@@ -46,8 +46,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcQ3JlYXRlQWRtaW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/pca161/Desktop/Internship-Projects/Internship-Projects/Hallodoc/Hallodoc/Views/AdminDashboard/CreateProvider.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcQ3JlYXRlUHJvdmlkZXIuY3NodG1s
+[C:/Users/pca161/Desktop/Internship-Projects/Internship-Projects/Hallodoc/Hallodoc/Views/AdminDashboard/CreatePhysician.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcQ3JlYXRlUGh5c2ljaWFuLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/pca161/Desktop/Internship-Projects/Internship-Projects/Hallodoc/Hallodoc/Views/AdminDashboard/CreateRequest.cshtml]

@@ -32,6 +32,9 @@ using HalloDoc.DataLayer.Models;
 using DocumentFormat.OpenXml.Wordprocessing;
 using System.IdentityModel.Tokens.Jwt;
 using HalloDoc.DataLayer.Data;
+using Twilio;
+using Microsoft.Extensions.Configuration;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace HalloDoc.LogicLayer.Repository
 {
@@ -40,12 +43,14 @@ namespace HalloDoc.LogicLayer.Repository
         private readonly ApplicationDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IJwtService _jwtService;
+        private readonly IConfiguration _configuration;
 
-        public Admin(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, IJwtService jwtService)
+        public Admin(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, IJwtService jwtService,IConfiguration configuration)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
             _jwtService = jwtService;
+            _configuration = configuration;
         }
         //AdminDashboardTableView adminDashboard(string status, string? search, string? requestor, int? region, int page = 1, int pageSize = 10)
         //{
@@ -2669,7 +2674,7 @@ namespace HalloDoc.LogicLayer.Repository
             return vendorViewModel;
 
         }
-        public ProviderShift scheduling()
+        ProviderShift IAdmin.scheduling()
         {
             var request = _httpContextAccessor.HttpContext.Request;
             var token = request.Cookies["jwt"];
@@ -2685,5 +2690,1167 @@ namespace HalloDoc.LogicLayer.Repository
             providerShift.Physicians = physicians;
             return providerShift;
         }
+        public bool createShift(ProviderShift model)
+        {
+            //CreateNewShift modal
+            //ProviderShift model
+            try
+            {
+                var request = _httpContextAccessor.HttpContext.Request;
+                var token = request.Cookies["jwt"];
+                CookieModel cookieModel = _jwtService.getDetails(token);
+
+                BitArray IsRepeat = new BitArray(1);
+                if (model.IsRepeat)
+                {
+                    IsRepeat.Set(0, true);
+                }
+                else
+                {
+                    IsRepeat.Set(0, false);
+                }
+
+                DateOnly startDate = new DateOnly(model.ShiftDate.Year, model.ShiftDate.Month, model.ShiftDate.Day);
+                //startDate.Day = model.ShiftDate.Day;
+                Shift shift = new Shift();
+                shift.PhysicianId = model.PhysicianId;
+                shift.CreatedBy = cookieModel.aspId;
+                shift.CreatedDate = DateTime.Now;
+                shift.StartDate = startDate;
+                shift.IsRepeat = IsRepeat;
+                shift.WeekDays = model.RepeatDays;
+                shift.RepeatUpto = model.RepeatEnd;
+                _context.Shifts.Add(shift);
+                _context.SaveChanges();
+
+                ShiftDetail shiftDetail = new ShiftDetail();
+                shiftDetail.Shift = shift; 
+                shiftDetail.ShiftDate = DateTime.Now;
+                shiftDetail.RegionId = model.RegionId;
+                shiftDetail.StartTime = model.StartTime;
+                shiftDetail.EndTime = model.EndTime;
+                shiftDetail.Status = 0;
+                shiftDetail.IsDeleted = new BitArray(1, false);
+                _context.ShiftDetails.Add(shiftDetail);
+                _context.SaveChanges();
+
+                string ShiftStartDay = model.ShiftDate.DayOfWeek.ToString();
+                int intDay = dayOfWeek(ShiftStartDay);
+                if (model.IsRepeat)
+                {
+                    string repeatDays = model.RepeatDays;
+                    for (int i = 0; i < repeatDays.Length; i++)
+                    {
+                        if (repeatDays[i].Equals('1'))
+                        {
+                            int diff;
+                            if (intDay > i)
+                            {
+                                diff = 7 - Math.Abs(i - intDay);
+                            }
+                            else
+                            {
+                                diff = Math.Abs(i - intDay);
+                            }
+                            DateTime temp = model.ShiftDate.AddDays(diff);
+                            ShiftDetail shiftDetail1 = new ShiftDetail();
+                            shiftDetail1.ShiftId = shift.ShiftId;
+                            shiftDetail1.ShiftDate = temp;
+                            shiftDetail1.RegionId = model.RegionId;
+                            shiftDetail1.StartTime = model.StartTime;
+                            shiftDetail1.EndTime = model.EndTime;
+                            shiftDetail1.Status = 0;
+                            shiftDetail1.IsDeleted = new BitArray(1, false);
+                            _context.ShiftDetails.Add(shiftDetail1);
+                            _context.SaveChanges();
+
+                            for (int j = 0; j < model.RepeatEnd - 1; j++)
+                            {
+                                ShiftDetail shiftDetails = new ShiftDetail();
+                                shiftDetails.ShiftId = shift.ShiftId;
+                                shiftDetails.ShiftDate = temp.AddDays(7);
+                                shiftDetails.RegionId = model.RegionId;
+                                shiftDetails.StartTime = model.StartTime;
+                                shiftDetails.EndTime = model.EndTime;
+                                shiftDetails.Status = 0;
+                                shiftDetails.IsDeleted = new BitArray(1, false);
+                                _context.ShiftDetails.Add(shiftDetails);
+                                _context.SaveChanges();
+                                temp = temp.AddDays(7);
+                            }
+                        }
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            //try
+            //{
+            //    string WeekDays = "";
+            //    if (modal.RepeatDays != null)
+            //    {
+            //        foreach (var item in modal.RepeatDays)
+            //        {
+            //            WeekDays += item + ",";
+            //        }
+            //        WeekDays = WeekDays.Substring(0, WeekDays.Length - 1);
+            //    }
+
+            //    Shift shift = new Shift()
+            //    {
+            //        PhysicianId = modal.PhysicianId,
+            //        StartDate = DateOnly.Parse(modal.ShiftDate),
+            //        IsRepeat = new System.Collections.BitArray(new[] { modal.IsRepeat }),
+            //        WeekDays = WeekDays,
+            //        RepeatUpto = modal.RepeatUpto,
+            //        CreatedBy = cookieModel.aspId,
+            //    };
+            //    _context.Shifts.Add(shift);
+            //    _context.SaveChanges();
+
+            //    if (modal.RepeatDays == null)
+            //    {
+            //        modal.RepeatDays = new List<int>();
+            //    }
+
+            //    DateTime ShiftDate = DateTime.Parse(modal.ShiftDate.ToString());
+
+            //    DateTime NexttDate = ShiftDate;
+            //    int j = 0;
+
+            //    for (int i = 0; i <= modal.RepeatUpto * modal.RepeatDays.Count(); i++)
+            //    {
+            //        ShiftDetail shiftDetail = new ShiftDetail()
+            //        {
+            //            ShiftId = shift.ShiftId,
+            //            ShiftDate = NexttDate,
+            //            RegionId = modal.PhysicianRegion,
+            //            StartTime = modal.StartTime,
+            //            EndTime = modal.EndTime,
+            //            Status = 1,
+            //            IsDeleted = new System.Collections.BitArray(new[] { false })
+            //        };
+            //        _context.ShiftDetails.Add(shiftDetail);
+
+            //        if (modal.RepeatDays.Count() > 0)
+            //        {
+            //            int skipDay = (7 - (int)ShiftDate.DayOfWeek - 1 + modal.RepeatDays[j]);
+            //            if (skipDay > 7)
+            //            {
+            //                skipDay = skipDay % 7;
+            //            }
+
+            //            NexttDate = ShiftDate.AddDays(skipDay);
+            //            ShiftDate = NexttDate;
+
+            //            if (i % modal.RepeatUpto == modal.RepeatUpto - 1 && i != modal.RepeatUpto * modal.RepeatDays.Count() - 1)
+            //            {
+            //                j++;
+            //                ShiftDate = DateTime.Parse(modal.ShiftDate.ToString());
+            //            }
+
+            //        }
+            //        _context.SaveChanges();
+            //    }
+            //    return true;
+            //}
+            //catch { return false; }
+        }
+        public ShiftDetail viewShift(int id)
+        {
+            var shiftDetail = _context.ShiftDetails.Include(i => i.Shift).FirstOrDefault(i => i.ShiftDetailId == id);
+            return shiftDetail;
+        }
+        public int dayOfWeek(string day)
+        {
+            if (day == "Monday")
+            {
+                return 0;
+            }
+            else if (day == "Tuesday")
+            {
+                return 1;
+            }
+            else if (day == "Wednesday")
+            {
+                return 2;
+            }
+            else if (day == "Thursday")
+            {
+                return 3;
+            }
+            else if (day == "Friday")
+            {
+                return 4;
+            }
+            else if (day == "Saturday")
+            {
+                return 5;
+            }
+            else
+            {
+                return 6;
+            }
+        }
+        public List<ProviderInformationViewModel> GetProviderInformation(int Region)
+        {
+            try
+            {
+                var physician = _context.PhysicianRegions.Include(m => m.Physician).Where(m => Region == 0 || m.RegionId == Region);
+                List<ProviderInformationViewModel> model = new List<ProviderInformationViewModel>();
+                foreach (var item in physician)
+                {
+                    if (item.Physician.IsDeleted == null || item.Physician.IsDeleted[0] == false)
+                    {
+                        ProviderInformationViewModel providerInformationViewModel = new ProviderInformationViewModel()
+                        {
+                            PhysicianId = item.Physician.PhysicianId,
+                            ProviderName = item.Physician.FirstName + " " + item.Physician.LastName,
+                            ProviderEmail = item.Physician.Email,
+                            Role = item.Physician.RoleId.ToString(),
+                            Status = item.Physician.Status.ToString()
+                        };
+                        model.Add(providerInformationViewModel);
+                    }
+                }
+                return model;
+            }
+            catch
+            {
+                return new List<ProviderInformationViewModel>();
+            }
+        }
+        public List<ShiftDetail> GetScheduleData(int RegionId)
+        {
+            try
+            {
+                return _context.ShiftDetails.Include(m => m.Shift).Where(m => (m.RegionId == RegionId || RegionId == null || RegionId == 0) && m.IsDeleted == new System.Collections.BitArray(new[] { false })).ToList();
+            }
+            catch { return new List<ShiftDetail> { }; }
+        }
+        public string GetPhyFromId(int id, int shiftId)
+        {
+            Physician p = _context.Physicians.Where(ph => ph.PhysicianId == id).FirstOrDefault();
+            ShiftDetail shiftDetail = _context.ShiftDetails.FirstOrDefault(i => i.ShiftId == shiftId);
+            Region region = _context.Regions.FirstOrDefault(i => i.RegionId == shiftDetail.RegionId);
+            return "/ " + p.LastName.ToUpper() + " " + p.FirstName[0] + ". " + region.Abbreviation;
+        }
+        public bool deleteShift(int id)
+        {
+            try
+            {
+                ShiftDetail shiftDetail = _context.ShiftDetails.FirstOrDefault(i => i.ShiftDetailId == id);
+                shiftDetail.IsDeleted = new BitArray(1, true);
+                _context.ShiftDetails.Update(shiftDetail);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool editShift(ProviderShift model)
+        {
+            try
+            {
+                ShiftDetail shiftDetail = _context.ShiftDetails.FirstOrDefault(i => i.ShiftDetailId == model.ShiftDetailId);
+                shiftDetail.ShiftDate = model.ShiftDate;
+                shiftDetail.StartTime = model.StartTime;
+                shiftDetail.EndTime = model.EndTime;
+                _context.ShiftDetails.Update(shiftDetail);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public ShiftReviewViewModel filterShiftDetail(int? region, int page = 1, int pageSize = 10)
+        {
+            //var query = from sd in _context.ShiftDetails
+            //            join r in _context.Regions on sd.RegionId equals r.RegionId // Join with Regions table
+            //            join s in _context.Shifts on sd.ShiftId equals s.ShiftId
+            //            join p in _context.Physicians on s.PhysicianId equals p.PhysicianId
+            //            select new ShiftDetailData
+            //            {
+            //                ShiftDetailId = sd.ShiftDetailId,
+            //                PhysicianName = p.FirstName + " " + p.LastName,
+            //                ShiftDate = sd.ShiftDate.ToString("MMM dd, yyyy"),
+            //                Region = r.Name,
+            //                StartTime = sd.StartTime,
+            //                EndTime = sd.EndTime,
+            //            };
+
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 13;
+            BitArray check = new BitArray(1);
+            check.Set(0, false);
+            IQueryable<ShiftDetail> query = _context.ShiftDetails.Include(i => i.Shift).Where(i => i.IsDeleted == check);
+            if (region != null && region != -1)
+            {
+                query = query.Where(i => i.RegionId == region);
+            }
+            List<ShiftDetailData> shiftDetailList = new List<ShiftDetailData>();
+            List<ShiftDetail> fquery = query.ToList();
+            for (int i = 0; i < fquery.Count; i++)
+            {
+                BitArray bitArray = new BitArray(1);
+                bitArray.Set(0, true);
+                int n = i;
+                //Role role = _context.Roles.FirstOrDefault(i => i.RoleId == fquery[n].RoleId);
+                bool notification;
+                Region region2 = _context.Regions.FirstOrDefault(i => i.RegionId == fquery[n].RegionId);
+                Physician physician = _context.Physicians.FirstOrDefault(i => i.PhysicianId == fquery[n].Shift.PhysicianId);
+                shiftDetailList.Add(new ShiftDetailData
+                {
+                    PhysicianName = physician.FirstName + " " + physician.LastName,
+                    ShiftDetailId = fquery[n].ShiftDetailId,
+                    ShiftDate = fquery[n].ShiftDate.ToString("MMM dd, yyyy"),
+                    StartTime = fquery[n].StartTime,
+                    EndTime = fquery[n].EndTime,
+                    Region = region2.Name,
+                });
+            }
+            List<Region> region1 = _context.Regions.ToList();
+            ShiftReviewViewModel shiftReviewViewModel = new ShiftReviewViewModel();
+            shiftReviewViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            shiftReviewViewModel.CurrentPage = 1;
+            shiftReviewViewModel.PageSize = pageSize;
+            shiftReviewViewModel.TotalItems = shiftDetailList.Count;
+            shiftReviewViewModel.TotalPages = (int)Math.Ceiling((double)shiftDetailList.Count / pageSize);
+            shiftReviewViewModel.ShiftDetails = shiftDetailList.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            shiftReviewViewModel.Regions = region1;
+            return shiftReviewViewModel;
+        }
+        public bool returnShift(int id)
+        {
+            try
+            {
+                ShiftDetail shiftDetail = _context.ShiftDetails.FirstOrDefault(i => i.ShiftDetailId == id);
+                shiftDetail.Status = shiftDetail.Status == 1 ? (short)0 : (short)1;
+                _context.ShiftDetails.Update(shiftDetail);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool contactProvider(ProviderViewModel model)
+        {
+            Physician physician = _context.Physicians.FirstOrDefault(i => i.PhysicianId == model.PhysicianId);
+            if (physician != null)
+            {
+                BitArray check = new BitArray(1);
+                check.Set(0, true);
+                if (model.CommunicationType == 2 || model.CommunicationType == 3)
+                {
+                    string senderEmail = "tatva.dotnet.hetpatel@outlook.com";
+                    string senderPassword = "Krishna$02";
+
+                    SmtpClient client = new SmtpClient("smtp.office365.com")
+                    {
+                        Port = 587,
+                        Credentials = new NetworkCredential(senderEmail, senderPassword),
+                        EnableSsl = true,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials = false
+                    };
+                    string email = physician.Email;
+                    string message = model.Message;
+                    if (email != null)
+                    {
+                        MailMessage mailMessage = new MailMessage
+                        {
+                            From = new MailAddress(senderEmail, "HalloDoc"),
+                            Subject = "Message from Admin",
+                            IsBodyHtml = true,
+                            Body = message,
+                        };
+                        mailMessage.To.Add(email);
+                        client.Send(mailMessage);
+                    }
+
+                    EmailLog emailLog = new EmailLog();
+                    emailLog.SubjectName = "Message from Admin";
+                    emailLog.EmailId = physician.Email;
+                    emailLog.CreateDate = DateTime.Now;
+                    emailLog.SentDate = DateTime.Now;
+                    emailLog.SentTries = 1;
+                    emailLog.IsEmailSent = check;
+                    emailLog.RoleId = 1;
+                    emailLog.PhysicianId = physician.PhysicianId;
+                    emailLog.EmailTemplate = model.Message;
+                    _context.EmailLogs.Add(emailLog);
+                    _context.SaveChanges();
+                }
+                if (model.CommunicationType == 1 || model.CommunicationType == 3)
+                {
+                    string messageSMS = model.Message;
+
+                    var accountSid = _configuration["Twilio:accountSid"];
+                    var authToken = _configuration["Twilio:authToken"];
+                    var twilionumber = _configuration["Twilio:twilioNumber"];
+
+                    TwilioClient.Init(accountSid, authToken);
+                    //var messageBody =
+                    var message2 = MessageResource.Create(
+                        from: new Twilio.Types.PhoneNumber(twilionumber),
+                        body: messageSMS,
+                        to: new Twilio.Types.PhoneNumber(physician.Mobile)
+                    );
+
+
+                    var request2 = _httpContextAccessor.HttpContext.Request;
+                    var token = request2.Cookies["jwt"];
+                    CookieModel cookieModel = _jwtService.getDetails(token);
+
+                    Smslog smslog = new Smslog();
+                    smslog.IsSmssent = check;
+                    smslog.MobileNumber = physician.Mobile;
+                    smslog.Smstemplate = model.Message;
+                    smslog.SentDate = DateTime.Now;
+                    smslog.CreateDate = DateTime.Now;
+                    smslog.SentTries = 1;
+                    smslog.PhysicianId = physician.PhysicianId;
+                    smslog.RoleId = 1;
+                    _context.Smslogs.Add(smslog);
+                    _context.SaveChanges();
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool editPhysicianOnboarding(CreateProviderViewModel model)
+        {
+            try
+            {
+
+                BitArray IsICA = new BitArray(1);
+                if (model.IsICA)
+                {
+                    IsICA.Set(0, true);
+                }
+                else
+                {
+                    IsICA.Set(0, false);
+                }
+                BitArray IsBackgroundCheck = new BitArray(1);
+                if (model.IsBackgroundCheck)
+                {
+                    IsBackgroundCheck.Set(0, true);
+                }
+                else
+                {
+                    IsBackgroundCheck.Set(0, false);
+                }
+                BitArray IsHIPAACompliance = new BitArray(1);
+                if (model.IsHIPAACompliance)
+                {
+                    IsHIPAACompliance.Set(0, true);
+                }
+                else
+                {
+                    IsHIPAACompliance.Set(0, false);
+                }
+                BitArray IsNonDisclosureAgreement = new BitArray(1);
+                if (model.IsNonDisclosureAgreement)
+                {
+                    IsNonDisclosureAgreement.Set(0, true);
+                }
+                else
+                {
+                    IsNonDisclosureAgreement.Set(0, false);
+                }
+                string filepath = "physician/" + model.PhysicianId;
+                var uploadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", filepath);
+                if (model.ICA != null && model.ICA.Length > 0)
+                {
+                    var uploadPath = Path.Combine(uploadDirectory, "ICA." + model.ICA.FileName.Split(".")[1]);
+                    using (var stream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        model.ICA.CopyToAsync(stream);
+                    }
+                }
+                if (model.HIPAACompliance != null && model.HIPAACompliance.Length > 0)
+                {
+                    var uploadPath = Path.Combine(uploadDirectory, "HIPAACompliance." + model.HIPAACompliance.FileName.Split(".")[1]);
+                    using (var stream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        model.HIPAACompliance.CopyToAsync(stream);
+                    }
+                }
+                if (model.BackgroundCheck != null && model.BackgroundCheck.Length > 0)
+                {
+                    var uploadPath = Path.Combine(uploadDirectory, "BackgroundCheck." + model.BackgroundCheck.FileName.Split(".")[1]);
+                    using (var stream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        model.BackgroundCheck.CopyToAsync(stream);
+                    }
+                }
+                if (model.NonDisclosureAgreement != null && model.NonDisclosureAgreement.Length > 0)
+                {
+                    var uploadPath = Path.Combine(uploadDirectory, "NonDisclosureAgreement." + model.NonDisclosureAgreement.FileName.Split(".")[1]);
+                    using (var stream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        model.NonDisclosureAgreement.CopyToAsync(stream);
+                    }
+                }
+                var request = _httpContextAccessor.HttpContext.Request;
+                var token = request.Cookies["jwt"];
+                CookieModel cookieModel = _jwtService.getDetails(token);
+                Physician physician = _context.Physicians.FirstOrDefault(i => i.PhysicianId == model.PhysicianId);
+                physician.IsAgreementDoc = IsICA;
+                physician.IsBackgroundDoc = IsBackgroundCheck;
+                physician.IsCredentialDoc = IsHIPAACompliance;
+                physician.IsNonDisclosureDoc = IsNonDisclosureAgreement;
+                physician.ModifiedDate = DateTime.Now;
+                physician.ModifiedBy = cookieModel.aspId;
+                _context.Physicians.Update(physician);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool editPhysicianProfile(CreateProviderViewModel model)
+        {
+            try
+            {
+                var request = _httpContextAccessor.HttpContext.Request;
+                var token = request.Cookies["jwt"];
+                CookieModel cookieModel = _jwtService.getDetails(token);
+                Physician physician = _context.Physicians.FirstOrDefault(i => i.PhysicianId == model.PhysicianId);
+                physician.BusinessName = model.BusinessName;
+                physician.BusinessWebsite = model.BusinessWebsite;
+                physician.AdminNotes = model.AdminNotes;
+                if (model.IsPhoto == "true")
+                {
+                    physician.Photo = model.Photo.FileName;
+                }
+                physician.ModifiedBy = cookieModel.aspId;
+                physician.ModifiedDate = DateTime.Now;
+                _context.Physicians.Update(physician);
+                _context.SaveChanges();
+
+                string filepath = "physician/" + physician.PhysicianId;
+                var uploadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", filepath);
+                if (model.Photo != null && model.Photo.Length > 0)
+                {
+                    var uploadPath = Path.Combine(uploadDirectory, "photo." + model.Photo.FileName.Split(".")[1]);
+                    using (var stream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        model.Photo.CopyToAsync(stream)
+    ;
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool editPhysicianMailingInformation(CreateProviderViewModel model)
+        {
+            try
+            {
+                Physician physician = _context.Physicians.FirstOrDefault(i => i.PhysicianId == model.PhysicianId);
+                physician.Address1 = model.Address1;
+                physician.Address2 = model.Address2;
+                physician.City = model.City;
+                physician.RegionId = model.StateId;
+                physician.AltPhone = model.AltPhoneNumber;
+                _context.Physicians.Update(physician);
+                _context.SaveChanges();
+
+                PhysicianLocation physicianLocation = _context.PhysicianLocations.FirstOrDefault(i => i.PhysicianId == model.PhysicianId);
+                physicianLocation.Longitude = model.Longitude;
+                physicianLocation.Latitude = model.Latitude;
+                physicianLocation.PhysicianId = physician.PhysicianId;
+                physicianLocation.Address = physician.Address1 + "," + physician.Address2 + " ," + physician.City;
+                _context.PhysicianLocations.Update(physicianLocation);
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool editPhysicianInformation(CreateProviderViewModel model)
+        {
+            try
+            {
+                var request = _httpContextAccessor.HttpContext.Request;
+                var token = request.Cookies["jwt"];
+                CookieModel cookieModel = _jwtService.getDetails(token);
+                Physician physician = _context.Physicians.FirstOrDefault(i => i.PhysicianId == model.PhysicianId);
+                physician.FirstName = model.FirstName;
+                physician.LastName = model.LastName;
+                physician.Email = model.Email;
+                physician.Mobile = model.PhoneNumber;
+                physician.MedicalLicense = model.MedicalLicense;
+                physician.Npinumber = model.NPINumber;
+                _context.Physicians.Update(physician);
+                _context.SaveChanges();
+
+                AspNetUser aspNetUser = _context.AspNetUsers.FirstOrDefault(i => i.Id == physician.AspNetUserId);
+                aspNetUser.Email = model.Email;
+                aspNetUser.PhoneNumber = model.PhoneNumber;
+                _context.AspNetUsers.Update(aspNetUser);
+                _context.SaveChanges();
+
+                foreach (var physicianRegion in _context.PhysicianRegions.Where(ar => ar.PhysicianId == model.PhysicianId))
+                {
+                    _context.PhysicianRegions.Remove(physicianRegion);
+                }
+                _context.SaveChanges();
+
+                string selectedRegionString = model.SelectedRegion;
+
+                if (!string.IsNullOrEmpty(selectedRegionString))
+                {
+                    string[] regionIds = selectedRegionString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    foreach (var regionIdString in regionIds)
+                    {
+                        int regionId = int.Parse(regionIdString);
+                        PhysicianRegion physicianRegion = new PhysicianRegion();
+                        physicianRegion.RegionId = regionId;
+                        physicianRegion.PhysicianId = physician.PhysicianId;
+                        _context.PhysicianRegions.Add(physicianRegion);
+                    }
+                }
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool deletePhysicianAccount(int id)
+        {
+            try
+            {
+                BitArray IsDeleted = new BitArray(1);
+                IsDeleted.Set(0, true);
+                Physician physician = _context.Physicians.FirstOrDefault(i => i.PhysicianId == id);
+                physician.IsDeleted = IsDeleted;
+                _context.Physicians.Update(physician);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool editPhysicianPassword(string password, int id)
+        {
+            try
+            {
+                Physician physician = _context.Physicians.FirstOrDefault(i => i.PhysicianId == id);
+                AspNetUser aspNetUser = _context.AspNetUsers.FirstOrDefault(i => i.Id == physician.AspNetUserId);
+                aspNetUser.PasswordHash = password;
+                _context.AspNetUsers.Update(aspNetUser);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool editPhysicianAccountInformation(CreateProviderViewModel model)
+        {
+            try
+            {
+
+                var request = _httpContextAccessor.HttpContext.Request;
+                var token = request.Cookies["jwt"];
+                CookieModel cookieModel = _jwtService.getDetails(token);
+                Physician physician = _context.Physicians.FirstOrDefault(i => i.PhysicianId == model.PhysicianId);
+                physician.RoleId = Convert.ToInt32(model.Role);
+                physician.ModifiedDate = DateTime.Now;
+                physician.ModifiedBy = cookieModel.aspId;
+                physician.Status = (short)model.Status;
+                _context.Physicians.Update(physician);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool editPhysicianAccount(CreateProviderViewModel model)
+        {
+            try
+            {
+                BitArray IsICA = new BitArray(1);
+                if (model.IsICA)
+                {
+                    IsICA.Set(0, true);
+                }
+                else
+                {
+                    IsICA.Set(0, false);
+                }
+                BitArray IsBackgroundCheck = new BitArray(1);
+                if (model.IsBackgroundCheck)
+                {
+                    IsBackgroundCheck.Set(0, true);
+                }
+                else
+                {
+                    IsBackgroundCheck.Set(0, false);
+                }
+                BitArray IsHIPAACompliance = new BitArray(1);
+                if (model.IsHIPAACompliance)
+                {
+                    IsHIPAACompliance.Set(0, true);
+                }
+                else
+                {
+                    IsHIPAACompliance.Set(0, false);
+                }
+                BitArray IsNonDisclosureAgreement = new BitArray(1);
+                if (model.IsNonDisclosureAgreement)
+                {
+                    IsNonDisclosureAgreement.Set(0, true);
+                }
+                else
+                {
+                    IsNonDisclosureAgreement.Set(0, false);
+                }
+                BitArray IsDeleted = new BitArray(1);
+                IsDeleted.Set(0, false);
+                Physician physician = _context.Physicians.FirstOrDefault(i => i.PhysicianId == model.PhysicianId && i.IsDeleted == IsDeleted);
+                //physician.Photo = model.Photo.FileName;
+                //physician.FirstName = model.FirstName;
+                var request = _httpContextAccessor.HttpContext.Request;
+                var token = request.Cookies["jwt"];
+                CookieModel cookieModel = _jwtService.getDetails(token);
+                //physician.AspNetUserId = aspNetUser.Id;
+                physician.FirstName = model.FirstName;
+                physician.LastName = model.LastName;
+                physician.Email = model.Email;
+                physician.Mobile = model.PhoneNumber;
+                physician.MedicalLicense = model.MedicalLicense;
+                physician.Photo = model.Photo.FileName;
+                physician.AdminNotes = model.AdminNotes;
+                physician.IsAgreementDoc = IsICA;
+                physician.IsBackgroundDoc = IsBackgroundCheck;
+                physician.IsCredentialDoc = IsHIPAACompliance;
+                physician.IsNonDisclosureDoc = IsNonDisclosureAgreement;
+                physician.Address1 = model.Address1;
+                physician.Address2 = model.Address2;
+                physician.City = model.City;
+                physician.RegionId = model.StateId;
+                physician.Zip = model.Zip;
+                physician.AltPhone = model.AltPhoneNumber;
+                physician.CreatedBy = cookieModel.aspId;
+                physician.CreatedDate = DateTime.Now;
+                physician.RoleId = Convert.ToInt32(model.Role);
+                physician.BusinessName = model.BusinessName;
+                physician.BusinessWebsite = model.BusinessWebsite;
+                physician.IsDeleted = IsDeleted;
+                physician.Npinumber = model.NPINumber;
+                physician.Status = 1;
+                _context.Physicians.Update(physician);
+                _context.SaveChanges();
+
+                PhysicianLocation physicianLocation = _context.PhysicianLocations.FirstOrDefault(i => i.PhysicianId == model.PhysicianId);
+                physicianLocation.Longitude = model.Longitude;
+                physicianLocation.Latitude = model.Latitude;
+                physicianLocation.PhysicianName = model.FirstName + " " + model.LastName;
+                physicianLocation.PhysicianId = physician.PhysicianId;
+                physicianLocation.Address = physician.Address1 + "," + physician.Address2 + " ," + physician.City;
+                physicianLocation.CreatedDate = DateTime.Now;
+                _context.PhysicianLocations.Update(physicianLocation);
+                _context.SaveChanges();
+
+                foreach (var physicianRegion in _context.PhysicianRegions.Where(ar => ar.PhysicianId == model.PhysicianId))
+                {
+                    _context.PhysicianRegions.Remove(physicianRegion);
+                }
+                _context.SaveChanges();
+
+                string selectedRegionString = model.SelectedRegion;
+
+                if (!string.IsNullOrEmpty(selectedRegionString))
+                {
+                    string[] regionIds = selectedRegionString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    foreach (var regionIdString in regionIds)
+                    {
+                        int regionId = int.Parse(regionIdString);
+                        PhysicianRegion physicianRegion = new PhysicianRegion();
+                        physicianRegion.RegionId = regionId;
+                        physicianRegion.PhysicianId = physician.PhysicianId;
+                        _context.PhysicianRegions.Add(physicianRegion);
+                    }
+                }
+                _context.SaveChanges();
+
+                string filepath = "physician/" + physician.PhysicianId;
+                var uploadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", filepath);
+                if (!Directory.Exists(uploadDirectory))
+                {
+                    Directory.CreateDirectory(uploadDirectory);
+                }
+                if (model.Photo != null && model.Photo.Length > 0)
+                {
+                    var uploadPath = Path.Combine(uploadDirectory, "photo." + model.Photo.FileName.Split(".")[1]);
+                    using (var stream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        model.Photo.CopyToAsync(stream)
+;
+                    }
+                }
+                if (model.ICA != null && model.ICA.Length > 0)
+                {
+                    var uploadPath = Path.Combine(uploadDirectory, "ICA." + model.ICA.FileName.Split(".")[1]);
+                    using (var stream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        model.ICA.CopyToAsync(stream);
+                    }
+                }
+                if (model.HIPAACompliance != null && model.HIPAACompliance.Length > 0)
+                {
+                    var uploadPath = Path.Combine(uploadDirectory, "HIPAACompliance." + model.HIPAACompliance.FileName.Split(".")[1]);
+                    using (var stream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        model.HIPAACompliance.CopyToAsync(stream);
+                    }
+                }
+                if (model.BackgroundCheck != null && model.BackgroundCheck.Length > 0)
+                {
+                    var uploadPath = Path.Combine(uploadDirectory, "BackgroundCheck." + model.BackgroundCheck.FileName.Split(".")[1]);
+                    using (var stream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        model.BackgroundCheck.CopyToAsync(stream);
+                    }
+                }
+                if (model.NonDisclosureAgreement != null && model.NonDisclosureAgreement.Length > 0)
+                {
+                    var uploadPath = Path.Combine(uploadDirectory, "NonDisclosureAgreement." + model.NonDisclosureAgreement.FileName.Split(".")[1]);
+                    using (var stream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        model.NonDisclosureAgreement.CopyToAsync(stream);
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public CreateProviderViewModel editPhysicianAccount(int id)
+        {
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 4;
+            List<Region> regions = _context.Regions.ToList();
+            List<Role> roles = _context.Roles.ToList();
+            CreateProviderViewModel createProviderViewModel = new CreateProviderViewModel();
+            createProviderViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            //var PhysicianDetails = _context.Admins.FirstOrDefault(u => u.AspNetUserId == aspNetUserId);
+
+            createProviderViewModel.Regions = regions;
+            createProviderViewModel.Roles = roles;
+
+            BitArray check = new BitArray(1);
+            check.Set(0, true);
+            BitArray IsDeleted = new BitArray(1);
+            IsDeleted.Set(0, false);
+            Physician physician = _context.Physicians.FirstOrDefault(i => i.PhysicianId == id && i.IsDeleted == IsDeleted);
+            AspNetUser aspNetUser = _context.AspNetUsers.FirstOrDefault(i => i.Id == physician.AspNetUserId);
+            createProviderViewModel.FirstName = physician.FirstName;
+            createProviderViewModel.LastName = physician.LastName;
+            createProviderViewModel.Role = physician.RoleId.ToString();
+            createProviderViewModel.Email = physician.Email;
+            createProviderViewModel.PhoneNumber = physician.Mobile;
+            createProviderViewModel.MedicalLicense = physician.MedicalLicense;
+            createProviderViewModel.NPINumber = physician.Npinumber;
+            createProviderViewModel.Address1 = physician.Address1;
+            createProviderViewModel.Address2 = physician.Address2;
+            createProviderViewModel.City = physician.City;
+            createProviderViewModel.StateId = (int)physician.RegionId;
+            createProviderViewModel.Zip = physician.Zip;
+            createProviderViewModel.AltPhoneNumber = physician.AltPhone;
+            createProviderViewModel.BusinessName = physician.BusinessName;
+            createProviderViewModel.BusinessWebsite = physician.BusinessWebsite;
+            createProviderViewModel.AdminNotes = physician.AdminNotes;
+            createProviderViewModel.IsBackgroundCheck = physician.IsBackgroundDoc[0] == true ? true : false;
+            createProviderViewModel.IsICA = physician.IsAgreementDoc[0] == true ? true : false;
+            createProviderViewModel.IsHIPAACompliance = physician.IsCredentialDoc[0] == true ? true : false;
+            createProviderViewModel.IsNonDisclosureAgreement = physician.IsNonDisclosureDoc[0] == true ? true : false;
+            createProviderViewModel.PhotoName = physician.Photo == null ? "Select File" : physician.Photo;
+            createProviderViewModel.check = true;
+            createProviderViewModel.PhysicianId = physician.PhysicianId;
+            createProviderViewModel.Username = aspNetUser.UserName;
+            createProviderViewModel.Status = (short)physician.Status;
+            PhysicianLocation physicianLocation = _context.PhysicianLocations.FirstOrDefault(i => i.PhysicianId == id);
+            createProviderViewModel.Latitude = (decimal)physicianLocation.Latitude;
+            createProviderViewModel.Longitude = (decimal)physicianLocation.Longitude;
+            var allRegions = _context.Regions.ToList();
+
+            List<ProviderSelectedRegions> selectedRegions = allRegions.Select(r => new ProviderSelectedRegions
+            {
+                IsSelected = _context.PhysicianRegions.Any(ar => ar.PhysicianId == physician.PhysicianId && ar.RegionId == r.RegionId),
+                Name = r.Name,
+                RegionId = r.RegionId
+            })
+            .ToList();
+            createProviderViewModel.State = selectedRegions;
+            return createProviderViewModel;
+
+        }
+        public bool createPhysician(CreateProviderViewModel model)
+        {
+            try
+            {
+                var request = _httpContextAccessor.HttpContext.Request;
+                var token = request.Cookies["jwt"];
+                CookieModel cookieModel = _jwtService.getDetails(token);
+                AspNetUser aspNetUser = new AspNetUser();
+                aspNetUser.Email = model.Email;
+                aspNetUser.PasswordHash = model.Password;
+                aspNetUser.UserName = "MD." + model.LastName + model.FirstName[0];
+                aspNetUser.PhoneNumber = model.PhoneNumber;
+                aspNetUser.CreatedDate = DateTime.Now;
+                _context.AspNetUsers.Add(aspNetUser);
+                _context.SaveChanges();
+
+                BitArray IsICA = new BitArray(1);
+                if (model.IsICA)
+                {
+                    IsICA.Set(0, true);
+                }
+                else
+                {
+                    IsICA.Set(0, false);
+                }
+                BitArray IsBackgroundCheck = new BitArray(1);
+                if (model.IsBackgroundCheck)
+                {
+                    IsBackgroundCheck.Set(0, true);
+                }
+                else
+                {
+                    IsBackgroundCheck.Set(0, false);
+                }
+                BitArray IsHIPAACompliance = new BitArray(1);
+                if (model.IsHIPAACompliance)
+                {
+                    IsHIPAACompliance.Set(0, true);
+                }
+                else
+                {
+                    IsHIPAACompliance.Set(0, false);
+                }
+                BitArray IsNonDisclosureAgreement = new BitArray(1);
+                if (model.IsNonDisclosureAgreement)
+                {
+                    IsNonDisclosureAgreement.Set(0, true);
+                }
+                else
+                {
+                    IsNonDisclosureAgreement.Set(0, false);
+                }
+                BitArray IsDeleted = new BitArray(1);
+                IsDeleted.Set(0, false);
+                Physician physician = new Physician();
+                physician.AspNetUserId = aspNetUser.Id;
+                physician.FirstName = model.FirstName;
+                physician.LastName = model.LastName;
+                physician.Email = model.Email;
+                physician.Mobile = model.PhoneNumber;
+                physician.MedicalLicense = model.MedicalLicense;
+                physician.Photo = model.Photo.FileName;
+                physician.AdminNotes = model.AdminNotes;
+                physician.IsAgreementDoc = IsICA;
+                physician.IsBackgroundDoc = IsBackgroundCheck;
+                physician.IsCredentialDoc = IsHIPAACompliance;
+                physician.IsNonDisclosureDoc = IsNonDisclosureAgreement;
+                physician.Address1 = model.Address1;
+                physician.Address2 = model.Address2;
+                physician.City = model.City;
+                physician.RegionId = model.StateId;
+                physician.Zip = model.Zip;
+                physician.AltPhone = model.AltPhoneNumber;
+                physician.CreatedBy = cookieModel.aspId;
+                physician.CreatedDate = DateTime.Now;
+                physician.RoleId = Convert.ToInt32(model.Role);
+                physician.BusinessName = model.BusinessName;
+                physician.BusinessWebsite = model.BusinessWebsite;
+                physician.IsDeleted = IsDeleted;
+                physician.Npinumber = model.NPINumber;
+                physician.Status = 1;
+                _context.Physicians.Add(physician);
+                _context.SaveChanges();
+
+                PhysicianLocation physicianLocation = new PhysicianLocation();
+                physicianLocation.Longitude = model.Longitude;
+                physicianLocation.Latitude = model.Latitude;
+                physicianLocation.PhysicianName = model.FirstName + " " + model.LastName;
+                physicianLocation.PhysicianId = physician.PhysicianId;
+                physicianLocation.Address = physician.Address1 + "," + physician.Address2 + " ," + physician.City;
+                physicianLocation.CreatedDate = DateTime.Now;
+                _context.PhysicianLocations.Add(physicianLocation);
+                _context.SaveChanges();
+
+                BitArray IsNotificationStopped = new BitArray(1);
+                IsNotificationStopped.Set(0, true);
+
+                PhysicianNotification physicianNotification = new PhysicianNotification();
+                physicianNotification.PhysicianId = physician.PhysicianId;
+                physicianNotification.IsNotificationStopped = IsNotificationStopped;
+                _context.PhysicianNotifications.Add(physicianNotification);
+                _context.SaveChanges();
+
+                string selectedRegionString = model.SelectedRegion;
+
+                if (!string.IsNullOrEmpty(selectedRegionString))
+                {
+                    string[] regionIds = selectedRegionString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    foreach (var regionIdString in regionIds)
+                    {
+                        int regionId = int.Parse(regionIdString);
+                        PhysicianRegion physicianRegion = new PhysicianRegion();
+                        physicianRegion.RegionId = regionId;
+                        physicianRegion.PhysicianId = physician.PhysicianId;
+                        _context.PhysicianRegions.Add(physicianRegion);
+                    }
+                }
+                _context.SaveChanges();
+
+                AspNetUserRole aspNetUserRole = new AspNetUserRole();
+                aspNetUserRole.UserId = aspNetUser.Id;
+                aspNetUserRole.RoleId = 1;
+                _context.AspNetUserRoles.Add(aspNetUserRole);
+                _context.SaveChanges();
+                string filepath = "physician/" + physician.PhysicianId;
+                var uploadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", filepath);
+                if (!Directory.Exists(uploadDirectory))
+                {
+                    Directory.CreateDirectory(uploadDirectory);
+                }
+                if (model.Photo != null && model.Photo.Length > 0)
+                {
+                    var uploadPath = Path.Combine(uploadDirectory, "photo." + model.Photo.FileName.Split(".")[1]);
+                    using (var stream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        model.Photo.CopyToAsync(stream)
+;
+                    }
+                }
+                if (model.ICA != null && model.ICA.Length > 0)
+                {
+                    var uploadPath = Path.Combine(uploadDirectory, "ICA." + model.ICA.FileName.Split(".")[1]);
+                    using (var stream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        model.ICA.CopyToAsync(stream);
+                    }
+                }
+                if (model.HIPAACompliance != null && model.HIPAACompliance.Length > 0)
+                {
+                    var uploadPath = Path.Combine(uploadDirectory, "HIPAACompliance." + model.HIPAACompliance.FileName.Split(".")[1]);
+                    using (var stream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        model.HIPAACompliance.CopyToAsync(stream);
+                    }
+                }
+                if (model.BackgroundCheck != null && model.BackgroundCheck.Length > 0)
+                {
+                    var uploadPath = Path.Combine(uploadDirectory, "BackgroundCheck." + model.BackgroundCheck.FileName.Split(".")[1]);
+                    using (var stream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        model.BackgroundCheck.CopyToAsync(stream);
+                    }
+                }
+                if (model.NonDisclosureAgreement != null && model.NonDisclosureAgreement.Length > 0)
+                {
+                    var uploadPath = Path.Combine(uploadDirectory, "NonDisclosureAgreement." + model.NonDisclosureAgreement.FileName.Split(".")[1]);
+                    using (var stream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        model.NonDisclosureAgreement.CopyToAsync(stream);
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
+        public CreateProviderViewModel createPhysician()
+        {
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 4;
+            List<Region> regions = _context.Regions.ToList();
+            List<Role> roles = _context.Roles.ToList();
+            CreateProviderViewModel createProviderViewModel = new CreateProviderViewModel();
+            createProviderViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            //var PhysicianDetails = _context.Admins.FirstOrDefault(u => u.AspNetUserId == aspNetUserId);
+
+            createProviderViewModel.Regions = regions;
+            createProviderViewModel.Roles = roles;
+
+            //createProviderViewModel.State = regions;
+            createProviderViewModel.check = false;
+            return createProviderViewModel;
+
+        }
+        //public ProviderLocationViewModel providerLocation()
+        //{
+        //    ProviderLocationViewModel providerLocationViewModel = new ProviderLocationViewModel();
+        //    var request = _httpContextAccessor.HttpContext.Request;
+        //    var token = request.Cookies["jwt"];
+        //    CookieModel cookieModel = _jwtService.getDetails(token);
+        //    string AdminName = cookieModel.name;
+        //    AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+        //    adminNavbarViewModel.AdminName = AdminName;
+        //    adminNavbarViewModel.Tab = 2;
+        //    providerLocationViewModel.adminNavbarViewModel = adminNavbarViewModel;
+        //    List<PhysicianLocation> physicianLocations = _context.PhysicianLocations.ToList();
+        //    providerLocationViewModel.Query = physicianLocations;
+        //    return providerLocationViewModel;
+        //}
     }
 }

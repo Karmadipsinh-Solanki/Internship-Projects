@@ -941,10 +941,280 @@ namespace HalloDoc.Controllers
             ProviderShift providerShift = _admin.scheduling();
             return View(providerShift);
         }
+        public IActionResult CreateShift(ProviderShift model)
+        {
+            bool check = _admin.createShift(model);
+            if (check)
+            {
+                TempData["success"] = "Shift created successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,shift not created!";
+            }
+            return RedirectToAction("Scheduling");
+        }
+        public IActionResult ViewShift(int id)
+        {
+            var shiftDetail = _admin.viewShift(id);
+            return Json(new { response = shiftDetail });
+        }
+        public IActionResult EditShift(ProviderShift model)
+        {
+            bool check = _admin.editShift(model);
+            if (check)
+            {
+                TempData["success"] = "Shift updated successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,shift not updated!";
+            }
+            return RedirectToAction("Scheduling");
+        }
+        public IActionResult DeleteShift(int id)
+        {
+            bool check = _admin.deleteShift(id);
+            if (check)
+            {
+                TempData["success"] = "Shift deleted successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,shift not deleted!";
+            }
+            return Json(new { response = "success" });
+        }
+        public IActionResult GetProviderDetailsForSchedule(int RegionId)
+        {
+            List<ProviderInformationViewModel> model = _admin.GetProviderInformation(RegionId);
+
+            List<ProviderDTO> list = model.Select(p => new ProviderDTO
+            {
+                Id = p.PhysicianId,
+                title = p.ProviderName ?? "",
+                imageUrl = "/uploads/physician/" + p.PhysicianId + "/photo.jpg",
+            }).ToList();
+            return Json(list);
+        }
+        public IActionResult GetScheduleData(int RegionId)
+        {
+            string[] color = { "#edacd2", "#a5cfa6" };
+            List<ShiftDetail> shiftDetails = _admin.GetScheduleData(RegionId);
+
+            List<ShiftDTO> list = shiftDetails.Select(s => new ShiftDTO
+            {
+                resourceId = s.Shift.PhysicianId,
+                Id = s.ShiftDetailId,
+                title = s.StartTime + " - " + s.EndTime + " " + _admin.GetPhyFromId(s.Shift.PhysicianId, s.ShiftId),
+                start = s.ShiftDate.ToString("yyyy-MM-dd") + s.StartTime.ToString("THH:mm:ss"),
+                end = s.ShiftDate.ToString("yyyy-MM-dd") + s.EndTime.ToString("THH:mm:ss"),
+                region = (int)s.RegionId,
+                color = color[s.Status]
+            }).ToList();
+            return Json(list);
+        }
+        public IActionResult ViewCurrentMonth()
+        {
+            var currentMonth = DateTime.Now.Month.ToString();
+            TempData["currentMonth"] = currentMonth;
+            return RedirectToAction("Scheduling");
+        }
+
+        public IActionResult FilterShiftDetail(int? region, int page = 1, int pageSize = 10)
+        {
+            ShiftReviewViewModel shiftReviewViewModel = _admin.filterShiftDetail(region, page, pageSize);
+            return PartialView("ShiftReviewTable", shiftReviewViewModel);
+        }
+        public IActionResult ShiftForReview()
+        {
+            ShiftReviewViewModel shiftReviewViewModel = _admin.filterShiftDetail(null);
+            return View(shiftReviewViewModel);
+        }
+        public IActionResult ReturnShift(int id)
+        {
+            bool check = _admin.returnShift(id);
+            if (check)
+            {
+                TempData["success"] = "Shift returned successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,shift not returned!";
+            }
+            return Json(new { response = "success" });
+        }
+        //create provider
+        public IActionResult ContactProvider(ProviderViewModel model)
+        {
+            bool check = _admin.contactProvider(model);
+            if (check)
+            {
+                TempData["success"] = "Message sent to provider successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,message not sent!";
+            }
+            return RedirectToAction("ProviderInformation");
+        }
+        [HttpPost]
+        public IActionResult EditPhysicianProfile(CreateProviderViewModel model)
+        {
+            bool check = _admin.editPhysicianProfile(model);
+            if (check)
+            {
+                TempData["success"] = "Provider editted successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,provider not editted!";
+            }
+            return RedirectToAction("EditPhysicianAccount", new { id = model.PhysicianId });
+        }
+        [HttpPost]
+        public IActionResult EditPhysicianOnboarding(CreateProviderViewModel model)
+        {
+            bool check = _admin.editPhysicianOnboarding(model);
+            if (check)
+            {
+                TempData["success"] = "Provider editted successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,provider not editted!";
+            }
+            return RedirectToAction("EditPhysicianAccount", new { id = model.PhysicianId });
+        }
+        [HttpPost]
+        public IActionResult EditPhysicianInformation(CreateProviderViewModel model)
+        {
+            bool check = _admin.editPhysicianInformation(model);
+            if (check)
+            {
+                TempData["success"] = "Provider editted successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,provider not editted!";
+            }
+            return RedirectToAction("EditPhysicianAccount", new { id = model.PhysicianId });
+        }
+        [HttpPost]
+        public IActionResult EditPhysicianMailingInformation(CreateProviderViewModel model)
+        {
+            bool check = _admin.editPhysicianMailingInformation(model);
+            if (check)
+            {
+                TempData["success"] = "Provider editted successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,provider not editted!";
+            }
+            return RedirectToAction("EditPhysicianAccount", new { id = model.PhysicianId });
+        }
+        public IActionResult DeletePhysicianAccount(int id)
+        {
+            bool check = _admin.deletePhysicianAccount(id);
+            if (check)
+            {
+                TempData["success"] = "Provider deleted successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,provider not deleted!";
+            }
+            return RedirectToAction("ProviderInformation");
+        }
+
+        public IActionResult EditPhysicianPassword(string password, int id)
+        {
+            bool check = _admin.editPhysicianPassword(password, id);
+            if (check)
+            {
+                TempData["success"] = "Password updated successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,password not updated!";
+            }
+            return Json(new { response = "success" });
+        }
+        [HttpPost]
+        public IActionResult EditPhysicianAccountInformation(CreateProviderViewModel model)
+        {
+            bool check = _admin.editPhysicianAccountInformation(model);
+            if (check)
+            {
+                TempData["success"] = "Provider editted successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,provider not editted!";
+            }
+            return RedirectToAction("EditPhysicianAccount", new { id = model.PhysicianId });
+        }
+        //[HttpPost]
+        //public IActionResult EditPhysician(CreateProviderViewModel model)
+        //{
+        //    bool check = _admin.editPhysicianAccount(model);
+        //    if (check)
+        //    {
+        //        TempData["success"] = "Provider editted successfully!";
+        //    }
+        //    else
+        //    {
+        //        TempData["error"] = "Error,provider not editted!";
+        //    }
+        //    return RedirectToAction("ProviderInformation");
+        //}
+        public IActionResult EditPhyAccount(int id)
+        {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
+            CreateProviderViewModel createProviderViewModel = _admin.editPhysicianAccount(id);
+            return View(createProviderViewModel);
+        }
+        [HttpPost]
+        public IActionResult CreatePhysician(CreateProviderViewModel model)
+        {
+            bool check = _admin.createPhysician(model);
+            if (check)
+            {
+                TempData["success"] = "Provider created successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,provider not created!";
+            }
+            return RedirectToAction("ProviderInformation");
+        }
+        public IActionResult CreatePhysician()
+        {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
+            CreateProviderViewModel createProviderViewModel = _admin.createPhysician();
+            return View(createProviderViewModel);
+        }
+        //public IActionResult ProviderLocation()
+        //{
+        //    ProviderLocationViewModel providerLocationViewModel = _admin.providerLocation();
+        //    return View(providerLocationViewModel);
+        //}
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }

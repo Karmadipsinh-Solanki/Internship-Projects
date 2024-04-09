@@ -84,13 +84,17 @@ namespace Hallodoc.Controllers
         {
             return View();
         }
-        public IActionResult ResetPassword(string email, DateTime date)
+        public IActionResult ResetPassword(string token)
         {
-            if (DateTime.Now.Date.Day - date.Day > 0)
+            bool check = _login.resetPassword(token);
+            if (check)
+            {
+                return View();
+            }
+            else
             {
                 return RedirectToAction("LinkExpired");
             }
-            return View();
         }
         public IActionResult PasswordUpdatedSuccessfully()
         {

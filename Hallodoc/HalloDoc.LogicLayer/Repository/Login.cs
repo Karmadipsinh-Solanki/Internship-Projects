@@ -44,28 +44,30 @@ namespace HalloDoc.LogicLayer.Repository
                     var passwordHasher = new PasswordHasher<AspNetUser>();
                     //var result = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, model.PasswordHash);
                     //if (result == PasswordVerificationResult.Success)
-                    //{
-                    //    return 0;
-                    //}
-                    //else
-                    //{
-                    //    return 1;
-                    //}
-                    return 0;
+                    if (user.PasswordHash == model.PasswordHash)
+                    {
+                        return 0;
+                    }
+                    else
+                    {
+                        return 1;
+                    }
+                    //return 0;
                 }
                 else if (userRole == 3)
                 {
                     var passwordHasher = new PasswordHasher<AspNetUser>();
                     //var result = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, model.PasswordHash);
                     //if (result == PasswordVerificationResult.Success)
-                    //{
-                    //    return 2;
-                    //}
-                    //else
-                    //{
-                    //    return 3;
-                    //}
-                    return 2;
+                    if (user.PasswordHash == model.PasswordHash)
+                    {
+                        return 2;
+                    }
+                    else
+                    {
+                        return 3;
+                    }
+                    //return 2;
                 }
                 else
                 {
@@ -79,6 +81,15 @@ namespace HalloDoc.LogicLayer.Repository
         }
         public bool ForgotPassword(ForgotPassword model)
         {
+            string Token = Guid.NewGuid().ToString();
+            PasswordReset passwordReset = new PasswordReset();
+            passwordReset.Token = Token;
+            passwordReset.Email = model.email;
+            passwordReset.CreatedDate = DateTime.Now;
+            passwordReset.IsUpdated = false;
+            _context.PasswordResets.Add(passwordReset);
+            _context.SaveChanges();
+
             string senderEmail = "tatva.dotnet.Karmadipsinhsolanki@outlook.com";
             string senderPassword = "Karmadips@2311";
 
@@ -93,14 +104,16 @@ namespace HalloDoc.LogicLayer.Repository
             string email = model.email;
             var aspnetUser = _context.AspNetUsers.FirstOrDefault(u => u.Email == model.email);
             var userdb = _context.Users.FirstOrDefault(u => u.Email == email);
-            var userFirstName = userdb.FirstName;
+
+            //var userFirstName = userdb.FirstName;
             //string date = new DateTime.Now;
             var formatedDate = DateTime.Now.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-            string resetLink = $"https://localhost:44339/Login/ResetPassword?email={email}&date={formatedDate}";
+            string resetLink = $"https://localhost:44339/Login/ResetPassword?token={Token}";
             string message = $@"<html>
                                 <body>  
                                 <h1>Reset password request</h1>
-                                <h2>Hii {userFirstName},</h2>
+                                <h2>Hii,</h2>
+                               
                                 <p style=""margin-top:30px;"">To reset your password, click the below link:</p>
                                 <p><a href=""{resetLink}"">Reset Password</a></p> 
                                 <p>If you didn't request a password reset, you can ignore this email.</p>
@@ -123,7 +136,7 @@ namespace HalloDoc.LogicLayer.Repository
         }
         public bool resetPassword(string token)
         {
-            PasswordReset1 passwordReset = _context.PasswordResets1.FirstOrDefault(u => u.Token == token);
+            PasswordReset passwordReset = _context.PasswordResets.FirstOrDefault(u => u.Token == token);
             if (DateTime.Now.Date.Day - passwordReset.CreatedDate.Day > 0)
             {
                 return false;
@@ -139,20 +152,20 @@ namespace HalloDoc.LogicLayer.Repository
         }
         public bool resetPasswordFromEmail(CreateNewPassword model)
         {
-            //PasswordReset1 passwordReset = _context.PasswordResets1.FirstOrDefault(u => u.Token == model.token);
-            var aspnetUser = _context.AspNetUsers.FirstOrDefault(u => u.Email == model.email);
+            PasswordReset passwordReset = _context.PasswordResets.FirstOrDefault(u => u.Token == model.token);
+            var aspnetUser = _context.AspNetUsers.FirstOrDefault(u => u.Email == passwordReset.Email);
             //var aspnetUser = _resetPasswordFromEmail.ResetPwdFromEmail(model);
             if (aspnetUser != null)
             {
                 var passwordHasher = new PasswordHasher<AspNetUser>();
-                aspnetUser.PasswordHash = passwordHasher.HashPassword(aspnetUser, model.password);
-                //aspnetUser.PasswordHash = model.password;
+                //aspnetUser.PasswordHash = passwordHasher.HashPassword(aspnetUser, model.password);
+                aspnetUser.PasswordHash = model.password;
 
                 _context.AspNetUsers.Update(aspnetUser);
                 _context.SaveChanges();
 
-                //passwordReset.IsUpdated = true;
-                //_context.PasswordResets1.Update(passwordReset);
+                passwordReset.IsUpdated = true;
+                _context.PasswordResets.Update(passwordReset);
                 _context.SaveChanges();
                 //PasswordReset passwordReset = _context.PasswordResets.FirstOrDefault(u=>u.)
                 return true;

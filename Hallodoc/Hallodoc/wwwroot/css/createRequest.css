@@ -28,6 +28,32 @@
     height: 100vh;
 }
 
+#choose-file-button-sub-div, .choose-file-button-sub-div {
+    width: 105px;
+    height: 45px;
+    justify-content: center;
+    position: relative;
+}
+#choose-file-button-sub-sub-div, .choose-file-button-sub-sub-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #00ccff;
+    border-radius: 8px;
+    width: 100px;
+}
+#upload-text, .upload-text {
+    color: white;
+    font-weight: 400;
+}
+#file-input-button, .file-input-button {
+    opacity: 0;
+    width: 105px;
+    height: 45px;
+    position: absolute;
+    /*right: -2px;*/
+    top: 1px;
+}
 /*.modal {
     display: none;
     position: fixed;

@@ -20,5 +20,7 @@ namespace HalloDoc.DataLayer.ViewModels.AdminViewModels
         public int PageSize { get; set; }
         public int TotalItems { get; set; }
         public List<Region> Regions { get; set; }
+        public string Message { get; set; }
+        public int CommunicationType { get; set; }
     }
 }
