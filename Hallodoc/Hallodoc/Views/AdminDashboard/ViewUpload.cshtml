@@ -122,7 +122,7 @@
             <table class="table">
                 <thead>
                     <tr class="table-light htable" style="background-color: #ededed !important;">
-                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 10%;"><input id="checkall" onclick="oncheck()" type="checkbox" /></th>
+                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 10%;"><input id="checkall" class="checkbox-main" onclick="tickAll()" type="checkbox" /></th>
                         <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 25%;">Documents</th>
                         <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 25%;">Upload Date <span class="mx-1"><strong>&uarr;</strong></span></th>
                         <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 15%;">Actions</span></th>
@@ -131,7 +131,7 @@
                 @foreach (var item in Model.requestWiseFiles)
                 {
                     <tr>
-                        <td class="bg-white"><input class="checkboxes" type="checkbox" data-item-id="@item.RequestWiseFileId" onchange="checkAll(event)" value="@item.RequestWiseFileId" /></td>
+                        <td class="bg-white"><input class="checkboxes checkbox" type="checkbox" data-item-id="@item.RequestWiseFileId" onchange="allCheck(event)" value="@item.RequestWiseFileId" /></td>
                         <td class="bg-white">
                             <div class="file-icon">
                                 <span class="filename">@item.FileName</span>
@@ -165,47 +165,77 @@
 
     <script>
         //uncheck thead checkbox when any of the checkbox is unchecked
-        var selectedMenuItems = "";
+        // var selectedMenuItems = "";
 
-        function checkAll(event) {
-            debugger
-            var checkall = document.getElementById("checkall");
-            if (event.target.checked) {
-                var classes = document.getElementsByClassName("checkboxes");
-                for (var i = 0; i < classes.length; i++) {
-                    selectedMenuItems += (selectedMenuItems ? ',' : '') + classes[i].value;
+        // function checkAll(event) {
+        //     debugger
+        //     var checkall = document.getElementById("checkall");
+        //     if (event.target.checked) {
+        //         var classes = document.getElementsByClassName("checkboxes");
+        //         for (var i = 0; i < classes.length; i++) {
+        //             selectedMenuItems += (selectedMenuItems ? ',' : '') + classes[i].value;
+        //         }
+        //         checkall.checked = true;
+        //     } else {
+        //         checkall.checked = false;
+        //         selectedMenuItems = "";
+        //     }
+        // }
+
+        // document.querySelectorAll(".checkboxes").forEach(function (checkbox) {
+        //     checkbox.addEventListener("change", function () {
+        //         var checkboxes = document.querySelectorAll(".checkboxes");
+        //         var allChecked = Array.from(checkboxes).every(function (checkbox) {
+        //             return checkbox.checked;
+        //         });
+        //         document.getElementById("checkall").checked = allChecked;
+        //     });
+        // });
+        // check the checkboxes
+        // function oncheck() {
+        //     var check = document.getElementById('checkall').checked;
+        //     if (check) {
+        //         var len = document.getElementsByClassName('checkboxes');
+        //         for (var i = 0; i < len.length; i++) {
+        //             len[i].checked = true;
+        //         }
+        //     } else {
+        //         var len = document.getElementsByClassName('checkboxes');
+        //         for (var i = 0; i < len.length; i++) {
+        //             len[i].checked = false;
+        //         }
+        //     }
+        //     console.log(check);
+        // }
+        const tickAll = () => {
+            const checkboxes = document.getElementsByClassName("checkbox")
+            if (document.getElementsByClassName("checkbox-main")[0].checked == true) {
+                for (let i = 0; i < checkboxes.length; ++i) {
+                    checkboxes[i].checked = true;
                 }
-                checkall.checked = true;
-            } else {
-                checkall.checked = false;
-                selectedMenuItems = "";
+            }
+            else {
+                for (let i = 0; i < checkboxes.length; ++i) {
+                    checkboxes[i].checked = false;
+                }
             }
         }
 
-        document.querySelectorAll(".checkboxes").forEach(function (checkbox) {
-            checkbox.addEventListener("change", function () {
-                var checkboxes = document.querySelectorAll(".checkboxes");
-                var allChecked = Array.from(checkboxes).every(function (checkbox) {
-                    return checkbox.checked;
-                });
-                document.getElementById("checkall").checked = allChecked;
-            });
-        });
-        // check the checkboxes
-        function oncheck() {
-            var check = document.getElementById('checkall').checked;
-            if (check) {
-                var len = document.getElementsByClassName('checkboxes');
-                for (var i = 0; i < len.length; i++) {
-                    len[i].checked = true;
-                }
-            } else {
-                var len = document.getElementsByClassName('checkboxes');
-                for (var i = 0; i < len.length; i++) {
-                    len[i].checked = false;
+        const allCheck = () => {
+            const checkboxes = document.getElementsByClassName("checkbox")
+            let flag = 0
+            for (let i = 0; i < checkboxes.length; ++i) {
+                if (checkboxes[i].checked == false) {
+                    flag = 1
+                    break
                 }
             }
-            console.log(check);
+            if (flag == 0) {
+                document.getElementsByClassName("checkbox-main")[0].checked = true;
+            }
+            else {
+                document.getElementsByClassName("checkbox-main")[0].checked = false;
+            }
         }
         //downloadall
         function downloadall() {

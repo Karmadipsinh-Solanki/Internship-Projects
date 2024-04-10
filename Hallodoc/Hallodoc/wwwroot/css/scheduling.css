@@ -141,3 +141,27 @@ img {
 .fc-scrollgrid-section .fc-scrollgrid-section-header .fc-scrollgrid-section-sticky {
     z-index: 0;
 }
+
+@media only screen and (max-width:770px) {
+    .modal-content {
+        width: 540px!important;
+    }
+}
+
+@media only screen and (max-width:410px) {
+    .modal-content {
+        width: 540px!important;
+    }
+}
+
+@media only screen and (max-width:380px) {
+    .modal-content {
+        width: 360px!important;
+    }
+}
+
+@media only screen and (max-width:330px) {
+    .modal-content {
+        width: 300px!important;
+    }
+}

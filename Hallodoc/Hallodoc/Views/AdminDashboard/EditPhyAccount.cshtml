@@ -1,11 +1,12 @@
 ﻿@using HalloDoc.DataLayer.ViewModels.AdminViewModels;
-@model AdminProfileViewModel;
+@model CreateProviderViewModel;
 @using static HalloDoc.EnumStatus;
 @{
     ViewData["Title"] = "Edit Physician Account";
 }
 @section Styles {
     <link href="~/css/accountAccess.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/AdminDashboardStyle.css" rel="stylesheet" type="text/css" />
 }
 @section Scripts {
     @{
@@ -39,9 +40,9 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput1" placeholder="User Name" asp-for="UserName" disabled>
+                                    <input type="text" class="form-control" id="floatingInput1" placeholder="User Name" asp-for="Username" disabled>
                                     <label for="floatingInput1">User Name</label>
-                                    <span asp-validation-for="UserName" class="text-danger"></span>
+                                    <span asp-validation-for="Username" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -62,9 +63,9 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput4" placeholder="Role" asp-for="role" disabled>
+                                    <input type="text" class="form-control" id="floatingInput4" placeholder="Role" asp-for="Role" disabled>
                                     <label for="floatingInput4">Role</label>
-                                    <span asp-validation-for="role" class="text-danger"></span>
+                                    <span asp-validation-for="Role" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -102,18 +103,18 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput8" placeholder="Confirm Email" asp-for="ConfirmEmail" disabled>
-                                    <label for="floatingInput8">Confirm Email</label>
-                                    <span asp-validation-for="ConfirmEmail" class="text-danger"></span>
+                                    <input type="tel" class="form-control" id="floatingInput9" placeholder="Phone Number" asp-for="PhoneNumber" disabled>
+                                    <label for="floatingInput9">Phone Number</label>
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="tel" class="form-control" id="floatingInput9" placeholder="Phone Number" asp-for="PhoneNumber1" disabled>
-                                    <label for="floatingInput9">Phone Number</label>
-                                    <span asp-validation-for="PhoneNumber1" class="text-danger"></span>
+                                    <input type="text" class="form-control" id="MedicalLicense" placeholder="Medical License #" asp-for="MedicalLicense" disabled>
+                                    <label for="MedicalLicense">Medical License #</label>
+                                    <span asp-validation-for="MedicalLicense" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -160,9 +161,9 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput1" placeholder="City" asp-for="city" disabled>
+                                    <input type="text" class="form-control" id="floatingInput1" placeholder="City" asp-for="City" disabled>
                                     <label for="floatingInput1">City</label>
-                                    <span asp-validation-for="city" class="text-danger"></span>
+                                    <span asp-validation-for="City" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -185,16 +186,16 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="tel" class="form-control" id="floatingInput1" placeholder="Zip" asp-for="zip" disabled>
+                                    <input type="tel" class="form-control" id="floatingInput1" placeholder="Zip" asp-for="Zip" disabled>
                                     <label for="floatingInput1">Zip</label>
-                                    <span asp-validation-for="zip" class="text-danger"></span>
+                                    <span asp-validation-for="Zip" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="tel" class="form-control" id="floatingInput1" placeholder="PhoneNumber" asp-for="PhoneNumber2" disabled>
+                                    <input type="tel" class="form-control" id="floatingInput1" placeholder="PhoneNumber" asp-for="AltPhoneNumber" disabled>
                                     <label for="floatingInput1">PhoneNumber</label>
-                                    <span asp-validation-for="PhoneNumber2" class="text-danger"></span>
+                                    <span asp-validation-for="AltPhoneNumber" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>

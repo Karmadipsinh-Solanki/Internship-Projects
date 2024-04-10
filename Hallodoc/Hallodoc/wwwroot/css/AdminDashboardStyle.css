@@ -360,8 +360,14 @@ td {
     background-color: #5FBC61 !important;
     /* background-color: #00ccff; */
 }
-.newtd{
-    background-color:white!important;
+.fc-datagrid-cell-frame {
+    background-color: white !important;
+}
+.fc-theme-standard td {
+    background-color: white !important;
+}
+.newtd {
+    background-color: white !important;
 }
 .name-td {
     width: 280px !important;
@@ -1302,9 +1308,9 @@ table.dataTable thead th, table.dataTable tfoot th {
         display: none!important;
     }
 
-    #main-sub-div {
+   /* #main-sub-div {
         margin-top: 100px;
-    }
+    }*/
 
     .state {
         margin-top: 20px;

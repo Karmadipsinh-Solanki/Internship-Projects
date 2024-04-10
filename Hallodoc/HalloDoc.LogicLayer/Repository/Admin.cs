@@ -1960,6 +1960,76 @@ namespace HalloDoc.LogicLayer.Repository
             adminProfileViewModel.CreatedDate = AspAdminDetail.CreatedDate;
             return adminProfileViewModel;
         }
+        public bool editAccess(EditAccessViewModel model)
+        {
+            List<RoleMenu> roleMenus = _context.RoleMenus.Where(i => i.RoleId == model.Id).ToList();
+            string[] roleMenuItem = new string[roleMenus.Count];
+            string[] modelRoleItems = model.RoleId.Split(',');
+
+            for (var i = 0; i < roleMenus.Count; i++)
+            {
+                roleMenuItem[i] = roleMenus[i].MenuId.ToString();
+            }
+            for (var i = 0; i < modelRoleItems.Length; i++)
+            {
+                if (roleMenuItem.Contains(modelRoleItems[i]) == false)
+                {
+                    RoleMenu roleMenu = new RoleMenu();
+                    roleMenu.MenuId = Convert.ToInt32(modelRoleItems[i]);
+                    roleMenu.RoleId = model.Id;
+                    _context.RoleMenus.Add(roleMenu);
+                    _context.SaveChanges();
+                }
+            }
+            for (var i = 0; i < roleMenuItem.Length; i++)
+            {
+                if (modelRoleItems.Contains(roleMenuItem[i]) == false)
+                {
+                    int n = i;
+                    RoleMenu roleMenu = _context.RoleMenus.FirstOrDefault(i => i.RoleId == model.Id && i.MenuId == Convert.ToInt32(roleMenuItem[n]));
+                    _context.RoleMenus.Remove(roleMenu);
+                    _context.SaveChanges();
+                }
+            }
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            Role role = _context.Roles.FirstOrDefault(i => i.RoleId == model.Id);
+            role.Name = model.RoleName;
+            role.AccountType = (short)(model.AccountType == "admin-div" ? 2 : 1);
+            role.ModifiedBy = cookieModel.name;
+            role.ModifiedDate = DateTime.Now;
+            _context.Roles.Update(role);
+            _context.SaveChanges();
+            return true;
+        }
+        public EditAccessViewModel editAccess(int id)
+        {
+            Role role = _context.Roles.FirstOrDefault(i => i.RoleId == id);
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 6;
+            var allMenuItems = _context.Menus.ToList();
+            List<MenuItem> menuItems = allMenuItems.Select(r => new MenuItem
+            {
+                IsSelected = _context.RoleMenus.Any(ar => ar.RoleId == role.RoleId && ar.MenuId == r.MenuId),
+                Name = r.Name,
+                MenuItemId = r.MenuId,
+                AccountType = r.AccountType,
+            })
+            .ToList();
+            EditAccessViewModel editAccessViewModel = new EditAccessViewModel();
+            editAccessViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            editAccessViewModel.AccountType = role.AccountType == 2 ? "admin-div" : "provider-div";
+            editAccessViewModel.Query = menuItems;
+            editAccessViewModel.Id = id;
+            editAccessViewModel.RoleName = role.Name;
+            return editAccessViewModel;
+        }
         public bool createAccess(CreateAccessViewModel model)
         {
             var request = _httpContextAccessor.HttpContext.Request;
@@ -2674,7 +2744,7 @@ namespace HalloDoc.LogicLayer.Repository
             return vendorViewModel;
 
         }
-        ProviderShift IAdmin.scheduling()
+        public ProviderShift scheduling()
         {
             var request = _httpContextAccessor.HttpContext.Request;
             var token = request.Cookies["jwt"];
@@ -3058,8 +3128,8 @@ namespace HalloDoc.LogicLayer.Repository
                 check.Set(0, true);
                 if (model.CommunicationType == 2 || model.CommunicationType == 3)
                 {
-                    string senderEmail = "tatva.dotnet.hetpatel@outlook.com";
-                    string senderPassword = "Krishna$02";
+                    string senderEmail = "tatva.dotnet.karmadipsinhsolanki@outlook.com";
+                    string senderPassword = "Karmadips@2311";
 
                     SmtpClient client = new SmtpClient("smtp.office365.com")
                     {
@@ -3837,20 +3907,127 @@ namespace HalloDoc.LogicLayer.Repository
             return createProviderViewModel;
 
         }
-        //public ProviderLocationViewModel providerLocation()
-        //{
-        //    ProviderLocationViewModel providerLocationViewModel = new ProviderLocationViewModel();
-        //    var request = _httpContextAccessor.HttpContext.Request;
-        //    var token = request.Cookies["jwt"];
-        //    CookieModel cookieModel = _jwtService.getDetails(token);
-        //    string AdminName = cookieModel.name;
-        //    AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
-        //    adminNavbarViewModel.AdminName = AdminName;
-        //    adminNavbarViewModel.Tab = 2;
-        //    providerLocationViewModel.adminNavbarViewModel = adminNavbarViewModel;
-        //    List<PhysicianLocation> physicianLocations = _context.PhysicianLocations.ToList();
-        //    providerLocationViewModel.Query = physicianLocations;
-        //    return providerLocationViewModel;
-        //}
+        public bool editBusiness(AddBusinessViewModel model)
+        {
+            try
+            {
+                HealthProfessional healthProfessional = _context.HealthProfessionals.FirstOrDefault(i => i.VendorId == model.healthProfessionId);
+                Region region = _context.Regions.FirstOrDefault(i => i.RegionId == model.State);
+                healthProfessional.Profession = model.ProfessionType;
+                healthProfessional.Address = model.Street;
+                healthProfessional.City = model.City;
+                healthProfessional.State = region.Name;
+                healthProfessional.Zip = model.Zipcode;
+                healthProfessional.VendorName = model.BusinessName;
+                healthProfessional.BusinessContact = model.BusinessContact;
+                healthProfessional.FaxNumber = model.FaxNumber;
+                healthProfessional.RegionId = model.State;
+                healthProfessional.PhoneNumber = model.PhoneNumber;
+                healthProfessional.Email = model.Email;
+                healthProfessional.ModifiedDate = DateTime.Now;
+                _context.HealthProfessionals.Update(healthProfessional);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public AddBusinessViewModel addBusiness()
+        {
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 5;
+            List<HealthProfessionalType> healthProfessionalTypes = _context.HealthProfessionalTypes.ToList();
+            List<Region> regions = _context.Regions.ToList();
+            AddBusinessViewModel addBusinessViewModel = new AddBusinessViewModel();
+            addBusinessViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            addBusinessViewModel.ProfessionTypes = healthProfessionalTypes;
+            addBusinessViewModel.States = regions;
+            addBusinessViewModel.Header = "Add Business";
+            return addBusinessViewModel;
+        }
+        public AddBusinessViewModel editBusinessPage(int id)
+        {
+            BitArray check = new BitArray(1);
+            check.Set(0, false);
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 5;
+            List<Region> regions = _context.Regions.ToList();
+            List<HealthProfessionalType> healthProfessionalTypes = _context.HealthProfessionalTypes.ToList();
+            HealthProfessional healthProfessional = _context.HealthProfessionals.FirstOrDefault(i => i.VendorId == id && i.IsDeleted == check);
+            AddBusinessViewModel addBusinessViewModel = new AddBusinessViewModel();
+            addBusinessViewModel.Street = healthProfessional.Address;
+            addBusinessViewModel.City = healthProfessional.City;
+            addBusinessViewModel.State = (int)healthProfessional.RegionId;
+            addBusinessViewModel.Zipcode = healthProfessional.Zip;
+            addBusinessViewModel.ProfessionType = (int)healthProfessional.Profession;
+            addBusinessViewModel.States = regions;
+            addBusinessViewModel.Email = healthProfessional.Email;
+            addBusinessViewModel.BusinessContact = healthProfessional.BusinessContact;
+            addBusinessViewModel.BusinessName = healthProfessional.VendorName;
+            addBusinessViewModel.ProfessionTypes = healthProfessionalTypes;
+            addBusinessViewModel.PhoneNumber = healthProfessional.PhoneNumber;
+            addBusinessViewModel.FaxNumber = healthProfessional.FaxNumber;
+            addBusinessViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            addBusinessViewModel.Header = "Edit Business";
+            addBusinessViewModel.healthProfessionId = healthProfessional.VendorId;
+            return addBusinessViewModel;
+        }
+        public bool addBusiness(AddBusinessViewModel model)
+        {
+            try
+            {
+                BitArray check = new BitArray(1);
+                check.Set(0, false);
+                Region region = _context.Regions.FirstOrDefault(i => i.RegionId == model.State);
+                HealthProfessional healthProfessional = new HealthProfessional();
+                healthProfessional.Profession = model.ProfessionType;
+                healthProfessional.Address = model.Street;
+                healthProfessional.City = model.City;
+                healthProfessional.State = region.Name;
+                healthProfessional.Zip = model.Zipcode;
+                healthProfessional.VendorName = model.BusinessName;
+                healthProfessional.BusinessContact = model.BusinessContact;
+                healthProfessional.FaxNumber = model.FaxNumber;
+                healthProfessional.RegionId = model.State;
+                healthProfessional.PhoneNumber = model.PhoneNumber;
+                healthProfessional.IsDeleted = check;
+                healthProfessional.Email = model.Email;
+                healthProfessional.CreatedDate = DateTime.Now;
+                _context.HealthProfessionals.Add(healthProfessional);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public ProviderLocationViewModel providerLocation()
+        {
+            ProviderLocationViewModel providerLocationViewModel = new ProviderLocationViewModel();
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 2;
+            providerLocationViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            List<PhysicianLocation> physicianLocations = _context.PhysicianLocations.ToList();
+            providerLocationViewModel.Query = physicianLocations;
+            return providerLocationViewModel;
+        }
     }
 }

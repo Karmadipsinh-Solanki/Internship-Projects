@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div class="content shadow contentProfile h-100  ps-3 pt-3 pe-3 g-3">
-                    <form asp-controller="AdminDashboard" asp-action="CreateAdmin" enctype="multipart/form-data" method="post" class="">
+                    <form asp-controller="AdminDashboard" asp-action="CreatePhysician" enctype="multipart/form-data" method="post" class="">
                         <header class="h4 mb-3">Account Information</header>
                         <div class="row mb-3">
                             <div class="col-md-4">
@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                         </div>
-                        <header class="h4 mb-4">Administrator Information</header>
+                        <header class="h4 mb-4">Physician Information</header>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
@@ -235,9 +235,86 @@
                             <label class="color" for="floatingInput">Enter Brief Details Of Symptoms(Optional)</label>
                         </div>
                         <hr />
-
                         <header class="h4 mb-4">Onboarding</header>
-                        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;">
+                        
+                        <div class="mt-3 document-outer-flex bottom-border d-flex justify-content-between align-items-center">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="ICA-check" asp-for="IsICA" onclick="return false">
+                                <label class="form-check-label bottom-upload-label" for="flexCheckDefault1">
+                                    Independent Contractor Agreement
+                                </label>
+                            </div>
+                            <div class="document-inner-flex">
+                                <label class="submit-btn upload-doc-btn">
+                                    <input type="file" id="ICA" onchange="fileUploaded(this)" asp-for="ICA" />
+                                    <img src="../../images/cloud-upload-icon.svg" alt="" class="file-upload-img bottom-physician-upload">
+                                    <span class="upload-text">
+                                        Upload  
+                                    </span>
+                                </label>
+                                <div id="ICA-btn" class="submit-btn upload-doc-btn view-doc-btn hidden ICA-btn" onclick="viewDoc(this)"><span class="upload-text">View</span><img class="file-upload-img bottom-physician-upload" src="~/images/paper.svg" /></div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3 document-outer-flex bottom-border d-flex justify-content-between align-items-center">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="BackgroundCheck-check" asp-for="IsBackgroundCheck" onclick="return false">
+                                <label class="form-check-label bottom-upload-label" for="flexCheckDefault1">
+                                    Background Check
+                                </label>
+                            </div>
+                            <div class="document-inner-flex">
+                                <label class="submit-btn upload-doc-btn">
+                                    <input type="file" id="BackgroundCheck" onchange="fileUploaded(this)" asp-for="BackgroundCheck" />
+                                    <img src="../../images/cloud-upload-icon.svg" alt="" class="file-upload-img bottom-physician-upload">
+                                    <span class="upload-text">
+                                        Upload  
+                                    </span>
+                                </label>
+                                <div id="BackgroundCheck-btn" class="submit-btn upload-doc-btn view-doc-btn hidden BackgroundCheck-btn" onclick="   (this)"><span class="upload-text">View</span><img class="file-upload-img bottom-physician-upload" src="~/images/paper.svg" /></div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3 document-outer-flex bottom-border d-flex justify-content-between align-items-center">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="HIPAACompliance-check" asp-for="IsHIPAACompliance" onclick="return false">
+                                <label class="form-check-label bottom-upload-label" for="flexCheckDefault1">
+                                    HIPAA Compliance
+                                </label>
+                            </div>
+                            <div class="document-inner-flex">
+                                <label class="submit-btn upload-doc-btn">
+                                    <input type="file" id="HIPAACompliance" onchange="fileUploaded(this)" asp-for="HIPAACompliance" />
+                                    <img src="../../images/cloud-upload-icon.svg" alt="" class="file-upload-img bottom-physician-upload">
+                                    <span class="upload-text">
+                                        Upload  
+                                    </span>
+                                </label>
+                                <div id="HIPAACompliance-btn" class="submit-btn upload-doc-btn view-doc-btn hidden HIPAACompliance-btn" onclick="viewDoc(this)"><span class="upload-text">View</span><img class="file-upload-img bottom-physician-upload" src="~/images/paper.svg" /></div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3 document-outer-flex bottom-border d-flex justify-content-between align-items-center">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="NonDisclosureAgreement-check" asp-for="IsNonDisclosureAgreement" onclick="return false">
+                                <label class="form-check-label bottom-upload-label" for="flexCheckDefault1">
+                                    Non-Disclosure Agreement
+                                </label>
+                            </div>
+                            <div class="document-inner-flex">
+                                <label class="submit-btn upload-doc-btn">
+                                    <input type="file" id="NonDisclosureAgreement" onchange="fileUploaded(this)" asp-for="NonDisclosureAgreement" />
+                                    <img src="../../images/cloud-upload-icon.svg" alt="" class="file-upload-img bottom-physician-upload">
+                                    <span class="upload-text">
+                                        Upload  
+                                    </span>
+                                </label>
+                                <div id="NonDisclosureAgreement-btn" class="submit-btn upload-doc-btn view-doc-btn hidden NonDisclosureAgreement-btn" onclick="viewDoc(this)"><span class="upload-text">View</span><img class="file-upload-img bottom-physician-upload" src="~/images/paper.svg" /></div>
+                            </div>
+                        </div>
+
+
+                        @* <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;">
                             <div style="">
                                 <input type="checkbox" class="ICA" asp-for="IsICA" style="margin-right:20px;" />
                                 <label>Independent Contractor Agreement</label>
@@ -255,67 +332,9 @@
                                 </div>
                                 <input type="file" class="file-input-button" id="ICA" asp-for="ICA" style="padding-bottom:10px;" />
                             </div>
-                        </div>
+                        </div> *@
                         <input type="text" class="hide" asp-for="Latitude" id="lat" />
                         <input type="text" class="hide" asp-for="Longitude" id="long" />
-
-                        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:20px;">
-                            <div style="">
-                                <input type="checkbox" class="BackgroundCheck" asp-for="IsBackgroundCheck" style="margin-right:20px;" />
-                                <label>Background Check</label>
-                            </div>
-                            <div class="choose-file-button-sub-div" style="margin-right:40px;">
-                                <div class="choose-file-button-sub-sub-div" style="background-color:#68e0fc">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white"
-                                         class="bi bi-cloud-upload upload-icon" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                              d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
-                                        <path fill-rule="evenodd"
-                                              d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708z" />
-                                    </svg>
-                                    <span class="upload-text">Upload</span>
-                                </div>
-                                <input type="file" class="file-input-button" disabled id="BackgroundCheck" disabled asp-for="BackgroundCheck" style="padding-bottom:10px;" />
-                            </div>
-                        </div>
-                        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:20px;">
-                            <div style="">
-                                <input type="checkbox" class="HIPAACompliance" asp-for="IsHIPAACompliance" style="margin-right:20px;" />
-                                <label>HIPAA Compliance</label>
-                            </div>
-                            <div class="choose-file-button-sub-div" style="margin-right:40px;">
-                                <div class="choose-file-button-sub-sub-div" style="background-color:#68e0fc">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white"
-                                         class="bi bi-cloud-upload upload-icon" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                              d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
-                                        <path fill-rule="evenodd"
-                                              d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708z" />
-                                    </svg>
-                                    <span class="upload-text">Upload</span>
-                                </div>
-                                <input type="file" class="file-input-button" disabled id="HIPAACompliance" asp-for="HIPAACompliance" style="padding-bottom:10px;" />
-                            </div>
-                        </div>
-                        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:20px;">
-                            <div style="">
-                                <input type="checkbox" class="NonDisclosureAgreement" asp-for="IsNonDisclosureAgreement" style="margin-right:20px;" />
-                                <label>Non-disclosure Agreement</label>
-                            </div>
-                            <div class="choose-file-button-sub-div" style="margin-right:40px;">
-                                <div class="choose-file-button-sub-sub-div" style="background-color:#68e0fc">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white"
-                                         class="bi bi-cloud-upload upload-icon" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                              d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
-                                        <path fill-rule="evenodd"
-                                              d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708z" />
-                                    </svg>
-                                    <span class="upload-text">Upload</span>
-                                </div>
-                                <input type="file" class="file-input-button" disabled id="NonDisclosureAgreement" asp-for="NonDisclosureAgreement" style="padding-bottom:10px;" />
-                            </div>
-                        </div>
                         <hr />
                         <div id="submit-div3">
 
@@ -333,6 +352,51 @@
         </div>
     </div>
     <script>
+        //view show when upload file
+        const viewDoc = (element) => {
+            const id = element.id.split("-")[0]
+            const fileInput = document.getElementById(id);
+            if (fileInput.files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    const blobUrl = URL.createObjectURL(new Blob([event.target.result], { type: 'application/pdf' }));
+                    window.open(blobUrl, '_blank');
+                };
+                reader.readAsArrayBuffer(fileInput.files[0]);
+            } else {
+                alert('Please select a file to view.');
+            }
+        }
+        //checkbox check if uploaded
+        const fileUploaded = (element) => {
+            const id = element.id
+            console.log(id)
+            document.getElementById(`${id}-check`).checked = true
+            document.getElementById(`${id}-btn`).style.display = 'inline-block'
+        }
+        // $(".file-input-button").on("change", function () {
+        //     var fileInput = $(this);
+        //     var checkbox = $("#backgroundCheckbox");
+
+        //     // Send an AJAX request to the server to check if a file has been uploaded
+        //     $.ajax({
+        //         url: "/AdminDashboard/CheckFileUpload",
+        //         type: "POST",
+        //         data: { fileName: fileInput.val() },
+        //         success: function (result) {
+        //             if (result.success) {
+        //                 // Check the checkbox if a file has been uploaded
+        //                 checkbox.prop("checked", true);
+        //             } else {
+        //                 // Uncheck the checkbox if no file has been uploaded
+        //                 checkbox.prop("checked", false);
+        //             }
+        //         }
+        //     });
+        // });
+
+
+
         $(document).ready(function () {
             var selectedRegion = "";
             var ticked = document.getElementsByClassName('checkboxes');
@@ -355,82 +419,7 @@
                 $('#SelectedRegion').val(selectedRegion);
             });
         });
-        document.getElementsByClassName('ICA')[0].addEventListener('change', ICAChanged);
-        var state1 = document.getElementsByClassName('ICA')[0].checked;
-        if (state1 == true) {
-            document.getElementById('ICA').removeAttribute('disabled');
-            document.getElementsByClassName('choose-file-button-sub-sub-div')[0].style.backgroundColor = "#00ccff";
-        } else {
-            document.getElementById('ICA').setAttribute('disabled', 'disabled');
-            document.getElementsByClassName('choose-file-button-sub-sub-div')[0].style.backgroundColor = "#68e0fc";
-        }
-        function ICAChanged() {
-            var currState = document.getElementsByClassName('ICA')[0].checked;
-            if (currState == true) {
-                document.getElementById('ICA').removeAttribute('disabled');
-                document.getElementsByClassName('choose-file-button-sub-sub-div')[0].style.backgroundColor = "#00ccff";
-            } else {
-                document.getElementById('ICA').setAttribute('disabled', 'disabled');
-                document.getElementsByClassName('choose-file-button-sub-sub-div')[0].style.backgroundColor = "#68e0fc";
-            }
-        }
-        var state2 = document.getElementsByClassName('BackgroundCheck')[0].checked;
-        if (state2 == true) {
-            document.getElementById('BackgroundCheck').removeAttribute('disabled');
-            document.getElementsByClassName('choose-file-button-sub-sub-div')[1].style.backgroundColor = "#00ccff";
-        } else {
-            document.getElementById('BackgroundCheck').setAttribute('disabled', 'disabled');
-            document.getElementsByClassName('choose-file-button-sub-sub-div')[1].style.backgroundColor = "#68e0fc";
-        }
-        document.getElementsByClassName('BackgroundCheck')[0].addEventListener('change', BackgroundCheckChanged);
-        function BackgroundCheckChanged() {
-            var currState = document.getElementsByClassName('BackgroundCheck')[0].checked;
-            if (currState == true) {
-                document.getElementById('BackgroundCheck').removeAttribute('disabled');
-                document.getElementsByClassName('choose-file-button-sub-sub-div')[1].style.backgroundColor = "#00ccff";
-            } else {
-                document.getElementById('BackgroundCheck').setAttribute('disabled', 'disabled');
-                document.getElementsByClassName('choose-file-button-sub-sub-div')[1].style.backgroundColor = "#68e0fc";
-            }
-        }
-        document.getElementsByClassName('HIPAACompliance')[0].addEventListener('change', HIPAAComplianceChanged);
-        var state3 = document.getElementsByClassName('HIPAACompliance')[0].checked;
-        if (state3 == true) {
-            document.getElementById('HIPAACompliance').removeAttribute('disabled');
-            document.getElementsByClassName('choose-file-button-sub-sub-div')[2].style.backgroundColor = "#00ccff";
-        } else {
-            document.getElementById('HIPAACompliance').setAttribute('disabled', 'disabled');
-            document.getElementsByClassName('choose-file-button-sub-sub-div')[2].style.backgroundColor = "#68e0fc";
-        }
-        function HIPAAComplianceChanged() {
-            var currState = document.getElementsByClassName('HIPAACompliance')[0].checked;
-            if (currState == true) {
-                document.getElementById('HIPAACompliance').removeAttribute('disabled');
-                document.getElementsByClassName('choose-file-button-sub-sub-div')[2].style.backgroundColor = "#00ccff";
-            } else {
-                document.getElementById('HIPAACompliance').setAttribute('disabled', 'disabled');
-                document.getElementsByClassName('choose-file-button-sub-sub-div')[2].style.backgroundColor = "#68e0fc";
-            }
-        }
-        document.getElementsByClassName('NonDisclosureAgreement')[0].addEventListener('change', NonDisclosureAgreementChanged);
-        var state4 = document.getElementsByClassName('NonDisclosureAgreement')[0].checked;
-        if (state4 == true) {
-            document.getElementById('NonDisclosureAgreement').removeAttribute('disabled');
-            document.getElementsByClassName('choose-file-button-sub-sub-div')[3].style.backgroundColor = "#00ccff";
-        } else {
-            document.getElementById('NonDisclosureAgreement').setAttribute('disabled', 'disabled');
-            document.getElementsByClassName('choose-file-button-sub-sub-div')[3].style.backgroundColor = "#68e0fc";
-        }
-        function NonDisclosureAgreementChanged() {
-            var currState = document.getElementsByClassName('NonDisclosureAgreement')[0].checked;
-            if (currState == true) {
-                document.getElementById('NonDisclosureAgreement').removeAttribute('disabled');
-                document.getElementsByClassName('choose-file-button-sub-sub-div')[3].style.backgroundColor = "#00ccff";
-            } else {
-                document.getElementById('NonDisclosureAgreement').setAttribute('disabled', 'disabled');
-                document.getElementsByClassName('choose-file-button-sub-sub-div')[3].style.backgroundColor = "#68e0fc";
-            }
-        }
+        
         document.getElementById('City').addEventListener('focusout', getCoordinates);
         function getCoordinates() {
             var address = document.getElementById('Address1').value + " " + document.getElementById('Address2').value + " " + document.getElementById('City').value;
@@ -464,11 +453,11 @@
             utilsScript:
                 "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
         });
-        const phoneInputField = document.querySelector("#phone2");
-        const phoneInput = window.intlTelInput(phoneInputField, {
-            utilsScript:
-                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-        });
+        // const phoneInputField2 = document.querySelector("#phone2");
+        // const phoneInput = window.intlTelInput(phoneInputField2, {
+        //     utilsScript:
+        //         "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        // });
         //$(document).ready(function () {
         //    var selectedRegion = $('#SelectedRegion').val();
         //    var ticked = document.getElementsByClassName('checkboxes');

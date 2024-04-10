@@ -127,10 +127,17 @@
         <div id="ViewShift"></div>
     </div>
 </div>
+
+
+
+
+
+
+
 <div id="myModal" class="modal">
 
-    <div class="modal-content" style="height:600px !important;">
-        <div class="modal-header-2">
+    <div class="modal-content" style="height:600px !important;width:540px!important">
+        <div class="modal-header-2" style="background-color: aqua;display: flex;justify-content: space-between;align-items: center;padding: 10px;color: white;">
             <span class="modal-header-2-text">Create Shift</span>
             <span class="close-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-x-lg" viewBox="0 0 16 16">
@@ -163,11 +170,11 @@
                 </div>
                 <input type="text" value="0000000" style="display:none;" id="RepeatDays" asp-for="RepeatDays" />
                 <div class="form-floating login-fields" style="margin-top:15px;width:100%;margin-bottom:15px;">
-                    <input type="date" placeholder="Shift Date" class="form-control" asp-for="ShiftDate" />
+                    <input type="date" class="form-control" asp-for="ShiftDate" />
                     <label for="Email" class="labels">Shift Date</label>
                 </div>
                 <div class="form-sub-div" style="margin-top: 0px;">
-                    <div class="form-floating login-fields login-fields-2">
+                    <div class="form-floating login-fields mb-3">
                         <input type="time" placeholder="Start" class="form-control" asp-for="StartTime" />
                         <label for="Email" class="labels">Start</label>
                     </div>
@@ -265,11 +272,11 @@
                 </div>
                 @*<input type="text" value="0000000" style="display:none;" id="RepeatDays" asp-for="RepeatDays" />*@
                 <div class="form-floating login-fields" style="margin-top:15px;width:100%;margin-bottom:15px;">
-                    <input type="date" placeholder="Shift Date" class="form-control editshift" disabled id="ShiftDate2" asp-for="ShiftDate" />
+                    <input id="ShiftDate2" asp-for="ShiftDate" type="date" class="form-control editshift" disabled />
                     <label for="Date" class="labels">Shift Date</label>
                 </div>
                 <div class="form-sub-div" style="margin-top: 0px;">
-                    <div class="form-floating login-fields login-fields-2">
+                    <div class="form-floating login-fields mb-3">
                         <input type="time" placeholder="Start" class="form-control editshift" disabled id="StartTime2" asp-for="StartTime" />
                         <label for="Email" class="labels">Start</label>
                     </div>
@@ -659,7 +666,7 @@
                 resourceObj.el.querySelector('.fc-datagrid-cell-main').appendChild(img);
             },
             resources: "/AdminDashboard/GetProviderDetailsForSchedule?RegionId=" + RegionId,
-            events: "/AdminDashboard/GetScheduleData",
+            events: "/AdminDashboard/GetScheduleData?RegionId=" + RegionId,
             eventClick: function (info, jsEvent, view) {
                 ViewShift(info.event.id);
             },
@@ -669,7 +676,7 @@
     let calendarNext = () => calendar.next();
     let calendarPrev = () => calendar.prev();
     let calendarToday = () => calendar.today();
-    //let changeView = (type) => calendar.changeView(type);
+    // let changeView = (type) => calendar.changeView(type);
     let changeView = (type, date = null) => {
         calendar.changeView(type, date);
     };

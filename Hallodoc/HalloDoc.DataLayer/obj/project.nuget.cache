@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "J3aVRYt1k6jg7a9U5ytWGea/AUMK8R73/Aot41Bst/1fb8c+K4lbvgVX6SjTYRGqXC0FOvn4MAHWOm35oHXhdg==",
+  "dgSpecHash": "z6+rLAHOhIjWo+M/iqW+eLk/u+34wMx+UuZPwQoqLuXC91M1/GZHFUFTyaIzZJY58hKcS5UBDHc6k8hpvu4x+A==",
   "success": true,
   "projectFilePath": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\HalloDoc.DataLayer\\HalloDoc.DataLayer.csproj",
   "expectedPackageFiles": [
@@ -83,7 +83,7 @@
     "C:\\Users\\pca161\\.nuget\\packages\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\microsoft.win32.registry\\4.5.0\\microsoft.win32.registry.4.5.0.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
-    "C:\\Users\\pca161\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\pca161\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\newtonsoft.json.bson\\1.0.1\\newtonsoft.json.bson.1.0.1.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\npgsql\\7.0.6\\npgsql.7.0.6.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\7.0.11\\npgsql.entityframeworkcore.postgresql.7.0.11.nupkg.sha512",

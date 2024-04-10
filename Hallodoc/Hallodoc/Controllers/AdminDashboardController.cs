@@ -64,15 +64,15 @@ namespace HalloDoc.Controllers
             return View(adminDashboardTableView);
         }
 
-        public IActionResult New(string? search, int? region, string? requestor,int page=1,int pageSize=10)
+        public IActionResult New(string? search, int? region, string? requestor, int page = 1, int pageSize = 10)
         {
-            AdminDashboardTableView adminDashboardTableView = _admin.adminDashboard("New", search, region, requestor,page,pageSize);
+            AdminDashboardTableView adminDashboardTableView = _admin.adminDashboard("New", search, region, requestor, page, pageSize);
             return PartialView("AdminDashboardTablePartialView", adminDashboardTableView);
         }
 
         public IActionResult Pending(string? search, int? region, string? requestor, int page = 1, int pageSize = 10)
         {
-            AdminDashboardTableView adminDashboardTableView = _admin.adminDashboard("Pending", search, region, requestor,page,pageSize);
+            AdminDashboardTableView adminDashboardTableView = _admin.adminDashboard("Pending", search, region, requestor, page, pageSize);
             return PartialView("AdminDashboardTablePartialView", adminDashboardTableView);
         }
 
@@ -308,12 +308,13 @@ namespace HalloDoc.Controllers
             }
             return RedirectToAction("ViewNotes", new { id = viewNotesViewModel.RequestId });
         }
-        
+
         public IActionResult fetchBusiness(int id)
         {
             List<HealthProfessional> business = _admin.fetchBusiness(id);
             return Json(business);
-        }public IActionResult fetchBusinessDetail(int id)
+        }
+        public IActionResult fetchBusinessDetail(int id)
         {
             HealthProfessional business = _admin.fetchBusinessDetail(id);
             return Json(business);
@@ -626,7 +627,7 @@ namespace HalloDoc.Controllers
             }
             return RedirectToAction("AdminProfile");
         }
-       
+
 
         public IActionResult AdminProfile()
         {
@@ -686,6 +687,25 @@ namespace HalloDoc.Controllers
             return View();
         }
         [HttpPost]
+        public IActionResult EditAccess(EditAccessViewModel model)
+        {
+            bool check = _admin.editAccess(model);
+            if (check)
+            {
+                TempData["success"] = "Account Access edited successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,Access is not edited!";
+            }
+            return RedirectToAction("AccountAccess");
+        }
+        public IActionResult EditAccess(int id)
+        {
+            EditAccessViewModel editAccessViewModel = _admin.editAccess(id);
+            return View(editAccessViewModel);
+        }
+        [HttpPost]
         public IActionResult CreateAdmin(CreateAdminViewModel createAdminViewModel)
         {
             bool check = _admin.createAdmin(createAdminViewModel);
@@ -731,16 +751,6 @@ namespace HalloDoc.Controllers
         {
             //bool check = _admin.updateStopNotification(id, stopNotification);
             return RedirectToAction("ProviderInfo");
-        }
-        public IActionResult EditPhyAccount()
-        {
-            var request2 = _httpContextAccessor.HttpContext.Request;
-            var token = request2.Cookies["jwt"];
-            CookieModel cookieModel = _jwtService.getDetails(token);
-            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
-            ViewBag.Menu = roleMenu;
-
-            return View();
         }
         public IActionResult SearchRecords()
         {
@@ -808,7 +818,7 @@ namespace HalloDoc.Controllers
 
             //return Json(new { success = true });
 
-            bool check = _admin.updateIsActive(id,isActive);
+            bool check = _admin.updateIsActive(id, isActive);
             //if (check)
             //{
             //    TempData["success"] = "Patient Unblocked successfully!";
@@ -861,46 +871,56 @@ namespace HalloDoc.Controllers
         /// </summary>
         /// <returns></returns>
         /// 
-        //public IActionResult AddBusiness(int id = -1)
-        //{
-        //    AddBusinessViewModel addBusinessViewModel = _admin.addBusiness(id);
-        //    return View(addBusinessViewModel);
-        //}
-        //public IActionResult EditBusiness(AddBusinessViewModel model)
-        //{
-        //    bool check = _admin.editBusiness(model);
-        //    if (check)
-        //    {
-        //        TempData["success"] = "Business details updated successfully!";
-        //    }
-        //    else
-        //    {
-        //        TempData["error"] = "Error,business details not updated!";
-        //    }
-        //    return RedirectToAction("Vendors");
-        //}
-        //[HttpPost]
-        //public IActionResult AddBusiness(AddBusinessViewModel model)
-        //{
-        //    bool check = _admin.addBusiness(model);
-        //    if (check)
-        //    {
-        //        TempData["success"] = "Business added successfully!";
-        //    }
-        //    else
-        //    {
-        //        TempData["error"] = "Error,business not added!";
-        //    }
-        //    return RedirectToAction("Vendors");
-        //}
+        public IActionResult EditBusiness(int id)
+        {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
 
+            AddBusinessViewModel addBusinessViewModel = _admin.editBusinessPage(id);
+            return View(addBusinessViewModel);
+        }
+        public IActionResult AddBusiness()
+        {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
 
-
-        //public IActionResult AddBusiness()
-        //{
-        //    AddBusinessViewModel addBusinessViewModel = _admin.addBusiness();
-        //    return View();
-        //}
+            AddBusinessViewModel addBusinessViewModel = _admin.addBusiness();
+            return View(addBusinessViewModel);
+        }
+        [HttpPost]
+        public IActionResult EditBusiness(AddBusinessViewModel model)
+        {
+            bool check = _admin.editBusiness(model);
+            if (check)
+            {
+                TempData["success"] = "Business details updated successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,business details not updated!";
+            }
+            return RedirectToAction("Vendors");
+        }
+        [HttpPost]
+        public IActionResult AddBusiness(AddBusinessViewModel model)
+        {
+            bool check = _admin.addBusiness(model);
+            if (check)
+            {
+                TempData["success"] = "Business added successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,business not added!";
+            }
+            return RedirectToAction("Vendors");
+        }
         public IActionResult DeleteVendor(int id)
         {
             bool check = _admin.deleteVendor(id);
@@ -1028,6 +1048,12 @@ namespace HalloDoc.Controllers
         }
         public IActionResult ShiftForReview()
         {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
             ShiftReviewViewModel shiftReviewViewModel = _admin.filterShiftDetail(null);
             return View(shiftReviewViewModel);
         }
@@ -1056,10 +1082,10 @@ namespace HalloDoc.Controllers
             {
                 TempData["error"] = "Error,message not sent!";
             }
-            return RedirectToAction("ProviderInformation");
+            return RedirectToAction("ProviderInfo");
         }
         [HttpPost]
-        public IActionResult EditPhysicianProfile(CreateProviderViewModel model)
+        public IActionResult EditPhyAccount(CreateProviderViewModel model)
         {
             bool check = _admin.editPhysicianProfile(model);
             if (check)
@@ -1070,7 +1096,7 @@ namespace HalloDoc.Controllers
             {
                 TempData["error"] = "Error,provider not editted!";
             }
-            return RedirectToAction("EditPhysicianAccount", new { id = model.PhysicianId });
+            return RedirectToAction("EditPhyAccount", new { id = model.PhysicianId });
         }
         [HttpPost]
         public IActionResult EditPhysicianOnboarding(CreateProviderViewModel model)
@@ -1125,7 +1151,7 @@ namespace HalloDoc.Controllers
             {
                 TempData["error"] = "Error,provider not deleted!";
             }
-            return RedirectToAction("ProviderInformation");
+            return RedirectToAction("ProviderInfo");
         }
 
         public IActionResult EditPhysicianPassword(string password, int id)
@@ -1167,7 +1193,7 @@ namespace HalloDoc.Controllers
         //    {
         //        TempData["error"] = "Error,provider not editted!";
         //    }
-        //    return RedirectToAction("ProviderInformation");
+        //    return RedirectToAction("ProviderInfo");
         //}
         public IActionResult EditPhyAccount(int id)
         {
@@ -1192,7 +1218,7 @@ namespace HalloDoc.Controllers
             {
                 TempData["error"] = "Error,provider not created!";
             }
-            return RedirectToAction("ProviderInformation");
+            return RedirectToAction("ProviderInfo");
         }
         public IActionResult CreatePhysician()
         {
@@ -1205,11 +1231,34 @@ namespace HalloDoc.Controllers
             CreateProviderViewModel createProviderViewModel = _admin.createPhysician();
             return View(createProviderViewModel);
         }
-        //public IActionResult ProviderLocation()
-        //{
-        //    ProviderLocationViewModel providerLocationViewModel = _admin.providerLocation();
-        //    return View(providerLocationViewModel);
-        //}
+        /// <summary>
+        /// for checkingthe checkbox if any file uploaded in create physician
+        /// </summary>
+        /// <returns></returns>
+        /// [HttpPost]
+        public JsonResult CheckFileUpload(string fileName)
+        {
+            // Check if a file has been uploaded
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                return Json(new { success = true });
+            }
+            else
+            {
+                return Json(new { success = false });
+            }
+        }
+        public IActionResult ProviderLocation()
+        {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
+            ProviderLocationViewModel providerLocationViewModel = _admin.providerLocation();
+            return View(providerLocationViewModel);
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

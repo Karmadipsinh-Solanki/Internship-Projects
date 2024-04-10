@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "vWlmLbOfnvxdQU7LKkY5uKPUwtjhDSalSzJxz0PPZeN3ZusBDL4COGjFUaz6N6gG0+4kTYbPGMhArPGBoo1wog==",
+  "dgSpecHash": "qnAWLyoBn/vZf0xTo7WQmphTUN+GI12wGmVILdJmMyQO+BsXWIUR4JHy40XuXKGSqF6tXT1m2ND9ycVkCYvjJw==",
   "success": true,
   "projectFilePath": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\Hallodoc.csproj",
   "expectedPackageFiles": [
@@ -163,7 +163,7 @@
     "C:\\Users\\pca161\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
-    "C:\\Users\\pca161\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\pca161\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\newtonsoft.json.bson\\1.0.1\\newtonsoft.json.bson.1.0.1.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\npgsql\\7.0.6\\npgsql.7.0.6.nupkg.sha512",
     "C:\\Users\\pca161\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\7.0.11\\npgsql.entityframeworkcore.postgresql.7.0.11.nupkg.sha512",

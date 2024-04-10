@@ -709,6 +709,10 @@
       "PackagePath": "staticwebassets\\css\\Login.css"
     },
     {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\MyProfileStyle.css",
+      "PackagePath": "staticwebassets\\css\\MyProfileStyle.css"
+    },
+    {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\ReviewAgreement.css",
       "PackagePath": "staticwebassets\\css\\ReviewAgreement.css"
     },
@@ -1155,6 +1159,38 @@
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\new_data.json",
       "PackagePath": "staticwebassets\\uploads\\new_data.json"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\physician\\5\\ICA.png",
+      "PackagePath": "staticwebassets\\uploads\\physician\\5\\ICA.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\physician\\5\\NonDisclosureAgreement.png",
+      "PackagePath": "staticwebassets\\uploads\\physician\\5\\NonDisclosureAgreement.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\physician\\5\\photo.png",
+      "PackagePath": "staticwebassets\\uploads\\physician\\5\\photo.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\physician\\6\\BackgroundCheck.png",
+      "PackagePath": "staticwebassets\\uploads\\physician\\6\\BackgroundCheck.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\physician\\6\\HIPAACompliance.png",
+      "PackagePath": "staticwebassets\\uploads\\physician\\6\\HIPAACompliance.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\physician\\6\\ICA.png",
+      "PackagePath": "staticwebassets\\uploads\\physician\\6\\ICA.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\physician\\6\\NonDisclosureAgreement.png",
+      "PackagePath": "staticwebassets\\uploads\\physician\\6\\NonDisclosureAgreement.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\physician\\6\\photo.png",
+      "PackagePath": "staticwebassets\\uploads\\physician\\6\\photo.png"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\remaining work.txt",

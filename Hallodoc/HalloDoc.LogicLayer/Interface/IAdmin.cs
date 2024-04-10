@@ -14,7 +14,7 @@ namespace HalloDoc.LogicLayer.Interface
 {
     public interface IAdmin
     {
-        public AdminDashboardTableView adminDashboard(string status,string? search, int? region, string? requestor, int page = 1, int pageSize = 10);
+        public AdminDashboardTableView adminDashboard(string status, string? search, int? region, string? requestor, int page = 1, int pageSize = 10);
         public List<string> GetListOfRoleMenu(int? roleId);
         public int createRequest(CreateRequestViewModel model);
         public bool verifyState(string? region);
@@ -94,5 +94,12 @@ namespace HalloDoc.LogicLayer.Interface
         public CreateProviderViewModel editPhysicianAccount(int id);
         public bool editPhysicianProfile(CreateProviderViewModel model);
         public bool editPhysicianOnboarding(CreateProviderViewModel model);
+        public EditAccessViewModel editAccess(int id);
+        public bool editAccess(EditAccessViewModel model);
+        public AddBusinessViewModel addBusiness();
+        public bool editBusiness(AddBusinessViewModel model);
+        public AddBusinessViewModel editBusinessPage(int id);
+        public bool addBusiness(AddBusinessViewModel model);
+        public ProviderLocationViewModel providerLocation();
     }
 }

@@ -323,11 +323,11 @@
                         @if (Model.Tab == 8)
                         {
 
-                            <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="PatientHistory" asp-controller="AdminDashboard">Email Logs</a></li>
+                            <li><a class="navbar-dropdown-item dropdown-item" style="color:#00ccff;background-color:#e6f8fc;font-weight:500;" asp-action="EmailLog" asp-controller="AdminDashboard">Email Logs</a></li>
                         }
                         else
                         {
-                            <li><a class="navbar-dropdown-item dropdown-item" asp-action="PatientHistory" asp-controller="AdminDashboard">Email Logs</a></li>
+                            <li><a class="navbar-dropdown-item dropdown-item" asp-action="EmailLog" asp-controller="AdminDashboard">Email Logs</a></li>
 
                         }
                     }
@@ -382,10 +382,11 @@
                     @if (ViewBag.Menu.Contains("Search Records"))
                     {
                         <li><a class="navbar-dropdown-item dropdown-item" asp-action="SearchRecords" asp-controller="AdminDashboard">Search Records</a></li>
+                       
                     }
                     @if (ViewBag.Menu.Contains("Email Logs"))
                     {
-                        <li><a class="navbar-dropdown-item dropdown-item" href="#">Email Logs</a></li>
+                        <li><a class="navbar-dropdown-item dropdown-item" asp-action="EmailLog" asp-controller="AdminDashboard">Email Logs</a></li>
                     }
                     @if (ViewBag.Menu.Contains("SMS Logs"))
                     {

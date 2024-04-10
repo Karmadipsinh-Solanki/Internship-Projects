@@ -22,6 +22,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcQWNjb3VudEFjY2Vzcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/pca161/Desktop/Internship-Projects/Internship-Projects/Hallodoc/Hallodoc/Views/AdminDashboard/AddBusiness.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcQWRkQnVzaW5lc3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/pca161/Desktop/Internship-Projects/Internship-Projects/Hallodoc/Hallodoc/Views/AdminDashboard/AdminDashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcQWRtaW5EYXNoYm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -54,6 +58,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcQ3JlYXRlUmVxdWVzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/pca161/Desktop/Internship-Projects/Internship-Projects/Hallodoc/Hallodoc/Views/AdminDashboard/EditAccess.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcRWRpdEFjY2Vzcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pca161/Desktop/Internship-Projects/Internship-Projects/Hallodoc/Hallodoc/Views/AdminDashboard/EditBusiness.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcRWRpdEJ1c2luZXNzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/pca161/Desktop/Internship-Projects/Internship-Projects/Hallodoc/Hallodoc/Views/AdminDashboard/EditPhyAccount.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcRWRpdFBoeUFjY291bnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -74,6 +86,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcUHJvdmlkZXJJbmZvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/pca161/Desktop/Internship-Projects/Internship-Projects/Hallodoc/Hallodoc/Views/AdminDashboard/ProviderLocation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcUHJvdmlkZXJMb2NhdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/pca161/Desktop/Internship-Projects/Internship-Projects/Hallodoc/Hallodoc/Views/AdminDashboard/Scheduling.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcU2NoZWR1bGluZy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -84,6 +100,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/pca161/Desktop/Internship-Projects/Internship-Projects/Hallodoc/Hallodoc/Views/AdminDashboard/SendOrder.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcU2VuZE9yZGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pca161/Desktop/Internship-Projects/Internship-Projects/Hallodoc/Hallodoc/Views/AdminDashboard/ShiftForReview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcU2hpZnRGb3JSZXZpZXcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/pca161/Desktop/Internship-Projects/Internship-Projects/Hallodoc/Hallodoc/Views/AdminDashboard/UserAccess.cshtml]
