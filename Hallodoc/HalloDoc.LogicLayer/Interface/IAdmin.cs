@@ -101,5 +101,6 @@ namespace HalloDoc.LogicLayer.Interface
         public AddBusinessViewModel editBusinessPage(int id);
         public bool addBusiness(AddBusinessViewModel model);
         public ProviderLocationViewModel providerLocation();
+        public ProviderOnCallViewModel providerOnCall(int? region);
     }
 }

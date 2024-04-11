@@ -137,18 +137,18 @@ body {
     margin-left: 10px;
 }
 
-.tab {
+/*.tab {*/
     /*/*overflow: hidden;*/
-    border-bottom: 3px solid #ededed;
+    /*border-bottom: 3px solid #ededed;
     background-color: white;
     margin-top: 2px;
     padding-left: 30px;
     margin-top: 82px;
     border-top: 1px solid rgb(180, 180, 180);
     height: 60px !important;
-}
+}*/
 
-    .tab div {
+    /*.tab div {
         background-color: inherit !important;
         float: left !important;
         border: none !important;
@@ -169,9 +169,9 @@ body {
             background-color: white !important;
             color: #00ccff !important;
             border-bottom: 3px solid #00ccff !important;
-            font-weight: 500 !important;
+            font-weight: 500 !important;*/
             /* height: 50px; */
-        }
+        /*}*/
 
 button:hover {
     background-color: #ddd !important;

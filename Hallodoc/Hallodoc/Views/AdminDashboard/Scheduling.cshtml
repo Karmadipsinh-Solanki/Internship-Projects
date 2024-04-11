@@ -3,8 +3,9 @@
     ViewData["Title"] = "Scheduling";
 }
 @section Styles {
-    <link href="~/css/scheduling.css" rel="stylesheet" type="text/css" />
     <link href="~/css/AdminDashboardStyle.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/MyProfileStyle.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/scheduling.css" rel="stylesheet" type="text/css" />
 }
 <div id="body">
     <div class="shadow header-nav-container">
@@ -15,26 +16,26 @@
 
         @Html.Hidden("currentMonth", TempData["currentMonth"]);
         <div class="container p-3 m-auto mt-3 mb-4">
-            <div id="main-sub-div" class="d-flex justify-content-between align-items-center" @* style="flex-direction: column;margin-top:30px;width:100%;margin-bottom:30px;" *@>
+            <div id="main-sub-div" style="flex-direction: column;margin-top:30px;width:100%;margin-bottom:30px;">
                 <!-- <div style="display: flex;align-items: center;"> -->
                 <h4>Scheduling</h4>
                 <!-- </div> -->
-                <a asp-action="AdminDashboard" asp-controller="AdminDashboard" class="back-navigation-link cancelButton d-flex justify-content-center align-items-center textdeconone">
+                <a asp-action="AdminDashboard" asp-controller="AdminDashboard" class="back-navigation-link">
                     <div class="back-navigation">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00ccff"
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-chevron-left back-icon" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
                                   d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
                         </svg>
-                        <span class="cancelButtonText">Back</span>
+                        <span>Back</span>
                     </div>
                 </a>
 
             </div>
             <div>
-                <div class="flex-wrap mt-3 mb-3 d-flex justify-content-between align-items-center ">
+                <div class="d-flex justify-content-between flex-wrap mt-3 mb-3">
                     <div>
-                        <select class="form-select mb-3" aria-label="Default select example" id="Region" onchange="GetCalendar()">
+                        <select class="form-select" aria-label="Default select example" id="Region" onchange="filter()">
                             <option value="0" selected>
                                 All Regions
                             </option>
@@ -44,7 +45,7 @@
                             }
                         </select>
                     </div>
-                    <div class="flex-grow-1 text-end d-flex">
+                    <div class="flex-grow-1 text-end btns">
                         <a class="btn btn-info actions" asp-action="ProviderOnCall" asp-controller="AdminDashboard">
                             Provider On Call
                         </a>
@@ -58,12 +59,48 @@
                 </div>
             </div>
 
-            <div>
-                <div class="d-flex justify-content-between flex-wrap mt-3 mb-3">
-                    <div>
-                        <h5 id="calendarTitle"></h5>
+            <div class="scheduling-div">
+                @*</div>*@
+                @*<div>*@
+                @* <div class="d-flex justify-content-between flex-wrap mt-3 mb-3 main-cal-div"> *@
+                @*<div>*@
+                <div>
+                    <h5 id="calendarTitle"></h5>
+                </div>
+                <div class="d-flex cal-view">
+
+                    <div class="btn btn-info text-body rounded-circle d-flex p-2" style="margin-right:10px;" onclick="calendarPrev()">
+                        <span class="material-symbols-outlined">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                            </svg>
+                        </span>
                     </div>
-                    <div class="flex-grow-1 text-end">
+                    <div style="position:relative;">
+
+                        <div class="d-flex p-2">
+                            <span class="material-symbols-outlined">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+                                    <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857z" />
+                                    <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
+                                </svg>
+                            </span>
+                        </div>
+                        <input type="date" id="customDatePicker" style="opacity:0;position: absolute;top: 10px;width: 40px;" onchange="temp()" />
+                    </div>
+                    <div class="btn btn-info text-body rounded-circle d-flex p-2" style="margin-left:10px;" onclick="calendarNext()">
+                        <span class="material-symbols-outlined">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                @*</div>*@
+                @* </div> *@
+                <div class="d-flex flex-wrap mb-3 sub-divs" style="flex-direction:column;">
+
+                    <div class="flex-grow-1 text-end mb-3">
                         <div class="d-flex justify-content-end">
                             <div class="align-items-center d-flex me-3">
                                 <span class="border rounded-2 border-danger d-inline-block me-2" style="width:50px; height:30px; background-color:#edacd2 !important"></span>
@@ -73,38 +110,6 @@
                                 <span class="border rounded-2 border-success d-inline-block me-2" style="width:50px; height:30px; background-color:#a5cfa6 !important"></span>
                                 <span>Approved Shift</span>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="d-flex justify-content-between flex-wrap mt-3 mb-3">
-                    <div class="d-flex">
-                        <div class="btn btn-info text-body rounded-circle d-flex p-2" style="margin-right:10px;" onclick="calendarPrev()">
-                            <span class="material-symbols-outlined">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" class="bi bi-chevron-left" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
-                                </svg>
-                            </span>
-                        </div>
-                        <div style="position:relative;">
-
-                            <div class="d-flex p-2">
-                                <span class="material-symbols-outlined">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
-                                        <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857z" />
-                                        <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
-                                    </svg>
-                                </span>
-                            </div>
-                            <input type="date" id="customDatePicker" style="opacity:0;position: absolute;top: 10px;width: 40px;" onchange="temp()" />
-                        </div>
-                        <div class="btn btn-info text-body rounded-circle d-flex p-2" style="margin-left:10px;" onclick="calendarNext()">
-                            <span class="material-symbols-outlined">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
-                                </svg>
-                            </span>
                         </div>
                     </div>
                     <div class="flex-grow-1 text-end">
@@ -123,21 +128,14 @@
             <div id="calendar"></div>
 
         </div>
-        <div id="CreateShift"></div>
+        @* <div id="CreateShift"></div> *@
         <div id="ViewShift"></div>
     </div>
 </div>
-
-
-
-
-
-
-
 <div id="myModal" class="modal">
 
-    <div class="modal-content" style="height:600px !important;width:540px!important">
-        <div class="modal-header-2" style="background-color: aqua;display: flex;justify-content: space-between;align-items: center;padding: 10px;color: white;">
+    <div class="modal-content" style="height:600px !important;">
+        <div class="modal-header-2">
             <span class="modal-header-2-text">Create Shift</span>
             <span class="close-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-x-lg" viewBox="0 0 16 16">
@@ -170,11 +168,11 @@
                 </div>
                 <input type="text" value="0000000" style="display:none;" id="RepeatDays" asp-for="RepeatDays" />
                 <div class="form-floating login-fields" style="margin-top:15px;width:100%;margin-bottom:15px;">
-                    <input type="date" class="form-control" asp-for="ShiftDate" />
+                    <input type="date" placeholder="Shift Date" class="form-control" asp-for="ShiftDate" />
                     <label for="Email" class="labels">Shift Date</label>
                 </div>
                 <div class="form-sub-div" style="margin-top: 0px;">
-                    <div class="form-floating login-fields mb-3">
+                    <div class="form-floating login-fields login-fields-2">
                         <input type="time" placeholder="Start" class="form-control" asp-for="StartTime" />
                         <label for="Email" class="labels">Start</label>
                     </div>
@@ -272,11 +270,11 @@
                 </div>
                 @*<input type="text" value="0000000" style="display:none;" id="RepeatDays" asp-for="RepeatDays" />*@
                 <div class="form-floating login-fields" style="margin-top:15px;width:100%;margin-bottom:15px;">
-                    <input id="ShiftDate2" asp-for="ShiftDate" type="date" class="form-control editshift" disabled />
+                    <input type="date" placeholder="Shift Date" class="form-control editshift" disabled id="ShiftDate2" asp-for="ShiftDate" />
                     <label for="Date" class="labels">Shift Date</label>
                 </div>
                 <div class="form-sub-div" style="margin-top: 0px;">
-                    <div class="form-floating login-fields mb-3">
+                    <div class="form-floating login-fields login-fields-2">
                         <input type="time" placeholder="Start" class="form-control editshift" disabled id="StartTime2" asp-for="StartTime" />
                         <label for="Email" class="labels">Start</label>
                     </div>
@@ -389,7 +387,7 @@
     //    modal.style.display = "block";
     //};
     span2.onclick = function () {
-        modal2.style.display = "none";
+        modal2.style.display = "block";
     };
     function cancel2() {
         //console.log("hii i");
@@ -401,7 +399,8 @@
         }
     };
     function ViewShift(ShiftDetailId) {
-        //console.log(ShiftDetailId);
+        console.log(ShiftDetailId);
+        // debugger
         $.ajax({
             type: "GET",
             url: "/AdminDashboard/ViewShift",
@@ -428,22 +427,6 @@
             }
         });
     }
-    //function RepeatDayPressed(day){
-    //    var repeatDays = document.getElementById("RepeatDays").value;
-    //    console.log(day);
-    //    //console.log(repeatDays);
-
-    //    //console.log(repeatDays[day]);
-    //    if(repeatDays[day]==0){
-    //        console.log('hi');
-    //        repeatDays[day]=1;
-    //    }else{
-    //        repeatDays[day]=0;
-    //        console.log('hii');
-
-    //    }
-    //    document.getElementById("RepeatDays").value=repeatDays;
-    //}
 
     function RepeatDayPressed(day) {
         var repeatDays = document.getElementById("RepeatDays").value.split(''); // convert string to array
@@ -459,28 +442,6 @@
 
         document.getElementById("RepeatDays").value = repeatDays.join(''); // convert array back to string
     }
-    //function RepeatDayPressed(day) {
-    //    var repeatDaysString = document.getElementById("RepeatDays").value; // Get the string value
-    //    console.log(repeatDaysString);
-
-    //    // Convert the string to an array (assuming the format is comma-separated values)
-    //    var repeatDaysArray = repeatDaysString.split(",");
-
-    //    // Update the specific day
-    //    if (repeatDaysArray[day] == 0) {
-    //        console.log('hi');
-    //        repeatDaysArray[day] = 1;
-    //    } else {
-    //        repeatDaysArray[day] = 0;
-    //        console.log('hii');
-    //    }
-
-    //    // Convert the updated array back to a string
-    //    var updatedRepeatDaysString = repeatDaysArray.join(",");
-
-    //    // Update the value of the HTML element "RepeatDays"
-    //    document.getElementById("RepeatDays").value = updatedRepeatDaysString;
-    //}
 
     function togglePressed() {
         var isRepeat = document.getElementById("myToggle").checked;
@@ -558,7 +519,6 @@
     };
     function temp() {
         var tempDate = document.getElementById("customDatePicker").value;
-        //console.
         changeView("resourceTimeline", tempDate);
     }
     //var calendar;
@@ -602,8 +562,8 @@
     //            img.style.maxHeight = '40px';
     //            resourceObj.el.querySelector('.fc-datagrid-cell-main').appendChild(img);
     //        },
-    //        resources: "/Admin/GetProviderDetailsForSchedule?RegionId=" + RegionId,
-    //        events: "/Admin/GetScheduleData",
+    //        resources: "/AdminDashboard/GetProviderDetailsForSchedule?RegionId=" + RegionId,
+    //        events: "/AdminDashboard/GetScheduleData",
     //    });
     //    calendar.render();
     //    calendar.addResource({
@@ -634,7 +594,8 @@
     var calendar;
     GetCalendar();
     function GetCalendar() {
-        var RegionId = document.getElementById("Region").value;
+        console.log("yoyo");
+        //var RegionId = document.getElementById("Region").value;
         var calendarEl = document.getElementById('calendar');
         calendar = new FullCalendar.Calendar(calendarEl, {
             height: 'auto',
@@ -645,7 +606,9 @@
             eventDisplay: 'block',
             datesSet: function (info) {
                 var title = info.view.title;
-                $("#calendarTitle").html(title);
+                document.getElementById("calendarTitle").innerHTML = title;
+                loadResources();
+                loadShifts();
             },
             eventClick: function (info, jsEvent, view) {
                 ViewShift(info.event.id);
@@ -654,6 +617,10 @@
                 resourceTimelineWeek: {
                     slotDuration: { days: 1 },
                     slotLabelFormat: { weekday: 'short', day: 'numeric', week: 'long' }
+                },
+                day: {
+                    slotDuration: { hours: 1 },
+                    slotLabelFormat: { hour: 'numeric', minute: '2-digit', meridiem: 'short' }
                 }
             },
             resourceAreaColumns: [{
@@ -665,18 +632,22 @@
                 img.style.maxHeight = '40px';
                 resourceObj.el.querySelector('.fc-datagrid-cell-main').appendChild(img);
             },
-            resources: "/AdminDashboard/GetProviderDetailsForSchedule?RegionId=" + RegionId,
-            events: "/AdminDashboard/GetScheduleData?RegionId=" + RegionId,
+            //resources: "/AdminDashboard/GetProviderDetailsForSchedule?RegionId=" + RegionId,
+            //events: "/AdminDashboard/GetScheduleData",
             eventClick: function (info, jsEvent, view) {
                 ViewShift(info.event.id);
             },
         });
         calendar.render();
     }
+    function filter() {
+        loadShifts();
+        loadResources(); 
+    }
     let calendarNext = () => calendar.next();
     let calendarPrev = () => calendar.prev();
     let calendarToday = () => calendar.today();
-    // let changeView = (type) => calendar.changeView(type);
+    //let changeView = (type) => calendar.changeView(type);
     let changeView = (type, date = null) => {
         calendar.changeView(type, date);
     };
@@ -684,6 +655,66 @@
     //console.log(currentMonth);
     if (currentMonth != "") {
         changeView('dayGridMonth');
+        var checkedButtons = document.getElementsByClassName("btn-check");
+        for (var i = 0; i < checkedButtons.length; i++) {
+            checkedButtons[i].checked = false;
+        }
+        document.getElementsByClassName("btn-check")[2].checked = true;
+    }
+    function loadResources() {
+        $.ajax({
+            url: '/AdminDashboard/GetProviderDetailsForSchedule',
+            data: { RegionId: $("#Region").val() },
+            type: 'GET',
+            success: function (data) {
+                var resources = calendar.getResources();
+                resources.forEach(function (resource) {
+                    resource.remove();
+                });
+                data.forEach(function (event) {
+                    calendar.addResource(event);
+                });
+            },
+            error: function (xhr, status, error) {
+                toastr.error('Error fetching schedule data:', error);
+            }
+        });
+    }
+    function loadShifts() {
+        $.ajax({
+            url: '/AdminDashboard/GetScheduleData',
+            data: { RegionId: $("#Region").val() },
+            type: 'GET',
+            success: function (data) {
+                calendar.removeAllEvents();
+                data.forEach(function (event) {
+                    calendar.addEvent(event);
+                });
+            },
+            error: function (xhr, status, error) {
+                toastr.error('Error fetching schedule data:', error);
+            }
+        });
+    }
+    let sidebarOpen = false;
+    function hamburger() {
+        if (!sidebarOpen) {
+            console.log('hi');
+            document.getElementById('sidebar').style.display = "flex";
+            document.getElementById('main-div').style.opacity = "0.5";
+            document.getElementById('main-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+            //document.getElementById("defaultOpen2").click();
+
+            // document.getElementById('main-sub-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+            sidebarOpen = true;
+        } else {
+            console.log('hii');
+            document.getElementById('sidebar').style.display = "none";
+            document.getElementById('main-div').style.opacity = "1";
+            document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+
+            sidebarOpen = false;
+        }
     }
     //<script>
     //$(document).ready(function () {

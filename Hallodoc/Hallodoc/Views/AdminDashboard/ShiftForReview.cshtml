@@ -14,16 +14,16 @@
     <div style="display: flex;flex-direction: row;">
 
         <div id="main-div" style="width: 100%;">
-            <div id="main-sub-div" class="tabcontent">
-                <div class="title-and-back-2">
+            <div id="main-sub-div" class="tabcontent p-2">
+                <div class="d-flex justify-content-between align-items-center mb-3">
 
                     <h4>Requested Shifts</h4>
-                    <a asp-action="Scheduling" asp-controller="AdminDashboard" class="back-navigation-link-4" style="background-color:transparent;border:1px solid #00ccff">
+                    <a asp-action="Scheduling" asp-controller="AdminDashboard" class="cancelButton d-flex justify-content-center align-items-center textdeconone" style="background-color:transparent;border:1px solid #00ccff">
                         <div class="back-navigation" style="text-decoration:none;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00ccff" class="bi bi-chevron-left" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
                             </svg>
-                            <span>Back</span>
+                            <span class="cancelButtonText">Back</span>
                         </div>
                     </a>
                 </div>
@@ -31,35 +31,84 @@
                 <div id="main-sub-div-part-2">
 
                     @*<div id="main-sub-div" class="tabcontent">*@
+                    <div class="d-none d-md-block">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div style="border:1px solid gray;" class="region-dropdown">
 
-                    <div class="shift-detail-header">
-                        <div style="border:1px solid gray;" class="region-dropdown">
+                                <select class="custom-select-5" style="border:none;background-color:white;width:100%;" id="region" onchange="filter(1,10)">
+                                    <option value="-1" style="color:gray !important;"><span style="color:gray;">All Region</span></option>
+                                    @foreach (var item in Model.Regions)
+                                    {
+                                        <option value="@item.RegionId" style="color:gray !important;"><span style="color:gray;">@item.Name</span></option>
+                                    }
+                                </select>
+                            </div>
 
-                            <select class="custom-select-5" style="border:none;background-color:white;width:100%;" id="region" onchange="filter(1,10)">
-                                <option value="-1" style="color:gray !important;"><span style="color:gray;">All Region</span></option>
-                                @foreach (var item in Model.Regions)
-                                {
-                                    <option value="@item.RegionId" style="color:gray !important;"><span style="color:gray;">@item.Name</span></option>
-                                }
-                            </select>
+                            <div class="d-flex justify-content-center align-items-center" id="edit-div">
+                                <div class="me-1 d-flex justify-content-center align-items-center" style="background-color:#1b5e20;border:1px solid #1b5e20;border-radius:5px;height: 35px;width: 200px;">
+                                    <a class="textdeconone " asp-action="ViewCurrentMonth" asp-controller="AdminDashboard">
+                                        <span class="saveButtonText">View Current Month Shifts</span>
+                                    </a>
+                                </div>
+                                <div class="me-1 d-flex justify-content-center align-items-center" style="background-color:#2e7d32;border:1px solid #1b5e20;border-radius:5px;height: 35px;width: 186px;">
+                                    <a class="textdeconone me-1" onclick="ApprovedSelected()">
+                                        <span class="saveButtonText">Approved Selected</span>
+                                    </a>
+                                </div>
+                                <div class="me-1 d-flex justify-content-center align-items-center" style="background-color:#d32f2f;border:1px solid #1b5e20;border-radius:5px;height: 35px;width: 186px;">
+                                    <a class="textdeconone me-1" onclick="DeleteSelected()">
+                                        <span class="saveButtonText">Delete Selected</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-button shift-detail-header-sub-div" id="edit-div">
-                            <a class="view-current-month shift-detail-header-sub-sub-div" asp-action="ViewCurrentMonth" asp-controller="AdminDashboard">View Current Month Shifts</a>
-                            <a class="approved-selected shift-detail-header-sub-sub-div" onclick="ApprovedSelected()">Approved Selected</a>
-                            <a class="delete-selected shift-detail-header-sub-sub-div" onclick="DeleteSelected()">Delete Selected</a>
+                    </div>
+                    <div class="d-block d-md-none">
+                        <div class="mb-3">
+                            <div style="border:1px solid gray;border-radius: 5px;" class="mb-3">
+
+                                <select class="custom-select-5" style="border:none;background-color:white;width:100%;" id="region" onchange="filter(1,10)">
+                                    <option value="-1" style="color:gray !important;"><span style="color:gray;">All Region</span></option>
+                                    @foreach (var item in Model.Regions)
+                                    {
+                                        <option value="@item.RegionId" style="color:gray !important;"><span style="color:gray;">@item.Name</span></option>
+                                    }
+                                </select>
+                            </div>
+
+
+                            <div class="d-flex justify-content-center align-items-center flex-column" id="edit-div">
+                                <div class="me-1 d-flex justify-content-center align-items-center mb-2" style="background-color:#1b5e20;border:1px solid #1b5e20;border-radius:5px;height: 35px;width: 255px;">
+                                    <a class="textdeconone " asp-action="ViewCurrentMonth" asp-controller="AdminDashboard">
+                                        <span class="saveButtonText">View Current Month Shifts</span>
+                                    </a>
+                                </div>
+                                <div class="me-1 d-flex justify-content-center align-items-center mb-2" style="background-color:#2e7d32;border:1px solid #1b5e20;border-radius:5px;height: 35px;width: 255px;">
+                                    <a class="textdeconone me-1" onclick="ApprovedSelected()">
+                                        <span class="saveButtonText">Approved Selected</span>
+                                    </a>
+                                </div>
+                                <div class="me-1 d-flex justify-content-center align-items-center mb-2" style="background-color:#d32f2f;border:1px solid #1b5e20;border-radius:5px;height: 35px;width: 255px;">
+                                    <a class="textdeconone me-1" onclick="DeleteSelected()">
+                                        <span class="saveButtonText">Delete Selected</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- <h5 style="margin-bottom: 30px;margin-top: 20px;" class="title">(Optional) Upload Photo or Document</h5> -->
-                    @if (Model.ShiftDetails.Count != 0)
-                    {
-                        <div id="ShiftDetailData"></div>
-                    }
                 </div>
+
+                <!-- <h5 style="margin-bottom: 30px;margin-top: 20px;" class="title">(Optional) Upload Photo or Document</h5> -->
+                @if (Model.ShiftDetails.Count != 0)
+                {
+                    <div id="ShiftDetailData"></div>
+                }
             </div>
         </div>
     </div>
+</div>
 
 </div>
 <script>

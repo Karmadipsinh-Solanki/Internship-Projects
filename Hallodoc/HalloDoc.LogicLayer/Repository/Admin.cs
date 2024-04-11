@@ -910,9 +910,16 @@ namespace HalloDoc.LogicLayer.Repository
         {
             return _context.Regions.ToList(); // Directly project to List<Region>
         }
-        public List<Physician> fetchPhysicians(int id)
+        List<Physician> IAdmin.fetchPhysicians(int id)
         {
-            return _context.Physicians.Where(r => r.RegionId == id).ToList();
+            BitArray isDeleted = new BitArray(1);
+            isDeleted.Set(0, false);
+
+            List<Physician> physicians = _context.PhysicianRegions
+        .Where(pr => pr.RegionId == id && pr.Physician.IsDeleted == isDeleted) // Filter by region and active status
+        .Select(pr => pr.Physician) // Select only the Physician object
+        .ToList();
+            return physicians;
         }
         public List<CaseTag> fetchTags()
         {
@@ -2096,6 +2103,44 @@ namespace HalloDoc.LogicLayer.Repository
             accountAccessViewModel.adminNavbarViewModel = adminNavbarViewModel;
             return accountAccessViewModel;
         }
+        public PatientHistoryViewModel userAccess(string? firstname, string? lastname, string? email, string? phonenumber, int page = 1, int pageSize = 10)
+        {
+            IQueryable<User> users = _context.Users;
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 10;
+            PatientHistoryViewModel patientHistoryViewModel = new PatientHistoryViewModel();
+            patientHistoryViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            if (firstname != null)
+            {
+                users = users.Where(r => r.FirstName.ToLower().Contains(firstname.ToLower()));
+            }
+            if (lastname != null)
+            {
+                users = users.Where(r => r.LastName.ToLower().Contains(lastname.ToLower()));
+            }
+            if (email != null)
+            {
+                users = users.Where(r => r.Email.ToLower().Contains(email.ToLower()));
+            }
+            if (phonenumber != null)
+            {
+                users = users.Where(r => r.Mobile.Contains(phonenumber));
+            }
+            patientHistoryViewModel.CurrentPage = page;
+            patientHistoryViewModel.PageSize = pageSize;
+            patientHistoryViewModel.TotalItems = users.Count();
+            patientHistoryViewModel.TotalPages = (int)Math.Ceiling((double)users.Count() / pageSize);
+            //adminDashboardViewModel.requests = query.ToList();
+
+            patientHistoryViewModel.Users = users.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            return patientHistoryViewModel;
+        }
         public ProviderViewModel providerInfo(int? region, int page = 1, int pageSize = 10)
         {
             var request = _httpContextAccessor.HttpContext.Request;
@@ -2199,6 +2244,7 @@ namespace HalloDoc.LogicLayer.Repository
                 admin.CreatedBy = cookieModel.aspId;
                 admin.IsDeleted = false;
                 admin.RoleId = Convert.ToInt32(model.Role);
+                admin.Status = 1;
                 _context.Admins.Add(admin);
                 _context.SaveChanges();
 
@@ -4028,6 +4074,43 @@ namespace HalloDoc.LogicLayer.Repository
             List<PhysicianLocation> physicianLocations = _context.PhysicianLocations.ToList();
             providerLocationViewModel.Query = physicianLocations;
             return providerLocationViewModel;
+        }
+        public ProviderOnCallViewModel providerOnCall(int? region)
+        {
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 13;
+
+            var currentDateTime = DateTime.Now;
+            var allPhysicians = _context.Physicians.Where(item => item.IsDeleted == new BitArray(1, false)).Select(p => new { p.FirstName, p.LastName, p.PhysicianId }).ToList();
+
+            var query = from sh in _context.Shifts
+                        join sd in _context.ShiftDetails on sh.ShiftId equals sd.ShiftId
+                        where sd.ShiftDate == currentDateTime.Date
+                              && TimeOnly.FromTimeSpan(currentDateTime.TimeOfDay) >= sd.StartTime
+                              && TimeOnly.FromTimeSpan(currentDateTime.TimeOfDay) <= sd.EndTime
+                              && (region == null || region == -1 || sd.RegionId == region)
+                        select new { PhysicianName = $"{sh.Physician.FirstName} {sh.Physician.LastName}", sh.PhysicianId };
+
+            var physicianExceptions = query.Select(x => x.PhysicianId).ToList();
+            var excludedPhysician = new { PhysicianId = query.Select(i => i.PhysicianId) };
+            List<PhysicianProfile> offDutyPhysicians = allPhysicians.Select(i => new PhysicianProfile { PhysicianId = i.PhysicianId, PhysicianName = i.FirstName + " " + i.LastName }).Where(i => !excludedPhysician.PhysicianId.Contains(i.PhysicianId)).ToList();
+            List<PhysicianProfile> onCallPhysicians = query.Select(x => new PhysicianProfile
+            {
+                PhysicianName = x.PhysicianName,
+                PhysicianId = x.PhysicianId
+            }).ToList();
+            List<Region> regions = _context.Regions.ToList();
+            ProviderOnCallViewModel providerOnCallViewModel = new ProviderOnCallViewModel();
+            providerOnCallViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            providerOnCallViewModel.MDOnCall = onCallPhysicians;
+            providerOnCallViewModel.PhysicianOffDuty = offDutyPhysicians;
+            providerOnCallViewModel.Regions = regions;
+            return providerOnCallViewModel;
         }
     }
 }

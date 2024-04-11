@@ -90,6 +90,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcUHJvdmlkZXJMb2NhdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/pca161/Desktop/Internship-Projects/Internship-Projects/Hallodoc/Hallodoc/Views/AdminDashboard/ProviderOnCall.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcUHJvdmlkZXJPbkNhbGwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/pca161/Desktop/Internship-Projects/Internship-Projects/Hallodoc/Hallodoc/Views/AdminDashboard/Scheduling.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcU2NoZWR1bGluZy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -238,6 +242,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFBhdGllbnRIaXN0b3J5VGFibGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/pca161/Desktop/Internship-Projects/Internship-Projects/Hallodoc/Hallodoc/Views/Shared/ProvidersOnDuty.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFByb3ZpZGVyc09uRHV0eS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/pca161/Desktop/Internship-Projects/Internship-Projects/Hallodoc/Hallodoc/Views/Shared/ProviderTable.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFByb3ZpZGVyVGFibGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -246,8 +254,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFNlYXJjaFJlY29yZHNUYWJsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/pca161/Desktop/Internship-Projects/Internship-Projects/Hallodoc/Hallodoc/Views/Shared/ShiftReviewTable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFNoaWZ0UmV2aWV3VGFibGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/pca161/Desktop/Internship-Projects/Internship-Projects/Hallodoc/Hallodoc/Views/Shared/Toast.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRvYXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pca161/Desktop/Internship-Projects/Internship-Projects/Hallodoc/Hallodoc/Views/Shared/UserAccessTable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFVzZXJBY2Nlc3NUYWJsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/pca161/Desktop/Internship-Projects/Internship-Projects/Hallodoc/Hallodoc/Views/Shared/VendorTable.cshtml]

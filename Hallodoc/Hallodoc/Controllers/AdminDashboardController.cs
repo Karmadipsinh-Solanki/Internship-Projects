@@ -676,16 +676,6 @@ namespace HalloDoc.Controllers
             }
             return RedirectToAction("AccountAccess");
         }
-        public IActionResult UserAccess()
-        {
-            var request2 = _httpContextAccessor.HttpContext.Request;
-            var token = request2.Cookies["jwt"];
-            CookieModel cookieModel = _jwtService.getDetails(token);
-            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
-            ViewBag.Menu = roleMenu;
-
-            return View();
-        }
         [HttpPost]
         public IActionResult EditAccess(EditAccessViewModel model)
         {
@@ -784,6 +774,23 @@ namespace HalloDoc.Controllers
             PatientHistoryViewModel patientHistoryViewModel = _admin.patientHistory(firstname, lastname, email, phonenumber, page, pageSize);
             return PartialView("PatientHistoryTable", patientHistoryViewModel);
         }
+        //public IActionResult UserAccess(UserAccessViewModel model)
+        //{
+        //    var request2 = _httpContextAccessor.HttpContext.Request;
+        //    var token = request2.Cookies["jwt"];
+        //    CookieModel cookieModel = _jwtService.getDetails(token);
+        //    List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+        //    ViewBag.Menu = roleMenu;
+
+        //    UserAccessViewModel userAccessViewModel = _admin.userAccess(null);
+        //    return View(userAccessViewModel);
+        //}
+        //[HttpPost]
+        //public IActionResult UserSearchAccess(string? roletype, int page = 1, int pageSize = 10)
+        //{
+        //    UserAccessViewModel userAccessViewModel = _admin.userAccess(roletype, page, pageSize);
+        //    return PartialView("UserAccessTable", userAccessViewModel);
+        //}
         public IActionResult UnBlock(int id)
         {
             bool check = _admin.unBlock(id);
@@ -1258,6 +1265,22 @@ namespace HalloDoc.Controllers
 
             ProviderLocationViewModel providerLocationViewModel = _admin.providerLocation();
             return View(providerLocationViewModel);
+        }
+        public IActionResult FilterOnCallProvider(int? region)
+        {
+            ProviderOnCallViewModel providerOnCallViewModel = _admin.providerOnCall(region);
+            return PartialView("ProvidersOnDuty", providerOnCallViewModel);
+        }
+        public IActionResult ProviderOnCall()
+        {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
+            ProviderOnCallViewModel providerOnCallViewModel = _admin.providerOnCall(null);
+            return View(providerOnCallViewModel);
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

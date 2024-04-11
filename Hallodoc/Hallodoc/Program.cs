@@ -8,6 +8,7 @@ using HalloDoc.LogicLayer.Interface;
 using HalloDoc.LogicLayer.Repository;
 using HalloDoc.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,6 +35,8 @@ builder.Services.AddScoped<IAdmin, HalloDoc.LogicLayer.Repository.Admin>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<ILogin, Login>();
 builder.Services.AddScoped<ICreateReq, CreateReq>();
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 //3tier
 
 var app = builder.Build();

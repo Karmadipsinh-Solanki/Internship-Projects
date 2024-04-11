@@ -1,0 +1,121 @@
+﻿@using System.Collections;
+@model ShiftReviewViewModel;
+@using static HalloDoc.DataLayer.ViewModels.AdminViewModels.ProviderStatus;
+
+@{
+    BitArray bitArray = new BitArray(1);
+    bitArray.Set(0, true);
+}
+<div class="d-none d-md-block">
+    <table class="table" id="table-data-patient-history">
+        <thead>
+            <tr>
+                <th style="width:80px !important;background-color: #ededed !important;"><input type="checkbox" id="checkall" onclick="oncheck()" style="height: 18px;width: 18px;" /></th>
+                <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Staff</th>
+                <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Day</th>
+                <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Time</th>
+                <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Region</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.ShiftDetails)
+        {
+            <tr>
+                <td class="newtd"><input value="@item.ShiftDetailId" class="checkboxes" type="checkbox" style="height: 18px;width: 18px;" /></td>
+                <td class="newtd">
+                    @item.PhysicianName
+                </td>
+                <td class="newtd">@item.ShiftDate</td>
+                <td class="newtd">@item.StartTime - @item.EndTime</td>
+                <td class="newtd">@item.Region</td>
+            </tr>
+        }
+    </table>
+</div>
+<div class="d-block d-md-none">
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        @foreach (var item in Model.ShiftDetails)
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-heading@(item.ShiftDetailId)">
+                    <button class="accordion-button collapsed main-accordion-div" style="background-color:#E5F2F8 !important;" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapse@(item.ShiftDetailId)" aria-expanded="false"
+                            aria-controls="flush-collapse">
+                        <div class="main-accordion-sub-div">
+                            <span style="color:black;font-size:15px;"><input class="checkboxes" type="checkbox" style="height: 18px;width: 18px;margin-right:7px;" /> @item.PhysicianName</span>
+                            @*<span class="accordian-item-text" style="margin-top:20px;"><span class="accordian-item-text2">@item</span></span>*@
+                        </div>
+                    </button>
+                </h2>
+                <div id="flush-collapse@(item.ShiftDetailId)" class="accordion-collapse collapse"
+                     aria-labelledby="flush-heading@(item.ShiftDetailId)" data-bs-parent="#accordionFlushExample"
+                     style="position: relative;">
+                    <div class="accordion-body accordion-main-body" style="background-color:#E5F2F8 !important;">
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00ccff" class="bi bi-calendar" viewBox="0 0 16 16">
+                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Shift Date: <span class="accordian-item-text2">@item.ShiftDate</span></span>
+                        </div>
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00ccff" class="bi bi-clock" viewBox="0 0 16 16">
+                                    <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />
+                                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Timings: <span class="accordian-item-text2">@item.StartTime - @item.EndTime</span></span>
+                        </div>
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00ccff" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Region: <span class="accordian-item-text2">@item.Region</span></span>
+                        </div>
+                        @*<div class="accordion-btns">
+                    <a class="link2" style="margin-right:10px;" id="contactProvider">
+                    <span>Contact</span>
+                    </a>
+                    <a class="link2" asp-action="EditPhysicianAccount" asp-controller="Admin" asp-route-id="@item.PhysicianId">
+                    <span>Edit</span>
+                    </a>
+                    </div>*@
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+</div>
+<div class="pagination">
+    <span style="margin-right:10px;">Pages:</span>
+    @if (Model.CurrentPage > 1)
+    {
+        <a style="color:#00ccff !important;" data-page="@(Model.CurrentPage - 1)">Previous</a>
+    }
+
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        <a data-page="@i" class="@(i == Model.CurrentPage ? "pagination-active" : "")">@i</a>
+    }
+
+    @if (Model.CurrentPage < Model.TotalPages)
+    {
+        <a style="color:#00ccff !important;" data-page="@(Model.CurrentPage + 1)">Next</a>
+    }
+</div>
+<script>
+
+    $(document).ready(function () {
+        $('.pagination a').click(function (e) {
+            e.preventDefault();
+            //console.log("hiiiiiii");
+            var page = $(this).attr('data-page');
+            filter(page, 10);
+        });
+    });
+</script>

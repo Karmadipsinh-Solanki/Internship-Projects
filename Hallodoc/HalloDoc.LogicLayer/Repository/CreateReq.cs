@@ -247,10 +247,16 @@ namespace HalloDoc.LogicLayer.Repository
                 _context.AspNetUserRoles.Add(aspNetUserRole);
                 _context.SaveChanges();
 
-                var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
+                string senderEmail = "tatva.dotnet.hetpatel@outlook.com";
+                string senderPassword = "Krishna$02";
+
+                SmtpClient client = new SmtpClient("smtp.office365.com")
                 {
-                    Credentials = new NetworkCredential("c3f46c2b681459", "d860d68bf5a0db"),
-                    EnableSsl = true
+                    Port = 587,
+                    Credentials = new NetworkCredential(senderEmail, senderPassword),
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false
                 };
                 string email = model.Email;
                 var aspnetUser = _context.AspNetUsers.FirstOrDefault(u => u.Email == email);
@@ -258,28 +264,80 @@ namespace HalloDoc.LogicLayer.Repository
                 var userFirstName = userdb.FirstName;
                 //string date = new DateTime.Now;
                 var formatedDate = DateTime.Now.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-                string resetLink = $"https://localhost:44379/PatientRequest/CreatePassword?email={email}";
+                string resetLink = $"https://localhost:44339/Login/submitrequest";
                 string message = $@"<html>
-                                <body>  
-                                <h1>Create password request</h1>  
-                                <h2>Hii {userFirstName},</h2>
-                                <p style=""margin-top:30px;"">In order to create your account we need your password,so please click the below link to create password:</p>
-                                <p><a href=""{resetLink}"">Create Password</a></p> 
-                                <p>If you didn't request an account creation then please ignore this mail.</p>
-                                </body>
-                                </html>";
-                if (aspnetUser != null)
+                        <body>  
+                        <h1>Create password request</h1>  
+                        <h2>Hii {userFirstName},</h2>
+                        <p style=""margin-top:30px;"">We have sent you link to create request for patient. So, please click the below link to create request:</p>
+                        <p><a href=""{resetLink}"">Create Request</a></p> 
+                        <p>If you didn't request an account creation then please ignore this mail.</p>
+                        </body>
+                        </html>";
+                //string email = model.Email;
+                //var userFirstName = model.FirstName + " " + model.LastName;
+                //var formatedDate = DateTime.Now.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+                //string resetLink = $"https://localhost:44339/Login/submitrequest";
+                //string message = $@"<html>
+                //                <body>  
+                //                <h1>Create Request for patient</h1>  
+                //                <h2>Hii {userFirstName},</h2>
+                //                <p style=""margin-top:30px;"">We have sent you link to create request for patient. So, please click the below link to create request:</p>
+                //                <p><a href=""{resetLink}"">Create Request</a></p> 
+                //                <p>If you don't need request creation then please ignore this mail.</p>
+                //                </body>
+                //                </html>";
+                if (email != null)
                 {
-                    var mailMessage = new MailMessage
+                    MailMessage mailMessage = new MailMessage
                     {
-                        From = new MailAddress("hallodoc@gmail.com"),
-                        Subject = "Create Password for HalloDoc account",
+                        From = new MailAddress(senderEmail, "HalloDoc"),
+                        Subject = "Register Case",
+                        IsBodyHtml = true,
                         Body = message,
-                        IsBodyHtml = true
                     };
                     mailMessage.To.Add(email);
                     client.Send(mailMessage);
+                    return 2;
                 }
+                else
+                {
+                    return 3;
+                }
+
+                //var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
+                //{
+                //    Credentials = new NetworkCredential("c3f46c2b681459", "d860d68bf5a0db"),
+                //    EnableSsl = true
+                //};
+                //string email = model.Email;
+                //var aspnetUser = _context.AspNetUsers.FirstOrDefault(u => u.Email == email);
+                //var userdb = _context.Users.FirstOrDefault(u => u.Email == email);
+                //var userFirstName = userdb.FirstName;
+                ////string date = new DateTime.Now;
+                //var formatedDate = DateTime.Now.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+                //string resetLink = $"https://localhost:44379/PatientRequest/CreatePassword?email={email}";
+                //string message = $@"<html>
+                //                <body>  
+                //                <h1>Create password request</h1>  
+                //                <h2>Hii {userFirstName},</h2>
+                //                <p style=""margin-top:30px;"">In order to create your account we need your password,so please click the below link to create password:</p>
+                //                <p><a href=""{resetLink}"">Create Password</a></p> 
+                //                <p>If you didn't request an account creation then please ignore this mail.</p>
+                //                </body>
+                //                </html>";
+                //if (aspnetUser != null)
+                //{
+                //    var mailMessage = new MailMessage
+                //    {
+                //        From = new mailto:mailaddress("hallodoc@gmail.com"),
+                //        Subject = "Create Password for HalloDoc account",
+                //        Body = message,
+                //        IsBodyHtml = true
+                //    };
+                //    mailMessage.To.Add(email);
+                //    client.Send(mailMessage);
+                //}
             }
             requestClient.FirstName = model.FirstName;
             requestClient.LastName = model.LastName;
@@ -406,37 +464,49 @@ namespace HalloDoc.LogicLayer.Repository
                 _context.SaveChanges();
 
 
-                var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
+                string senderEmail = "tatva.dotnet.hetpatel@outlook.com";
+                string senderPassword = "Krishna$02";
+
+                SmtpClient client = new SmtpClient("smtp.office365.com")
                 {
-                    Credentials = new NetworkCredential("c3f46c2b681459", "d860d68bf5a0db"),
-                    EnableSsl = true
+                    Port = 587,
+                    Credentials = new NetworkCredential(senderEmail, senderPassword),
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false
                 };
                 string email = model.Email;
                 var aspnetUser = _context.AspNetUsers.FirstOrDefault(u => u.Email == email);
                 var userdb = _context.Users.FirstOrDefault(u => u.Email == email);
                 var userFirstName = userdb.FirstName;
-
-                string resetLink = $"https://localhost:44379/PatientRequest/CreatePassword?email={email}";
+                //string date = new DateTime.Now;
+                var formatedDate = DateTime.Now.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+                string resetLink = $"https://localhost:44339/Login/submitrequest";
                 string message = $@"<html>
-                                <body>  
-                                <h1>Create password request</h1> 
-                                <h2>Hii {userFirstName},</h2>
-                                <p style=""margin-top:30px;"">In order to create your account we need your password,so please click the below link to create password:</p>
-                                <p><a href=""{resetLink}"">Create Password</a></p> 
-                                <p>If you didn't request an account creation then please ignore this mail.</p>
-                                </body>
-                                </html>";
-                if (aspnetUser != null)
+                        <body>  
+                        <h1>Create password request</h1>  
+                        <h2>Hii {userFirstName},</h2>
+                        <p style=""margin-top:30px;"">We have sent you link to create request for patient. So, please click the below link to create request:</p>
+                        <p><a href=""{resetLink}"">Create Request</a></p> 
+                        <p>If you didn't request an account creation then please ignore this mail.</p>
+                        </body>
+                        </html>";
+                if (email != null)
                 {
-                    var mailMessage = new MailMessage
+                    MailMessage mailMessage = new MailMessage
                     {
-                        From = new MailAddress("hallodoc@gmail.com"),
-                        Subject = "Create Password for HalloDoc account",
+                        From = new MailAddress(senderEmail, "HalloDoc"),
+                        Subject = "Register Case",
+                        IsBodyHtml = true,
                         Body = message,
-                        IsBodyHtml = true
                     };
                     mailMessage.To.Add(email);
                     client.Send(mailMessage);
+                    return 2;
+                }
+                else
+                {
+                    return 3;
                 }
             }
             requestClient.FirstName = model.FirstName;
@@ -571,36 +641,49 @@ namespace HalloDoc.LogicLayer.Repository
                 _context.AspNetUserRoles.Add(aspNetUserRole);
                 _context.SaveChanges();
 
-                var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
+                string senderEmail = "tatva.dotnet.hetpatel@outlook.com";
+                string senderPassword = "Krishna$02";
+
+                SmtpClient client = new SmtpClient("smtp.office365.com")
                 {
-                    Credentials = new NetworkCredential("c3f46c2b681459", "d860d68bf5a0db"),
-                    EnableSsl = true
+                    Port = 587,
+                    Credentials = new NetworkCredential(senderEmail, senderPassword),
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false
                 };
                 string email = model.Email;
                 var aspnetUser = _context.AspNetUsers.FirstOrDefault(u => u.Email == email);
                 var userdb = _context.Users.FirstOrDefault(u => u.Email == email);
                 var userFirstName = userdb.FirstName;
-                string resetLink = $"https://localhost:44379/PatientRequest/CreatePassword?email={email}";
+                //string date = new DateTime.Now;
+                var formatedDate = DateTime.Now.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+                string resetLink = $"https://localhost:44339/Login/submitrequest";
                 string message = $@"<html>
-                                <body>  
-                                <h1>Create password request</h1>  
-                                <h2>Hii {userFirstName},</h2>
-                                <p style=""margin-top:30px;"">In order to create your account we need your password,so please click the below link to create password:</p>
-                                <p><a href=""{resetLink}"">Create Password</a></p> 
-                                <p>If you didn't request an account creation then please ignore this mail.</p>
-                                </body>
-                                </html>";
-                if (aspnetUser != null)
+                        <body>  
+                        <h1>Create password request</h1>  
+                        <h2>Hii {userFirstName},</h2>
+                        <p style=""margin-top:30px;"">We have sent you link to create request for patient. So, please click the below link to create request:</p>
+                        <p><a href=""{resetLink}"">Create Request</a></p> 
+                        <p>If you didn't request an account creation then please ignore this mail.</p>
+                        </body>
+                        </html>";
+                if (email != null)
                 {
-                    var mailMessage = new MailMessage
+                    MailMessage mailMessage = new MailMessage
                     {
-                        From = new MailAddress("hallodoc@gmail.com"),
-                        Subject = "Create Password for HalloDoc account",
+                        From = new MailAddress(senderEmail, "HalloDoc"),
+                        Subject = "Register Case",
+                        IsBodyHtml = true,
                         Body = message,
-                        IsBodyHtml = true
                     };
                     mailMessage.To.Add(email);
                     client.Send(mailMessage);
+                    return 2;
+                }
+                else
+                {
+                    return 3;
                 }
             }
 
