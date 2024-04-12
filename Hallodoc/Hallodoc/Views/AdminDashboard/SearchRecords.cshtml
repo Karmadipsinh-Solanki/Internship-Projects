@@ -127,6 +127,15 @@
         </div>
     </div>
     <script>
+        //date validation
+        // const inputDate = document.getElementById('ToDate');
+        // const today = new Date().toISOString().split('T')[0];
+        // inputDate.setAttribute('max', today);
+        
+        // const inputDate = document.getElementById('FromDate');
+        // const today = new Date().toISOString().split('T')[0];
+        // inputDate.setAttribute('max', today);
+        //
         function downloadExcel() {
             document.getElementById('submit-button-excel').click();
         }
@@ -179,6 +188,22 @@
         }
         function clearFields() {
             location.reload();
+        }
+        //sidebar hamburger
+        let sidebarOpen = false;
+        function hamburger() {
+            if (!sidebarOpen) {
+                document.getElementById('sidebar').style.display = "flex";
+                document.getElementById('main-div').style.opacity = "0.5";
+                document.getElementById('main-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+                sidebarOpen = true;
+            } else {
+                console.log('hii');
+                document.getElementById('sidebar').style.display = "none";
+                document.getElementById('main-div').style.opacity = "1";
+                document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+                sidebarOpen = false;
+            }
         }
     </script>
 </div>

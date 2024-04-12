@@ -2035,6 +2035,7 @@ namespace HalloDoc.LogicLayer.Repository
             editAccessViewModel.Query = menuItems;
             editAccessViewModel.Id = id;
             editAccessViewModel.RoleName = role.Name;
+            
             return editAccessViewModel;
         }
         public bool createAccess(CreateAccessViewModel model)
@@ -2103,43 +2104,76 @@ namespace HalloDoc.LogicLayer.Repository
             accountAccessViewModel.adminNavbarViewModel = adminNavbarViewModel;
             return accountAccessViewModel;
         }
-        public PatientHistoryViewModel userAccess(string? firstname, string? lastname, string? email, string? phonenumber, int page = 1, int pageSize = 10)
+        public bool deleteAccess(int id)
         {
-            IQueryable<User> users = _context.Users;
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            Role role = _context.Roles.FirstOrDefault(i => i.RoleId == id);
+            if (role != null)
+            {
+                BitArray check = new BitArray(1);
+                check.Set(0, true);
+                role.IsDeleted = check;
+                role.ModifiedDate = DateTime.Now;
+                role.ModifiedBy = cookieModel.name;
+                _context.Roles.Update(role);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public UserAccessMainModel userAccess(int? accountType, int page = 1, int pageSize = 10)
+        {
+            int adminCount = _context.Requests.Count(r => r.Status >= 1 && r.Status <= 9);
+            List<UserAccessViewModel> query = _context.Admins.Where(i => i.IsDeleted == false)
+            .Select(a => new UserAccessViewModel
+            {
+                Id = a.AspNetUserId,
+                Account_Type = 1,
+                AccountPOC = a.FirstName + " " + a.LastName,
+                Phone = a.Mobile,
+                Status = (int)a.Status,
+                OpenRequests = adminCount
+            })
+            .ToList();
+            List<UserAccessViewModel> query2 = _context.Physicians.Where(i => i.IsDeleted == new BitArray(1, false))
+            .Select(a => new UserAccessViewModel
+            {
+                Id = (int)a.PhysicianId,
+                Account_Type = 2,
+                AccountPOC = a.FirstName + " " + a.LastName,
+                Phone = a.Mobile,
+                Status = (int)a.Status,
+                OpenRequests = _context.Requests.Count(r => r.Status >= 1 && r.Status <= 5 && r.PhysicianId == a.PhysicianId)
+            })
+            .ToList();
+
             var request = _httpContextAccessor.HttpContext.Request;
             var token = request.Cookies["jwt"];
             CookieModel cookieModel = _jwtService.getDetails(token);
             string AdminName = cookieModel.name;
             AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
             adminNavbarViewModel.AdminName = AdminName;
-            adminNavbarViewModel.Tab = 10;
-            PatientHistoryViewModel patientHistoryViewModel = new PatientHistoryViewModel();
-            patientHistoryViewModel.adminNavbarViewModel = adminNavbarViewModel;
-            if (firstname != null)
-            {
-                users = users.Where(r => r.FirstName.ToLower().Contains(firstname.ToLower()));
-            }
-            if (lastname != null)
-            {
-                users = users.Where(r => r.LastName.ToLower().Contains(lastname.ToLower()));
-            }
-            if (email != null)
-            {
-                users = users.Where(r => r.Email.ToLower().Contains(email.ToLower()));
-            }
-            if (phonenumber != null)
-            {
-                users = users.Where(r => r.Mobile.Contains(phonenumber));
-            }
-            patientHistoryViewModel.CurrentPage = page;
-            patientHistoryViewModel.PageSize = pageSize;
-            patientHistoryViewModel.TotalItems = users.Count();
-            patientHistoryViewModel.TotalPages = (int)Math.Ceiling((double)users.Count() / pageSize);
-            //adminDashboardViewModel.requests = query.ToList();
+            adminNavbarViewModel.Tab = 12;
+            //adminNavbarViewModel.Menus = cookieModel.menus;
 
-            patientHistoryViewModel.Users = users.Skip((page - 1) * pageSize).Take(pageSize).ToList();
-
-            return patientHistoryViewModel;
+            List<UserAccessViewModel> finalQuery = query.Concat(query2).ToList();
+            if (accountType != -1 && accountType != null)
+            {
+                finalQuery = finalQuery.Where(u => u.Account_Type == accountType).ToList();
+            }
+            UserAccessMainModel userAccessMainModel = new UserAccessMainModel();
+            userAccessMainModel.adminNavbarViewModel = adminNavbarViewModel;
+            userAccessMainModel.CurrentPage = page;
+            userAccessMainModel.PageSize = pageSize;
+            userAccessMainModel.TotalItems = finalQuery.Count();
+            userAccessMainModel.TotalPages = (int)Math.Ceiling((double)finalQuery.Count() / pageSize);
+            userAccessMainModel.Query = finalQuery.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            return userAccessMainModel;
         }
         public ProviderViewModel providerInfo(int? region, int page = 1, int pageSize = 10)
         {
@@ -2281,7 +2315,27 @@ namespace HalloDoc.LogicLayer.Repository
             createAdminViewModel.Roles = roles;
             return createAdminViewModel;
         }
-
+        public bool deleteRecords(int id)
+        {
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            Request request2 = _context.Requests.FirstOrDefault(i => i.RequestId == id);
+            if (request2 != null)
+            {
+                BitArray check = new BitArray(1);
+                check.Set(0, true);
+                request2.IsDeleted = check;
+                request2.ModifiedDate = DateTime.Now;
+                _context.Requests.Update(request2);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public SearchRecordsViewModel searchRecord(string? patientName, string? providerName, string? email, string? phonenumber, int? selectedOptionValue, int? selectRequestType, DateTime? fromDate, DateTime? toDate, int page = 1, int pageSize = 10)
         {
             BitArray check = new BitArray(1);
@@ -2450,6 +2504,31 @@ namespace HalloDoc.LogicLayer.Repository
             SearchRecordsViewModel searchRecordsViewModel = searchRecord(patientName, providerName, email, phonenumber, selectedOptionValue, selectRequestType, fromDate, toDate, page, pageSize);
             return searchRecordsViewModel;
         }
+        public PatientRecordViewModel patientRecord(int id)
+        {
+            BitArray check = new BitArray(1);
+            check.Set(0, false);
+            List<RequestWithFileCountModel> query = (from Request in _context.Requests
+                    .Include(i => i.Physician)
+                    .Include(i => i.RequestClient)
+                    .Where(i => i.UserId == id)
+                                                     select new RequestWithFileCountModel
+                                                     {
+                                                         Request = Request,
+                                                         FileCount = _context.RequestWiseFiles.Count(f => f.RequestId == Request.RequestId && f.IsDeleted == check)
+                                                     }).ToList();
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 7;
+            PatientRecordViewModel patientRecordViewModel = new PatientRecordViewModel();
+            patientRecordViewModel.Query = query;
+            patientRecordViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            return patientRecordViewModel;
+        }
         public PatientHistoryViewModel patientHistory(string? firstname, string? lastname, string? email, string? phonenumber, int page = 1, int pageSize = 10)
         {
             IQueryable<User> users = _context.Users;
@@ -2593,6 +2672,133 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
+        public SmsLogViewModel smsLog(string? receiverName, DateTime? date, DateTime? date2, string? phoneNumber, string? role, int page, int pageSize)
+        {
+            IQueryable<Smslog> query = _context.Smslogs;
+            //IQueryable<BlockRequest> query = _context.BlockRequests.Include(i => i.Request);
+            var request = _httpContextAccessor.HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            string AdminName = cookieModel.name;
+            AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
+            adminNavbarViewModel.AdminName = AdminName;
+            adminNavbarViewModel.Tab = 9;
+            SmsLogViewModel smsLogViewModel = new SmsLogViewModel();
+            smsLogViewModel.adminNavbarViewModel = adminNavbarViewModel;
+            List<AspNetRole> aspNetRoles = _context.AspNetRoles.ToList();
+            if (date != null)
+            {
+                query = query.Where(b => b.CreateDate.Date == date.Value.Date);
+            }
+            if (date2 != null)
+            {
+                query = query.Where(b => b.SentDate.Value.Date == date.Value.Date);
+            }
+            if (phoneNumber != null)
+            {
+                query = query.Where(b => b.MobileNumber.Contains(phoneNumber));
+            }
+            if (role != null && role != "-1")
+            {
+                query = query.Where(b => b.RoleId == Convert.ToInt32(role));
+            }
+            smsLogViewModel.CurrentPage = page;
+            smsLogViewModel.Roles = aspNetRoles;
+            smsLogViewModel.PageSize = pageSize;
+            smsLogViewModel.TotalItems = query.Count();
+            smsLogViewModel.TotalPages = (int)Math.Ceiling((double)query.Count() / pageSize);
+            List<Smslog> queries = query.ToList();
+            List<SmsLogTable> smsLogTable = new List<SmsLogTable>();
+            for (int i = 0; i < queries.Count; i++)
+            {
+                int num = i;
+                var recipient = "";
+                var confirmationNumber = "-";
+                if (queries[i].RoleId == 2)
+                {
+                    if (queries[i].RequestId != null)
+                    {
+                        var request2 = _context.Requests.Include(i => i.RequestClient).FirstOrDefault(i => i.RequestId == queries[num].RequestId);
+                        recipient = request2.RequestClient.FirstName + " " + request2.RequestClient.LastName;
+                        confirmationNumber = request2.ConfirmationNumber;
+                    }
+                    else
+                    {
+                        AspNetUser aspNetUser = _context.AspNetUsers.FirstOrDefault(i => i.PhoneNumber == queries[num].MobileNumber);
+                        User user = _context.Users.FirstOrDefault(i => i.AspNetUserId == aspNetUser.Id);
+                        recipient = user?.FirstName + " " + user?.LastName;
+                    }
+                }
+                else if (queries[i].RoleId == 1)
+                {
+                    if (queries[i].PhysicianId != null)
+                    {
+                        Physician physician = _context.Physicians.FirstOrDefault(i => i.PhysicianId == queries[num].PhysicianId);
+                        recipient = physician.FirstName + " " + physician.LastName;
+                    }
+                    else
+                    {
+                        AspNetUser aspNetUser = _context.AspNetUsers.FirstOrDefault(i => i.PhoneNumber == queries[num].MobileNumber);
+                        Physician physician = _context.Physicians.FirstOrDefault(i => i.PhysicianId == queries[num].PhysicianId);
+                        recipient = physician.FirstName + " " + physician.LastName;
+                    }
+                }
+                else if (queries[i].RoleId == 3)
+                {
+                    if (queries[i].AdminId != null)
+                    {
+                        HalloDoc.DataLayer.Models.Admin admin = _context.Admins.FirstOrDefault(i => i.AdminId == queries[num].AdminId);
+                        recipient = admin.FirstName + " " + admin.LastName;
+                    }
+                    else
+                    {
+                        AspNetUser aspNetUser = _context.AspNetUsers.FirstOrDefault(i => i.PhoneNumber == queries[num].MobileNumber);
+                        HalloDoc.DataLayer.Models.Admin admin = _context.Admins.FirstOrDefault(i => i.AdminId == queries[num].AdminId);
+                        recipient = admin.FirstName + " " + admin.LastName;
+                    }
+                }
+                BitArray check = new BitArray(1);
+                check.Set(0, false);
+
+                smsLogTable.Add(new SmsLogTable()
+                {
+                    Recipient = recipient,
+                    SentDate = queries[i].SentDate.Value,
+                    CreatedDate = queries[i].CreateDate,
+                    Action = "Request Monthly Data",
+                    RoleName = (int)queries[i].RoleId,
+                    PhoneNumber = queries[i].MobileNumber,
+                    Sent = queries[i].IsSmssent == check ? "Yes" : "No",
+                    SentTries = (int)queries[i].SentTries,
+                    SmsLogId = queries[i].SmslogId,
+                    ConfirmationNumber = confirmationNumber,
+                });
+            }
+            if (receiverName != null)
+            {
+                for (int i = 0; i < smsLogTable.Count(); i++)
+                {
+                    BitArray check = new BitArray(1);
+                    check.Set(0, false);
+                    smsLogTable = smsLogTable.Where(i => i.Recipient.ToLower().Contains(receiverName.ToLower())).Select(i => new SmsLogTable
+                    {
+                        Recipient = i.Recipient,
+                        SentDate = i.SentDate,
+                        CreatedDate = i.CreatedDate,
+                        Action = "Request Monthly Data",
+                        RoleName = i.RoleName,
+                        PhoneNumber = i.PhoneNumber,
+                        Sent = i.Sent,
+                        SentTries = (int)i.SentTries,
+                        SmsLogId = i.SmsLogId,
+                        ConfirmationNumber = i.ConfirmationNumber,
+                    }).ToList();
+                }
+            }
+
+            smsLogViewModel.Query = smsLogTable.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            return smsLogViewModel;
+        }
         public EmailLogViewModel emailLog(string? receiverName, DateTime? date, DateTime? date2, string? email, string? role, int page, int pageSize)
         {
             IQueryable<EmailLog> query = _context.EmailLogs;
@@ -2613,7 +2819,7 @@ namespace HalloDoc.LogicLayer.Repository
             }
             if (date2 != null)
             {
-                query = query.Where(b => b.SentDate.Value.Date == date.Value.Date);
+                query = query.Where(b => b.SentDate.Value.Date == date2.Value.Date);
             }
             if (email != null)
             {
@@ -2623,11 +2829,7 @@ namespace HalloDoc.LogicLayer.Repository
             {
                 query = query.Where(b => b.RoleId == Convert.ToInt32(role));
             }
-            emailLogViewModel.CurrentPage = page;
-            //emailLogViewModel.Role = aspNetRoles;
-            emailLogViewModel.PageSize = pageSize;
-            emailLogViewModel.TotalItems = query.Count();
-            emailLogViewModel.TotalPages = (int)Math.Ceiling((double)query.Count() / pageSize);
+
             List<EmailLog> queries = query.ToList();
             List<EmailLogTable> emailLogTable = new List<EmailLogTable>();
             for (int i = 0; i < queries.Count; i++)
@@ -2635,7 +2837,7 @@ namespace HalloDoc.LogicLayer.Repository
                 int num = i;
                 var recipient = "";
                 var confirmationNumber = "-";
-                if (queries[i].RoleId == 2)
+                if (queries[i].RoleId == 1)
                 {
                     if (queries[i].RequestId != null)
                     {
@@ -2650,7 +2852,7 @@ namespace HalloDoc.LogicLayer.Repository
                         recipient = user.FirstName + " " + user.LastName;
                     }
                 }
-                else if (queries[i].RoleId == 1)
+                else if (queries[i].RoleId == 3)
                 {
                     if (queries[i].PhysicianId != null)
                     {
@@ -2664,7 +2866,7 @@ namespace HalloDoc.LogicLayer.Repository
                         recipient = physician.FirstName + " " + physician.LastName;
                     }
                 }
-                else
+                else if (queries[i].RoleId == 2)
                 {
                     if (queries[i].AdminId != null)
                     {
@@ -2694,10 +2896,11 @@ namespace HalloDoc.LogicLayer.Repository
                     EmailLogId = queries[i].EmailLogId,
                     ConfirmationNumber = confirmationNumber,
                 });
+
             }
             if (receiverName != null)
             {
-                for (int i = 0; i < emailLogTable.Count(); i++)
+                for (int i = 0; i < emailLogTable.Count; i++)
                 {
                     BitArray check = new BitArray(1);
                     check.Set(0, false);
@@ -2716,7 +2919,11 @@ namespace HalloDoc.LogicLayer.Repository
                     }).ToList();
                 }
             }
-
+            emailLogViewModel.CurrentPage = page;
+            emailLogViewModel.Roles = aspNetRoles;
+            emailLogViewModel.PageSize = pageSize;
+            emailLogViewModel.TotalItems = emailLogTable.Count();
+            emailLogViewModel.TotalPages = (int)Math.Ceiling((double)emailLogTable.Count() / pageSize);
             emailLogViewModel.Query = emailLogTable.Skip((page - 1) * pageSize).Take(pageSize).ToList();
             return emailLogViewModel;
         }

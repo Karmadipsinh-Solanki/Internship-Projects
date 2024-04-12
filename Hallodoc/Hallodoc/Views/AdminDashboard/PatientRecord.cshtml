@@ -1,0 +1,230 @@
+﻿@{
+    ViewData["Title"] = "PatientRecord";
+}
+@using static HalloDoc.EnumStatus;
+@model PatientRecordViewModel;
+@section Styles {
+    <link href="~/css/AdminDashboardStyle.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/PatientRecordStyle.css" rel="stylesheet" type="text/css" />
+}
+<div id="body" style="background-color: rgb(245, 245, 245);height:100vh">
+    <div class="shadow header-nav-container">
+        <partial name="Toast" />
+        <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" />
+    </div>
+    <div style="display: flex;flex-direction: row;">
+        <div id="main-div" style="width: 100%;">
+            <div id="main-sub-div" class="tabcontent">
+                <div class="title-and-back">
+
+                    <h4>Patient Record</h4>
+                    <a onclick="goBack()" class="back-navigation-link-4">
+                        <div class="back-navigation">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00ccff" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                            </svg>
+                            <span>Back</span>
+                        </div>
+                    </a>
+                </div>
+                @*</div>*@
+                <div id="main-sub-div-part">
+
+                    <!-- <h5 style="margin-bottom: 30px;margin-top: 20px;" class="title">(Optional) Upload Photo or Document</h5> -->
+                    @if (Model.Query.Count != 0)
+                    {
+                        <div class="table-responsive" style="margin-top: 10px" id="table-data-patient-record">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        @*<th style="width:80px !important;background-color: #ededed !important;"><input type="checkbox" id="checkall" onclick="oncheck()" style="height: 18px;width: 18px;" /></th>*@
+                                        <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Member/Client</th>
+                                        <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Created Date</th>
+                                        <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Confirmation No.</th>
+                                        <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Provider Name</th>
+                                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;background-color: #ededed !important;">Concluded Date</th>
+                                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;background-color: #ededed !important;">Status</th>
+                                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;background-color: #ededed !important;">Final Report</th>
+                                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;background-color: #ededed !important;">Actions</th>
+
+                                    </tr>
+                                </thead>
+                                @foreach (var item in Model.Query)
+                                {
+                                    <tr>
+                                        @*<td><input class="checkboxes" type="checkbox" style="height: 18px;width: 18px;" value="@item.RequestWiseFileId" /></td>*@
+                                        <td class="newtd">
+                                            @item.Request?.RequestClient.FirstName  @item.Request?.RequestClient.LastName
+                                        </td>
+                                        <td class="newtd">@item.Request.CreatedDate</td>
+                                        <td class="newtd">@item.Request.ConfirmationNumber</td>
+                                        @if (item.Request?.Physician?.FirstName != null)
+                                        {
+                                            <td class="newtd">Dr. @item.Request?.Physician?.FirstName</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="newtd">-</td>
+                                        }
+                                        <td class="newtd">@item.Request.ModifiedDate</td>
+                                        <td class="newtd">@Enum.GetName(typeof(Status), @item.Request.Status)</td>
+                                        <td class="newtd">
+                                            @if (item.Request.Status >= 6)
+                                            {
+                                                <a class="link" asp-action="PatientRequests" asp-controller="AdminDashboard">
+                                                    <span>View</span>
+                                                </a>
+                                            }
+                                        </td>
+                                        <td class="newtd">
+                                            <div class="dropdown" style="height:100%;display:flex">
+                                                <button class="dropbtn">Action</button>
+                                                <div class="dropdown-content">
+                                                    <a asp-action="ViewCase" asp-controller="AdminDashboard" asp-route-id="@item.Request.RequestId" class="dropdown-item"><span>View Case</span></a>
+                                                    <a asp-action="ViewUploads" asp-controller="AdminDashboard" asp-route-id="@item.Request.RequestId" class="dropdown-item"><span>@item.FileCount Documents</span></a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                        <div class="accordion accordion-flush" id="accordionFlushExample">
+                            @foreach (var item in Model.Query)
+                            {
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-heading@(item.Request.RequestId)">
+                                        <button class="accordion-button collapsed main-accordion-div" style="background-color:#E5F2F8 !important;" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#flush-collapse@(item.Request.RequestId)" aria-expanded="false"
+                                                aria-controls="flush-collapse">
+                                            <div class="main-accordion-sub-div">
+                                                <span style="color:black;font-size:15px;"> @item.Request?.RequestClient.FirstName  @item.Request?.RequestClient.LastName</span>
+                                                <span style="margin-top:20px;color:black;font-size:15px;">
+                                                    @item.Request.ConfirmationNumber
+                                                </span>
+                                            </div>
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapse@(item.Request.RequestId)" class="accordion-collapse collapse"
+                                         aria-labelledby="flush-heading@(item.Request.RequestId)" data-bs-parent="#accordionFlushExample"
+                                         style="position: relative;">
+                                        <div class="accordion-body accordion-main-body" style="background-color:#E5F2F8 !important;">
+                                            <div class="accordian-items">
+                                                <div class="accordion-icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="14" height="14" fill="#00ccff" class="bi bi-calendar" viewBox="0 0 16 16">
+                                                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+                                                    </svg>
+                                                </div>
+                                                <span class="accordian-item-text">Created Date: <span class="accordian-item-text2">@item.Request.CreatedDate</span></span>
+                                            </div>
+                                            <div class="accordian-items">
+                                                <div class="accordion-icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="14" height="14" fill="#00ccff" class="bi bi-person-plus" viewBox="0 0 16 16">
+                                                        <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                                                        <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                                                    </svg>
+                                                </div>
+                                                <span class="accordian-item-text">Physician: <span class="accordian-item-text2">Dr. @item.Request?.Physician?.FirstName</span></span>
+                                            </div>
+                                            <div class="accordian-items">
+                                                <div class="accordion-icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="14" height="14" fill="#00ccff" class="bi bi-calendar" viewBox="0 0 16 16">
+                                                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+                                                    </svg>
+                                                </div>
+                                                <span class="accordian-item-text">Concluded Date: <span class="accordian-item-text2">@item.Request.ModifiedDate</span></span>
+                                            </div>
+                                            <div class="accordian-items">
+                                                <div class="accordion-icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00ccff" class="bi bi-check" viewBox="0 0 16 16">
+                                                        <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
+                                                    </svg>
+                                                </div>
+                                                <span class="accordian-item-text">Status: <span class="accordian-item-text2">@Enum.GetName(typeof(Status), @item.Request.Status)</span></span>
+                                            </div>
+
+                                            <div class="accordion-btns-2">
+                                                <a class="link2" asp-action="ViewCase" asp-controller="AdminDashboard" asp-route-id="@item.Request.RequestId">
+                                                    <span>View Case</span>
+                                                </a>
+                                                <a class="link2" asp-action="ViewUploads" asp-controller="AdminDashboard" asp-route-id="@item.Request.RequestId">
+                                                    <span>(@item.FileCount) Documents</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <span>There is no requests, registered by this user.</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        //sidebar hamburger
+        let sidebarOpen = false;
+        function hamburger() {
+            if (!sidebarOpen) {
+                document.getElementById('sidebar').style.display = "flex";
+                document.getElementById('main-div').style.opacity = "0.5";
+                document.getElementById('main-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+                sidebarOpen = true;
+            } else {
+                console.log('hii');
+                document.getElementById('sidebar').style.display = "none";
+                document.getElementById('main-div').style.opacity = "1";
+                document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+                sidebarOpen = false;
+            }
+        }
+
+        window.onload = function checkingTheme() {
+            try {
+                let themeCheck = localStorage.getItem('theme');
+                if (themeCheck == null || themeCheck == 'light') {
+                    document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+                    // document.getElementById('main-sub-div').style.backgroundColor = "white";
+                    document.getElementById('body').style.backgroundColor = "#f5f5f5";
+                    document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
+                    document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+                } else {
+                    document.getElementById('main-div').style.backgroundColor = "black";
+                    // document.getElementById('main-sub-div').style.backgroundColor = "black";
+                    document.getElementById('body').style.backgroundColor = "black";
+                    document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
+                    document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
+                }
+            } catch (error) {
+                console.log('no themes decided yet');
+            }
+        }
+        function changeTheme() {
+            let theme = localStorage.getItem('theme');
+            if (theme == null || theme == 'light') {
+                localStorage.setItem('theme', 'dark');
+                document.getElementById('main-div').style.backgroundColor = "black";
+                // document.getElementById('main-sub-div').style.backgroundColor = "black";
+                document.getElementById('body').style.backgroundColor = "black";
+                document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
+                document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
+            } else if (theme == 'dark') {
+                localStorage.setItem('theme', 'light');
+                document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+                // document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
+                document.getElementById('body').style.backgroundColor = "#f5f5f5";
+                document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
+                document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+            }
+        }
+    </script>
+
+</div>

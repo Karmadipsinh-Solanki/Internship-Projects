@@ -1,88 +1,135 @@
-﻿@model UserAccessViewModel;
+﻿@model UserAccessMainModel;
 
-<div class="d-none d-md-block">
-    <table class="table" id="table-data-patient-history">
-        <thead>
-            <tr>
-                @*<th style="width:80px !important;background-color: #ededed !important;"><input type="checkbox" id="checkall" onclick="oncheck()" style="height: 18px;width: 18px;" /></th>*@
-                <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Account Type &uarr;</th>
-                <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Account POC</th>
-                <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Phone</th>
-                <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Status</th>
-                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;background-color: #ededed !important;">Open Requests</th>
-                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;background-color: #ededed !important;">Actions</th>
-            </tr>
-        </thead>
-        @* @if (Model.AccountType = 1) *@
-        {
-            @foreach (var item in Model.Admins)
+<table class="table" id="table-data">
+    <thead>
+        <tr>
+            @*<th style="width:80px !important;background-color: #ededed !important;"><input type="checkbox" id="checkall" onclick="oncheck()" style="height: 18px;width: 18px;" /></th>*@
+            <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Account type</th>
+            <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Account POC</th>
+            <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Phone</th>
+            <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Status</th>
+            <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;background-color: #ededed !important;">Open Requests</th>
+            <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;background-color: #ededed !important;">Actions</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model.Query)
+    {
+        <tr>
+            @*<td><input class="checkboxes" type="checkbox" style="height: 18px;width: 18px;" value="@item.RequestWiseFileId" /></td>*@
+
+            @if (item.Account_Type == 1)
             {
-                @* <tr style="">
-                    <td><input class="checkboxes" type="checkbox" style="height: 18px;width: 18px;" value="@item.RequestWiseFileId" /></td>
-                    <td class="newtd">
-                        @item.AccountType
-                    </td>
-                    <td class="newtd">@item.LastName</td>
-                    <td class="newtd">@item.Email</td>
-                    <td class="newtd">@item.Mobile</td>
-                    <td class="newtd">@item.Street , @item.City , @item.State</td>
-                    <td class="newtd d-flex">
-                        <a class="textdeconone link" asp-action="PatientRecord" asp-controller="AdminDashboard" asp-route-id="@item.UserId">
-                            <span>Explore</span>
-                        </a>
-                    </td>
-                </tr> *@
+                <td>Admin</td>
             }
-        }
-    </table>
-</div>
-<div class="d-block d-md-none">
-    <div class="accordion accordion-flush" id="accordionFlushExample">
-        @* @foreach (var item in Model.Users)
-        {
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-heading@(item.UserId)">
-                    <button class="accordion-button collapsed main-accordion-div" style="background-color:#E5F2F8 !important;" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#flush-collapse@(item.UserId)" aria-expanded="false"
-                            aria-controls="flush-collapse">
-                        <div class="main-accordion-sub-div">
-                            <span style="color:black;font-size:15px;">@item.FirstName @item.LastName</span>
-                            <span style="margin-top:20px;color:black;font-size:15px;">
-                                @item.Mobile
-                            </span>
+            else
+            {
+                <td>Physician</td>
+            }
+
+            <td>@item.AccountPOC</td>
+
+            <td>@item.Phone</td>
+            @if (item.Status == 1)
+            {
+                <td>Active</td>
+            }
+            else if (item.Status == 2)
+            {
+                <td>Inactive</td>
+            }
+            else
+            {
+                <td>Pending</td>
+            }
+            <td>@item.OpenRequests</td>
+            @if (item.Account_Type == 1)
+            {
+                <td><a asp-action="EditAdminProfile" asp-controller="AdminDashboard" asp-route-id="@item.Id" style="border:1px solid #00ccff;border-radius:7px;text-align:center;justify-content:center;padding:6px;text-decoration:none;color:#00ccff;">Edit</a></td>
+            }
+            else
+            {
+                <td><a asp-action="EditPhysicianAccount2" asp-controller="AdminDashboard" asp-route-id="@item.Id" style="border:1px solid #00ccff;border-radius:7px;text-align:center;justify-content:center;padding:6px;text-decoration:none;color:#00ccff;">Edit</a></td>
+            }
+
+
+        </tr>
+    }
+</table>
+<div class="accordion accordion-flush" id="accordionFlushExample">
+    @foreach (var item in Model.Query)
+    {
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-heading@(item.Id)">
+                <button class="accordion-button collapsed main-accordion-div" style="background-color:#E5F2F8 !important;height:115px;" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapse@(item.Id)" aria-expanded="false"
+                        aria-controls="flush-collapse">
+                    <div class="main-accordion-sub-div">
+                        <span style="color:black;font-size:17px;"> @item.AccountPOC</span>
+                        <span class="accordian-item-text" style="margin-top:15px;font-size:14px;">Action Type: <span class="accordian-item-text2" style="font-size:14px;">@(item.Account_Type == 1 ? "Admin" : "Physician")</span></span>
+                    </div>
+                </button>
+            </h2>
+            <div id="flush-collapse@(item.Id)" class="accordion-collapse collapse"
+                 aria-labelledby="flush-heading@(item.Id)" data-bs-parent="#accordionFlushExample"
+                 style="position: relative;">
+                <div class="accordion-body accordion-main-body" style="background-color:#E5F2F8 !important;">
+                    <div class="accordian-items">
+                        <div class="accordion-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="14" height="14" fill="#00ccff" class="bi bi-telephone" viewBox="0 0 16 16">
+                                <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                            </svg>
                         </div>
-                    </button>
-                </h2>
-                <div id="flush-collapse@(item.UserId)" class="accordion-collapse collapse"
-                     aria-labelledby="flush-heading@(item.UserId)" data-bs-parent="#accordionFlushExample"
-                     style="position: relative;">
-                    <div class="accordion-body accordion-main-body" style="background-color:#E5F2F8 !important;">
-                        <div class="accordian-items d-flex align-items-center mb-1">
-                            <div class="d-inline-block circle" style="border:1px solid rgb(0, 204, 255)!important;">
-                                <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="10" height="10" fill="#00ccff" class="bi bi-envelope" viewBox="0 0 16 16">
-                                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
-                                </svg>
-                            </div>
-                            <span class="accordian-item-text">Email: <span class="accordian-item-text2 email-container" style="white-space: pre-wrap;">@item.Email</span></span>
+                        <span class="accordian-item-text">Phone: <span class="accordian-item-text2">@item.Phone</span></span>
+                    </div>
+                    <div class="accordian-items">
+                        <div class="accordion-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00ccff" class="bi bi-check" viewBox="0 0 16 16">
+                                <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
+                            </svg>
                         </div>
-                        <div class="accordian-items d-flex align-items-center mb-3">
-                            <div class="d-inline-block circle" style="border:1px solid rgb(0, 204, 255)!important;">
-                                <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="10" height="10" fill="#00ccff" class="bi bi-telephone" viewBox="0 0 16 16">
-                                    <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
-                                </svg>
-                            </div>
-                            <span class="accordian-item-text">Phone: <span class="accordian-item-text2">@item.Mobile</span></span>
+                        @if (item.Status == 1)
+                        {
+                            <span class="accordian-item-text">Status: <span class="accordian-item-text2">Active</span></span>
+                        }
+                        else if (item.Status == 2)
+                        {
+                            <span class="accordian-item-text">Status: <span class="accordian-item-text2">Inactive</span></span>
+                        }
+                        else
+                        {
+                            <span class="accordian-item-text">Status: <span class="accordian-item-text2">Pending</span></span>
+                        }
+
+                    </div>
+
+                    <div class="accordian-items">
+                        <div class="accordion-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="margin:2px;" fill="#00ccff" class="bi bi-chat-square-dots" viewBox="0 0 16 16">
+                                <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                                <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+                            </svg>
                         </div>
-                        <div class="accordion-btns d-flex justify-content-end">
-                            <a class="textdeconone link2 " asp-action="PatientRecord" asp-controller="AdminDashboard" asp-route-id="@item.UserId">
-                                <span>Explore</span>
+                        <span class="accordian-item-text">Open Requests: <span class="accordian-item-text2">@item.OpenRequests</span></span>
+                    </div>
+                    <div class="accordion-btns">
+                        @if (item.Account_Type == 1)
+                        {
+
+                            <a class="link2" asp-action="EditAdminProfile" asp-controller="AdminDashboard" asp-route-id="@item.Id">
+                                <span>Edit</span>
                             </a>
-                        </div>
+                        }
+                        else
+                        {
+                            <a class="link2" asp-action="EditPhysicianAccount2" asp-controller="AdminDashboard" asp-route-id="@item.Id">
+                                <span>Edit</span>
+                            </a>
+                        }
                     </div>
                 </div>
             </div>
-        } *@
-    </div>
+        </div>
+    }
 </div>
 <div class="pagination">
     <span style="margin-right:10px;">Pages:</span>

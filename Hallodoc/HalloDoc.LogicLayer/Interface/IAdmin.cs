@@ -62,13 +62,16 @@ namespace HalloDoc.LogicLayer.Interface
         public AccountAccessViewModel accountAccess();
 
         public ProviderViewModel providerInfo(int? region, int page = 1, int pageSize = 10);
+        public bool deleteRecords(int id);
         public SearchRecordsViewModel searchRecords(string? patientName, string? providerName, string? email, string? phonenumber, int? selectedOptionValue, int? selectRequestType, DateTime? fromDate, DateTime? toDate, int page = 1, int pageSize = 10);
         public MemoryStream downloadSearchRecordsExcel(SearchRecordsViewModel model);
+        public PatientRecordViewModel patientRecord(int id);
         public PatientHistoryViewModel patientHistory(string? firstname, string? lastname, string? email, string? phonenumber, int page = 1, int pageSize = 10);
         public BlockHistoryViewModel blockHistory(string? firstname, DateTime? date, string? email, string? phonenumber, int page = 1, int pageSize = 10);
         public bool unBlock(int id);
         public bool updateIsActive(int id, bool isActive);
         public EmailLogViewModel emailLog(string? receiverName, DateTime? date, DateTime? date2, string? email, string? role, int page = 1, int pageSize = 10);
+        public SmsLogViewModel smsLog(string? receiverName, DateTime? date, DateTime? date2, string? phoneNumber, string? role, int page = 1, int pageSize = 10);
         public VendorViewModel vendorInformation(string? vendorName, int? professionType, int page = 1, int pageSize = 10);
         public bool deleteVendor(int id);
         public MemoryStream Export(AdminDashboardTableView model);
@@ -96,6 +99,8 @@ namespace HalloDoc.LogicLayer.Interface
         public bool editPhysicianOnboarding(CreateProviderViewModel model);
         public EditAccessViewModel editAccess(int id);
         public bool editAccess(EditAccessViewModel model);
+        public bool deleteAccess(int id);
+        public UserAccessMainModel userAccess(int? accountType, int page = 1, int pageSize = 10);
         public AddBusinessViewModel addBusiness();
         public bool editBusiness(AddBusinessViewModel model);
         public AddBusinessViewModel editBusinessPage(int id);

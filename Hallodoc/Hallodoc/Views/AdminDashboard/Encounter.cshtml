@@ -338,6 +338,22 @@
             utilsScript:
                 "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
         });
+        //sidebar hamburger
+        let sidebarOpen = false;
+        function hamburger() {
+            if (!sidebarOpen) {
+                document.getElementById('sidebar').style.display = "flex";
+                document.getElementById('main-div').style.opacity = "0.5";
+                document.getElementById('main-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+                sidebarOpen = true;
+            } else {
+                console.log('hii');
+                document.getElementById('sidebar').style.display = "none";
+                document.getElementById('main-div').style.opacity = "1";
+                document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+                sidebarOpen = false;
+            }
+        }
         //dark theme
         window.onload = function checkingTheme() {
             try {

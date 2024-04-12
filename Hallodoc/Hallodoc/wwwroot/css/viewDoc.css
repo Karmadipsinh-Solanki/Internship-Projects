@@ -161,7 +161,7 @@
         margin-top: 15px;
         margin-left: 0px;
         width: 167px;
-        border: 1px solid #00ccff;
+        border: 1px solid transparent;
         border-radius: 10px;
     }
 
@@ -170,7 +170,7 @@
         }
 
         .tab-2 button.active {
-            background-color: #00ccff;
+            background-color: transparent;
             color: white;
             border: 2px solid #00ccff;
             border-radius: 10px;

@@ -11,37 +11,45 @@
         <partial name="Toast" />
         <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" />
     </div>
-    <div style="display: flex;flex-direction: row;">
+    <div class="p-3" style="display: flex;flex-direction: row;">
 
-        <div id="main-div" style="width: 100%;">
+        <div id="main-div " style="width: 100%;">
             <div id="main-sub-div" class="tabcontent">
-                <div class="title-and-back-2">
+                <div class="d-flex justify-content-between align-items-center my-3">
 
                     <h4>MDs On Call</h4>
-                    <a asp-action="Scheduling" asp-controller="AdminDashboard" class="back-navigation-link-4" style="background-color:transparent;border:1px solid #00ccff">
+                    <a asp-action="Scheduling" asp-controller="AdminDashboard" class="cancelButton textdeconone d-flex justify-content-center align-items-center " style="background-color:transparent;border:1px solid #00ccff">
                         <div class="back-navigation" style="text-decoration:none;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00ccff" class="bi bi-chevron-left" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
                             </svg>
-                            <span>Back</span>
+                            <span class="cancelButtonText">Back</span>
                         </div>
                     </a>
                 </div>
-                <div class="shift-detail-header-2">
-                    <div style="border:1px solid gray;padding:0px;" class="region-dropdown region-dropdown-2">
+                <div class="shift-detail-header-2 d-flex justify-content-between align-items-center ">
+                    @* <div style="border:1px solid gray;padding:0px;" class="region-dropdown region-dropdown-2"> *@
 
-                        <select class="custom-select-5" style="border:none;background-color:white;width:100%;" id="region" onchange="filter(1,10)">
-                            <option value="-1" style="color:gray !important;"><span style="color:gray;">All Region</span></option>
-                            @foreach (var item in Model.Regions)
-                            {
-                                <option value="@item.RegionId" style="color:gray !important;"><span style="color:gray;">@item.Name</span></option>
-                            }
-                        </select>
-                    </div>
+                    <select class="custom-select-5" style="width: 140px;" id="region" onchange="filter(1,10)">
+                        <option value="-1" style="color:gray !important;"><span style="color:gray;">All Region</span></option>
+                        @foreach (var item in Model.Regions)
+                        {
+                            <option value="@item.RegionId" style="color:gray !important;"><span style="color:gray;">@item.Name</span></option>
+                        }
+                    </select>
+                    @* </div> *@
 
-                    <div class="md-div" id="edit-div">
-                        <a class="md-on-call-btn" asp-action="ViewCurrentMonth" asp-controller="AdminDashboard">Calender View</a>
-                        <a class="md-on-call-btn" style="margin-left:15px;" asp-action="ShiftForReview" asp-controller="AdminDashboard">Shifts For Review</a>
+                    <div class="md-div d-flex align-items-center" id="edit-div">
+                        <div class="saveButton d-flex justify-content-center align-items-center  me-2" style="width:105px;">
+                            <a class=" textdeconone" asp-action="ViewCurrentMonth" asp-controller="AdminDashboard">
+                                <span class="SaveButtonText" style="color:white!important;">Calender View</span>
+                            </a>
+                        </div>
+                        <div class="saveButton d-flex justify-content-center align-items-center " style="width:145px;">
+                            <a class="textdeconone" asp-action="ShiftForReview" asp-controller="AdminDashboard">
+                                <span class="SaveButtonText" style="color:white!important;">Shifts For Review</span>
+                            </a>
+                        </div>
                         @*<a class="delete-selected shift-detail-header-sub-sub-div" onclick="DeleteSelected()">Delete Selected</a>*@
                     </div>
                 </div>
@@ -93,23 +101,19 @@
         });
     }
 
+    //sidebar hamburger
     let sidebarOpen = false;
     function hamburger() {
         if (!sidebarOpen) {
-            console.log('hi');
             document.getElementById('sidebar').style.display = "flex";
             document.getElementById('main-div').style.opacity = "0.5";
             document.getElementById('main-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
-            //document.getElementById("defaultOpen2").click();
-
-            // document.getElementById('main-sub-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
             sidebarOpen = true;
         } else {
             console.log('hii');
             document.getElementById('sidebar').style.display = "none";
             document.getElementById('main-div').style.opacity = "1";
             document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
-
             sidebarOpen = false;
         }
     }

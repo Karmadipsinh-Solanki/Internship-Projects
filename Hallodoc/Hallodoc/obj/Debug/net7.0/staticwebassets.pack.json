@@ -713,6 +713,10 @@
       "PackagePath": "staticwebassets\\css\\MyProfileStyle.css"
     },
     {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\PatientRecordStyle.css",
+      "PackagePath": "staticwebassets\\css\\PatientRecordStyle.css"
+    },
+    {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\css\\ReviewAgreement.css",
       "PackagePath": "staticwebassets\\css\\ReviewAgreement.css"
     },
@@ -1191,6 +1195,26 @@
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\physician\\6\\photo.png",
       "PackagePath": "staticwebassets\\uploads\\physician\\6\\photo.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\physician\\7\\BackgroundCheck.png",
+      "PackagePath": "staticwebassets\\uploads\\physician\\7\\BackgroundCheck.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\physician\\7\\HIPAACompliance.png",
+      "PackagePath": "staticwebassets\\uploads\\physician\\7\\HIPAACompliance.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\physician\\7\\ICA.png",
+      "PackagePath": "staticwebassets\\uploads\\physician\\7\\ICA.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\physician\\7\\NonDisclosureAgreement.png",
+      "PackagePath": "staticwebassets\\uploads\\physician\\7\\NonDisclosureAgreement.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\physician\\7\\photo.png",
+      "PackagePath": "staticwebassets\\uploads\\physician\\7\\photo.png"
     },
     {
       "Id": "C:\\Users\\pca161\\Desktop\\Internship-Projects\\Internship-Projects\\Hallodoc\\Hallodoc\\wwwroot\\uploads\\remaining work.txt",

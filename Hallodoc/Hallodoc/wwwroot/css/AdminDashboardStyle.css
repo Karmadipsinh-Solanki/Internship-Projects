@@ -304,16 +304,16 @@
         margin-top: 15px;
         margin-left: 0px;
         width: 167px;
-        border: 1px solid #00ccff;
+        /*border: 1px solid trasparent;*/
         border-radius: 10px;
     }
 
         .tab-2 button:hover {
-            background-color: #ddd;
+            background-color: transparent;
         }
 
         .tab-2 button.active {
-            background-color: #00ccff;
+            background-color: transparent;
             color: white;
             border: 2px solid #00ccff;
             border-radius: 10px;
@@ -666,6 +666,7 @@ table.dataTable thead th, table.dataTable tfoot th {
 .searchPatientInput {
     border: none;
     margin-left: 10px;
+    background-color:white;
 }
 
     .searchPatientInput:focus {
@@ -1308,9 +1309,9 @@ table.dataTable thead th, table.dataTable tfoot th {
         display: none!important;
     }
 
-   /* #main-sub-div {
+    #main-sub-div {
         margin-top: 100px;
-    }*/
+    }
 
     .state {
         margin-top: 20px;

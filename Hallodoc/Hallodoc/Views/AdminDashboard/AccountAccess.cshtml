@@ -55,8 +55,8 @@
                                         <td class="bg-white">Provider</td>
                                     }
                                     <td class="bg-white d-flex justify-content-center align-items-center">
-                                        <a asp-action="EditAccess" asp-controller="AdminDashboard" class="cancelButtonTable me-2 textdeconone "><span class="cancelButtonText">Edit</span></a>
-                                        <a asp-action="DeleteAccess" asp-controller="AdminDashboard" class="cancelButtonTable me-2 textdeconone" style="width:60px;"><span class="cancelButtonText">Delete</span></a>
+                                        <a asp-action="EditAccess" asp-controller="AdminDashboard" asp-route-id="@item.RoleId" class="cancelButtonTable me-2 textdeconone "><span class="cancelButtonText">Edit</span></a>
+                                        <a asp-action="DeleteAccess" asp-controller="AdminDashboard" asp-route-id="@item.RoleId" class="cancelButtonTable me-2 textdeconone" style="width:60px;"><span class="cancelButtonText">Delete</span></a>
                                     </td>
                                 </tr>
                             }
@@ -100,8 +100,8 @@
                                     </div>
                                 }
                                 <div class="d-flex">
-                                    <a asp-action="EditAccess" asp-controller="AdminDashboard" class="cancelButtonTable me-2 textdeconone " style="width:40px;"><span class="cancelButtonText">Edit</span></a>
-                                    <a asp-action="DeleteAccess" asp-controller="AdminDashboard" class="cancelButtonTable me-2 textdeconone" style="width:60px;"><span class="cancelButtonText">Delete</span></a>
+                                    <a asp-action="EditAccess" asp-controller="AdminDashboard" asp-route-id="@item.RoleId" class="cancelButtonTable me-2 textdeconone " style="width:40px;"><span class="cancelButtonText">Edit</span></a>
+                                    <a asp-action="DeleteAccess" asp-controller="AdminDashboard"  asp-route-id="@item.RoleId" class="cancelButtonTable me-2 textdeconone" style="width:60px;"><span class="cancelButtonText">Delete</span></a>
                                 </div>
                                 <hr />
                             }
@@ -111,4 +111,22 @@
             </div>
         </div>
     </div>
+    <script>
+        //sidebar hamburger
+        let sidebarOpen = false;
+        function hamburger() {
+            if (!sidebarOpen) {
+                document.getElementById('sidebar').style.display = "flex";
+                document.getElementById('main-div').style.opacity = "0.5";
+                document.getElementById('main-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+                sidebarOpen = true;
+            } else {
+                console.log('hii');
+                document.getElementById('sidebar').style.display = "none";
+                document.getElementById('main-div').style.opacity = "1";
+                document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+                sidebarOpen = false;
+            }
+        }
+    </script>
 </div>

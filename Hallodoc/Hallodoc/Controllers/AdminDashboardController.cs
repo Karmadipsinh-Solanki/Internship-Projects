@@ -692,8 +692,27 @@ namespace HalloDoc.Controllers
         }
         public IActionResult EditAccess(int id)
         {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
             EditAccessViewModel editAccessViewModel = _admin.editAccess(id);
             return View(editAccessViewModel);
+        }
+        public IActionResult DeleteAccess(int id)
+        {
+            bool check = _admin.deleteAccess(id);
+            if (check)
+            {
+                TempData["success"] = "Account Role deleted successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,Role is not deleted!";
+            }
+            return RedirectToAction("AccountAccess");
         }
         [HttpPost]
         public IActionResult CreateAdmin(CreateAdminViewModel createAdminViewModel)
@@ -742,6 +761,19 @@ namespace HalloDoc.Controllers
             //bool check = _admin.updateStopNotification(id, stopNotification);
             return RedirectToAction("ProviderInfo");
         }
+        public IActionResult DeleteRecords(int id)
+        {
+            bool check = _admin.deleteRecords(id);
+            if (check)
+            {
+                TempData["success"] = "Request deleted successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,Request is not deleted!";
+            }
+            return RedirectToAction("SearchRecords");
+        }
         public IActionResult SearchRecords()
         {
             var request2 = _httpContextAccessor.HttpContext.Request;
@@ -757,6 +789,17 @@ namespace HalloDoc.Controllers
         {
             SearchRecordsViewModel searchRecordsViewModel = _admin.searchRecords(patientName, providerName, email, phonenumber, selectedOptionValue, selectRequestType, fromDate, toDate, page, pageSize);
             return PartialView("SearchRecordsTable", searchRecordsViewModel);
+        }
+        public IActionResult PatientRecord(int id)
+        {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
+            PatientRecordViewModel patientRecordViewModel = _admin.patientRecord(id);
+            return View(patientRecordViewModel);
         }
         public IActionResult PatientHistory()
         {
@@ -774,23 +817,23 @@ namespace HalloDoc.Controllers
             PatientHistoryViewModel patientHistoryViewModel = _admin.patientHistory(firstname, lastname, email, phonenumber, page, pageSize);
             return PartialView("PatientHistoryTable", patientHistoryViewModel);
         }
-        //public IActionResult UserAccess(UserAccessViewModel model)
-        //{
-        //    var request2 = _httpContextAccessor.HttpContext.Request;
-        //    var token = request2.Cookies["jwt"];
-        //    CookieModel cookieModel = _jwtService.getDetails(token);
-        //    List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
-        //    ViewBag.Menu = roleMenu;
+        public IActionResult UserAccess(UserAccessViewModel model)
+        {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
 
-        //    UserAccessViewModel userAccessViewModel = _admin.userAccess(null);
-        //    return View(userAccessViewModel);
-        //}
-        //[HttpPost]
-        //public IActionResult UserSearchAccess(string? roletype, int page = 1, int pageSize = 10)
-        //{
-        //    UserAccessViewModel userAccessViewModel = _admin.userAccess(roletype, page, pageSize);
-        //    return PartialView("UserAccessTable", userAccessViewModel);
-        //}
+            UserAccessMainModel userAccessMainModel = _admin.userAccess(null);
+            return View(userAccessMainModel);
+        }
+        [HttpPost]
+        public IActionResult UserSearchAccess(int? accountType, int page = 1, int pageSize = 10)
+        {
+            UserAccessMainModel userAccessMainModel = _admin.userAccess(accountType, page, pageSize);
+            return PartialView("UserAccessTable", userAccessMainModel);
+        }
         public IActionResult UnBlock(int id)
         {
             bool check = _admin.unBlock(id);
@@ -851,6 +894,22 @@ namespace HalloDoc.Controllers
         {
             BlockHistoryViewModel blockHistoryViewModel = _admin.blockHistory(firstname, date, email, phonenumber, page, pageSize);
             return PartialView("BlockHistoryTable", blockHistoryViewModel);
+        }
+        public IActionResult SmsLog()
+        {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
+            SmsLogViewModel smsLogViewModel = _admin.smsLog(null, null, null, null, null);
+            return View(smsLogViewModel);
+        }
+        public IActionResult SmsLogFilter(string? receiverName, DateTime? date, DateTime? date2, string? phoneNumber, string? role, int page = 1, int pageSize = 10)
+        {
+            SmsLogViewModel smsLogViewModel = _admin.smsLog(receiverName, date, date2, phoneNumber, role, page, pageSize);
+            return PartialView("SmsLogTable", smsLogViewModel);
         }
         /// <summary>
         /// emailLogTable page controller

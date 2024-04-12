@@ -24,146 +24,148 @@
             </div>
             <div class="p-2 bg-white">
                 <div class="d-flex justify-content-between align-items-center">
-                    <div class="search-div">
-                        <div class="search-div-sub">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray"
-                                 class="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                            </svg>
-                            <select class="custom-select-5" style="border:none;background-color:white;width:100%;" id="ProfessionType" onchange="filter(1,10)">
-                                <option value="-1" style="color:gray !important;"><span style="color:gray;">All Professions</span></option>
-                                @foreach (var item in Model.HealthProfessionalTypes)
-                                {
-                                    <option value="@item.HealthProfessionalId" style="color:gray !important;"><span style="color:gray;">@item.ProfessionName</span></option>
-                                }
-                            </select>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="form-floating login-fields login-fields-2" id="vendor-search-input" style="width:50%;margin-right:15px;">
+                            <input type="text" placeholder="Search Vendors" @* class="form-control" *@ id="VendorName" onkeyup="filter(1,10)" style="height:38px;border:1px solid #dddddd;border-radius:5px;" />
+                            @* <label for="VendorName" class="labels">Search Vendors</label> *@
+                        </div>
+                        <div class="search-div">
+                            <div class="search-div-sub">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray"
+                                     class="bi bi-search" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                </svg>
+                                <select class="custom-select-5" style="border:none;background-color:white;width:100%;" id="ProfessionType" onchange="filter(1,10)">
+                                    <option value="-1" style="color:gray !important;"><span style="color:gray;">All Professions</span></option>
+                                    @foreach (var item in Model.HealthProfessionalTypes)
+                                    {
+                                        <option value="@item.HealthProfessionalId" style="color:gray !important;"><span style="color:gray;">@item.ProfessionName</span></option>
+                                    }
+                                </select>
+                            </div>
                         </div>
                     </div>
-                        <a asp-action="AddBusiness" asp-controller="AdminDashboard" class="textdeconone cancelButton d-flex justify-content-center align-items-center create-vendor-button" style="width: 192px;height: 44px;">
+                    <a asp-action="AddBusiness" asp-controller="AdminDashboard" class="textdeconone cancelButton d-flex justify-content-center align-items-center create-vendor-button" style="width: 192px;height: 44px;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="#00ccff" id="plus-icon" style="margin-right:10px;" class="bi bi-plus-lg" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
                         </svg>
                         <span class="cancelButtonText ms-1">Add Business</span>
                     </a>
                 </div>
-                    @if (Model.Query.Count != 0)
-                    {
-                       @*  <div id="loader2" class="loader2">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div> *@
-                        <div id="VendorTableData"></div>
-                    }
-                </div>
+                @if (Model.Query.Count != 0)
+                {
+                    @*  <div id="loader2" class="loader2">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                </div> *@
+                    <div id="VendorTableData"></div>
+                }
             </div>
         </div>
     </div>
-    <script>
-        // document.getElementById('loader2').style.display = 'flex';
+</div>
+<script>
+    // document.getElementById('loader2').style.display = 'flex';
 
+    $.ajax({
+        url: `/AdminDashboard/FilterVendorInformation`,
+        type: 'POST',
+        dataType: 'html',
+        // Pass your data here
+        success: function (response) {
+            // document.getElementById('loader2').style.display = 'none';
+            $("#VendorTableData").html(response);
+
+        },
+        error: function () {
+            alert('An error occurred.');
+        }
+    });
+    function filter(page, pageSize) {
+        var vendorName = document.getElementById('VendorName').value;
+        var professionType = document.getElementById('ProfessionType').value;
+
+        // document.getElementById('loader2').style.display = 'flex';
+        document.getElementById("VendorTableData").style.display = "none";
         $.ajax({
             url: `/AdminDashboard/FilterVendorInformation`,
             type: 'POST',
             dataType: 'html',
+            data: { vendorName: vendorName, professionType: professionType, page: page, pageSize: pageSize },
             // Pass your data here
             success: function (response) {
-                // document.getElementById('loader2').style.display = 'none';
+                //console.log(response);
                 $("#VendorTableData").html(response);
+                // document.getElementById('loader2').style.display = 'none';
+                document.getElementById("VendorTableData").style.display = "block";
 
+                //document.getElementById('PatientHistoryTablePartialView').style.display = 'block';
             },
             error: function () {
                 alert('An error occurred.');
             }
         });
-        function filter(page, pageSize) {
-            var vendorName = document.getElementById('VendorName').value;
-            var professionType = document.getElementById('ProfessionType').value;
-
-            // document.getElementById('loader2').style.display = 'flex';
-            document.getElementById("VendorTableData").style.display = "none";
-            $.ajax({
-                url: `/AdminDashboard/FilterVendorInformation`,
-                type: 'POST',
-                dataType: 'html',
-                data: { vendorName: vendorName, professionType: professionType, page: page, pageSize: pageSize },
-                // Pass your data here
-                success: function (response) {
-                    //console.log(response);
-                    $("#VendorTableData").html(response);
-                    // document.getElementById('loader2').style.display = 'none';
-                    document.getElementById("VendorTableData").style.display = "block";
-
-                    //document.getElementById('PatientHistoryTablePartialView').style.display = 'block';
-                },
-                error: function () {
-                    alert('An error occurred.');
-                }
-            });
+    }
+    function clearFields() {
+        location.reload();
+    }
+    //sidebar hamburger
+    let sidebarOpen = false;
+    function hamburger() {
+        if (!sidebarOpen) {
+            document.getElementById('sidebar').style.display = "flex";
+            document.getElementById('main-div').style.opacity = "0.5";
+            document.getElementById('main-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+            sidebarOpen = true;
+        } else {
+            console.log('hii');
+            document.getElementById('sidebar').style.display = "none";
+            document.getElementById('main-div').style.opacity = "1";
+            document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+            sidebarOpen = false;
         }
-        function clearFields() {
-            location.reload();
-        }
-        let sidebarOpen = false;
-        function hamburger() {
-            if (!sidebarOpen) {
-                console.log('hi');
-                document.getElementById('sidebar').style.display = "flex";
-                document.getElementById('main-div').style.opacity = "0.5";
-                document.getElementById('main-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
-                document.getElementById("defaultOpen2").click();
+    }
 
-                // document.getElementById('main-sub-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
-                sidebarOpen = true;
-            } else {
-                console.log('hii');
-                document.getElementById('sidebar').style.display = "none";
-                document.getElementById('main-div').style.opacity = "1";
+    window.onload = function checkingTheme() {
+        try {
+            let themeCheck = localStorage.getItem('theme');
+            if (themeCheck == null || themeCheck == 'light') {
                 document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
-
-                sidebarOpen = false;
-            }
-        }
-
-        window.onload = function checkingTheme() {
-            try {
-                let themeCheck = localStorage.getItem('theme');
-                if (themeCheck == null || themeCheck == 'light') {
-                    document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
-                    // document.getElementById('main-sub-div').style.backgroundColor = "white";
-                    document.getElementById('body').style.backgroundColor = "#f5f5f5";
-                    document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
-                    document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
-                } else {
-                    document.getElementById('main-div').style.backgroundColor = "black";
-                    // document.getElementById('main-sub-div').style.backgroundColor = "black";
-                    document.getElementById('body').style.backgroundColor = "black";
-                    document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
-                    document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
-                }
-            } catch (error) {
-                console.log('no themes decided yet');
-            }
-        }
-        function changeTheme() {
-            let theme = localStorage.getItem('theme');
-            if (theme == null || theme == 'light') {
-                localStorage.setItem('theme', 'dark');
+                // document.getElementById('main-sub-div').style.backgroundColor = "white";
+                document.getElementById('body').style.backgroundColor = "#f5f5f5";
+                document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
+                document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+            } else {
                 document.getElementById('main-div').style.backgroundColor = "black";
                 // document.getElementById('main-sub-div').style.backgroundColor = "black";
                 document.getElementById('body').style.backgroundColor = "black";
                 document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
                 document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
-            } else if (theme == 'dark') {
-                localStorage.setItem('theme', 'light');
-                document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
-                // document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
-                document.getElementById('body').style.backgroundColor = "#f5f5f5";
-                document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
-                document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
             }
+        } catch (error) {
+            console.log('no themes decided yet');
         }
-    </script>
+    }
+    function changeTheme() {
+        let theme = localStorage.getItem('theme');
+        if (theme == null || theme == 'light') {
+            localStorage.setItem('theme', 'dark');
+            document.getElementById('main-div').style.backgroundColor = "black";
+            // document.getElementById('main-sub-div').style.backgroundColor = "black";
+            document.getElementById('body').style.backgroundColor = "black";
+            document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
+            document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
+        } else if (theme == 'dark') {
+            localStorage.setItem('theme', 'light');
+            document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+            // document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
+            document.getElementById('body').style.backgroundColor = "#f5f5f5";
+            document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
+            document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+        }
+    }
+</script>
 
 </div>

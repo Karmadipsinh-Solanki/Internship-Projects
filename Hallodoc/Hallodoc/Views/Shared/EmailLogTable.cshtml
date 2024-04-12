@@ -1,0 +1,165 @@
+﻿@model EmailLogViewModel;
+
+<div class="d-none d-md-block">
+    <table class="table" id="table-data">
+        <thead>
+            <tr>
+                @*<th style="width:80px !important;background-color: #ededed !important;"><input type="checkbox" id="checkall" onclick="oncheck()" style="height: 18px;width: 18px;" /></th>*@
+                <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Recipient</th>
+                <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Action</th>
+                <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Role Name</th>
+                <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Email</th>
+                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;background-color: #ededed !important;">Created Date</th>
+                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;background-color: #ededed !important;">Sent Date</th>
+                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;background-color: #ededed !important;">Sent</th>
+                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;background-color: #ededed !important;">Sent Tries</th>
+                <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;background-color: #ededed !important;">Confirmation No.</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.Query)
+        {
+            <tr>
+                @*<td><input class="checkboxes" type="checkbox" style="height: 18px;width: 18px;" value="@item.RequestWiseFileId" /></td>*@
+                <td class="newtd">
+                    @item.Recipient
+                </td>
+                <td class="newtd">@item.Action</td>
+                @if (item.RoleName == 1)
+                {
+                    <td class="newtd">Physician</td>
+                }
+                else if (item.RoleName == 2)
+                {
+                    <td class="newtd">Patient</td>
+                }
+                else
+                {
+                    <td class="newtd">Admin</td>
+                }
+                <td class="newtd">@item.Email</td>
+                <td class="newtd">@item.CreatedDate</td>
+                <td class="newtd">@item.SentDate</td>
+                <td class="newtd">@item.Sent</td>
+                <td class="newtd">@item.SentTries</td>
+                <td class="newtd">@item.ConfirmationNumber</td>
+            </tr>
+        }
+    </table>
+</div>
+<div class="d-block d-md-none">
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        @foreach (var item in Model.Query)
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-heading@(item.EmailLogId)">
+                    <button class="accordion-button collapsed main-accordion-div" style="background-color:#E5F2F8 !important;height:115px;" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapse@(item.EmailLogId)" aria-expanded="false"
+                            aria-controls="flush-collapse">
+                        <div class="main-accordion-sub-div">
+                            <span style="color:black;font-size:17px;"> @item.Recipient</span>
+                            <span class="accordian-item-text" style="margin-top:15px;font-size:14px;">Action Name: <span class="accordian-item-text2" style="font-size:14px;">@item.Action</span></span>
+
+                            <span class="accordian-item-text" style="margin-top:5px;font-size:14px;">Email: <span class="accordian-item-text2" style="font-size:14px;">@item.Email</span></span>
+
+                        </div>
+                    </button>
+                </h2>
+                <div id="flush-collapse@(item.EmailLogId)" class="accordion-collapse collapse"
+                     aria-labelledby="flush-heading@(item.EmailLogId)" data-bs-parent="#accordionFlushExample"
+                     style="position: relative;">
+                    <div class="accordion-body accordion-main-body" style="background-color:#E5F2F8 !important;">
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="14" height="14" fill="#00ccff" class="bi bi-person-plus" viewBox="0 0 16 16">
+                                    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                                </svg>
+                            </div>
+                            @if (item.RoleName == 1)
+                            {
+                                <span class="accordian-item-text">Role Name: <span class="accordian-item-text2">Physician</span></span>
+                            }
+                            else if (item.RoleName == 2)
+                            {
+                                <span class="accordian-item-text">Role Name: <span class="accordian-item-text2">Patient</span></span>
+                            }
+                            else
+                            {
+                                <span class="accordian-item-text">Role Name: <span class="accordian-item-text2">Admin</span></span>
+                            }
+
+                        </div>
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="14" height="14" fill="#00ccff" class="bi bi-calendar" viewBox="0 0 16 16">
+                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Create Date: <span class="accordian-item-text2">@item.CreatedDate</span></span>
+                        </div>
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="14" height="14" fill="#00ccff" class="bi bi-calendar" viewBox="0 0 16 16">
+                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Sent Date: <span class="accordian-item-text2">@item.SentDate</span></span>
+                        </div>
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00ccff" class="bi bi-check" viewBox="0 0 16 16">
+                                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Sent: <span class="accordian-item-text2">@item.Sent</span></span>
+                        </div>
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="margin:2px;" width="14" height="14" fill="#00ccff" class="bi bi-envelope" viewBox="0 0 16 16">
+                                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Sent Tries: <span class="accordian-item-text2">@item.SentTries</span></span>
+                        </div>
+                        <div class="accordian-items">
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00ccff" class="bi bi-check" viewBox="0 0 16 16">
+                                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
+                                </svg>
+                            </div>
+                            <span class="accordian-item-text">Confirmation Number: <span class="accordian-item-text2">@item.ConfirmationNumber</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+        }
+    </div>
+</div>
+<div class="pagination">
+    <span style="margin-right:10px;">Pages:</span>
+    @if (Model.CurrentPage > 1)
+    {
+        <a style="color:#00ccff !important;" data-page="@(Model.CurrentPage - 1)">Previous</a>
+    }
+
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        <a data-page="@i" class="@(i == Model.CurrentPage ? "pagination-active" : "")">@i</a>
+    }
+
+    @if (Model.CurrentPage < Model.TotalPages)
+    {
+        <a style="color:#00ccff !important;" data-page="@(Model.CurrentPage + 1)">Next</a>
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        $('.pagination a').click(function (e) {
+            e.preventDefault();
+            //console.log("hiiiiiii");
+            var page = $(this).attr('data-page');
+            filter(page, 10);
+        });
+    });
+</script>

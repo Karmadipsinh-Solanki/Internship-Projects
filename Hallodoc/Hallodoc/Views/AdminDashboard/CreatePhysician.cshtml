@@ -137,14 +137,14 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput1" placeholder="Address1" asp-for="Address1">
+                                    <input type="text" class="form-control" id="Address1" placeholder="Address1" asp-for="Address1">
                                     <label for="floatingInput1">Address1</label>
                                     <span asp-validation-for="Address1" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput2" placeholder="Address2" asp-for="Address2">
+                                    <input type="text" class="form-control" id="Address2" placeholder="Address2" asp-for="Address2">
                                     <label for="floatingInput2">Address2</label>
                                     <span asp-validation-for="Address2" class="text-danger"></span>
                                 </div>
@@ -232,7 +232,7 @@
                         <div class="form-floating mb-3 p-0">
                             <!-- <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"> -->
                             <textarea class="text-area form-control" id="exampleFormControlTextarea1" rows="7" asp-for="AdminNotes"></textarea>
-                            <label class="color" for="floatingInput">Enter Brief Details Of Symptoms(Optional)</label>
+                            <label class="color" for="floatingInput">Admin Notes</label>
                         </div>
                         <hr />
                         <header class="h4 mb-4">Onboarding</header>
@@ -453,6 +453,22 @@
             utilsScript:
                 "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
         });
+        //sidebar hamburger
+        let sidebarOpen = false;
+        function hamburger() {
+            if (!sidebarOpen) {
+                document.getElementById('sidebar').style.display = "flex";
+                document.getElementById('main-div').style.opacity = "0.5";
+                document.getElementById('main-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+                sidebarOpen = true;
+            } else {
+                console.log('hii');
+                document.getElementById('sidebar').style.display = "none";
+                document.getElementById('main-div').style.opacity = "1";
+                document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+                sidebarOpen = false;
+            }
+        }
         // const phoneInputField2 = document.querySelector("#phone2");
         // const phoneInput = window.intlTelInput(phoneInputField2, {
         //     utilsScript:
@@ -566,39 +582,3 @@
 
    
 </div>
-
-    //     const phoneInputField = document.querySelector("#phone1");
-    //     const phoneInput = window.intlTelInput(phoneInputField, {
-    //         utilsScript:
-    //             "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-    //     });
-    //     const phoneInputField2 = document.querySelector("#phone2");
-    //     const phoneInput2 = window.intlTelInput(phoneInputField2, {
-    //         utilsScript:
-    //             "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-    //     });
-
-
-    //     //admin wise region
-    //     $(document).ready(function () {
-    //         var selectedRegion = $('#SelectedRegion').val();
-    //         var ticked = document.getElementsByClassName('checkboxes');
-    //         for (var i = 0; i < ticked.length; i++) {
-    //             if (ticked[i].checked) {
-    //                 selectedRegion += (selectedRegion ? ',' : '') + ticked[i].value;
-    //             }
-    //         }
-    //         $('.checkboxes').change(function () {
-    //             var regionId = $(this).data('regionId');
-    //             var isChecked = $(this).is(':checked');
-
-    //             // Update selectedRegion string based on checkbox state
-    //             if (isChecked) {
-    //                 selectedRegion += (selectedRegion ? ',' : '') + regionId;
-    //             } else {
-    //                 selectedRegion = selectedRegion.replace(new RegExp(',' + regionId + '|^' + regionId + ','), '');
-    //             }
-
-    //             $('#SelectedRegion').val(selectedRegion);
-    //         });
-    //     });

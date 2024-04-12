@@ -126,7 +126,7 @@
 
         </div>
         <header class="h5 mb-3 ">Patient Information</header>
-        <form asp-controller="AdminDashboard" asp-action="CloseCaseSaveBtn" enctype="multipart/form-data" method="post" class="h-100  ps-3 pt-3 pe-3 g-3">
+        <form asp-controller="AdminDashboard" asp-action="CloseCaseSaveBtn" enctype="multipart/form-data" method="post" class="h-100  ps-3 pt-3 pe-3 g-3" id="myForm">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
@@ -211,7 +211,8 @@
         const today = new Date().toISOString().split('T')[0];
         inputDate.setAttribute('max', today);
         //there are 2 submit so putting click event listner on close case to submit form
-        document.getElementById("close-case-button").addEventListener("click", function (event) {
+        // document.getElementById("close-case-button").addEventListener("click", function (event) {
+        document.getElementById("submit-button-4").addEventListener("click", function (event) {
             event.preventDefault(); // prevent the button from submitting the form the default way
 
             // submit the form programmatically
@@ -351,6 +352,22 @@
             document.getElementById('delete-icon').style.display = "block";
 
         }
+        //sidebar hamburger
+        let sidebarOpen = false;
+        function hamburger() {
+            if (!sidebarOpen) {
+                document.getElementById('sidebar').style.display = "flex";
+                document.getElementById('main-div').style.opacity = "0.5";
+                document.getElementById('main-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+                sidebarOpen = true;
+            } else {
+                console.log('hii');
+                document.getElementById('sidebar').style.display = "none";
+                document.getElementById('main-div').style.opacity = "1";
+                document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+                sidebarOpen = false;
+            }
+        }
         // var modal = document.getElementById("myModal");
 
         // var btn = document.getElementById("submit-button");
@@ -373,27 +390,7 @@
         //         modal.style.display = "none";
         //     }
         // }
-        // let sidebarOpen = false;
-        // function hamburger() {
-        //     if (!sidebarOpen) {
-        //         console.log('hi');
-        //         document.getElementById('sidebar').style.display = "flex";
-        //         document.getElementById('main-div').style.opacity = "0.5";
-        //         document.getElementById('main-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
-        //         document.getElementById("defaultOpen2").click();
-
-        //         // document.getElementById('main-sub-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
-        //         sidebarOpen = true;
-        //     } else {
-        //         console.log('hii');
-        //         document.getElementById('sidebar').style.display = "none";
-        //         document.getElementById('main-div').style.opacity = "1";
-        //         document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
-
-        //         sidebarOpen = false;
-        //     }
-        // }
-
+      
         // document.getElementById("defaultOpen2").click();
         // const phoneInputField = document.querySelector("#phone");
         // const phoneInput = window.intlTelInput(phoneInputField, {

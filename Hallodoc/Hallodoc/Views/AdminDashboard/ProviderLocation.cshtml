@@ -56,23 +56,19 @@
                 });
             });
         }
+        //sidebar hamburger
         let sidebarOpen = false;
         function hamburger() {
             if (!sidebarOpen) {
-                console.log('hi');
                 document.getElementById('sidebar').style.display = "flex";
                 document.getElementById('main-div').style.opacity = "0.5";
                 document.getElementById('main-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
-                document.getElementById("defaultOpen2").click();
-
-                // document.getElementById('main-sub-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
                 sidebarOpen = true;
             } else {
                 console.log('hii');
                 document.getElementById('sidebar').style.display = "none";
                 document.getElementById('main-div').style.opacity = "1";
                 document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
-
                 sidebarOpen = false;
             }
         }
