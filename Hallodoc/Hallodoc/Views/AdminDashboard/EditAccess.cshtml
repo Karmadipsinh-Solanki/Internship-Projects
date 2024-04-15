@@ -16,7 +16,7 @@
         <div id="main-div" class="tabcontent main-profile-div">
             <div class="main-sub-div">
                 <div class="d-flex justify-content-between align-items-center py-3 topheader">
-                    <h3>Create Role</h3>
+                    <h3>Edit Role</h3>
                     <div class="cancelButton mb-3 mt-3" style="width:65px;">
                         <a class="textdeconone" asp-controller="AdminDashboard" asp-action="AccountAccess">
                             <span class="cancelButtonText" style="color:#0dcaf0;">&lt Back</span>
@@ -40,8 +40,8 @@
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                     @* <label for="Password" class="labels">Account Type</label> *@
-                                    <select class="custom-select-7 text-secondary dropdownBorder" id="physicianDropdown" asp-for="AccountType"
-                                            style="width: 100%;height: 58px;padding:8px;border: 1px solid #d3d6d6;border-radius:5px;" onchange="test(this)" asp-for="AccountType">
+                                    <select class="custom-select-7 text-secondary dropdownBorder" id="select-account-type" asp-for="AccountType"
+                                            style="width: 100%;height: 58px;padding:8px;border: 1px solid #d3d6d6;border-radius:5px;" asp-for="AccountType">
                                         <option value="0" disabled selected hidden><span>Account Type</span></option>
                                         <option value="admin-div" style="color:gray !important;"><span style="color:gray;">Admin</span></option>
                                         <option value="provider-div" style="color:gray !important;"><span style="color:gray;">Provider</span></option>
@@ -50,7 +50,7 @@
                             </div>
                         </div>
 
-                        <div class="menu-items hide" id="admin-div">
+                        <div class="menu-items" id="admin-div">
 
                             @foreach (var item in Model.Query)
                             {
@@ -80,7 +80,7 @@
 
                         <div class="form-floating mb-3 d-flex justify-content-end align-items-center mt-3">
                             <button type="submit" class="saveButton me-3" style="width:65px;"><span class="saveButtonText">Save</span></button>
-                            <a class="cancelButton textdeconone" style="width:65px;" onclick="cancelButton()"><span class="class=" cancelButtonText"">Cancel</span></a>
+                            <a asp-controller="AdminDashboard" asp-action="AccountAccess" class="cancelButton textdeconone" style="width:65px;" onclick="cancelButton()"><span class="cancelButtonText">Cancel</span></a>
                         </div>
                         <!-- <h5 style="margin-bottom: 30px;margin-top: 20px;" class="title">(Optional) Upload Photo or Document</h5> -->
                     </form>
@@ -93,8 +93,46 @@
         function cancelButton() {
             location.reload();
         }
+
+        // $(document).ready(function () {
+        //     //var ticked = document.getElementsByClassName('checkbox');
+        //     //for (var i = 0; i < ticked.length; i++) {
+        //     //    if (ticked[i].checked) {
+        //     //        selectedMenuItems += (selectedMenuItems ? ',' : '') + ticked[i].value;
+        //     //    }
+        //     //}
+        //     var selectedMenuItems = $('#SelectedMenuItems').val();
+        //     $('.checkbox').change(function () {
+        //         var menuId = $(this).data('menuId');
+        //         var isChecked = $(this).is(':checked');
+
+        //         // Update selectedRegion string based on checkbox state
+        //         if (isChecked) {
+        //             selectedMenuItems += (selectedMenuItems ? ',' : '') + menuId;
+        //         } else {
+        //             selectedMenuItems = selectedMenuItems.replace(new RegExp(',' + menuId + '|^' + menuId + ','), '');
+        //         }
+        //         console.log(selectedMenuItems);
+        //         $('#SelectedMenuItems').val(selectedMenuItems);
+        //     });
+        // });
+        // document.getElementById('select-account-type').addEventListener('change', function () {
+        //     var id = document.getElementById('select-account-type').value;
+        //     var menuClasses = document.getElementsByClassName('menu-items');
+        //     for (var i = 0; i < menuClasses.length; i++) {
+        //         if (menuClasses[i].id == id) {
+        //             menuClasses[i].classList.remove('hide');
+        //         } else {
+        //             menuClasses[i].classList.add('hide');
+        //         }
+        //     }
+        //     //document.getElementById(id).classList.remove()
+        // });
+
         var accountType = document.getElementById("select-account-type").value;
         document.getElementById(accountType).classList.remove("hide");
+        const other = accountType == "provider-div" ? "admin-div" : "provider-div"
+        document.getElementById(other).classList.add("hide");
         var selectedMenuItems;
         $(document).ready(function () {
             selectedMenuItems = $('#SelectedMenuItems').val();

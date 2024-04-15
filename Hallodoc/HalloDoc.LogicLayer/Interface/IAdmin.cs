@@ -48,7 +48,7 @@ namespace HalloDoc.LogicLayer.Interface
         public bool saveAdministratorDetail(AdminProfileViewModel model);
         public bool saveBillingInformation(AdminProfileViewModel model);
         public bool resetPassword(AdminProfileViewModel model);
-        public AdminProfileViewModel adminProfile();
+        public AdminProfileViewModel adminProfile(int id = -1);
         public List<Region> fetchAdminRegions();
         public bool encounter(EncounterViewModel model);
         public EncounterViewModel encounter(int id);

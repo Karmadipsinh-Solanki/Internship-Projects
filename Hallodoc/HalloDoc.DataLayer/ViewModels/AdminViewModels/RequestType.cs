@@ -10,7 +10,7 @@ namespace HalloDoc.DataLayer.ViewModels.AdminViewModels
     {
         public enum Statuses
         {
-            Business = 1, Family = 2, Conceirge = 3, Patient = 4
+            Business = 4, Family = 2, Conceirge = 3, Patient = 1
         }
     }
 }

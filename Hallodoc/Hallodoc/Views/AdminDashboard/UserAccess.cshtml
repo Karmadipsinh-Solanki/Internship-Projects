@@ -11,34 +11,33 @@
         <partial name="Toast" />
         <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" />
     </div>
-    <div style="display: flex;flex-direction: row;">
+    <div class=" p-3" style="display: flex;flex-direction: row;">
         <div id="main-div" style="width: 100%;">
             <div id="main-sub-div" class="tabcontent">
-                <div class="title-and-back-2">
+                <div class="d-flex justify-content-between align-items-center title-and-back-2 mb-2">
 
                     <h4>User Access</h4>
-                    <a asp-action="Scheduling" asp-controller="AdminDashboard" class="back-navigation-link-8 textdeconone">
-                        <div class="back-navigation" style="text-decoration:none;">
+                    <a asp-action="Scheduling" asp-controller="AdminDashboard" class="back-navigation-link-8 textdeconone ">
+                        <div class="back-navigation cancelButton d-flex justify-content-center align-items-center" style="text-decoration:none;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00ccff" class="bi bi-chevron-left" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
                             </svg>
-                            <span>Back</span>
+                            <span class="cancelButtonText">Back</span>
                         </div>
                     </a>
                 </div>
                 @*</div>*@
-                <div id="main-sub-div-part-2">
+                <div id="main-sub-div-part">
+                    <div class="row mb-2">
+                        <div class="col-md-3 mb-3">
+                            <div style="border:1px solid gray;padding:0px;" class="region-dropdown">
 
-                    @*<div id="main-sub-div" class="tabcontent">*@
-
-                    <div class="shift-detail-header">
-                        <div style="border:1px solid gray;padding:0px;" class="region-dropdown">
-
-                            <select class="custom-select-5" style="border:none;background-color:white;width:100%;" id="accountType" onchange="filter(1,10)">
-                                <option value="-1" style="color:gray !important;"><span style="color:gray;">All</span></option>
-                                <option value="1" style="color:gray !important;"><span style="color:gray;">Admin</span></option>
-                                <option value="2" style="color:gray !important;"><span style="color:gray;">Physician</span></option>
-                            </select>
+                                <select class="custom-select-5" style="border:none;background-color:white;width:100%;" id="accountType" onchange="filter(1,10)">
+                                    <option value="-1" style="color:gray !important;"><span style="color:gray;">All</span></option>
+                                    <option value="1" style="color:gray !important;"><span style="color:gray;">Admin</span></option>
+                                    <option value="2" style="color:gray !important;"><span style="color:gray;">Physician</span></option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 

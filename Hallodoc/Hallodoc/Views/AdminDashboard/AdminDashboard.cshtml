@@ -9,7 +9,7 @@
 }
 @section Scripts {
     @{
-            <partial name="_ValidationScriptsPartial" />
+        <partial name="_ValidationScriptsPartial" />
     }
 }
 
@@ -114,7 +114,7 @@
                                         <h1 class="saveButtonText fs-5" id="exampleModalLabel">Send mail to patient for submitting request</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <form asp-action="SendLink" asp-controller="AdminDashboard" method="post" id="formclass1">
+                                    <form asp-action="SendLink" asp-controller="AdminDashboard" method="post" id="formclass1" >
                                         <div class="modal-body">
                                             <div class="form-floating mb-3">
                                                 <input type="text" class="form-control" id="floatingInputF" placeholder="First Name" asp-for="FirstName">
@@ -138,12 +138,17 @@
                                         </div>
                                         <div class="modal-footer form-floating mb-3">
                                             <button type="submit" class="saveButton"><span class="saveButtonText">Save</span> </button>
-                                            <button class="cancelButton" data-bs-dismiss="modal"><span class="cancelButtonText">Cancel</span></button>
+                                            <a class="cancelButton textdeconone" data-bs-dismiss="modal"><span class="cancelButtonText">Cancel</span></a>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
+
+
+
+
+
 
 
                         <a class="dashboard-button textdeconone" asp-controller="AdminDashboard" asp-action="CreateRequest">
@@ -199,7 +204,7 @@
                                 </svg>
                                 @* <input placeholder="All Regions" type="text" class="searchPatientInput" id="region" /> *@
                                 <select class="searchPatientInput" id="region" onchange="filter(1,10)" style="padding:8px;border:none;">
-                                    <option value="0"class="text-secondary" selected hidden><span style="color:gray;">All Region</span></option>
+                                    <option value="0" class="text-secondary" selected hidden><span style="color:gray;">All Region</span></option>
                                     @foreach (var item in Model.regions)
                                     {
                                         <option value="@item.RegionId"><span>@item.Name</span></option>
@@ -309,7 +314,7 @@
                                     <h1 class="saveButtonText fs-5" id="assignCaseModalLabel">Assign Request</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <form asp-action="AssignCase" asp-controller="AdminDashboard" method="post" id="formclass3">
+                                <form asp-action="AssignCase" asp-controller="AdminDashboard" method="post" id="formclass3" onsubmit="@Html.Raw("return checkAssign()")">
                                     <div class="modal-body">
                                         <div class="mb-3">
                                             <span class="text-secondary" style="font-size:14px"><strong>To assign this request, search and select another Physician.</strong></span>
@@ -327,20 +332,20 @@
                                         </div>
                                         <div class="form-floating mb-3">
                                             @*  <input type="" asp-for="PhysicianId" id="physicianId" style="display:none;"/> *@
-                                            <select asp-for="PhysicianId" class="custom-select-7 text-secondary dropdownBorder" id="physicianDropdown" style="width: 100%;height: 54px;padding:8px;" onchange="test(this)">
-                                                <option value="0" disabled selected hidden><span>Select Physician</span></option>
+                                            <select asp-for="PhysicianId" class="custom-select-7 text-secondary dropdownBorder" id="physicianDropdown" style="width: 100%;height: 54px;padding:8px;" onchange="selectAssign(this)">
+                                                <option value="-1" disabled selected hidden><span>Select Physician</span></option>
                                                 @*    @foreach (var item in Model.physicians)
                                                 {
                                                 <option value="@item.PhysicianId">@(item.FirstName + " " + item.LastName)</option>
                                                 } *@
                                             </select>
                                         </div>
+                                        <span id="warning-assign" class="text-danger hidden">Please Select Physician</span>
                                         <div class="form-floating login-fields" style="width: 100%;margin-top: 20px;">
                                             <textarea type="text" placeholder="Description" class="form-control"
-                                                      style="height: 135px !important;" asp-for="Description"></textarea>
+                                                      style="height: 135px !important;" asp-for="Description"id="assignDescription" required></textarea>
                                             <label for="floatingInput">Description</label>
                                         </div>
-                                        <span asp-validation-for="Description" class="text-danger"></span>
                                     </div>
                                     <div class="modal-footer form-floating mb-3">
                                         <button type="submit" class="saveButton"><span class="saveButtonText">Submit</span> </button>
@@ -350,6 +355,22 @@
                             </div>
                         </div>
                     </div>
+                    <script>
+                        const checkAssign = () => {
+                            const select = document.getElementById("physicianDropdown")
+                            if (select.value == -1) {
+                                document.getElementById("warning-assign").style.display = "block";
+                                return false;
+                            }
+                        }
+                        const selectAssign = (text) => {
+                            if (text.value != -1) {
+                                document.getElementById("warning-assign").style.display = "none";
+                                document.getElementById("physicianDropdown").value = -1;
+                                document.getElementById("assignDescription").value = "";
+                            }
+                        }
+                    </script>
 
                     <!--Transfer Case Modal -->
                     <div class="modal fade " id="transferCaseModal" tabindex="-1" aria-labelledby="transferCaseModalLabel" aria-hidden="true">
@@ -531,7 +552,7 @@
     </div>
     <script>
         //export
-        
+
         const DownloadSpecificExcel = () => {
             var categories = document.getElementsByClassName("req-filter");
             for (var i = 0; i < categories.length; i++) {
@@ -543,11 +564,11 @@
                     document.getElementById("excel-requestor").value = requestor
                     document.getElementById("excel-search").value = search
                     document.getElementById("excel-status").value = document.getElementById("status-text").innerHTML.substring(1, document.getElementById("status-text").innerHTML.length - 1)
-                            document.getElementById("dwnld-excel").click()
-                    
+                    document.getElementById("dwnld-excel").click()
+
                 }
             }
-            
+
         }
 
 

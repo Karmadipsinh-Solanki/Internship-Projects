@@ -640,6 +640,17 @@ namespace HalloDoc.Controllers
             AdminProfileViewModel adminProfileViewModel = _admin.adminProfile();
             return View(adminProfileViewModel);
         }
+        public IActionResult EditAdminProfile(int id)
+        {
+            var request2 = _httpContextAccessor.HttpContext.Request;
+            var token = request2.Cookies["jwt"];
+            CookieModel cookieModel = _jwtService.getDetails(token);
+            List<string> roleMenu = _admin.GetListOfRoleMenu(cookieModel.AccessRoleId);
+            ViewBag.Menu = roleMenu;
+
+            AdminProfileViewModel adminProfileViewModel = _admin.adminProfile(id);
+            return View("AdminProfile",adminProfileViewModel);
+        }
         public IActionResult AccountAccess()
         {
             var request2 = _httpContextAccessor.HttpContext.Request;
@@ -817,7 +828,7 @@ namespace HalloDoc.Controllers
             PatientHistoryViewModel patientHistoryViewModel = _admin.patientHistory(firstname, lastname, email, phonenumber, page, pageSize);
             return PartialView("PatientHistoryTable", patientHistoryViewModel);
         }
-        public IActionResult UserAccess(UserAccessViewModel model)
+        public IActionResult UserAccess()
         {
             var request2 = _httpContextAccessor.HttpContext.Request;
             var token = request2.Cookies["jwt"];
@@ -829,10 +840,10 @@ namespace HalloDoc.Controllers
             return View(userAccessMainModel);
         }
         [HttpPost]
-        public IActionResult UserSearchAccess(int? accountType, int page = 1, int pageSize = 10)
+        public IActionResult UserAccessFilter(int? accountType, int page = 1, int pageSize = 10)
         {
-            UserAccessMainModel userAccessMainModel = _admin.userAccess(accountType, page, pageSize);
-            return PartialView("UserAccessTable", userAccessMainModel);
+            UserAccessMainModel model = _admin.userAccess(accountType, page, pageSize);
+            return PartialView("UserAccessTable", model);
         }
         public IActionResult UnBlock(int id)
         {

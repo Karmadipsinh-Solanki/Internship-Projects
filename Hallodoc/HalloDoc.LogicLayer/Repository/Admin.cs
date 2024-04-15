@@ -1829,7 +1829,7 @@ namespace HalloDoc.LogicLayer.Repository
             var request = _httpContextAccessor.HttpContext.Request;
             var token = request.Cookies["jwt"];
             CookieModel cookieModel = _jwtService.getDetails(token);
-            int aspNetUserId = cookieModel.aspId;
+            int aspNetUserId = (int)model.Id;
 
             if (aspNetUserId != null)
             {
@@ -1876,7 +1876,7 @@ namespace HalloDoc.LogicLayer.Repository
             var request = _httpContextAccessor.HttpContext.Request;
             var token = request.Cookies["jwt"];
             CookieModel cookieModel = _jwtService.getDetails(token);
-            int aspNetUserId = cookieModel.aspId;
+            int aspNetUserId = (int)model.Id;
             if (aspNetUserId != null)
             {
                 HalloDoc.DataLayer.Models.Admin admin = _context.Admins.FirstOrDefault(u => u.AspNetUserId == aspNetUserId);
@@ -1900,7 +1900,7 @@ namespace HalloDoc.LogicLayer.Repository
             var request = _httpContextAccessor.HttpContext.Request;
             var token = request.Cookies["jwt"];
             CookieModel cookieModel = _jwtService.getDetails(token);
-            int aspNetUserId = cookieModel.aspId;
+            int aspNetUserId = (int)model.Id;
             if (aspNetUserId != null)
             {
                 AspNetUser aspNetUser = _context.AspNetUsers.FirstOrDefault(u => u.Id == aspNetUserId);
@@ -1914,15 +1914,20 @@ namespace HalloDoc.LogicLayer.Repository
                 return false;
             }
         }
-        public AdminProfileViewModel adminProfile()
+        public AdminProfileViewModel adminProfile(int id = -1)
         {
             var request = _httpContextAccessor.HttpContext.Request;
             var token = request.Cookies["jwt"];
             CookieModel cookieModel = _jwtService.getDetails(token);
             int aspNetUserId = cookieModel.aspId;
+            if (id != -1)
+            {
+                aspNetUserId = id;
+            }
             AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
             adminNavbarViewModel.AdminName = cookieModel.name;
             adminNavbarViewModel.Tab = 3;
+
             var AdminDetails = _context.Admins.FirstOrDefault(u => u.AspNetUserId == aspNetUserId);
             var AspAdminDetail = _context.AspNetUsers.FirstOrDefault(u => u.Id == aspNetUserId);
             //var region = _context.Regions.ToList();
@@ -1965,6 +1970,7 @@ namespace HalloDoc.LogicLayer.Repository
             adminProfileViewModel.regions = allRegions;
             adminProfileViewModel.adminNavbarViewModel = adminNavbarViewModel;
             adminProfileViewModel.CreatedDate = AspAdminDetail.CreatedDate;
+            adminProfileViewModel.Id = aspNetUserId;
             return adminProfileViewModel;
         }
         public bool editAccess(EditAccessViewModel model)
@@ -3932,10 +3938,10 @@ namespace HalloDoc.LogicLayer.Repository
             createProviderViewModel.BusinessName = physician.BusinessName;
             createProviderViewModel.BusinessWebsite = physician.BusinessWebsite;
             createProviderViewModel.AdminNotes = physician.AdminNotes;
-            createProviderViewModel.IsBackgroundCheck = physician.IsBackgroundDoc[0] == true ? true : false;
-            createProviderViewModel.IsICA = physician.IsAgreementDoc[0] == true ? true : false;
-            createProviderViewModel.IsHIPAACompliance = physician.IsCredentialDoc[0] == true ? true : false;
-            createProviderViewModel.IsNonDisclosureAgreement = physician.IsNonDisclosureDoc[0] == true ? true : false;
+            createProviderViewModel.IsBackgroundCheck = physician.IsBackgroundDoc != null && physician.IsBackgroundDoc[0] == true ? true : false;
+            createProviderViewModel.IsICA = physician.IsAgreementDoc != null && physician.IsAgreementDoc[0] == true ? true : false;
+            createProviderViewModel.IsHIPAACompliance = physician.IsCredentialDoc != null && physician.IsCredentialDoc[0] == true ? true : false;
+            createProviderViewModel.IsNonDisclosureAgreement = physician.IsNonDisclosureDoc != null && physician.IsNonDisclosureDoc[0] == true ? true : false;
             createProviderViewModel.PhotoName = physician.Photo == null ? "Select File" : physician.Photo;
             createProviderViewModel.check = true;
             createProviderViewModel.PhysicianId = physician.PhysicianId;
