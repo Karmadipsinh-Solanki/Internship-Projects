@@ -753,7 +753,6 @@ C:\Users\pca161\Desktop\Internship-Projects\Internship-Projects\Hallodoc\Hallodo
 C:\Users\pca161\Desktop\Internship-Projects\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\HalloDoc.LogicLayer.dll
 C:\Users\pca161\Desktop\Internship-Projects\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\HalloDoc.DataLayer.pdb
 C:\Users\pca161\Desktop\Internship-Projects\Internship-Projects\Hallodoc\Hallodoc\bin\Debug\net7.0\HalloDoc.LogicLayer.pdb
-C:\Users\pca161\Desktop\Internship-Projects\Internship-Projects\Hallodoc\Hallodoc\obj\Debug\net7.0\Hallodoc.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\pca161\Desktop\Internship-Projects\Internship-Projects\Hallodoc\Hallodoc\obj\Debug\net7.0\staticwebassets.build.json
 C:\Users\pca161\Desktop\Internship-Projects\Internship-Projects\Hallodoc\Hallodoc\obj\Debug\net7.0\staticwebassets.development.json
 C:\Users\pca161\Desktop\Internship-Projects\Internship-Projects\Hallodoc\Hallodoc\obj\Debug\net7.0\staticwebassets\msbuild.Hallodoc.Microsoft.AspNetCore.StaticWebAssets.props

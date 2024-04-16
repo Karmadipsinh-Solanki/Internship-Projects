@@ -217,44 +217,12 @@
         </div>
     </div>
     <script>
-        function darkMode() {
-            var body = document.body;
-            var isDarkMode = body.classList.toggle("dark-mode");
-
-            // Toggle moon and sun icons
-            var moonIcon = document.getElementById("moon");
-            var sunIcon = document.getElementById("sun");
-            moonIcon.classList.toggle("d-none", isDarkMode);
-            sunIcon.classList.toggle("d-none", !isDarkMode);
-
-            // Save dark mode state to localStorage
-            localStorage.setItem("darkMode", isDarkMode);
-        }
-
-        // Check localStorage for dark mode state on page load
-        document.addEventListener("DOMContentLoaded", function () {
-            var isDarkMode = localStorage.getItem("darkMode") === "true";
-
-            // Apply dark mode state to the body and icons
-            var body = document.body;
-            var moonIcon = document.getElementById("moon");
-            var sunIcon = document.getElementById("sun");
-
-            if (isDarkMode) {
-                body.classList.add("dark-mode");
-                moonIcon.classList.add("d-none");
-                sunIcon.classList.remove("d-none");
-            } else {
-                body.classList.remove("dark-mode");
-                moonIcon.classList.remove("d-none");
-                sunIcon.classList.add("d-none");
-            }
-        });
+       
 
 
         //admin wise region
         $(document).ready(function () {
-            var selectedRegion = $('#SelectedRegion').val();
+            var selectedRegion = "";
             var ticked = document.getElementsByClassName('checkboxes');
             for (var i = 0; i < ticked.length; i++) {
                 if (ticked[i].checked) {
@@ -271,10 +239,33 @@
                 } else {
                     selectedRegion = selectedRegion.replace(new RegExp(',' + regionId + '|^' + regionId + ','), '');
                 }
-
                 $('#SelectedRegion').val(selectedRegion);
             });
+            $('#SelectedRegion').val(selectedRegion);
         });
+        //admin wise region
+        // $(document).ready(function () {
+        //     var selectedRegion = $('#SelectedRegion').val();
+        //     var ticked = document.getElementsByClassName('checkboxes');
+        //     for (var i = 0; i < ticked.length; i++) {
+        //         if (ticked[i].checked) {
+        //             selectedRegion += (selectedRegion ? ',' : '') + ticked[i].value;
+        //         }
+        //     }
+        //     $('.checkboxes').change(function () {
+        //         var regionId = $(this).data('regionId');
+        //         var isChecked = $(this).is(':checked');
+
+        //         // Update selectedRegion string based on checkbox state
+        //         if (isChecked) {
+        //             selectedRegion += (selectedRegion ? ',' : '') + regionId;
+        //         } else {
+        //             selectedRegion = selectedRegion.replace(new RegExp(',' + regionId + '|^' + regionId + ','), '');
+        //         }
+
+        //         $('#SelectedRegion').val(selectedRegion);
+        //     });
+        // });
 
         //edit,save,cancel
         document.getElementById('submit-button-2').onclick = function () {
@@ -380,5 +371,38 @@
                 document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
             }
         }
+        function darkMode() {
+            var body = document.body;
+            var isDarkMode = body.classList.toggle("dark-mode");
+
+            // Toggle moon and sun icons
+            var moonIcon = document.getElementById("moon");
+            var sunIcon = document.getElementById("sun");
+            moonIcon.classList.toggle("d-none", isDarkMode);
+            sunIcon.classList.toggle("d-none", !isDarkMode);
+
+            // Save dark mode state to localStorage
+            localStorage.setItem("darkMode", isDarkMode);
+        }
+
+        // Check localStorage for dark mode state on page load
+        document.addEventListener("DOMContentLoaded", function () {
+            var isDarkMode = localStorage.getItem("darkMode") === "true";
+
+            // Apply dark mode state to the body and icons
+            var body = document.body;
+            var moonIcon = document.getElementById("moon");
+            var sunIcon = document.getElementById("sun");
+
+            if (isDarkMode) {
+                body.classList.add("dark-mode");
+                moonIcon.classList.add("d-none");
+                sunIcon.classList.remove("d-none");
+            } else {
+                body.classList.remove("dark-mode");
+                moonIcon.classList.remove("d-none");
+                sunIcon.classList.add("d-none");
+            }
+        });
     </script>
 </div>

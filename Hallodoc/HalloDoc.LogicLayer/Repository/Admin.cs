@@ -1952,6 +1952,7 @@ namespace HalloDoc.LogicLayer.Repository
             })
             .ToList();
 
+
             //adminProfileViewModel.Password = data?.AspNetUsers.PasswordHash;
             //adminProfileViewModel.Status = data?.Status;
             //adminProfileViewModel.role = data?.Role;
@@ -3904,12 +3905,14 @@ namespace HalloDoc.LogicLayer.Repository
             var token = request.Cookies["jwt"];
             CookieModel cookieModel = _jwtService.getDetails(token);
             string AdminName = cookieModel.name;
+            
             AdminNavbarViewModel adminNavbarViewModel = new AdminNavbarViewModel();
             adminNavbarViewModel.AdminName = AdminName;
             adminNavbarViewModel.Tab = 4;
             List<Region> regions = _context.Regions.ToList();
             List<Role> roles = _context.Roles.ToList();
             CreateProviderViewModel createProviderViewModel = new CreateProviderViewModel();
+            createProviderViewModel.PhysicianId = id;
             createProviderViewModel.adminNavbarViewModel = adminNavbarViewModel;
             //var PhysicianDetails = _context.Admins.FirstOrDefault(u => u.AspNetUserId == aspNetUserId);
 

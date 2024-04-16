@@ -115,3 +115,9 @@
         width:42px;
     }
 }
+.menu-item-div {
+    display: none;
+}
+#Admin-div, #Provider-div {
+    display: block;
+}

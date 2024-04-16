@@ -1,418 +1,749 @@
-﻿@using HalloDoc.DataLayer.ViewModels.AdminViewModels;
-@model CreateProviderViewModel;
-@using static HalloDoc.EnumStatus;
+﻿@model CreateProviderViewModel;
 @{
-    ViewData["Title"] = "Edit Physician Account";
+    ViewData["Title"] = "EditPhysicianAccount";
 }
 @section Styles {
-    <link href="~/css/accountAccess.css" rel="stylesheet" type="text/css" />
     <link href="~/css/AdminDashboardStyle.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/MyProfileStyle.css" rel="stylesheet" type="text/css" />
 }
-@section Scripts {
-    @{
-        <partial name="_ValidationScriptsPartial" />
-    }
-}
-
 <div id="body">
     <div class="shadow header-nav-container">
         <partial name="Toast" />
         <partial name="AdminDashboardHeader" model="@Model.adminNavbarViewModel" />
     </div>
     <div style="display: flex;flex-direction: row;">
+        <div id="main-sub-div" style="flex-direction: column;margin-top:60px;">
+            <!-- <div style="display: flex;align-items: center;"> -->
 
-        <div id="main-div" style="width: 100%;">
+            <h4>Edit Provider Account</h4>
 
-            <div id="main-sub-div" class="tabcontent main-profile-div">
-                <div>
-                    <div class="d-flex justify-content-between align-items-center p-3 topheader">
-                        <h3>Edit Physician Account</h3>
-                        <div class="d-flex justify-content-center align-items-center mb-3 mt-3" style="background-color:transparent;width: 90px;height: 45px;border:1px solid #0dcaf0;border-radius:5px;">
-                            <a class="textdeco" asp-controller="AdminDashboard" asp-action="AdminDashboard" style="text-decoration:none;">
-                                <span class="textback" style="color:#0dcaf0;">&lt Back</span>
-                            </a>
+            <!-- </div> -->
+            <a asp-action="ProviderInfo" asp-controller="AdminDashboard" class="back-navigation-link">
+                <div class="back-navigation">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-chevron-left back-icon" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                    </svg>
+                    <span>Back</span>
+                </div>
+            </a>
+            <div id="main-form">
+                <h5>Account Information</h5>
+                <form asp-action="EditPhysicianAccountInformation" asp-controller="AdminDashboard" method="post" enctype="multipart/form-data">
+                    <input id="PhysicianId" type="hidden" asp-for="PhysicianId" />
+                    <div class="form-sub-div" style="margin-top: 20px;">
+                        <div class="form-floating login-fields login-fields-2">
+                            <input type="text" placeholder="First Name" class="form-control" disabled asp-for="Username" />
+                            <label for="first-name" class="labels">Username</label>
+                        </div>
+                        <div class="form-floating login-fields">
+                            <input type="text" id="Password" placeholder="Password" class="form-control" asp-for="Password" />
+                            <label for="Password" class="labels">Password</label>
                         </div>
                     </div>
-                </div>
-                <div class="content shadow contentProfile h-100  ps-3 pt-3 pe-3 g-3" style="background-color:white;">
-                    <form asp-controller="AdminDashboard" asp-action="EditPhysicianPassword" enctype="multipart/form-data" method="post" class="">
-                        <header class="h4 mb-3">Account Information</header>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput1" placeholder="User Name" asp-for="Username" disabled>
-                                    <label for="floatingInput1">User Name</label>
-                                    <span asp-validation-for="Username" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput2" placeholder="Password" asp-for="Password">
-                                    <label for="floatingInput2">Password</label>
-                                    <span asp-validation-for="Password" class="text-danger"></span>
-                                </div>
-                            </div>
+                    <div class="form-sub-div" style="margin-top: 0px;">
+                        <div class="form-floating login-fields login-fields-2">
+                            <label for="Password" class="labels" style="top:-17px;font-size:12px;">Status</label>
+                            <select class="custom-select" disabled asp-for="Status" style="height:50px;">
+                                <option value=1 style="color:gray !important;"><span style="color:gray;">Active</span></option>
+                                <option value=2 style="color:gray !important;"><span style="color:gray;">Pending</span></option>
+                                <option value=3 style="color:gray !important;"><span style="color:gray;">Non Active</span></option>
+                            </select>
                         </div>
-                        <div class="row mb-4">
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="texttext" class="form-control" id="floatingInput3" placeholder="Status" asp-for="Status" disabled>
-                                    <label for="floatingInput3">Status</label>
-                                    <span asp-validation-for="Status" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput4" placeholder="Role" asp-for="Role" disabled>
-                                    <label for="floatingInput4">Role</label>
-                                    <span asp-validation-for="Role" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-end align-items-center">
-                            <div id="submit-div3">
-                                <button type="submit" class="backbutton" style="padding:10px 5px;border:1px solid #0dcaf0;color:#0dcaf0;border-radius:6px;background-color:white;">Reset Password</button>
-                            </div>
-                        </div>
-                    </form>
-                    <header class="h4 mb-4">Administrator Information</header>
-                    <form asp-controller="AdminDashboard" asp-action="SaveAdministratorDetail" enctype="multipart/form-data" method="post" class="">
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput5" placeholder="First Name" asp-for="FirstName" disabled>
-                                    <label for="floatingInput5">First Name</label>
-                                    <span asp-validation-for="FirstName" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput6" placeholder="Last Name" asp-for="LastName" disabled>
-                                    <label for="floatingInput6">Last Name</label>
-                                    <span asp-validation-for="LastName" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="texttext" class="form-control" id="floatingInput7" placeholder="Email" asp-for="Email" disabled>
-                                    <label for="floatingInput7">Email</label>
-                                    <span asp-validation-for="Email" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="tel" class="form-control" id="floatingInput9" placeholder="Phone Number" asp-for="PhoneNumber" disabled>
-                                    <label for="floatingInput9">Phone Number</label>
-                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="MedicalLicense" placeholder="Medical License #" asp-for="MedicalLicense" disabled>
-                                    <label for="MedicalLicense">Medical License #</label>
-                                    <span asp-validation-for="MedicalLicense" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div style="flex-wrap: wrap;display: flex;width: 104.5%;">
-                                    <input class="hide" type="text" asp-for="SelectedRegion" id="SelectedRegion" disabled />
-                                    @* @foreach (var item in Model.State)
-                                    {
-                                    <div style="display: flex;align-items: center;">
-                                    <input type="checkbox" data-region-id="@item.RegionId" class="checkboxes" checked="@item.IsSelected" value="@item.RegionId" id="@item.Name" disabled>
-                                    <label class="container">@item.Name</label>
-                                    </div>
-                                    } *@
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-end align-items-center">
-                            <div class="saveButton form-button mb-4 me-3 " id="edit-div" style="padding: 7px 27px;background-color:#0dcaf0;border:1px solid #0dcaf0;color:white; margin-right:17px;">
-                                <a id="submit-button-2" class="textdeconone saveButtonText">Edit</a>
-                            </div>
-                            <div id="submit-div" class="hide">
-                                <button type="submit" id="submit-button" style="border:none;margin-right:25px!important;">Save</button>
-                                <a id="submit-button-3" class="backbutton textdeconone" style="padding:10px 5px;border:1px solid #0dcaf0;color:#0dcaf0;border-radius:6px;">Cancel</a>
-                            </div>
-                        </div>
-                    </form>
-                    <header class="h4 mb-4">Mailing and Billing Information</header>
-                    <form asp-controller="AdminDashboard" asp-action="SaveBillingInformation" enctype="multipart/form-data" method="post" class="">
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput1" placeholder="Address1" asp-for="Address1" disabled>
-                                    <label for="floatingInput1">Address1</label>
-                                    <span asp-validation-for="Address1" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput2" placeholder="Address2" asp-for="Address2" disabled>
-                                    <label for="floatingInput2">Address2</label>
-                                    <span asp-validation-for="Address2" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput1" placeholder="City" asp-for="City" disabled>
-                                    <label for="floatingInput1">City</label>
-                                    <span asp-validation-for="City" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <select class="custom-select" asp-for="StateId" id="select-region" style="height: 58px;width: 100%;border-radius:5px;" disabled>
+                        <div class="form-floating login-fields">
+                            <label for="Password" class="labels" style="top:-17px;font-size:12px;">Role</label>
+                            <select class="custom-select" disabled asp-for="Role" style="height:50px;">
+                                @*<option value="-1" style="color:gray !important;"><span style="color:gray;">Select Role</span></option>*@
 
-                                        @* @foreach (var item in Model.regions)
-                                        {
-                                        <option value="@item.RegionId" style="color:gray !important;"><span style="color:gray;">@item.Name</span></option>
-                                        } *@
-                                    </select>
-                                    @* <label for="floatingInput1">State</label> *@
+                                @foreach (var item in Model.Roles)
+                                {
+                                    <option value="@item.RoleId" style="color:gray !important;"><span style="color:gray;">@item.Name</span></option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="EditParentDiv" id="AccountInformationEditButton">
+                        <a onclick="AccountInformationEdit()" class="EditButton">Edit</a>
+                        <a class="ResetPasswordButton" onclick="resetPassword()">Reset Password</a>
+                    </div>
+                    <div class="SaveCancelParentDiv" id="AccountInformationSave">
+                        <button type="submit" id="AccountInformationSaveButton" class="SaveButton">Save</button>
+                        <a class="CancelButton" onclick="CancelPressed()">Cancel</a>
+                    </div>
+                </form>
+                <form asp-action="EditPhysicianInformation" asp-controller="AdminDashboard" method="post">
+                    <input type="hidden" asp-for="PhysicianId" />
 
-                                    @* <input type="hidden" id="floatingInput1" asp-for="StateId">
-                                    <input type="text" class="form-control" id="floatingInput1" placeholder="State" asp-for="state" disabled>
-                                    <span asp-validation-for="state" class="text-danger"></span> *@
-                                </div>
-                            </div>
+                    <h5 style="margin-top:50px;">Physician Information</h5>
+                    <div class="form-sub-div" style="margin-top: 20px;">
+                        <div class="form-floating login-fields login-fields-2">
+                            <input type="text" placeholder="First Name" class="form-control" disabled asp-for="FirstName" />
+                            <label for="first-name" class="labels">First Name</label>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="tel" class="form-control" id="floatingInput1" placeholder="Zip" asp-for="Zip" disabled>
-                                    <label for="floatingInput1">Zip</label>
-                                    <span asp-validation-for="Zip" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="tel" class="form-control" id="floatingInput1" placeholder="PhoneNumber" asp-for="AltPhoneNumber" disabled>
-                                    <label for="floatingInput1">PhoneNumber</label>
-                                    <span asp-validation-for="AltPhoneNumber" class="text-danger"></span>
-                                </div>
-                            </div>
+                        <div class="form-floating login-fields">
+                            <input type="text" placeholder="Password" class="form-control" disabled asp-for="LastName" />
+                            <label for="Password" class="labels">Last Name</label>
                         </div>
-                        <div class="d-flex justify-content-end align-items-center mb-3">
-                            <div class="saveButton form-button mb-4 me-3 " id="edit-div2" style="padding: 7px 27px;background-color:#0dcaf0;border:1px solid #0dcaf0;color:white; margin-right:17px;">
-                                <a id="submit-button-4" class="textdeconone saveButtonText">Edit</a>
-                            </div>
-                            <div id="submit-div2" class="hide">
-                                <button type="submit" id="submit-button-6" style="border:none;margin-right:25px!important;">Save</button>
-                                <a id="submit-button-5" class="backbutton textdeconone" style="padding:10px 5px;border:1px solid #0dcaf0;color:#0dcaf0;border-radius:6px;">Cancel</a>
-                            </div>
+                    </div>
+                    <div class="form-sub-div" style="margin-top: 0px;">
+                        <div class="form-floating login-fields login-fields-2">
+                            <input type="text" placeholder="First Name" class="form-control" disabled asp-for="Email" />
+                            <label for="first-name" class="labels">Email</label>
                         </div>
-                    </form>
-                    <header class="h4 mb-4">Provider Profile</header>
-                    <form asp-controller="AdminDashboard" asp-action="SaveBillingInformation" enctype="multipart/form-data" method="post" class="">
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput1" placeholder="Business Name" disabled@* asp-for="BusinessName" *@>
-                                    <label for="Business Name">Business Name</label>
-                                    @* <span asp-validation-for="BusinessName" class="text-danger"></span> *@
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput2" placeholder="Business Website" disabled @* asp-for="BusinessWebsite" *@>
-                                    <label for="Business Website">Business Website</label>
-                                    @* <span asp-validation-for="BusinessWebsite" class="text-danger"></span> *@
-                                </div>
-                            </div>
+                        <div class="form-floating login-fields">
+                            <input type="tel" class="form-control" id="phone" asp-for="PhoneNumber" disabled />
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="selectPhoto" placeholder="Select Photo" disabled @* asp-for="selectPhoto" *@>
-                                    <label for="selectPhoto ">Select Photo</label>
-                                    @* <span asp-validation-for="selectPhoto" class="text-danger"></span> *@
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <select class="custom-select" asp-for="StateId" id="select-region" style="height: 58px;width: 100%;border-radius:5px;" disabled>
+                    </div>
+                    <div class="form-sub-div" style="margin-top: 0px;">
+                        <div class="form-floating login-fields login-fields-2">
+                            <input type="text" placeholder="First Name" class="form-control" asp-for="MedicalLicense" disabled />
+                            <label for="first-name" class="labels">Medical License #</label>
+                        </div>
+                        <div class="form-floating login-fields">
+                            <input type="text" placeholder="Password" class="form-control" asp-for="NPINumber" disabled />
+                            <label for="Password" class="labels">NPI Number</label>
+                        </div>
+                    </div>
+                    <div style="flex-wrap: wrap;display: flex;width: 48.5%;">
+                        <input type="hidden" asp-for="SelectedRegion" id="SelectedRegion" />
 
-                                        @* @foreach (var item in Model.regions)
-                                        {
-                                        <option value="@item.RegionId" style="color:gray !important;"><span style="color:gray;">@item.Name</span></option>
-                                        } *@
-                                    </select>
-                                </div>
+                        @foreach (var item in Model.State)
+                        {
+                            <div style="display: flex;align-items: center;">
+                                <input type="checkbox" disabled checked="@item.IsSelected" data-region-id="@item.RegionId" class="checkboxes" value="@item.RegionId" id="@item.Name">
+                                <label class="container">@item.Name</label>
                             </div>
-                            <div>
-                            </div>
+                        }
+                    </div>
+                    <div class="EditParentDiv" id="EditPhysicianEditButton">
+                        <a onclick="EditPhysicianEdit()" class="EditButton">Edit</a>
+                    </div>
+                    <div class="SaveCancelParentDiv" id="EditPhysicianSave">
+                        <button type="submit" id="EditPhysicianSaveButton" class="SaveButton">Save</button>
+                        <a class="CancelButton" onclick="CancelPressed()">Cancel</a>
+                    </div>
+                </form>
+                <form asp-action="EditPhysicianMailingInformation" asp-controller="AdminDashboard" method="post" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="PhysicianId" />
+
+                    <h5 style="margin-top:50px;">Mailing & Billing Information</h5>
+                    <div class="form-sub-div" style="margin-top: 20px;">
+                        <div class="form-floating login-fields login-fields-2">
+                            <input type="text" placeholder="First Name" class="form-control" disabled id="Address1" asp-for="Address1" />
+                            <label for="first-name" class="labels">Address 1</label>
                         </div>
-                        <div class="d-flex justify-content-end align-items-center mb-3">
-                            <div class="saveButton form-button mb-4 me-3 " id="edit-div2" style="padding: 7px 27px;background-color:#0dcaf0;border:1px solid #0dcaf0;color:white; margin-right:17px;">
-                                <a id="submit-button-4" class="textdeconone saveButtonText">Edit</a>
-                            </div>
-                            <div id="submit-div2" class="hide">
-                                <button type="submit" id="submit-button-6" style="border:none;margin-right:25px!important;">Save</button>
-                                <a id="submit-button-5" class="backbutton textdeconone" style="padding:10px 5px;border:1px solid #0dcaf0;color:#0dcaf0;border-radius:6px;">Cancel</a>
-                            </div>
+                        <div class="form-floating login-fields">
+                            <input type="text" placeholder="Password" class="form-control" disabled id="Address2" asp-for="Address2" />
+                            <label for="Password" class="labels">Address 2</label>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                    <input type="hidden" asp-for="Latitude" id="lat" />
+                    <input type="hidden" asp-for="Longitude" id="long" />
+                    <div class="form-sub-div" style="margin-top: 0px;">
+                        <div class="form-floating login-fields login-fields-2">
+                            <input type="text" placeholder="First Name" id="City" disabled class="form-control" asp-for="City" />
+                            <label for="first-name" class="labels">City</label>
+                        </div>
+                        <div class="form-floating login-fields">
+                            <select class="custom-select" disabled asp-for="StateId" id="select-region">
+                                <option value="-1" style="color:gray !important;"><span style="color:gray;">Select State</span></option>
+
+                                @foreach (var item in Model.Regions)
+                                {
+                                    <option value="@item.RegionId" style="color:gray !important;"><span style="color:gray;">@item.Name</span></option>
+                                }
+                            </select>
+                            @*<input type="text" placeholder="Password" class="form-control" disabled asp-for="State"/>
+                            <label for="Password" class="labels">State</label>*@
+                        </div>
+                    </div>
+                    <div class="form-sub-div" style="margin-top: 0px;">
+                        <div class="form-floating login-fields login-fields-2">
+                            <input type="text" placeholder="First Name" class="form-control" disabled id="Zip" asp-for="Zip" />
+                            <label for="first-name" class="labels">Zip</label>
+                        </div>
+                        <div class="form-floating login-fields">
+                            <input type="tel" class="form-control" id="phone2" disabled asp-for="AltPhoneNumber" />
+                        </div>
+                    </div>
+                    <div class="EditParentDiv" id="EditPhysicianMailingEditButton">
+                        <a onclick="EditPhysicianMailingEdit()" class="EditButton">Edit</a>
+                    </div>
+                    <div class="SaveCancelParentDiv" id="EditPhysicianMailingSave">
+                        <button type="submit" id="EditPhysicianMailingSaveButton" class="SaveButton">Save</button>
+                        <a class="CancelButton" onclick="CancelPressed()">Cancel</a>
+                    </div>
+                </form>
+                <form asp-action="EditPhysicianProfile" asp-controller="AdminDashboard" method="post" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="PhysicianId" />
+                    <input type="hidden" id="IsPhoto" value="false" asp-for="IsPhoto" />
+
+                    <h5 style="margin-top:50px;">Provider Profile</h5>
+                    <div class="form-sub-div" style="margin-top: 25px;">
+                        <div class="form-floating login-fields login-fields-2">
+                            <input type="text" placeholder="First Name" class="form-control" disabled asp-for="BusinessName" />
+                            <label for="first-name" class="labels">Business Name</label>
+                        </div>
+                        <div class="form-floating login-fields">
+                            <input type="text" placeholder="Password" class="form-control" disabled asp-for="BusinessWebsite" />
+                            <label for="Password" class="labels">Business Website</label>
+                        </div>
+                    </div>
+
+                    <div onclick="choose_file()" id="choose-file-button">
+                        <span id="select-file-text">@Model.PhotoName</span>
+                        <div id="choose-file-button-sub-div">
+                            <div id="choose-file-button-sub-sub-div" style="background-color:#68e0fc">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white"
+                                     class="bi bi-cloud-upload" viewBox="0 0 16 16" id="upload-icon">
+                                    <path fill-rule="evenodd"
+                                          d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
+                                    <path fill-rule="evenodd"
+                                          d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708z" />
+                                </svg>
+                                <span id="upload-text">Upload</span>
+                            </div>
+                            <input type="file" disabled id="file-input-button" asp-for="Photo" style="padding-bottom:10px;" />
+                        </div>
+                    </div>
+                    <div class="form-floating login-fields" style="width: 100%;margin-top: 25px;">
+                        <textarea type="text" placeholder="Username" class="form-control"
+                                  style="height: 150px !important;" disabled asp-for="AdminNotes"></textarea>
+                        <label for="username-input" class="labels">Admin Notes</label>
+                    </div>
+                    <div class="EditParentDiv" id="ProfileEditButton">
+                        <a onclick="ProfileEdit()" class="EditButton">Edit</a>
+                    </div>
+                    <div class="SaveCancelParentDiv" id="ProfileSave">
+                        <button type="submit" id="ProfileSaveButton" class="SaveButton">Save</button>
+                        <a class="CancelButton" onclick="CancelPressed()">Cancel</a>
+                    </div>
+                </form>
+                <form asp-action="EditPhysicianOnboarding" asp-controller="AdminDashboard" method="post" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="PhysicianId" />
+                    <hr style="margin-top:90px;" />
+                    <h5>Onboarding</h5>
+                    <div style="display:flex;align-items:center;margin-top:10px;">
+                        <div style="flex:2;">
+                            <input type="checkbox" readonly class="ICA" asp-for="IsICA" style="margin-right:20px;" />
+                            <label>Independent Contractor Agreement</label>
+                        </div>
+                        <div class="choose-file-button-sub-div" style="margin-right:40px;flex:1;">
+                            <div class="choose-file-button-sub-sub-div" style="background-color:#00ccff">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white"
+                                     class="bi bi-cloud-upload upload-icon" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
+                                    <path fill-rule="evenodd"
+                                          d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708z" />
+                                </svg>
+                                <span class="upload-text">Upload</span>
+                            </div>
+                            <input type="file" class="file-input-button" id="ICA" asp-for="ICA" style="padding-bottom:10px;" />
+                        </div>
+                        <div style="flex:1;">
+                            @if (Model.IsICA)
+                            {
+                                <a class="viewDoc" style="display:block;" onclick="viewDoc(this)" id="ICA-btn">View</a>
+                            }
+                            else
+                            {
+                                <a class="viewDoc" onclick="viewDoc(this)" id="ICA-btn">View</a>
+                            }
+                        </div>
+                    </div>
+
+                    <div style="display:flex;align-items:center;margin-top:20px;">
+                        <div style="flex:2;">
+                            <input type="checkbox" readonly class="BackgroundCheck" asp-for="IsBackgroundCheck" style="margin-right:20px;" />
+                            <label>Background Check</label>
+                        </div>
+                        <div class="choose-file-button-sub-div" style="margin-right:40px;flex:1;">
+                            <div class="choose-file-button-sub-sub-div" style="background-color:#00ccff">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white"
+                                     class="bi bi-cloud-upload upload-icon" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
+                                    <path fill-rule="evenodd"
+                                          d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708z" />
+                                </svg>
+                                <span class="upload-text">Upload</span>
+                            </div>
+                            <input type="file" class="file-input-button" id="BackgroundCheck" asp-for="BackgroundCheck" style="padding-bottom:10px;" />
+                        </div>
+                        <div style="flex:1;">
+                            @if (Model.IsBackgroundCheck)
+                            {
+                                <a class="viewDoc" style="display:block;" onclick="viewDoc(this)" id="BackgroundCheck-btn">View</a>
+                            }
+                            else
+                            {
+                                <a class="viewDoc" onclick="viewDoc(this)" id="BackgroundCheck-btn">View</a>
+                            }
+                        </div>
+                        @*<a class="viewDoc" onclick="viewDoc(this)" id="BackgroundCheck-btn">View</a>*@
+                    </div>
+                    <div style="display:flex;align-items:center;margin-top:20px;">
+                        <div style="flex:2;">
+                            <input type="checkbox" readonly class="HIPAACompliance" asp-for="IsHIPAACompliance" style="margin-right:20px;" />
+                            <label>HIPAA Compliance</label>
+                        </div>
+                        <div class="choose-file-button-sub-div" style="margin-right:40px;flex:1;">
+                            <div class="choose-file-button-sub-sub-div" style="background-color:#00ccff">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white"
+                                     class="bi bi-cloud-upload upload-icon" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
+                                    <path fill-rule="evenodd"
+                                          d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708z" />
+                                </svg>
+                                <span class="upload-text">Upload</span>
+                            </div>
+                            <input type="file" class="file-input-button" id="HIPAACompliance" asp-for="HIPAACompliance" style="padding-bottom:10px;" />
+                        </div>
+                        <div style="flex:1;">
+                            @if (Model.IsHIPAACompliance)
+                            {
+                                <a class="viewDoc" style="display:block;" onclick="viewDoc(this)" id="HIPAACompliance-btn">View</a>
+                            }
+                            else
+                            {
+                                <a class="viewDoc" onclick="viewDoc(this)" id="HIPAACompliance-btn">View</a>
+                            }
+                        </div>
+                        @*<a class="viewDoc" onclick="viewDoc(this)" id="HIPAACompliance-btn">View</a>*@
+
+                    </div>
+                    <div style="display:flex;align-items:center;margin-top:20px;">
+                        <div style="flex:2;">
+                            <input type="checkbox" readonly class="NonDisclosureAgreement" asp-for="IsNonDisclosureAgreement" style="margin-right:20px;" />
+                            <label>Non-disclosure Agreement</label>
+                        </div>
+                        <div class="choose-file-button-sub-div" style="margin-right:40px;flex:1;">
+                            <div class="choose-file-button-sub-sub-div" style="background-color:#00ccff">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white"
+                                     class="bi bi-cloud-upload upload-icon" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383" />
+                                    <path fill-rule="evenodd"
+                                          d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708z" />
+                                </svg>
+                                <span class="upload-text">Upload</span>
+                            </div>
+                            <input type="file" class="file-input-button" id="NonDisclosureAgreement" asp-for="NonDisclosureAgreement" style="padding-bottom:10px;" />
+                        </div>
+                        <div style="flex:1;">
+                            @if (Model.IsNonDisclosureAgreement)
+                            {
+                                <a class="viewDoc" style="display:block;" onclick="viewDoc(this)" id="NonDisclosureAgreement-btn">View</a>
+                            }
+                            else
+                            {
+                                <a class="viewDoc" onclick="viewDoc(this)" id="NonDisclosureAgreement-btn">View</a>
+                            }
+                        </div>
+                        @*<a class="viewDoc" onclick="viewDoc(this)" id="NonDisclosureAgreement-btn">View</a>*@
+
+                    </div>
+                    <hr />
+                    <div id="submit-div3" style="display:flex;align-items:center;">
+                        <button type="submit" id="submit-button-7" style="border:none;margin-right:20px;background-color:#00ccff;">Save</button>
+                        <a asp-action="DeletePhysicianAccount" asp-controller="AdminDashboard" asp-route-id="@Model.PhysicianId" type="submit" style="border:none;background-color:red;color:white;border-radius:7px;padding:10px 15px 10px 15px;text-align:center;text-decoration:none;margin-bottom:20px;">Delete Account</a>
+                    </div>
+                </form>
             </div>
 
         </div>
     </div>
-    <script>
-        //admin wise region
-        $(document).ready(function () {
-            var selectedRegion = $('#SelectedRegion').val();
-            var ticked = document.getElementsByClassName('checkboxes');
-            for (var i = 0; i < ticked.length; i++) {
-                if (ticked[i].checked) {
-                    selectedRegion += (selectedRegion ? ',' : '') + ticked[i].value;
-                }
-            }
-            $('.checkboxes').change(function () {
-                var regionId = $(this).data('regionId');
-                var isChecked = $(this).is(':checked');
+</div>
+<script>
 
-                // Update selectedRegion string based on checkbox state
-                if (isChecked) {
-                    selectedRegion += (selectedRegion ? ',' : '') + regionId;
-                } else {
-                    selectedRegion = selectedRegion.replace(new RegExp(',' + regionId + '|^' + regionId + ','), '');
-                }
-
-                $('#SelectedRegion').val(selectedRegion);
-            });
-        }); $(document).ready(function () {
-            var selectedRegion = $('#SelectedRegion').val();
-            var ticked = document.getElementsByClassName('checkboxes');
-            for (var i = 0; i < ticked.length; i++) {
-                if (ticked[i].checked) {
-                    selectedRegion += (selectedRegion ? ',' : '') + ticked[i].value;
-                }
-            }
-            $('.checkboxes').change(function () {
-                var regionId = $(this).data('regionId');
-                var isChecked = $(this).is(':checked');
-
-                // Update selectedRegion string based on checkbox state
-                if (isChecked) {
-                    selectedRegion += (selectedRegion ? ',' : '') + regionId;
-                } else {
-                    selectedRegion = selectedRegion.replace(new RegExp(',' + regionId + '|^' + regionId + ','), '');
-                }
-
-                $('#SelectedRegion').val(selectedRegion);
-            });
-        });
-
-        //edit,save,cancel
-        document.getElementById('submit-button-2').onclick = function () {
-            document.getElementById('edit-div').style.display = "none";
-            document.getElementById('submit-div').style.display = "flex";
-            var classes = document.getElementsByClassName('form-control');
-            for (var i = 4; i < 9; i++) {
-                classes[i].removeAttribute('disabled');
-            }
-            var checkboxes = document.getElementsByClassName('checkboxes');
-            for (var i = 0; i < checkboxes.length; i++) {
-                checkboxes[i].removeAttribute('disabled');
-            }
+    const viewDoc = (element) => {
+        const id = element.id.split("-")[0]
+        const fileInput = document.getElementById(id)
+            ;
+        if (fileInput.files.length > 0) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const blobUrl = URL.createObjectURL(new Blob([event.target.result], { type: 'application/pdf' }));
+                window.open(blobUrl, '_blank');
+            };
+            reader.readAsArrayBuffer(fileInput.files[0]);
+        } else {
+            var pdfPath = "@Url.Content($"~/uploads/physician/{Model.PhysicianId}/")";
+            pdfPath += `${id}.pdf`
+            console.log(pdfPath)
+            window.open(pdfPath, '_blank');
+            //alert('Please select a file to view.');
         }
-        //document.getElementById('select-region').addEventListener('change',function(){
-        //    document.getElementById('option').style.display = "none";
-        //});
-        document.getElementById('submit-button-3').onclick = function () {
-            document.getElementById('edit-div').style.display = "flex";
-            document.getElementById('submit-div').style.display = "none";
-            var classes = document.getElementsByClassName('form-control');
-            for (var i = 4; i < 9; i++) {
-                classes[i].setAttribute('disabled', 'disabled');
-            }
-            var checkboxes = document.getElementsByClassName('checkboxes');
-            for (var i = 0; i < checkboxes.length; i++) {
-                checkboxes[i].setAttribute('disabled', 'disabled');
-            }
-            location.reload();
-        }
-        document.getElementById('submit-button-4').onclick = function () {
-            document.getElementById('edit-div2').style.display = "none";
-            document.getElementById('submit-div2').style.display = "flex";
-            var classes = document.getElementsByClassName('form-control');
-            for (var i = 9; i < classes.length; i++) {
-                classes[i].removeAttribute('disabled');
-            }
-            document.getElementById('select-region').removeAttribute('disabled');
-
-        }
-        document.getElementById('submit-button-5').onclick = function () {
-            document.getElementById('edit-div2').style.display = "flex";
-            document.getElementById('submit-div2').style.display = "none";
-            var classes = document.getElementsByClassName('form-control');
-            for (var i = 9; i < classes.length; i++) {
-                classes[i].setAttribute('disabled', 'disabled');
-            }
-            document.getElementById('select-region').setAttribute('disabled', 'disabled');
-            location.reload();
-        }
-        //sidebar hamburger
-        let sidebarOpen = false;
-        function hamburger() {
-            if (!sidebarOpen) {
-                document.getElementById('sidebar').style.display = "flex";
-                document.getElementById('main-div').style.opacity = "0.5";
-                document.getElementById('main-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
-                sidebarOpen = true;
+    }
+    document.getElementById('City').addEventListener('focusout', getCoordinates);
+    function getCoordinates() {
+        var address = document.getElementById('Address1').value + " " + document.getElementById('Address2').value + " " + document.getElementById('City').value;
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ address: address }, function (results, status) {
+            if (status == "OK") {
+                var latitude = results[0].geometry.location.lat();
+                var longitude = results[0].geometry.location.lng();
+                document.getElementById('lat').value = latitude;
+                document.getElementById('long').value = longitude;
+                console.log(document.getElementById('lat').value);
+                console.log(document.getElementById('long').value);
+                //return true;
             } else {
-                console.log('hii');
-                document.getElementById('sidebar').style.display = "none";
-                document.getElementById('main-div').style.opacity = "1";
-                document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
-                sidebarOpen = false;
+                console.log("Geocoding failed: " + status);
+                //return false;
             }
-        }
-        //dark theme
-        window.onload = function checkingTheme() {
-            try {
-                let themeCheck = localStorage.getItem('theme');
-                if (themeCheck == null || themeCheck == 'light') {
-                    document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
-                    document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
-                    document.getElementById('body').style.backgroundColor = "#f5f5f5";
-                    document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
-                    document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
-                } else {
-                    document.getElementById('main-div').style.backgroundColor = "black";
-                    document.getElementById('main-sub-div').style.backgroundColor = "black";
-                    document.getElementById('body').style.backgroundColor = "black";
-                    document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
-                    document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
+        });
+        //return true;
+    }
+    function resetPassword() {
+        var physicianId = document.getElementById("PhysicianId").value;
+        var password = document.getElementById("Password").value;
+        if (password == "") {
+            alert("Please enter password.");
+        } else {
+            console.log(physicianId);
+            console.log(password);
+            $.ajax({
+                url: '/AdminDashboard/EditPhysicianPassword',
+                type: 'GET',
+                data: { password: password, id: physicianId },
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response.response);
+                    if (response.response == "success") {
+                        location.reload();
+                    }
+                },
+                error: function () {
+                    alert('An error occurred.');
                 }
-            } catch (error) {
-                console.log('no themes decided yet');
+            });
+        }
+    }
+    var classes = document.getElementsByClassName('form-control');
+    var classes2 = document.getElementsByClassName('custom-select');
+    function AccountInformationEdit() {
+        //for(var i = 1;i<=1;i++){
+        //    classes[i].removeAttribute("disabled");
+        //}
+        classes[1].setAttribute("disabled", "disabled");
+        for (var i = 0; i <= 1; i++) {
+            classes2[i].removeAttribute("disabled");
+        }
+        document.getElementById("AccountInformationEditButton").style.display = "none";
+        document.getElementById("AccountInformationSave").style.display = "flex";
+    }
+    function CancelPressed() {
+        location.reload();
+    }
+    function EditPhysicianEdit() {
+        var checkboxes2 = document.getElementsByClassName("checkboxes");
+        document.getElementById("EditPhysicianEditButton").style.display = "none";
+        document.getElementById("EditPhysicianSave").style.display = "flex";
+        for (var i = 2; i <= 7; i++) {
+            classes[i].removeAttribute("disabled");
+        }
+        for (var i = 0; i <= checkboxes2.length; i++) {
+            checkboxes2[i].removeAttribute("disabled");
+        }
+    }
+    function EditPhysicianMailingEdit() {
+
+        for (var i = 7; i <= 12; i++) {
+            classes[i].removeAttribute("disabled");
+        }
+        for (var i = 2; i <= 2; i++) {
+            classes2[i].removeAttribute("disabled");
+        }
+        document.getElementById("EditPhysicianMailingEditButton").style.display = "none";
+        document.getElementById("EditPhysicianMailingSave").style.display = "flex";
+    }
+    function ProfileEdit() {
+        for (var i = 13; i <= 15; i++) {
+            classes[i].removeAttribute("disabled");
+        }
+        document.getElementById("file-input-button").removeAttribute("disabled");
+        document.getElementById("choose-file-button-sub-sub-div").style.backgroundColor = "#00ccff";
+        document.getElementById("ProfileEditButton").style.display = "none";
+        document.getElementById("ProfileSave").style.display = "flex";
+    }
+
+    $(document).ready(function () {
+        var selectedRegion = "";
+        var ticked = document.getElementsByClassName('checkboxes');
+        for (var i = 0; i < ticked.length; i++) {
+            if (ticked[i].checked) {
+                selectedRegion += (selectedRegion ? ',' : '') + ticked[i].value;
             }
         }
-        function changeTheme() {
-            let theme = localStorage.getItem('theme');
-            if (theme == null || theme == 'light') {
-                localStorage.setItem('theme', 'dark');
-                document.getElementById('main-div').style.backgroundColor = "black";
-                document.getElementById('main-sub-div').style.backgroundColor = "black";
-                document.getElementById('body').style.backgroundColor = "black";
-                document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
-                document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
-            } else if (theme == 'dark') {
-                localStorage.setItem('theme', 'light');
+        $('.checkboxes').change(function () {
+            var regionId = $(this).data('regionId');
+            var isChecked = $(this).is(':checked');
+
+            // Update selectedRegion string based on checkbox state
+            if (isChecked) {
+                selectedRegion += (selectedRegion ? ',' : '') + regionId;
+            } else {
+                selectedRegion = selectedRegion.replace(new RegExp(',' + regionId + '|^' + regionId + ','), '');
+            }
+            $('#SelectedRegion').val(selectedRegion);
+        });
+        $('#SelectedRegion').val(selectedRegion);
+    });
+    document.getElementById('ICA').addEventListener('change', ICAChanged);
+    function ICAChanged() {
+        document.getElementsByClassName('ICA')[0].checked = true;
+        document.getElementById("ICA-btn").style.display = "flex";
+    }
+    document.getElementById('BackgroundCheck').addEventListener('change', BackgroundCheckChanged);
+    function BackgroundCheckChanged() {
+        document.getElementsByClassName('BackgroundCheck')[0].checked = true;
+        document.getElementById("BackgroundCheck-btn").style.display = "flex";
+    }
+    document.getElementById('HIPAACompliance').addEventListener('change', HIPAAComplianceChanged);
+    function HIPAAComplianceChanged() {
+        document.getElementsByClassName('HIPAACompliance')[0].checked = true;
+        document.getElementById("HIPAACompliance-btn").style.display = "flex";
+    }
+    document.getElementById('NonDisclosureAgreement').addEventListener('change', NonDisclosureAgreementChanged);
+    function NonDisclosureAgreementChanged() {
+        document.getElementsByClassName('NonDisclosureAgreement')[0].checked = true;
+        document.getElementById("NonDisclosureAgreement-btn").style.display = "flex";
+    }
+    //var state2 = document.getElementsByClassName('BackgroundCheck')[0].checked;
+    //if (state2 == true) {
+    //    document.getElementById('BackgroundCheck').removeAttribute('disabled');
+    //    document.getElementsByClassName('choose-file-button-sub-sub-div')[1].style.backgroundColor = "#00ccff";
+    //} else {
+    //    document.getElementById('BackgroundCheck').setAttribute('disabled', 'disabled');
+    //    document.getElementsByClassName('choose-file-button-sub-sub-div')[1].style.backgroundColor = "#68e0fc";
+    //}
+    //document.getElementsByClassName('BackgroundCheck')[0].addEventListener('change', BackgroundCheckChanged);
+    //function BackgroundCheckChanged() {
+    //    var currState = document.getElementsByClassName('BackgroundCheck')[0].checked;
+    //    if (currState == true) {
+    //        document.getElementById('BackgroundCheck').removeAttribute('disabled');
+    //        document.getElementsByClassName('choose-file-button-sub-sub-div')[1].style.backgroundColor = "#00ccff";
+    //    } else {
+    //        document.getElementById('BackgroundCheck').setAttribute('disabled', 'disabled');
+    //        document.getElementsByClassName('choose-file-button-sub-sub-div')[1].style.backgroundColor = "#68e0fc";
+    //    }
+    //}
+    //document.getElementsByClassName('HIPAACompliance')[0].addEventListener('change', HIPAAComplianceChanged);
+    //var state3 = document.getElementsByClassName('HIPAACompliance')[0].checked;
+    //if (state3 == true) {
+    //    document.getElementById('HIPAACompliance').removeAttribute('disabled');
+    //    document.getElementsByClassName('choose-file-button-sub-sub-div')[2].style.backgroundColor = "#00ccff";
+    //} else {
+    //    document.getElementById('HIPAACompliance').setAttribute('disabled', 'disabled');
+    //    document.getElementsByClassName('choose-file-button-sub-sub-div')[2].style.backgroundColor = "#68e0fc";
+    //}
+    //function HIPAAComplianceChanged() {
+    //    var currState = document.getElementsByClassName('HIPAACompliance')[0].checked;
+    //    if (currState == true) {
+    //        document.getElementById('HIPAACompliance').removeAttribute('disabled');
+    //        document.getElementsByClassName('choose-file-button-sub-sub-div')[2].style.backgroundColor = "#00ccff";
+    //    } else {
+    //        document.getElementById('HIPAACompliance').setAttribute('disabled', 'disabled');
+    //        document.getElementsByClassName('choose-file-button-sub-sub-div')[2].style.backgroundColor = "#68e0fc";
+    //    }
+    //}
+    //document.getElementsByClassName('NonDisclosureAgreement')[0].addEventListener('change', NonDisclosureAgreementChanged);
+    //var state4 = document.getElementsByClassName('NonDisclosureAgreement')[0].checked;
+    //if (state4 == true) {
+    //    document.getElementById('NonDisclosureAgreement').removeAttribute('disabled');
+    //    document.getElementsByClassName('choose-file-button-sub-sub-div')[3].style.backgroundColor = "#00ccff";
+    //} else {
+    //    document.getElementById('NonDisclosureAgreement').setAttribute('disabled', 'disabled');
+    //    document.getElementsByClassName('choose-file-button-sub-sub-div')[3].style.backgroundColor = "#68e0fc";
+    //}
+    //function NonDisclosureAgreementChanged() {
+    //    var currState = document.getElementsByClassName('NonDisclosureAgreement')[0].checked;
+    //    if (currState == true) {
+    //        document.getElementById('NonDisclosureAgreement').removeAttribute('disabled');
+    //        document.getElementsByClassName('choose-file-button-sub-sub-div')[3].style.backgroundColor = "#00ccff";
+    //    } else {
+    //        document.getElementById('NonDisclosureAgreement').setAttribute('disabled', 'disabled');
+    //        document.getElementsByClassName('choose-file-button-sub-sub-div')[3].style.backgroundColor = "#68e0fc";
+    //    }
+    //}
+
+    function choose_file() {
+        document.getElementById('file-input-button').addEventListener('change', getFileName);
+    }
+    const getFileName = (event) => {
+        const files = event.target.files;
+        const fileName = files[0].name;
+        document.getElementById('IsPhoto').value = "true";
+        document.getElementById('select-file-text').innerHTML = fileName;
+    }
+    const phoneInputField = document.querySelector("#phone");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+    let sidebarOpen = false;
+    function hamburger() {
+        if (!sidebarOpen) {
+            console.log('hi');
+            document.getElementById('sidebar').style.display = "flex";
+            document.getElementById('main-div').style.opacity = "0.5";
+            document.getElementById('main-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+            //document.getElementById("defaultOpen2").click();
+
+            // document.getElementById('main-sub-div').style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+            sidebarOpen = true;
+        } else {
+            console.log('hii');
+            document.getElementById('sidebar').style.display = "none";
+            document.getElementById('main-div').style.opacity = "1";
+            document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+
+            sidebarOpen = false;
+        }
+    }
+    //$(document).ready(function () {
+    //    var selectedRegion = $('#SelectedRegion').val();
+    //    var ticked = document.getElementsByClassName('checkboxes');
+    //    for (var i = 0; i < ticked.length; i++) {
+    //        if (ticked[i].checked) {
+    //            selectedRegion += (selectedRegion ? ',' : '') + ticked[i].value;
+    //        }
+    //    }
+    //    $('.checkboxes').change(function () {
+    //        var regionId = $(this).data('regionId');
+    //        var isChecked = $(this).is(':checked');
+
+    //        // Update selectedRegion string based on checkbox state
+    //        if (isChecked) {
+    //            selectedRegion += (selectedRegion ? ',' : '') + regionId;
+    //        } else {
+    //            selectedRegion = selectedRegion.replace(new RegExp(',' + regionId + '|^' + regionId + ','), '');
+    //        }
+
+    //        $('#SelectedRegion').val(selectedRegion);
+    //    });
+    //});
+    //$(document).ready(function () {
+    //    $.ajax({
+    //        url: '/Admin/FetchAdminRegions',
+    //        type: 'GET',
+    //        dataType: 'json',
+    //        success: function (response) {
+    //            //console.log(response);
+    //            $.each(response.response, function (index, item) {
+    //                console.log(item.name);
+    //                document.getElementById(item.name).checked = true;
+    //            });
+    //        },
+    //        error: function () {
+    //            alert('An error occurred.');
+    //        }
+    //    });
+    //    window.onpopstate = function () {
+    //        $.ajax({
+    //            url: '/Admin/FetchAdminRegions',
+    //            type: 'GET',
+    //            dataType: 'json',
+    //            success: function (response) {
+    //                $.each(response.response, function (index, item) {
+    //                    console.log(item.name);
+    //                    document.getElementById(item.name).checked = true;
+    //                });
+    //            },
+    //            error: function () {
+    //                alert('An error occurred.');
+    //            }
+    //        });
+    //    };
+    //});
+    //document.getElementById('submit-button-2').onclick = function () {
+    //    document.getElementById('edit-div').style.display = "none";
+    //    document.getElementById('submit-div').style.display = "flex";
+    //    var classes = document.getElementsByClassName('form-control');
+    //    for (var i = 2; i < 7; i++) {
+    //        classes[i].removeAttribute('disabled');
+    //    }
+    //    var checkboxes = document.getElementsByClassName('checkboxes');
+    //    for (var i = 0; i < checkboxes.length; i++) {
+    //        checkboxes[i].removeAttribute('disabled');
+    //    }
+    //}
+    //document.getElementById('select-region').addEventListener('change',function(){
+    //    document.getElementById('option').style.display = "none";
+    //});
+    //document.getElementById('submit-button-3').onclick = function () {
+    //    document.getElementById('edit-div').style.display = "flex";
+    //    document.getElementById('submit-div').style.display = "none";
+    //    var classes = document.getElementsByClassName('form-control');
+    //    for (var i = 2; i < 7; i++) {
+    //        classes[i].setAttribute('disabled', 'disabled');
+    //    }
+    //    var checkboxes = document.getElementsByClassName('checkboxes');
+    //    for (var i = 0; i < checkboxes.length; i++) {
+    //        checkboxes[i].setAttribute('disabled', 'disabled');
+    //    }
+    //    location.reload();
+    //}
+    //document.getElementById('submit-button-4').onclick = function () {
+    //    document.getElementById('edit-div2').style.display = "none";
+    //    document.getElementById('submit-div2').style.display = "flex";
+    //    var classes = document.getElementsByClassName('form-control');
+    //    for (var i = 7; i < classes.length; i++) {
+    //        classes[i].removeAttribute('disabled');
+    //    }
+    //    document.getElementById('select-region').removeAttribute('disabled');
+
+    //}
+    //document.getElementById('submit-button-5').onclick = function () {
+    //    document.getElementById('edit-div2').style.display = "flex";
+    //    document.getElementById('submit-div2').style.display = "none";
+    //    var classes = document.getElementsByClassName('form-control');
+    //    for (var i = 7; i < classes.length; i++) {
+    //        classes[i].setAttribute('disabled', 'disabled');
+    //    }
+    //    document.getElementById('select-region').setAttribute('disabled', 'disabled');
+    //    location.reload();
+    //}
+    window.onload = function checkingTheme() {
+        try {
+            let themeCheck = localStorage.getItem('theme');
+            if (themeCheck == null || themeCheck == 'light') {
                 document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
                 document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
                 document.getElementById('body').style.backgroundColor = "#f5f5f5";
                 document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
                 document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+            } else {
+                document.getElementById('main-div').style.backgroundColor = "black";
+                document.getElementById('main-sub-div').style.backgroundColor = "black";
+                document.getElementById('body').style.backgroundColor = "black";
+                document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
+                document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
             }
+        } catch (error) {
+            console.log('no themes decided yet');
         }
-    </script>
-</div>
+    }
+    function changeTheme() {
+        let theme = localStorage.getItem('theme');
+        if (theme == null || theme == 'light') {
+            localStorage.setItem('theme', 'dark');
+            document.getElementById('main-div').style.backgroundColor = "black";
+            document.getElementById('main-sub-div').style.backgroundColor = "black";
+            document.getElementById('body').style.backgroundColor = "black";
+            document.getElementsByClassName('change-theme')[0].classList.add('hide-icon');
+            document.getElementsByClassName('change-theme')[1].classList.remove('hide-icon');
+        } else if (theme == 'dark') {
+            localStorage.setItem('theme', 'light');
+            document.getElementById('main-div').style.backgroundColor = "#f5f5f5";
+            document.getElementById('main-sub-div').style.backgroundColor = "#f5f5f5";
+            document.getElementById('body').style.backgroundColor = "#f5f5f5";
+            document.getElementsByClassName('change-theme')[1].classList.add('hide-icon');
+            document.getElementsByClassName('change-theme')[0].classList.remove('hide-icon');
+        }
+    }
+</script>

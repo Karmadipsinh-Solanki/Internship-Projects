@@ -32,6 +32,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options=>options.UseNpgsql(
 //3tier
 builder.Services.AddScoped<IPatient, Patient>();
 builder.Services.AddScoped<IAdmin, HalloDoc.LogicLayer.Repository.Admin>();
+//builder.Services.AddScoped<IDoctor, HalloDoc.LogicLayer.Repository.Doctor>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<ILogin, Login>();
 builder.Services.AddScoped<ICreateReq, CreateReq>();

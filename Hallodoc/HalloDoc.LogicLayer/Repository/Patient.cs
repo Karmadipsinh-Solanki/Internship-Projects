@@ -18,6 +18,10 @@ using System.Diagnostics;
 using Hallodoc.Models;
 using HalloDoc.DataLayer.Data;
 using HalloDoc.DataLayer.Models;
+using System.Collections;
+using System.Net.Mail;
+using System.Net;
+using Twilio.TwiML.Messaging;
 
 namespace HalloDoc.LogicLayer.Repository
 {
@@ -315,6 +319,237 @@ namespace HalloDoc.LogicLayer.Repository
 
             return 2;
         }
+        //public int RelativeModalSubmit(SomeoneElseViewModel model)
+        //{
+        //    try
+        //    {
+        //        var user = _context.AspNetUsers.FirstOrDefault(u => u.Email == model.Email);
+        //        if (model.File != null && model.File.Length > 0)
+        //        {
+        //            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\uploads", model.File.FileName);
+        //            using (var stream = System.IO.File.Create(filePath))
+        //            {
+        //                model.File.CopyTo(stream);
+        //            }
+        //        }
+
+        //        var region = _context.Regions.FirstOrDefault(u => u.Name == model.State.Trim().ToLower().Replace(" ", ""));
+        //        if (user != null)
+        //        {
+        //            var curr_user = _context.Users.FirstOrDefault(u => u.AspNetUserId == user.Id);
+        //            RequestClient rc = new RequestClient
+        //            {
+        //                FirstName = model.FirstName,
+        //                LastName = model.LastName,
+        //                PhoneNumber = model.PhoneNumber,
+        //                Email = model.Email,
+        //                State = model.State,
+        //                Street = model.Street,
+        //                City = model.City,
+        //                RegionId = region.RegionId,
+        //                ZipCode = model.ZipCode,
+        //                Address = model.Room,
+        //                Notes = model.Symptoms,
+        //                NotiEmail = model.Email,
+        //                NotiMobile = model.PhoneNumber,
+        //                StrMonth = model.DOB.Month.ToString(),
+        //                IntYear = model.DOB.Year,
+        //                IntDate = model.DOB.Day
+        //            };
+
+        //            _context.RequestClients.Add(rc);
+        //            _context.SaveChanges();
+
+        //            int requests = _context.Requests.Where(u => u.CreatedDate.Date == DateTime.Now.Date).Count();
+
+        //            Request req = new Request
+        //            {
+        //                FirstName = model.FirstName,
+        //                LastName = model.LastName,
+        //                PhoneNumber = model.PhoneNumber,
+        //                Email = model.Email,
+        //                RequestClientId = rc.RequestClientId,
+        //                RequestTypeId = 3,
+        //                UserId = curr_user.UserId,
+        //                Status = 1,
+        //                CreatedDate = DateTime.Now,
+        //                IsUrgentEmailSent = new BitArray(new[] { false }),
+        //                ConfirmationNumber = string.Concat(region.Abbreviation, model.FirstName.Substring(0, 2).ToUpper(), model.LastName.Substring(0, 2).ToUpper(), requests.ToString("D" + 4)),
+        //                RelationName = model.Relation,
+
+        //            };
+
+        //            _context.Requests.Add(req);
+        //            _context.SaveChanges();
+
+        //            if (model.File != null)
+        //            {
+        //                RequestWiseFile rfile = new RequestWiseFile
+        //                {
+        //                    RequestId = req.RequestId,
+        //                    FileName = model.File.FileName,
+        //                    CreatedDate = DateTime.Now,
+        //                    IsDeleted = new BitArray(new[] { false })
+        //                };
+        //                _context.RequestWiseFiles.Add(rfile);
+        //                _context.SaveChanges();
+        //            }
+
+        //        }
+        //        else
+        //        {
+        //            AspNetUser aspuser = new AspNetUser
+        //            {
+        //                UserName = model.Email,
+        //                Email = model.Email,
+        //                PhoneNumber = model.PhoneNumber,
+        //                CreatedDate = DateTime.Now
+        //            };
+
+
+        //            _context.AspNetUsers.Add(aspuser);
+        //            _context.SaveChanges();
+
+
+        //            User us = new User
+        //            {
+        //                AspNetUserId = aspuser.Id,
+        //                FirstName = model.FirstName,
+        //                LastName = model.LastName,
+        //                Email = model.Email,
+        //                Mobile = model.PhoneNumber,
+        //                Street = model.Street,
+        //                City = model.City,
+        //                State = model.State,
+        //                RegionId = region.RegionId,
+        //                ZipCode = model.ZipCode,
+        //                StrMonth = model.DOB.Month.ToString(),
+        //                IntYear = model.DOB.Year,
+        //                IntDate = model.DOB.Day,
+        //                CreatedBy = aspuser.Id,
+        //                CreatedDate = DateTime.Now,
+
+        //            };
+
+        //            _context.Users.Add(us);
+        //            _context.SaveChanges();
+
+        //            AspNetUserRole aspnr = new AspNetUserRole
+        //            {
+        //                UserId = aspuser.Id,
+        //                RoleId = 1
+        //            };
+
+        //            _context.AspNetUserRoles.Add(aspnr);
+        //            _context.SaveChanges();
+
+        //            RequestClient rc = new RequestClient
+        //            {
+        //                FirstName = model.FirstName,
+        //                LastName = model.LastName,
+        //                PhoneNumber = model.PhoneNumber,
+        //                Email = model.Email,
+        //                State = model.State,
+        //                Street = model.Street,
+        //                City = model.City,
+        //                RegionId = region.RegionId,
+        //                ZipCode = model.ZipCode,
+        //                Notes = model.Symptoms,
+        //                NotiEmail = model.Email,
+        //                Address = model.Room,
+        //                NotiMobile = model.PhoneNumber,
+        //                StrMonth = model.DOB.Month.ToString(),
+        //                IntYear = model.DOB.Year,
+        //                IntDate = model.DOB.Day
+        //            };
+
+        //            _context.RequestClients.Add(rc);
+        //            _context.SaveChanges();
+
+        //            int requests = _context.Requests.Where(u => u.CreatedDate.Date == DateTime.Now.Date).Count();
+
+        //            Request req = new Request
+        //            {
+        //                FirstName = model.FirstName,
+        //                LastName = model.LastName,
+        //                PhoneNumber = model.PhoneNumber,
+        //                Email = model.Email,
+        //                RequestClientId = rc.RequestClientId,
+        //                RequestTypeId = 3,
+        //                UserId = us.UserId,
+        //                Status = 1,
+        //                CreatedDate = DateTime.Now,
+        //                IsUrgentEmailSent = new BitArray(new[] { false }),
+        //                ConfirmationNumber = string.Concat(region.Abbreviation, model.FirstName.Substring(0, 2).ToUpper(), model.LastName.Substring(0, 2).ToUpper(), requests.ToString("D" + 4)),
+        //                RelationName = model.Relation,
+
+        //            };
+
+        //            _context.Requests.Add(req);
+        //            _context.SaveChanges();
+
+        //            if (model.File != null)
+        //            {
+        //                RequestWiseFile rfile = new RequestWiseFile
+        //                {
+        //                    RequestId = req.RequestId,
+        //                    FileName = model.File.FileName,
+        //                    CreatedDate = DateTime.Now,
+        //                    IsDeleted = new BitArray(new[] { false })
+        //                };
+        //                _context.RequestWiseFiles.Add(rfile);
+        //                _context.SaveChanges();
+        //            }
+
+
+        //            int retryCount = 1;
+        //            bool success = false;
+
+        //            while (retryCount <= 3 && !success) // Set retry limit
+        //            {
+
+        //                string senderEmail = "mailto:tatva.dotnet.karmadipsinhsolanki@outlook.com";
+        //                string senderPassword = "Karmadips@2311";
+        //                var platformTitle = "HalloDoc";
+        //                var inviteLink = $"https://localhost:44339/Login/submitrequest";
+        //                var subject = "Register - HalloDoc";
+        //                var body = $"Hello <br />Click the following link to register to our portal,<br /><br /><a href='{inviteLink}'>Register</a><br /><br />Regards,<br/>{platformTitle}<br/>";
+                        
+        //                    SmtpClient client = new SmtpClient("smtp.office365.com")
+        //                    {
+        //                        Port = 587,
+        //                        Credentials = new NetworkCredential(senderEmail, senderPassword),
+        //                        EnableSsl = true,
+        //                        DeliveryMethod = SmtpDeliveryMethod.Network,
+        //                        UseDefaultCredentials = false
+        //                    };
+        //                    if (model.Email != null)
+        //                    {
+        //                        MailMessage mailMessage = new MailMessage
+        //                        {
+        //                            From = new MailAddress(senderEmail, "HalloDoc"),
+        //                            Subject = "Register Case",
+        //                            IsBodyHtml = true,
+        //                            Body = body,
+        //                        };
+        //                        mailMessage.To.Add(model.Email);
+        //                        client.Send(mailMessage);
+        //                        return 3;
+        //                    }
+        //                    else
+        //                    {
+        //                        return 1;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        return 0;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return 1;
+        //    }
+        //}
 
         public EditProfileViewModel profile()
         {

@@ -1187,7 +1187,7 @@ namespace HalloDoc.Controllers
             {
                 TempData["error"] = "Error,provider not editted!";
             }
-            return RedirectToAction("EditPhysicianAccount", new { id = model.PhysicianId });
+            return RedirectToAction("EditPhyAccount", new { id = model.PhysicianId });
         }
         [HttpPost]
         public IActionResult EditPhysicianInformation(CreateProviderViewModel model)
@@ -1201,7 +1201,7 @@ namespace HalloDoc.Controllers
             {
                 TempData["error"] = "Error,provider not editted!";
             }
-            return RedirectToAction("EditPhysicianAccount", new { id = model.PhysicianId });
+            return RedirectToAction("EditPhyAccount", new { id = model.PhysicianId });
         }
         [HttpPost]
         public IActionResult EditPhysicianMailingInformation(CreateProviderViewModel model)
@@ -1215,7 +1215,7 @@ namespace HalloDoc.Controllers
             {
                 TempData["error"] = "Error,provider not editted!";
             }
-            return RedirectToAction("EditPhysicianAccount", new { id = model.PhysicianId });
+            return RedirectToAction("EditPhyAccount", new { id = model.PhysicianId });
         }
         public IActionResult DeletePhysicianAccount(int id)
         {
@@ -1256,7 +1256,21 @@ namespace HalloDoc.Controllers
             {
                 TempData["error"] = "Error,provider not editted!";
             }
-            return RedirectToAction("EditPhysicianAccount", new { id = model.PhysicianId });
+            return RedirectToAction("EditPhyAccount", new { id = model.PhysicianId });
+        }
+        [HttpPost]
+        public IActionResult EditPhysicianProfile(CreateProviderViewModel model)
+        {
+            bool check = _admin.editPhysicianProfile(model);
+            if (check)
+            {
+                TempData["success"] = "Provider editted successfully!";
+            }
+            else
+            {
+                TempData["error"] = "Error,provider not editted!";
+            }
+            return RedirectToAction("EditPhyAccount", new { id = model.PhysicianId });
         }
         //[HttpPost]
         //public IActionResult EditPhysician(CreateProviderViewModel model)
