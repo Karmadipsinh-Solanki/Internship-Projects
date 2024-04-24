@@ -10,7 +10,7 @@
     <table class="table" id="table-data-patient-history">
         <thead>
             <tr>
-                <th style="width:80px !important;background-color: #ededed !important;"><input type="checkbox" id="checkall" onclick="oncheck()" style="height: 18px;width: 18px;" /></th>
+                <th style="width:80px !important;background-color: #ededed !important;"><input type="checkbox" class="checkbox-main" id="checkall" onclick="tickAll()" style="height: 18px;width: 18px;" /></th>
                 <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Staff</th>
                 <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Day</th>
                 <th style="background-color: #ededed !important;color: rgb(73, 73, 73);font-weight:500;">Time</th>
@@ -20,7 +20,7 @@
         @foreach (var item in Model.ShiftDetails)
         {
             <tr>
-                <td class="newtd"><input value="@item.ShiftDetailId" class="checkboxes" type="checkbox" style="height: 18px;width: 18px;" /></td>
+                <td class="newtd"><input value="@item.ShiftDetailId" class="checkboxes checkbox" type="checkbox" onchange="allCheck(event)" style="height: 18px;width: 18px;" /></td>
                 <td class="newtd">
                     @item.PhysicianName
                 </td>
@@ -109,7 +109,36 @@
     }
 </div>
 <script>
+    const tickAll = () => {
+        const checkboxes = document.getElementsByClassName("checkbox")
+        if (document.getElementsByClassName("checkbox-main")[0].checked == true) {
+            for (let i = 0; i < checkboxes.length; ++i) {
+                checkboxes[i].checked = true;
+            }
+        }
+        else {
+            for (let i = 0; i < checkboxes.length; ++i) {
+                checkboxes[i].checked = false;
+            }
+        }
+    }
 
+    const allCheck = () => {
+        const checkboxes = document.getElementsByClassName("checkbox")
+        let flag = 0
+        for (let i = 0; i < checkboxes.length; ++i) {
+            if (checkboxes[i].checked == false) {
+                flag = 1
+                break
+            }
+        }
+        if (flag == 0) {
+            document.getElementsByClassName("checkbox-main")[0].checked = true;
+        }
+        else {
+            document.getElementsByClassName("checkbox-main")[0].checked = false;
+        }
+    }
     $(document).ready(function () {
         $('.pagination a').click(function (e) {
             e.preventDefault();

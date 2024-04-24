@@ -3,6 +3,7 @@ using HalloDoc.DataLayer.Models;
 using HalloDoc.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,13 +22,19 @@ namespace HalloDoc.DataLayer.ViewModels.AdminViewModels
         public string? LastName { get; set; }
         public string? Email { get; set; }
         public string? ConfirmEmail { get; set; }
+        [Required(ErrorMessage = "Phone Number is required")]
+        [RegularExpression(@"^[+][0-9]*$", ErrorMessage = "Only valid numbers are allowed in this field.")]
         public string? PhoneNumber1 { get; set; }
+        [Required(ErrorMessage = "Phone Number is required")]
+        [RegularExpression(@"^[+][0-9]*$", ErrorMessage = "Only valid numbers are allowed in this field.")]
         public string? PhoneNumber2 { get; set; }
         public string? Address1 { get; set; }
         public string? Address2 { get; set; }
         public string? city { get; set; }
         //public string? state { get; set; }
         public int? StateId{ get; set; }
+        [Required(ErrorMessage = "Zip Code is required")]
+        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Only numbers are allowed in this field.")]
         public string? zip { get; set; }
         public List<Region>? regions { get; set; } = new List<Region>();
         public DateTime? CreatedDate { get; set; }

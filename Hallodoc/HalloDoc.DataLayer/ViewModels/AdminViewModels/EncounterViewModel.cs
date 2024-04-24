@@ -22,7 +22,8 @@ namespace HalloDoc.DataLayer.ViewModels.AdminViewModels
         public DateTime DOB { get; set; }
         [Required(ErrorMessage = "Please enter this field")]
         public DateTime? Date { get; set; }
-        [Required(ErrorMessage = "Please enter this field")]
+        [Required(ErrorMessage = "Phone Number is required")]
+        [RegularExpression(@"^[+][0-9]*$", ErrorMessage = "Only valid numbers are allowed in this field.")]
         public string PhoneNumber { get; set; }
         [Required(ErrorMessage = "Please enter this field")]
         public string Email { get; set; }

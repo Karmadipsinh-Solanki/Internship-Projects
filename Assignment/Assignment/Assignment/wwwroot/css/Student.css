@@ -1,0 +1,32 @@
+﻿body {
+}
+.brown {
+    background-color: #795f4a;
+    position: relative;
+    height: 45px;
+}
+.subBrown {
+    height: 45px;
+}
+.whiteText {
+    color: white;
+}
+.brownText {
+    color: #795f4a;
+}
+.addStudentBtn {
+    background-color: white;
+    position: absolute;
+    top: 7px;
+    right: 7px;
+}
+.search{
+    padding:0px 50px;
+}
+.inputSearch {
+    height: 50px;
+    width: 100%;
+}
+.modal-header {
+    background-color: #795f4a;
+}

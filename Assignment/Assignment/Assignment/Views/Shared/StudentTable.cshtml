@@ -1,0 +1,40 @@
+﻿@using Model.ViewModels;
+@model StudentViewModel;
+<table class="table" id="table-data">
+    <thead>
+        <tr>
+            @*<th style="width:80px !important;background-color: #ededed !important;"><input type="checkbox" id="checkall" onclick="oncheck()" style="height: 18px;width: 18px;" /></th>*@
+            <th class="tableHeader">Student ID</th>
+            <th class="tableHeader">First Name</th>
+            <th class="tableHeader">Last Name</th>
+            <th scope="col" class="tableHeader">Email</th>
+            <th scope="col" class="tableHeader">Age</th>
+            <th scope="col" class="tableHeader">Gender</th>
+            <th scope="col" class="tableHeader">Course</th>
+            <th scope="col" class="tableHeader">Grade</th>
+            <th scope="col" class="tableHeader">Action</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model.Query)
+    {
+        <tr>
+            <td class="">@item.Id</td>
+            <td class="">@item.FirstName</td>
+            <td class="">@item.LastName</td>
+            <td class="">@item.Email</td>
+            <td class="">@item.Age</td>
+            <td class="">@item.Gender</td>
+            <td class="">@item.Course</td>
+            <td class="">@item.Grade</td>
+
+            <td class="">
+                <div class="d-flex justify-content-center align-items-center">
+                    <a asp-action="" asp-controller="" class="cancelButtonTable me-2 textdeconone "><span class="cancelButtonText">Edit</span></a>
+                    <a class="link " asp-action="" asp-controller="">
+                        <span>Delete</span>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    }
+</table>

@@ -21,7 +21,8 @@ namespace HalloDoc.DataLayer.ViewModels
         [Required(ErrorMessage = "Email is required")]
         public required string Email { get; set; }
 
-        [Required(ErrorMessage = "PhoneNumber is required")]
+        [Required(ErrorMessage = "Phone Number is required")]
+        [RegularExpression(@"^[+][0-9]*$", ErrorMessage = "Only valid numbers are allowed in this field.")]
         public required string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Street is required")]
@@ -33,7 +34,8 @@ namespace HalloDoc.DataLayer.ViewModels
         [Required(ErrorMessage = "State is required")]
         public required string State { get; set; }
 
-        [Required(ErrorMessage = "ZipCode is required")]
+        [Required(ErrorMessage = "Zip Code is required")]
+        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Only numbers are allowed in this field.")]
         public required string FZipCode { get; set; }
         public required string Room { get; set; }
         [Required(ErrorMessage = "Password is required")]
@@ -48,7 +50,8 @@ namespace HalloDoc.DataLayer.ViewModels
         [Required(ErrorMessage = "Last name is required")]
         public required string FLastName { get; set; }
 
-        [Required(ErrorMessage = "PhoneNumber is required")]
+        [Required(ErrorMessage = "Phone Number is required")]
+        [RegularExpression(@"^[+][0-9]*$", ErrorMessage = "Only valid numbers are allowed in this field.")]
         public required string FPhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Email is required")]

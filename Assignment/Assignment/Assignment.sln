@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment", "Assignment\Assignment.csproj", "{72981D31-DB9A-4CF4-BABF-8301CD63B19F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{45F7365D-7CA4-4247-9A87-C3D605C5A6DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{E1D18E34-D3B6-4B4B-B280-5AA772912D2F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{72981D31-DB9A-4CF4-BABF-8301CD63B19F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72981D31-DB9A-4CF4-BABF-8301CD63B19F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72981D31-DB9A-4CF4-BABF-8301CD63B19F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72981D31-DB9A-4CF4-BABF-8301CD63B19F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45F7365D-7CA4-4247-9A87-C3D605C5A6DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45F7365D-7CA4-4247-9A87-C3D605C5A6DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45F7365D-7CA4-4247-9A87-C3D605C5A6DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45F7365D-7CA4-4247-9A87-C3D605C5A6DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1D18E34-D3B6-4B4B-B280-5AA772912D2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1D18E34-D3B6-4B4B-B280-5AA772912D2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1D18E34-D3B6-4B4B-B280-5AA772912D2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1D18E34-D3B6-4B4B-B280-5AA772912D2F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0F19CB79-696E-403E-AC97-97B74E5D3AC9}
+	EndGlobalSection
+EndGlobal

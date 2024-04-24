@@ -61,7 +61,7 @@
                         <span class="textback">Download All</span>
                     </div>
                 </div>
-                <div class=" textdeco d-flex justify-content-center align-items-center me-2 p-2" onclick="deleteall()" style="cursor:pointer;border:1px solid #0bb6d0;border-radius:5px;color:#0bb6d0;">
+                <button class="textdeco d-flex justify-content-center align-items-center me-2 p-2" onclick="deleteall()" style="background-color: white;cursor:pointer;border:1px solid #0bb6d0;border-radius:5px;color:#0bb6d0;">
                     <div class="back-navigation me-2 d-block d-md-none">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
@@ -71,7 +71,7 @@
                     <div class="back-navigation me-2 d-none d-md-block">
                         <span class="textback">Delete All</span>
                     </div>
-                </div>
+                </button>
                 <div class=" textdeco d-flex justify-content-center align-items-center p-2" onclick="sendmail()" style="cursor:pointer;border:1px solid #0bb6d0;border-radius:5px;color:#0bb6d0;">
                     <div class="back-navigation me-2 d-block d-md-none">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
@@ -85,7 +85,7 @@
             </div>
         </div>
         <div class="d-block d-md-none">
-            @foreach (var item in Model.requestWiseFiles)
+            @foreach(var item in Model.requestWiseFiles)
             {
                 <hr />
                 <div class="d-flex align-items-center mb-3">
@@ -102,7 +102,7 @@
                             <path d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
                         </svg>
                     </a>
-                    <a class="iconimg d-flex justify-content-center align-items-center pointer" onclick="deleteFile(@item.RequestWiseFileId)" @* href="~/uploads/@item.FileName" *@ style="border: 1px solid #00ccff; padding:5px;margin-right:5px;border-radius:5px;text-decoration:none">
+                    <a class="iconimg d-flex justify-content-center align-items-center pointer" onclick="deleteFile(@item.RequestWiseFileId)" style="border: 1px solid #00ccff; padding:5px;margin-right:5px;border-radius:5px;text-decoration:none">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0dcaf0" class="bi bi-trash" viewBox="0 0 16 16">
                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
                             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
@@ -125,10 +125,10 @@
                         <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 10%;"><input id="checkall" class="checkbox-main" onclick="tickAll()" type="checkbox" /></th>
                         <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 25%;">Documents</th>
                         <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 25%;">Upload Date <span class="mx-1"><strong>&uarr;</strong></span></th>
-                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 15%;">Actions</span></th>
+                        <th scope="col" style="color: rgb(73, 73, 73);font-weight:500;width: 15%;"><span>Actions</span></th>
                     </tr>
                 </thead>
-                @foreach (var item in Model.requestWiseFiles)
+                @foreach(var item in Model.requestWiseFiles)
                 {
                     <tr>
                         <td class="bg-white"><input class="checkboxes checkbox" type="checkbox" data-item-id="@item.RequestWiseFileId" onchange="allCheck(event)" value="@item.RequestWiseFileId" /></td>
@@ -148,7 +148,7 @@
                                         <path d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z" />
                                     </svg>
                                 </a>
-                                <a class="iconimg d-flex justify-content-center align-items-center pointer" onclick="deleteFile(@item.RequestWiseFileId)" @* href="~/uploads/@item.FileName" *@ style="border: 1px solid #00ccff; padding:5px;margin-right:5px;border-radius:5px;text-decoration:none;cursor:pointer;">
+                                <a class="iconimg d-flex justify-content-center align-items-center pointer" onclick="deleteFile(@item.RequestWiseFileId)" style="border: 1px solid #00ccff; padding:5px;margin-right:5px;border-radius:5px;text-decoration:none;cursor:pointer;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0dcaf0" class="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
                                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
@@ -164,49 +164,6 @@
 
 
     <script>
-        //uncheck thead checkbox when any of the checkbox is unchecked
-        // var selectedMenuItems = "";
-
-        // function checkAll(event) {
-        //     debugger
-        //     var checkall = document.getElementById("checkall");
-        //     if (event.target.checked) {
-        //         var classes = document.getElementsByClassName("checkboxes");
-        //         for (var i = 0; i < classes.length; i++) {
-        //             selectedMenuItems += (selectedMenuItems ? ',' : '') + classes[i].value;
-        //         }
-        //         checkall.checked = true;
-        //     } else {
-        //         checkall.checked = false;
-        //         selectedMenuItems = "";
-        //     }
-        // }
-
-        // document.querySelectorAll(".checkboxes").forEach(function (checkbox) {
-        //     checkbox.addEventListener("change", function () {
-        //         var checkboxes = document.querySelectorAll(".checkboxes");
-        //         var allChecked = Array.from(checkboxes).every(function (checkbox) {
-        //             return checkbox.checked;
-        //         });
-        //         document.getElementById("checkall").checked = allChecked;
-        //     });
-        // });
-        // check the checkboxes
-        // function oncheck() {
-        //     var check = document.getElementById('checkall').checked;
-        //     if (check) {
-        //         var len = document.getElementsByClassName('checkboxes');
-        //         for (var i = 0; i < len.length; i++) {
-        //             len[i].checked = true;
-        //         }
-        //     } else {
-        //         var len = document.getElementsByClassName('checkboxes');
-        //         for (var i = 0; i < len.length; i++) {
-        //             len[i].checked = false;
-        //         }
-        //     }
-        //     console.log(check);
-        // }
         const tickAll = () => {
             const checkboxes = document.getElementsByClassName("checkbox")
             if (document.getElementsByClassName("checkbox-main")[0].checked == true) {
@@ -299,6 +256,7 @@
 
             // Update selectedRegion string based on checkbox state
             if (isChecked) {
+                //console.log(itemId);
                 selectedMenuItems += (selectedMenuItems ? ',' : '') + itemId;
             } else {
                 selectedMenuItems = selectedMenuItems.replace(new RegExp(',' + itemId + '|^' + itemId + ','), '');
@@ -325,90 +283,66 @@
                 //document.getElementById('loader').style.display = 'none';
             });
         }
-        function deleteall() {
-            //console.log("button pressed");
-            var id = document.getElementById('requestId').value;
-            $.ajax({
-                url: '/AdminDashboard/DeleteViewUploadFile',
-                type: 'GET',
-                data: { fileids: selectedMenuItems, id: id },
-                dataType: 'json',
-                success: function (response) {
-                    console.log(response.response);
-                    if (response.response == "success") {
-                        location.reload();
-                        console.log('after reload')
-                    }
-                },
-                error: function () {
-                    alert('An error occurred.');
-                }
-                //document.getElementById('loader').style.display = 'none';
-            });
-            //var classes = document.getElementsByClassName('checkboxes');
-            //var count = 0;
-            //for (var i = 0; i < classes.length; i++) {
-            //    if (classes[i].checked == true) {
-            //        document.getElementsByClassName('link')[i].click();
-            //    } else {
-            //        count++;
-            //    }
-            //}
-            //if (count == classes.length) {
-            //    alert('No checkboxes are ticked');
-            //}
-
-        }
-        //send mail
-        // function sendmail() {
-        //     var classes = document.getElementsByClassName('checkboxes');
-        //     let myArray = [];
-        //     var count = 0;
-        //     for (var i = 0; i < classes.length; i++) {
-        //         if (classes[i].checked == true) {
-        //             myArray.push(parseInt(classes[i].value));
-        //             console.log(myArray[i]);
-        //         } else {
-        //             count++;
-        //         }
-        //     }
-        //     if (count == classes.length) {
-        //         alert('No checkboxes are ticked');
-        //     } else {
-        //         //document.getElementById('loader').style.display = 'flex';
-        //         var requestFilesIdString = myArray.join(',');
-        //         var id = document.getElementById('requestId').value;
-        //         $.ajax({
-        //             url: '/AdminDashboard/MailDocument',
-        //             type: 'GET',
-        //             data: { requestFilesIdString: requestFilesIdString, requestId: id },
-        //             dataType: 'json',
-        //             success: function (response) {
-        //                 console.log(response.res);
-        //                 if (response.res == "success") {
-        //                     location.reload();
-        //                 }
-        //             },
-        //             error: function () {
-        //                 //alert('An error occurred.');
+        // function deleteall() {
+        //     //console.log("button pressed");
+        //     var id = document.getElementById('requestId').value;
+        //     $.ajax({
+        //         url: '/AdminDashboard/DeleteViewUploadFile',
+        //         type: 'GET',
+        //         data: { fileids: selectedMenuItems, id: id },
+        //         dataType: 'json',
+        //         success: function (response) {
+        //             console.log(response.response);
+        //             if (response.response == "success") {
+        //                 location.reload();
+        //                 console.log('after reload')
         //             }
-        //             //document.getElementById('loader').style.display = 'none';
-        //         });
-        //     }
-        // }
+        //         },
+        //         error: function () {
+        //             alert('An error occurred.');
+        //         }
+        //         //document.getElementById('loader').style.display = 'none';
+        //     });
 
-        // var check = document.getElementById('checked').checked;
-        // var allcheckboxes = document.getElementsByClassName('checkboxes');
-        // if (check) {
-        //     for (var i = 0; i < allcheckboxes.length; i++) {
-        //         allcheckboxes[i].checked = true;
-        //     }
-        // } else {
-        //     for (var i = 0; i < allcheckboxes.length; i++) {
-        //         allcheckboxes[i].checked = false;
-        //     }
-        // }
-        // console.log('hello');
+
+            console.log("before button pressed");
+        function deleteall() {
+            console.log("button pressed");
+            var classes = document.getElementsByClassName('checkboxes');
+
+            var count = 0;
+            for (var i = 0; i < classes.length; i++) {
+                if (classes[i].checked == true) {
+                    continue;
+                } else {
+                    count++;
+                }
+            }
+            if (count == classes.length) {
+                alert('No checkboxes are ticked');
+            } else {
+                var id = document.getElementById('requestId').value;
+                console.log(requestId);
+                $.ajax({
+                    url: '/AdminDashboard/DeleteViewUploadFile',
+                    type: 'GET',
+                    data: { fileids: selectedMenuItems, id: id },
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log(response.response);
+                        if (response.response == "success") {
+                            location.reload();
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred.');
+                    }
+                    //document.getElementById('loader').style.display = 'none';
+                });
+            }
+        }
+        }
+        
         var trial = document.getElementsByClassName("appdata");
         for (var i = 0; i < trial.length; i++) {
             var element = trial[i];

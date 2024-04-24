@@ -23,8 +23,8 @@ namespace HalloDoc.DataLayer.ViewModels.AdminViewModels
         [Required]
         public DateTime DOB { get; set; }
 
-        [Required(ErrorMessage = "Please enter the patient's phone number")]
-        [Phone(ErrorMessage = "Please enter a valid phone number")]
+        [Required(ErrorMessage = "Phone Number is required")]
+        [RegularExpression(@"^[+][0-9]*$", ErrorMessage = "Only valid numbers are allowed in this field.")]
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Please enter the patient's email address")]

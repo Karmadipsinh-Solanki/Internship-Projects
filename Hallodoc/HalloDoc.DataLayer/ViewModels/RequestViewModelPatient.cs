@@ -22,7 +22,8 @@ namespace HalloDoc.DataLayer.ViewModels
         [Required(ErrorMessage = "Email is required")]
         public string? Email { get; set; }
 
-        [Required(ErrorMessage = "PhoneNumber is required")]
+        [Required(ErrorMessage = "Phone Number is required")]
+        [RegularExpression(@"^[+][0-9]*$", ErrorMessage = "Only valid numbers are allowed in this field.")]
         public string? PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Street is required")]
@@ -34,7 +35,8 @@ namespace HalloDoc.DataLayer.ViewModels
         [Required(ErrorMessage = "State is required")]
         public string? State { get; set; }
 
-        [Required(ErrorMessage = "ZipCode is required")]
+        [Required(ErrorMessage = "Zip Code is required")]
+        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Only numbers are allowed in this field.")]
         public string? ZipCode { get; set; }
         public string? Room { get; set; }
         [Required(ErrorMessage = "Password is required")]
@@ -78,7 +80,8 @@ namespace HalloDoc.DataLayer.ViewModels
         [Required(ErrorMessage = "Last name is required")]
         public required string FLastName { get; set; }
 
-        [Required(ErrorMessage = "PhoneNumber is required")]
+        [Required(ErrorMessage = "Phone Number is required")]
+        [RegularExpression(@"^[+][0-9]*$", ErrorMessage = "Only valid numbers are allowed in this field.")]
         public required string FPhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
@@ -94,7 +97,8 @@ namespace HalloDoc.DataLayer.ViewModels
         [Required(ErrorMessage = "Last name is required")]
         public required string CLastName { get; set; }
 
-        [Required(ErrorMessage = "PhoneNumber is required")]
+        [Required(ErrorMessage = "Phone Number is required")]
+        [RegularExpression(@"^[+][0-9]*$", ErrorMessage = "Only valid numbers are allowed in this field.")]
         public required string CPhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
@@ -112,7 +116,8 @@ namespace HalloDoc.DataLayer.ViewModels
         [Required(ErrorMessage = "State is required")]
         public required string CState { get; set; }
 
-        [Required(ErrorMessage = "ZipCode is required")]
+        [Required(ErrorMessage = "Zip Code is required")]
+        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Only numbers are allowed in this field.")]
         public required string CZipCode { get; set; }
 
         //business
@@ -123,7 +128,8 @@ namespace HalloDoc.DataLayer.ViewModels
         [Required(ErrorMessage = "Last name is required")]
         public required string BLastName { get; set; }
 
-        [Required(ErrorMessage = "PhoneNumber is required")]
+        [Required(ErrorMessage = "Phone Number is required")]
+        [RegularExpression(@"^[+][0-9]*$", ErrorMessage = "Only valid numbers are allowed in this field.")]
         public required string BPhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Email is required")]

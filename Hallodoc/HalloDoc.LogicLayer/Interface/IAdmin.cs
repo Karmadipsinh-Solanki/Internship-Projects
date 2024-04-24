@@ -53,7 +53,7 @@ namespace HalloDoc.LogicLayer.Interface
         public bool encounter(EncounterViewModel model);
         public EncounterViewModel encounter(int id);
         public bool mailDocument(List<int> requestFilesId, int requestId);
-        public bool deleteViewUploadFile(string fileids);
+        public bool deleteViewUploadFile(string fileids, int id);
         public CreateAdminViewModel createAdmin();
         public bool createAdmin(CreateAdminViewModel model);
 
@@ -107,5 +107,6 @@ namespace HalloDoc.LogicLayer.Interface
         public bool addBusiness(AddBusinessViewModel model);
         public ProviderLocationViewModel providerLocation();
         public ProviderOnCallViewModel providerOnCall(int? region);
+        public RequestClient getRequestData(int id);
     }
 }

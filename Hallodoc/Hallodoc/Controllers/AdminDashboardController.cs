@@ -464,7 +464,7 @@ namespace HalloDoc.Controllers
         }
         public IActionResult DeleteViewUploadFile(string fileids, int id)
         {
-            bool check = _admin.deleteViewUploadFile(fileids);
+            bool check = _admin.deleteViewUploadFile(fileids,id);
             if (check)
             {
                 ViewData["success"] = "File deleted successfully";
@@ -795,6 +795,22 @@ namespace HalloDoc.Controllers
 
             SearchRecordsViewModel searchRecordsViewModel = _admin.searchRecords(null, null, null, null, null, null, null, null);
             return View(searchRecordsViewModel);
+        }
+        public IActionResult DownloadSearchRecordsExcel(SearchRecordsViewModel model)
+        {
+            try
+            {
+                MemoryStream memoryStream = _admin.downloadSearchRecordsExcel(model);
+                TempData["success"] = "Search Records Excel downloaded successfully!";
+                return File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "data.xlsx");
+            }
+            catch (Exception ex)
+            {
+                TempData["error"] = "Error in downloading excel!";
+                Console.WriteLine($"Exception: {ex.Message}");
+                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+                throw;
+            }
         }
         public IActionResult SearchSearchRecords(string? patientName, string? providerName, string? email, string? phonenumber, int? selectedOptionValue, int? selectRequestType, DateTime? fromDate, DateTime? toDate, int page = 1, int pageSize = 10)
         {
@@ -1365,6 +1381,11 @@ namespace HalloDoc.Controllers
 
             ProviderOnCallViewModel providerOnCallViewModel = _admin.providerOnCall(null);
             return View(providerOnCallViewModel);
+        }
+        public IActionResult GetRequestData(int id)
+        {
+            RequestClient request = _admin.getRequestData(id);
+            return Json(request);
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

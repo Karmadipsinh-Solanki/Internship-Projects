@@ -16,7 +16,8 @@ public class SomeoneElseViewModel
     public DateTime DOB { get; set; }
     [Required(ErrorMessage = "Please enter this field")]
     public string? Email { get; set; }
-    [Required(ErrorMessage = "Please enter this field")]
+    [Required(ErrorMessage = "Phone Number is required")]
+    [RegularExpression(@"^[+][0-9]*$", ErrorMessage = "Only valid numbers are allowed in this field.")]
     public string? PhoneNumber { get; set; }
     [Required(ErrorMessage = "Please enter this field")]
     public string? Street { get; set; }
@@ -24,7 +25,8 @@ public class SomeoneElseViewModel
     public string? City { get; set; }
     [Required(ErrorMessage = "Please enter this field")]
     public string? State { get; set; }
-    [Required(ErrorMessage = "Please enter this field")]
+    [Required(ErrorMessage = "Zip Code is required")]
+    [RegularExpression(@"^[0-9]*$", ErrorMessage = "Only numbers are allowed in this field.")]
     public string? ZipCode { get; set; }
     [Required(ErrorMessage = "Please enter this field")]
     public string? Room { get; set; }

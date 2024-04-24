@@ -30,11 +30,11 @@ namespace HalloDoc.DataLayer.ViewModels.AdminViewModels
         public string? Email { get; set; }
         [Required(ErrorMessage = "Please Confirm Email")]
         public string? ConfirmEmail { get; set; }
-        [Required(ErrorMessage = "Please enter the patient's phone number")]
-        [Phone(ErrorMessage = "Please enter a valid phone number")]
+        [Required(ErrorMessage = "Phone Number is required")]
+        [RegularExpression(@"^[+][0-9]*$", ErrorMessage = "Only valid numbers are allowed in this field.")]
         public string? PhoneNumber1 { get; set; }
-        [Required(ErrorMessage = "Please enter the patient's phone number")]
-        [Phone(ErrorMessage = "Please enter a valid phone number")]
+        [Required(ErrorMessage = "Phone Number is required")]
+        [RegularExpression(@"^[+][0-9]*$", ErrorMessage = "Only valid numbers are allowed in this field.")]
         public string? PhoneNumber2 { get; set; }
         [Required(ErrorMessage = "Please enter Address")]
         public string? Address1 { get; set; }
@@ -43,7 +43,8 @@ namespace HalloDoc.DataLayer.ViewModels.AdminViewModels
         [Required(ErrorMessage = "Please enter city")]
         public string? city { get; set; }
         public int? StateId { get; set; }
-        [Required(ErrorMessage = "Please enter zipcode")]
+        [Required(ErrorMessage = "Zip Code is required")]
+        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Only numbers are allowed in this field.")]
         public string? zip { get; set; }
         [Required(ErrorMessage = "Please enter State")]
         public List<Region>? regions { get; set; } = new List<Region>();

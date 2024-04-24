@@ -1085,7 +1085,7 @@ namespace HalloDoc.LogicLayer.Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public bool deleteViewUploadFile(string fileids)
+        public bool deleteViewUploadFile(string fileids,int id)
         {
             if (fileids != null)
             {
@@ -4257,7 +4257,7 @@ namespace HalloDoc.LogicLayer.Repository
                 healthProfessional.Profession = model.ProfessionType;
                 healthProfessional.Address = model.Street;
                 healthProfessional.City = model.City;
-                healthProfessional.State = region.Name;
+                healthProfessional.State = region?.Name;
                 healthProfessional.Zip = model.Zipcode;
                 healthProfessional.VendorName = model.BusinessName;
                 healthProfessional.BusinessContact = model.BusinessContact;
@@ -4327,6 +4327,12 @@ namespace HalloDoc.LogicLayer.Repository
             providerOnCallViewModel.PhysicianOffDuty = offDutyPhysicians;
             providerOnCallViewModel.Regions = regions;
             return providerOnCallViewModel;
+        }
+        public RequestClient getRequestData(int id)
+        {
+            Request request = _context.Requests.FirstOrDefault(i => i.RequestId == id);
+            RequestClient requestClient = _context.RequestClients.FirstOrDefault(i => i.RequestClientId == request.RequestClientId);
+            return requestClient;
         }
     }
 }

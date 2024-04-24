@@ -143,8 +143,7 @@ namespace Hallodoc.Controllers
                 return View();
             }
 
-            var existingUser = _context.AspNetUsers.SingleOrDefault(u => u.Email == email);
-            //var existingUser = _patientCheck.EmailFromAspnetuserInPatientCheck(email);
+            var existingUser = _context.AspNetUsers.FirstOrDefault(u => u.Email == email);
             bool isValidEmail;
             if (existingUser == null)
             {

@@ -30,8 +30,8 @@ namespace HalloDoc.DataLayer.ViewModels.PhysicianViewModel
         public string FirstName { get; set; }
         [Required(ErrorMessage = "Please enter the Last Name")]
         public string LastName { get; set; }
-        [Required(ErrorMessage = "Please enter the phone number")]
-        [Phone(ErrorMessage = "Please enter a valid phone number")]
+        [Required(ErrorMessage = "Phone Number is required")]
+        [RegularExpression(@"^[+][0-9]*$", ErrorMessage = "Only valid numbers are allowed in this field.")]
         public string PhoneNo { get; set; }
         [Required(ErrorMessage = "Please enter the email address")]
         [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",

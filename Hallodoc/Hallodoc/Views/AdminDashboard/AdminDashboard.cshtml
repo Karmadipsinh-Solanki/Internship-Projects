@@ -332,7 +332,7 @@
                                         </div>
                                         <div class="form-floating mb-3">
                                             @*  <input type="" asp-for="PhysicianId" id="physicianId" style="display:none;"/> *@
-                                            <select asp-for="PhysicianId" class="custom-select-7 text-secondary dropdownBorder" id="physicianDropdown" style="width: 100%;height: 54px;padding:8px;" onchange="selectAssign(this)">
+                                            <select asp-for="PhysicianId" class="custom-select-7 text-secondary dropdownBorder" id="physicianDropdown" style="width: 100%;height: 54px;padding:8px;">
                                                 <option value="-1" disabled selected hidden><span>Select Physician</span></option>
                                                 @*    @foreach (var item in Model.physicians)
                                                 {
@@ -424,8 +424,9 @@
 
                                 <form asp-action="BlockCase" asp-controller="AdminDashboard" method="post" id="formclass5">
                                     <div class="modal-body">
+                                        <input type="hidden" asp-for="RequestId" id="requestIdBlock" />
                                         <div class="mb-3">
-                                            <h6><span>Patient Name</span><span class="mx-1">:</span><span style="color:#01bce9;">test test</span></h6>
+                                            <h6><span>Patient Name</span><span class="mx-1">:</span><span id="PatientNameBlockCase" style="color:#01bce9;">Karmadipsinh Solanki</span></h6>
                                         </div>
                                         <div class="form-floating login-fields" style="width: 100%;margin-top: 20px;">
                                             <textarea type="text" placeholder="Username" class="form-control"
@@ -435,7 +436,6 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer form-floating mb-3">
-                                        <input type="hidden" asp-for="RequestId" id="requestIdBlock" />
                                         <button type="submit" class="saveButton"><span class="saveButtonText">Confirm</span> </button>
                                         <button class="cancelButton" data-bs-dismiss="modal" onclick="cancel4()"><span class="cancelButtonText">Cancel</span></button>
                                     </div>
@@ -752,11 +752,30 @@
                 cancelModal.style.display = "none";
             }
         };
-
         //blockcase reqid
         const BlockCase = (requestid) => {
             document.getElementById("requestIdBlock").value = requestid;
         }
+        //blockcase
+        // var blockCaseModal = document.getElementById("blockCaseModal");
+        // function BlockCase(requestId) {
+        //     console.log(requestId);
+        //     $.ajax({
+        //         url: '/AdminDashboard/GetRequestData',
+        //         type: 'GET',
+        //         data: { id: requestId },
+        //         dataType: 'json',
+        //         success: function (response) {
+        //             document.getElementById("PatientNameBlockCase").innerHTML = response.firstName + " " + response.lastName;
+        //         },
+        //         error: function () {
+        //             alert('An error occurred.');
+        //         }
+        //     });
+        //     document.getElementById("requestIdBlock").value = requestId;
+        //     blockCaseModal.style.display = "block";
+        // };
+       
         //send agreement reqid
         const SendAgreement = (requestid) => {
             document.getElementById("requestIdSendAgree").value = requestid;
@@ -770,16 +789,16 @@
         // var modal3 = document.getElementById("myModal3");
         //var dtySupport = document.getElementById("dty-support");
         // var span3 = document.getElementsByClassName("close-btn")[2];
+        var assignModal = document.getElementById("assignCaseModal");
         function AssignCase(requestId) {
             console.log(requestId);
             document.getElementById("requestId").value = requestId;
-            modal3.style.display = "block";
+            assignModal.style.display = "block";
         }
         // function cancel4() {
         //     modal3.style.display = "none";
         // }
         function cancelCancel() {
-            debugger
             console.log('in cancel')
             document.getElementById("formclassCancel").reset();
             let x = document.getElementsByClassName("descriptionErrorClass");
@@ -861,7 +880,6 @@
         $(document).ready(function () {
             $("#dtBasicExample").DataTable();
         });
-
         //sidebar hamburger
         let sidebarOpen = false;
         function hamburger() {

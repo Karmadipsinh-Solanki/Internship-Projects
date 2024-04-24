@@ -73,8 +73,9 @@
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                     <input type="Date" class="form-control custom-input" id="Date" placeholder="Date" asp-for="Date" disabled>
-                                    <label for="Date">Date<label>
-                                    <span asp-validation-for="Date" class="text-danger"></span>
+                                    <label for="Date">
+                                        Date<label>
+                                            <span asp-validation-for="Date" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -82,6 +83,7 @@
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                     <input type="tel" class="form-control custom-input" id="phone" placeholder="Phone Number" asp-for="PhoneNumber" disabled>
+                                    <label for="phone"> Phone Number<label>
                                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                                 </div>
                             </div>
@@ -300,18 +302,20 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="d-flex justify-content-end align-items-center mb-3">
                             @* <div class="saveButton form-button mb-4 me-3 " id="edit-div2" style="padding: 7px 27px;background-color:#0dcaf0;border:1px solid #0dcaf0;color:white; margin-right:17px;">
-                                <a id="submit-button-4" class="textdeconone saveButtonText">Save Changes</a>
+                            <a id="submit-button-4" class="textdeconone saveButtonText">Save Changes</a>
                             </div> *@
                             @* <div class="me-3 mb-3" style="padding:10px 5px;border:1px solid #0dcaf0;color:white;border-radius:6px;background-color:#0dcaf0;"> *@
-                                <button id="submit-button-4" type="submit" class="backbutton textdeconone saveButtonText me-3 mb-3" 
-                                style="padding:10px 5px;border:1px solid #0dcaf0;color:white;border-radius:6px;background-color:#0dcaf0;">Save Changes</button>
+                            <button id="submit-button-4" type="submit" class="backbutton textdeconone saveButtonText me-3 mb-3"
+                                    style="padding:10px 5px;border:1px solid #0dcaf0;color:white;border-radius:6px;background-color:#0dcaf0;">
+                                Save Changes
+                            </button>
                             @* </div> *@
 
                             @* <div style="background-color:#9c27b0;width:80px;height:40px;">
-                                <a id="submit-button" class="textdeconone saveButtonText"><span class="saveButtonText">Finalize</span></a>
+                            <a id="submit-button" class="textdeconone saveButtonText"><span class="saveButtonText">Finalize</span></a>
                             </div> *@
                             <div class="mb-3" style="padding:10px 5px;border:1px solid #0dcaf0;color:#0dcaf0;border-radius:6px;">
                                 <a id="submit-button-5" class="backbutton textdeconone cancelButtonText" asp-action="AdminDashboard" asp-controller="AdminDashboard">Cancel</a>
@@ -324,13 +328,6 @@
         </div>
     </div>
     <script>
-        //date validation
-        const inputDate = document.getElementById('dob');
-        const today = new Date().toISOString().split('T')[0];
-        inputDate.setAttribute('max', today);
-        const inputDate = document.getElementById('Date');
-        const today = new Date().toISOString().split('T')[0];
-        inputDate.setAttribute('max', today);
         //for creating countrywise phone format
         const phoneInputField = document.querySelector("#phone");
         const phoneInput = window.intlTelInput(phoneInputField, {
@@ -338,6 +335,14 @@
             utilsScript:
                 "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
         });
+        //date validation
+        const inputDate = document.getElementById('dob');
+        const today = new Date().toISOString().split('T')[0];
+        inputDate.setAttribute('max', today);
+        const inputDate = document.getElementById('Date');
+        const today = new Date().toISOString().split('T')[0];
+        inputDate.setAttribute('max', today);
+        
         //sidebar hamburger
         let sidebarOpen = false;
         function hamburger() {

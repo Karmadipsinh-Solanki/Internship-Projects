@@ -305,6 +305,21 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.11/index.global.min.js"></script>
 
 <script>
+    // Get the input element with id "ShiftDate"
+    var shiftDateInput = document.getElementById('ShiftDate');
+
+    // Get the current date
+    var today = new Date();
+
+    // Set the minimum date to today
+    shiftDateInput.min = today.toISOString().split('T')[0];
+    
+    // Get the input element with id "ShiftDate2"
+    var shiftDateInput2 = document.getElementById('ShiftDate2');
+
+    // Set the minimum date to today
+    shiftDateInput2.min = today.toISOString().split('T')[0];
+
 
     // Use currentMonth as needed
 
@@ -387,7 +402,7 @@
     //    modal.style.display = "block";
     //};
     span2.onclick = function () {
-        modal2.style.display = "block";
+        modal2.style.display = "none";
     };
     function cancel2() {
         //console.log("hii i");
