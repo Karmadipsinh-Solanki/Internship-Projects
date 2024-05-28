@@ -1,0 +1,52 @@
+﻿@model OrderManagementSystemDAL.Models.customer
+
+@{
+    ViewData["Title"] = "EditCustomer";
+}
+
+<h1>Edit Customer Details</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditCustomerDetails" asp-controller="Home">
+            <input asp-formaction="Id" type="hidden" />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="customer_id" class="control-label"></label>
+                <input type="" asp-for="customer_id" class="form-control" />
+                <span asp-validation-for="customer_id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="customer_name" class="control-label"></label>
+                <input asp-for="customer_name" class="form-control" />
+                <span asp-validation-for="customer_name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="customer_location" class="control-label"></label>
+                <input asp-for="customer_location" class="form-control" />
+                <span asp-validation-for="customer_location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="customer_email" class="control-label"></label>
+                <input asp-for="customer_email" class="form-control" />
+                <span asp-validation-for="customer_email" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <br />
+    <a asp-action="Index" style="text-decoration:none;">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

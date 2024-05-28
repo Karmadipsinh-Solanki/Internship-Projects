@@ -1,0 +1,51 @@
+﻿@model List<OrderManagementSystemDAL.Models.customer>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div id="body">
+
+    @if (Model != null && Model.Any())
+    {
+        <div>
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Customer Table</h2>
+                @* <button class="addStudentBtn me-0" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> *@
+                <a asp-action="AddCustomer" asp-controller="Home" class="btn btn-primary">
+                    <span class="h6">Add customer</span>
+                </a>
+                @* </button> *@
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var customer in Model)
+                    {
+                        <tr>
+                            <td>@customer.customer_id</td>
+                            <td>@customer.customer_name</td>
+                            <td>@customer.customer_email</td>
+                            <td>@customer.customer_location</td>
+                            <td>
+                                <a asp-action="EditCustomer" asp-route-id="@customer.customer_id" class="btn btn-primary" style="text-decoration:none">Update</a>
+                                <a asp-action="DeleteCustomer" asp-route-id="@customer.customer_id" class="btn btn-primary" style="text-decoration:none">Delete</a>
+                            </td>
+                            <!-- Add more columns as needed -->
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+
+
+</div>

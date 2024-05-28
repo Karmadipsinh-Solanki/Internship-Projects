@@ -1,0 +1,16 @@
+C:\Users\pca161\Desktop\Tatvasoft\Internship-Projects\OrderManagementSystem\OrderManagementSystemBLL\bin\Debug\net7.0\OrderManagementSystemBLL.deps.json
+C:\Users\pca161\Desktop\Tatvasoft\Internship-Projects\OrderManagementSystem\OrderManagementSystemBLL\bin\Debug\net7.0\OrderManagementSystemBLL.dll
+C:\Users\pca161\Desktop\Tatvasoft\Internship-Projects\OrderManagementSystem\OrderManagementSystemBLL\bin\Debug\net7.0\OrderManagementSystemBLL.pdb
+C:\Users\pca161\Desktop\Tatvasoft\Internship-Projects\OrderManagementSystem\OrderManagementSystemBLL\bin\Debug\net7.0\OrderManagementSystemDAL.dll
+C:\Users\pca161\Desktop\Tatvasoft\Internship-Projects\OrderManagementSystem\OrderManagementSystemBLL\bin\Debug\net7.0\OrderManagementSystemDAL.pdb
+C:\Users\pca161\Desktop\Tatvasoft\Internship-Projects\OrderManagementSystem\OrderManagementSystemBLL\obj\Debug\net7.0\OrderManagementSystemBLL.csproj.AssemblyReference.cache
+C:\Users\pca161\Desktop\Tatvasoft\Internship-Projects\OrderManagementSystem\OrderManagementSystemBLL\obj\Debug\net7.0\OrderManagementSystemBLL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pca161\Desktop\Tatvasoft\Internship-Projects\OrderManagementSystem\OrderManagementSystemBLL\obj\Debug\net7.0\OrderManagementSystemBLL.AssemblyInfoInputs.cache
+C:\Users\pca161\Desktop\Tatvasoft\Internship-Projects\OrderManagementSystem\OrderManagementSystemBLL\obj\Debug\net7.0\OrderManagementSystemBLL.AssemblyInfo.cs
+C:\Users\pca161\Desktop\Tatvasoft\Internship-Projects\OrderManagementSystem\OrderManagementSystemBLL\obj\Debug\net7.0\OrderManagementSystemBLL.csproj.CoreCompileInputs.cache
+C:\Users\pca161\Desktop\Tatvasoft\Internship-Projects\OrderManagementSystem\OrderManagementSystemBLL\obj\Debug\net7.0\OrderManagementSystemBLL.sourcelink.json
+C:\Users\pca161\Desktop\Tatvasoft\Internship-Projects\OrderManagementSystem\OrderManagementSystemBLL\obj\Debug\net7.0\OrderManagementSystemBLL.csproj.CopyComplete
+C:\Users\pca161\Desktop\Tatvasoft\Internship-Projects\OrderManagementSystem\OrderManagementSystemBLL\obj\Debug\net7.0\OrderManagementSystemBLL.dll
+C:\Users\pca161\Desktop\Tatvasoft\Internship-Projects\OrderManagementSystem\OrderManagementSystemBLL\obj\Debug\net7.0\refint\OrderManagementSystemBLL.dll
+C:\Users\pca161\Desktop\Tatvasoft\Internship-Projects\OrderManagementSystem\OrderManagementSystemBLL\obj\Debug\net7.0\OrderManagementSystemBLL.pdb
+C:\Users\pca161\Desktop\Tatvasoft\Internship-Projects\OrderManagementSystem\OrderManagementSystemBLL\obj\Debug\net7.0\ref\OrderManagementSystemBLL.dll
