@@ -1,0 +1,87 @@
+﻿@model OrderManagementSystemDAL.Models.order
+
+@{
+    ViewData["Title"] = "Edit Order";
+}
+
+<h1>Edit order Details</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditOrderDetails" asp-controller="OrderApi">
+            <input asp-for="order_id" type="hidden" />
+
+
+            <div class="form-group">
+                <select class="form-select border" asp-for="customer_id">
+                    <option value="">Select Customer</option>
+                    @foreach (var customer in Model.customer)
+                    {
+                        <option value="@customer.customer_id">@(customer.customer_name)</option>
+                    }
+                </select>
+                <span asp-validation-for="customer_id" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="product_name" class="control-label">Product Name</label>
+                <input asp-for="product_name" class="form-control" />
+                <span asp-validation-for="product_name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="quantity" class="control-label">Quantity</label>
+                <input asp-for="quantity" class="form-control" />
+                <span asp-validation-for="quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="order_amount" class="control-label">Order Amount</label>
+                <input asp-for="order_amount" class="form-control" />
+                <span asp-validation-for="order_amount" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <div id="totalAmountDisplay"></div>
+                <span asp-validation-for="total_amount" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <br />
+    <a asp-action="Index" style="text-decoration:none;">Back to List</a>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        // Function to calculate total amount
+        function calculateTotalAmount() {
+            var quantity = parseInt($('#quantity').val());
+            var orderAmount = parseFloat($('#order_amount').val());
+
+            // Check if quantity and order amount are valid numbers
+            if (!isNaN(quantity) && !isNaN(orderAmount)) {
+                var totalAmount = quantity * orderAmount;
+                $('#totalAmountDisplay').text('Total Amount: ' + totalAmount.toFixed(2)); // Display total amount
+            } else {
+                $('#totalAmountDisplay').text(''); // Clear total amount if inputs are invalid
+            }
+        }
+
+        // Calculate total amount when quantity or order amount changes
+        $('#quantity, #order_amount').on('input', function () {
+            calculateTotalAmount();
+        });
+        calculateTotalAmount();
+    });
+</script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

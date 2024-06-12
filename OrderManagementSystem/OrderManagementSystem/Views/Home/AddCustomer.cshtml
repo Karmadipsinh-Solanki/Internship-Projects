@@ -8,25 +8,43 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AddNewCustomer" asp-controller="Home">
+        <form asp-action="AddNewCustomer" asp-controller="HomeApi" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="customer_id" class="control-label"></label>
-                <input type="" asp-for="customer_id" class="form-control" />
-                <span asp-validation-for="customer_id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="customer_name" class="control-label"></label>
+                <label asp-for="customer_name" class="control-label">Customer Name</label>
                 <input asp-for="customer_name" class="form-control" />
                 <span asp-validation-for="customer_name" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <label asp-for="customer_location" class="control-label"></label>
+                <label asp-for="profileImgPath" class="control-label">Profile Image</label>
+                <input type="file" id="file-input-button" name="file" asp-for="File" />
+                <span class="text-danger">@Html.ValidationMessage("ProfilePhoto")</span>
+                <span asp-validation-for="profileImgPath" class="text-danger"></span>
+            </div>
+            <br />
+
+           @*  <button id="choose-file-button">
+                <span id="select-file-text">Select Image</span>
+                <div id="choose-file-button-sub-div">
+                    <div id="choose-file-button-sub-sub-div" style="position: absolute;width: 130px;right: 0px;">
+                        <span id="upload-text">Choose Image</span>
+                    </div>
+
+                    <input type="file" id="file-input-button" name="file" asp-for="File" />
+
+                </div>
+            </button>
+            <input id="upload-button" type="submit" style="display: none;background-color:#00ccff;border:none;width:110px;color:white;text-align:center;height:40px;justify-content:center;border-radius:8px;margin:auto;margin-top:20px;" value="Upload" /> *@
+
+            <div class="form-group">
+                <label asp-for="customer_location" class="control-label">Customer Location</label>
                 <input asp-for="customer_location" class="form-control" />
                 <span asp-validation-for="customer_location" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <label asp-for="customer_email" class="control-label"></label>
+                <label asp-for="customer_email" class="control-label">Customer Email</label>
                 <input asp-for="customer_email" class="form-control" />
                 <span asp-validation-for="customer_email" class="text-danger"></span>
             </div>

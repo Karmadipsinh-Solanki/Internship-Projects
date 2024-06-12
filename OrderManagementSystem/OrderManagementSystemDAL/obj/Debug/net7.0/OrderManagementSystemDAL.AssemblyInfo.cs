@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OrderManagementSystemDAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4549741842f052d3e39ee8d265076b38ff51aa4a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5500cd4db2cb9d7fc7104930a19f3878130961eb")]
 [assembly: System.Reflection.AssemblyProductAttribute("OrderManagementSystemDAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OrderManagementSystemDAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -11,16 +11,21 @@
         <div>
             <div class="d-flex justify-content-between align-items-center">
                 <h2>Customer Table</h2>
-                @* <button class="addStudentBtn me-0" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> *@
-                <a asp-action="AddCustomer" asp-controller="Home" class="btn btn-primary">
-                    <span class="h6">Add customer</span>
-                </a>
-                @* </button> *@
+
+                <div>
+                    <a asp-action="AddCustomer" asp-controller="Home" class="btn btn-primary">
+                        <span class="h6">Add customer</span>
+                    </a>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteAll">
+                        Delete All
+                    </button>
+                </div>
             </div>
             <table class="table">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th><input id="checkall" onclick="oncheck()" type="checkbox" /></th>
+                        <th></th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Location</th>
@@ -30,22 +35,153 @@
                     @foreach (var customer in Model)
                     {
                         <tr>
-                            <td>@customer.customer_id</td>
+                            <td><input class="checkboxes" data-item-id="@customer.customer_id" type="checkbox" onchange="checkAll(event)" /></td>
+                            <td class="">
+                                <div style="height: 25px; width: 25px; border-radius: 50%; overflow: hidden;">
+                                    <img src="@customer.profileImgPath" alt="Customer Image" style="width: 100%; height: auto;" />
+                                </div>
+                            </td>
                             <td>@customer.customer_name</td>
                             <td>@customer.customer_email</td>
                             <td>@customer.customer_location</td>
                             <td>
                                 <a asp-action="EditCustomer" asp-route-id="@customer.customer_id" class="btn btn-primary" style="text-decoration:none">Update</a>
-                                <a asp-action="DeleteCustomer" asp-route-id="@customer.customer_id" class="btn btn-primary" style="text-decoration:none">Delete</a>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal-@customer.customer_id">
+                                    Delete
+                                </button>
+
+
+                                <!-- Modal for single delete-->
+                                <div class="modal fade" id="exampleModal-@customer.customer_id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are You sure, You want to delete?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a asp-action="DeleteCustomer" asp-route-id="@customer.customer_id" class="btn btn-primary" style="text-decoration:none">Yes</a>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Modal for selected delete-->
+                                <div class="modal fade" id="deleteAll" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are You sure, You want to delete?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-primary" onclick="deleteall()">Yes</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
-                            <!-- Add more columns as needed -->
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
+
+
+
     }
 
 
+    <script>
 
+        //uncheck thead checkbox when any of the checkbox is unchecked
+        function checkAll(event) {
+            var checkall = document.getElementById("checkall");
+            if (event.target.checked) {
+                checkall.checked = true;
+            } else {
+                checkall.checked = false;
+            }
+        }
+
+        document.querySelectorAll(".checkboxes").forEach(function (checkbox) {
+            checkbox.addEventListener("change", function () {
+                var checkboxes = document.querySelectorAll(".checkboxes");
+                var allChecked = Array.from(checkboxes).every(function (checkbox) {
+                    return checkbox.checked;
+                });
+                document.getElementById("checkall").checked = allChecked;
+            });
+        });
+
+        // check the checkboxes
+        function oncheck() {
+            var check = document.getElementById('checkall').checked;
+            if (check) {
+                var len = document.getElementsByClassName('checkboxes');
+                for (var i = 0; i < len.length; i++) {
+                    len[i].checked = true;
+                }
+            } else {
+                var len = document.getElementsByClassName('checkboxes');
+                for (var i = 0; i < len.length; i++) {
+                    len[i].checked = false;
+                }
+            }
+            console.log(check);
+        }
+
+        function deleteall() {
+            var selectedCustomerIds = [];
+            $('.checkboxes:checked').each(function () {
+                selectedCustomerIds.push($(this).data('item-id'));
+            });
+
+            var selectedMenuItems = selectedCustomerIds.join(',');
+            console.log(selectedMenuItems)
+            debugger
+            console.log("button pressed");
+            var classes = document.getElementsByClassName('checkboxes');
+
+            var count = 0;
+            for (var i = 0; i < classes.length; i++) {
+                if (classes[i].checked == true) {
+                    continue;
+                } else {
+                    count++;
+                }
+            }
+            if (count == classes.length) {
+                alert('No checkboxes are ticked');
+            } else {
+                // var id = customer_id;
+                // console.log(customer_id);
+                $.ajax({
+                    url: '/Home/DeleteSelectedCustomer',
+                    type: 'POST',
+                    data: { customerids: selectedMenuItems },
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log(response.response);
+                        if (response.isDeleted) {
+                            location.reload();
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred.');
+                    }
+                    //document.getElementById('loader').style.display = 'none';
+                });
+            }
+        }
+
+    </script>
 </div>

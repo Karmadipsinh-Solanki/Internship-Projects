@@ -245,6 +245,86 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "C:\\Users\\pca161\\Desktop\\Tatvasoft\\Internship-Projects\\OrderManagementSystem\\OrderManagementSystem\\wwwroot\\uploads\\3e03f368-315e-4f84-a3b2-9ff63c416c6b.png",
+      "PackagePath": "staticwebassets\\uploads\\3e03f368-315e-4f84-a3b2-9ff63c416c6b.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Tatvasoft\\Internship-Projects\\OrderManagementSystem\\OrderManagementSystem\\wwwroot\\uploads\\54fcda2b-baee-45bd-abe5-42c232331985.jfif",
+      "PackagePath": "staticwebassets\\uploads\\54fcda2b-baee-45bd-abe5-42c232331985.jfif"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Tatvasoft\\Internship-Projects\\OrderManagementSystem\\OrderManagementSystem\\wwwroot\\uploads\\97e5c3a1-d110-47ce-a9e7-97f041189506.jfif",
+      "PackagePath": "staticwebassets\\uploads\\97e5c3a1-d110-47ce-a9e7-97f041189506.jfif"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Tatvasoft\\Internship-Projects\\OrderManagementSystem\\OrderManagementSystem\\wwwroot\\uploads\\Screenshot (4).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (4).png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Tatvasoft\\Internship-Projects\\OrderManagementSystem\\OrderManagementSystem\\wwwroot\\uploads\\Screenshot (40).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (40).png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Tatvasoft\\Internship-Projects\\OrderManagementSystem\\OrderManagementSystem\\wwwroot\\uploads\\Screenshot 2024-02-21 184050.png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot 2024-02-21 184050.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Tatvasoft\\Internship-Projects\\OrderManagementSystem\\OrderManagementSystem\\wwwroot\\uploads\\Screenshot 2024-03-05 125515.png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot 2024-03-05 125515.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Tatvasoft\\Internship-Projects\\OrderManagementSystem\\OrderManagementSystem\\wwwroot\\uploads\\a8de1129-621c-43c2-817c-252f1473d9dd.png",
+      "PackagePath": "staticwebassets\\uploads\\a8de1129-621c-43c2-817c-252f1473d9dd.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Tatvasoft\\Internship-Projects\\OrderManagementSystem\\OrderManagementSystem\\wwwroot\\uploads\\ac245c92-fef3-461c-9285-dd03cfc8853a.png",
+      "PackagePath": "staticwebassets\\uploads\\ac245c92-fef3-461c-9285-dd03cfc8853a.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Tatvasoft\\Internship-Projects\\OrderManagementSystem\\OrderManagementSystem\\wwwroot\\uploads\\agree.png",
+      "PackagePath": "staticwebassets\\uploads\\agree.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Tatvasoft\\Internship-Projects\\OrderManagementSystem\\OrderManagementSystem\\wwwroot\\uploads\\attenadance.png",
+      "PackagePath": "staticwebassets\\uploads\\attenadance.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Tatvasoft\\Internship-Projects\\OrderManagementSystem\\OrderManagementSystem\\wwwroot\\uploads\\doc.png",
+      "PackagePath": "staticwebassets\\uploads\\doc.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Tatvasoft\\Internship-Projects\\OrderManagementSystem\\OrderManagementSystem\\wwwroot\\uploads\\dropdown.png",
+      "PackagePath": "staticwebassets\\uploads\\dropdown.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Tatvasoft\\Internship-Projects\\OrderManagementSystem\\OrderManagementSystem\\wwwroot\\uploads\\e4886463-bba2-408e-a61b-101a93b729b5.jfif",
+      "PackagePath": "staticwebassets\\uploads\\e4886463-bba2-408e-a61b-101a93b729b5.jfif"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Tatvasoft\\Internship-Projects\\OrderManagementSystem\\OrderManagementSystem\\wwwroot\\uploads\\exportall.png",
+      "PackagePath": "staticwebassets\\uploads\\exportall.png"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Tatvasoft\\Internship-Projects\\OrderManagementSystem\\OrderManagementSystem\\wwwroot\\uploads\\profile.jfif",
+      "PackagePath": "staticwebassets\\uploads\\profile.jfif"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Tatvasoft\\Internship-Projects\\OrderManagementSystem\\OrderManagementSystem\\wwwroot\\uploads\\profile2.jfif",
+      "PackagePath": "staticwebassets\\uploads\\profile2.jfif"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Tatvasoft\\Internship-Projects\\OrderManagementSystem\\OrderManagementSystem\\wwwroot\\uploads\\profile3.jfif",
+      "PackagePath": "staticwebassets\\uploads\\profile3.jfif"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Tatvasoft\\Internship-Projects\\OrderManagementSystem\\OrderManagementSystem\\wwwroot\\uploads\\profile4.jfif",
+      "PackagePath": "staticwebassets\\uploads\\profile4.jfif"
+    },
+    {
+      "Id": "C:\\Users\\pca161\\Desktop\\Tatvasoft\\Internship-Projects\\OrderManagementSystem\\OrderManagementSystem\\wwwroot\\uploads\\traingle.png",
+      "PackagePath": "staticwebassets\\uploads\\traingle.png"
+    },
+    {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.OrderManagementSystem.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },
